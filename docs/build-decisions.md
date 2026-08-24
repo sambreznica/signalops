@@ -140,3 +140,13 @@ Fix: `ratio` is always `rate_window / rate_prior`, or `null` when `rate_prior` i
 Fix: eligible if `|∩|/|candidate| >= 0.5`; greedy add by marginal coverage; MATCHED at union coverage `>= 0.7`; primary = highest individual coverage, Jaccard tie-break. Evals assert on the primary. Fragmentation is a reported fact, not a failure.
 
 **Sidecar membership was inconsistent.** SIG-002/003 were ticket clusters; SIG-004 was the entire nordics region, most of whom never complained. Membership is now uniform: devices observably part of the signal in the **current** window. SIG-001 remains the 1.4.2 cohort (the observable firmware signal). SIG-002/003/004 are current-window cluster ticket devices. Only `signals.json` changes; agent-visible records are untouched. EVAL-10 still has to reach `NOT_AN_INCIDENT` on the primary — that is the hard part.
+
+---
+
+## 2026-08-24 — Knowledge corpus and embeddings (session one, item 5)
+
+Six internal documents in `knowledge/`. Chunker in `src/lib/retrieval` (section headings, 800-character blank-line split). Ranker is project cosine, not Hugging Face `cos_sim`. Embeddings via `@huggingface/transformers` `Xenova/all-MiniLM-L6-v2` at build time (`scripts/build-embeddings.ts`), committed as `knowledge/embeddings.json`. No vector store. No `search_knowledge` tool in this step.
+
+**KD-04 fixture basis (EVAL-10).** `synthetic-data/telemetry.json` has no ambient temperature. KI-NW-014 uses checkable `battery_drain_pct`: Nordics current mean 17.3 % vs UK 13.0 % (+4.3 pp, ~1.33×; generator +4.5). Prior-window Nordics 17.6 % (current/prior ~0.98). `skin_temp_delta_c` is a patch-site delta (Nordics 1.35 °C vs UK 1.31 °C; corr with drain −0.04) and is not the explanation. Near-neighbour: Iberia `session_gap_minutes` ~130 vs ~36. Adhesion (KI-AD-007) stays open.
+
+**Chunk count (not padded).** 136 total: KD-01 33, KD-02 23, KD-03 17, KD-04 21, KD-05 22, KD-06 20. ~150 in the PRD is a size check, not a target. Discrimination comes from near-neighbour sections (1.4.1 BLE idle-skip vs 1.4.2 supervisor; companion 3.2 as a sibling; other regional KIs), not filler.
