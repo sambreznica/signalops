@@ -86,3 +86,23 @@ Windows are pinned: current `[2026-05-04, 2026-05-17]`, prior `[2026-04-20, 2026
 EVAL-01 is not a data-tuning target. If `severity_index` undershoots HIGH on this plausible fleet, the formula is wrong and item 4 fixes it.
 
 No knowledge documents in this step. RATE_FLOOR and significance wait for item 3. Baseline difficulty waits for item 13.
+
+---
+
+## 2026-08-24 — Analytics contract (session one, item 3)
+
+Deterministic analytics sits below triage. It never imports `synthetic-data/signals.json`, never names signal ids, never calls a model, and never implements `severity_index`.
+
+**Denominator.** A telemetry row is one device-day. Rates are `sum(metric) / n_rows` with units `*_per_device_day`. Per-device denominators are forbidden: firmware 1.4.2 exists only in the current window, so dividing by devices instead of device-days silently shrinks a large rate ratio. PRD §12’s “per 1,000 device-days” is a display scale; it cancels in every ratio and is not applied here.
+
+**FR-021 significance.** No boolean named `significant`, and no `ratio > 2 && n > 30`. Count metrics return a Poisson Wald interval on the log rate-ratio (`method: "poisson_wald_log_rate_ratio_unclustered"`) plus `ci_excludes_one`. Zero event counts: `ratio`, CI bounds all `null`, `ci_excludes_one` false — never `Infinity`/`NaN`. Non-count metrics (means of percents, minutes) get a mean ratio and no interval.
+
+**Overdispersion (named, not fixed).** Rows cluster by device (3 dates per window). Device-level heterogeneity overdisperses counts relative to Poisson, so the Wald interval is **too narrow** and `ci_excludes_one` fires too readily. A GEE/mixed model is out of scope. The method name says `unclustered`; outputs include `n_devices_*` beside `device_days_*` so clustering is visible. The interval is a directional guard against calling noise a change, not an inferential claim.
+
+**Correlation.** Point-biserial for `adhesion_flag` × interval metrics; Spearman for `adhesion_flag` × ordinal `activity_level`. Return `n_pairs` and `n_devices`. No causal field names, no decorative p-values.
+
+**feedbackByTag** returns `consequence_class` from the taxonomy, not `weight`. Weight is a severity-formula parameter (item 4). Putting it in analytics would split the formula across layers.
+
+**Quantity.** Analytics returns `{ value, unit }` (`Measured`). It does not import `src/lib/schema`. Tools attach `source` at item 8.
+
+**RATE_FLOOR** remains item 4.
