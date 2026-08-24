@@ -44,6 +44,7 @@ src/
     schema/        Zod contracts. Frozen first; everything else conforms.
     analytics/     Pure functions over fixtures. No I/O, no model calls.
                    Rates, ratios, cohort breakdowns, correlation, trend.
+    triage/        Signal discovery + severity. Zero model calls.
     retrieval/     Chunking, embedding lookup, cosine similarity.
     agent/
       tools/       The five tool implementations. Thin wrappers over
@@ -107,10 +108,14 @@ Window: the 14 days preceding `SYNTHETIC_TODAY = 2026-05-18`, compared against t
 ### Severity formula
 
 ```
-affected_factor  = min(affected_users / 250, 1.0)
+affected_factor  = min(affected_users / (0.20 × fleet_size), 1.0)
 
-ratio            = rate_window / max(rate_prior, RATE_FLOOR)
-delta_factor     = clamp(ratio, 1.0, 5.0) / 5.0
+ratio            = rate_window / rate_prior     if rate_prior > 0
+                 = null                         if rate_prior = 0
+delta_factor     = clamp(ratio, 1.0, 5.0) / 5.0 if ratio is not null
+                 = 0                            if ratio is null
+                 then, if prior_events < 5: min(delta_factor, 0.2)
+                   and delta_factor_floored = true
 
 trend_factor     = rising 1.0 | flat 0.6 | falling 0.3
 
@@ -123,12 +128,18 @@ severity_index = (0.5 × affected_factor + 0.5 × delta_factor)
                  × trend_factor
                  × consequence_weight
 
-band = HIGH   if severity_index ≥ 1.2
-       MEDIUM if severity_index ≥ 0.6
+band = HIGH   if severity_index ≥ 0.9
+       MEDIUM if severity_index ≥ 0.45
        LOW    otherwise
 ```
 
+`ratio` is always the true rate ratio. It is never floored and never substituted. A single absolute rate floor cannot serve ticket incidence (~0.02) and telemetry (~10) at once; using one corrupted every ticket-based ratio.
+
+`prior_events` (absolute count) and the Poisson CI travel with the candidate as stability. When the prior is thinner than 5 events, `delta_factor` is capped at 0.2 so a 10× swing on two tickets cannot masquerade as a saturated delta. The number stays honest; the score stays conservative.
+
 `consequence_weight` is the reason a cluster of eleven users misreading a wellness score can outrank a loud connectivity blip. Magnitude alone is the wrong ranking for an operations tool: the expensive problems are frequently small and quiet.
+
+`affected_factor` saturates when 20% of the observed fleet is involved. The HIGH/MEDIUM cuts are 0.9 and 0.45 so that a large FUNCTIONAL event (base 0.9 × weight 1.0) and a moderate REGULATORY event (base 0.45 × weight 2.0) are both HIGH. See `docs/build-decisions.md`.
 
 ### A design tension worth naming
 

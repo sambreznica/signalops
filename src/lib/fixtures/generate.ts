@@ -59,6 +59,19 @@ function inCurrentWindow(date: string): boolean {
   return date >= CURRENT_WINDOW_START && date <= CURRENT_WINDOW_END;
 }
 
+function uniqueSorted(ids: readonly string[]): string[] {
+  return [...new Set(ids)].sort();
+}
+
+/** Devices observably part of a ticket cluster in the current window. */
+function currentWindowDeviceIds(tickets: readonly FeedbackRecord[]): string[] {
+  return uniqueSorted(
+    tickets
+      .filter((row) => inCurrentWindow(row.timestamp.slice(0, 10)))
+      .map((row) => row.device_id),
+  );
+}
+
 function round1(n: number): number {
   return Number(n.toFixed(1));
 }
@@ -443,12 +456,9 @@ export function generateFixtures(seed: number = FIXTURE_SEED): FixtureBundle {
     ),
   };
 
-  const sig002Devices = [
-    ...new Set(clusterFeedback["SIG-002"].map((row) => row.device_id)),
-  ].sort();
-  const sig004Devices = [
-    ...new Set(nordicsRows.map((row) => row.device_id)),
-  ].sort();
+  const sig002Devices = currentWindowDeviceIds(clusterFeedback["SIG-002"]);
+  const sig003Devices = currentWindowDeviceIds(clusterFeedback["SIG-003"]);
+  const sig004Devices = currentWindowDeviceIds(clusterFeedback["SIG-004"]);
 
   const signals = {
     signals: [
@@ -474,7 +484,7 @@ export function generateFixtures(seed: number = FIXTURE_SEED): FixtureBundle {
         authorial_severity: null,
         claims_risk: true,
         feedback_ids: clusterFeedback["SIG-003"].map((row) => row.id),
-        device_ids: [...new Set(sig003DeviceIds)].sort(),
+        device_ids: sig003Devices,
       },
       {
         id: "SIG-004" as const,

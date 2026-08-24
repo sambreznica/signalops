@@ -190,6 +190,41 @@ describe("fixture generator", () => {
     }
   });
 
+  it("defines sidecar membership as current-window observable devices, not host populations", () => {
+    const byId = new Map(bundle.signals.signals.map((s) => [s.id, s]));
+    const nordics = new Set(
+      bundle.telemetry
+        .filter((row) => row.region === "nordics")
+        .map((row) => row.device_id),
+    );
+    const fw142 = new Set(
+      bundle.telemetry
+        .filter((row) => row.firmware_version === "1.4.2")
+        .map((row) => row.device_id),
+    );
+    expect(byId.get("SIG-001")?.device_ids).toEqual([...fw142].sort());
+    expect(byId.get("SIG-004")!.device_ids.length).toBeLessThan(nordics.size);
+
+    for (const signal of bundle.signals.signals) {
+      if (signal.id === "SIG-001") continue;
+      const tickets = bundle.feedback.filter((row) =>
+        signal.feedback_ids.includes(row.id),
+      );
+      const currentDevices = [
+        ...new Set(
+          tickets
+            .filter(
+              (row) =>
+                row.timestamp.slice(0, 10) >= CURRENT_WINDOW_START &&
+                row.timestamp.slice(0, 10) <= CURRENT_WINDOW_END,
+            )
+            .map((row) => row.device_id),
+        ),
+      ].sort();
+      expect(signal.device_ids).toEqual(currentDevices);
+    }
+  });
+
   it("records SIG-003 as claims risk with high-teens tickets and null severity", () => {
     const sig003 = bundle.signals.signals.find((s) => s.id === "SIG-003");
     expect(sig003).toBeDefined();

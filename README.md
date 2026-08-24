@@ -1,4 +1,8 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This is [SignalOps](ARCHITECTURE.md): deterministic-first operations triage for a synthetic wearable fleet. Ordinary code ranks candidates; a bounded agent investigates them. See `AGENTS.md` and `PRD.md`.
+
+## Triage matching
+
+One underlying issue legitimately surfaces as several candidates. Firmware 1.4.2, connectivity, and app-sync are the same BLE incident; battery, overheating, and app-ui are the same nordics noise cluster. The harness therefore matches by **union coverage**, not one-to-one assignment. Evals assert on the **primary** candidate. The full match set is kept so fragmentation stays visible — that is what triage looks like.
 
 ## Getting Started
 

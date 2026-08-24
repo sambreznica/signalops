@@ -95,7 +95,7 @@ No further personas in MVP.
 
 ## 8. Core User Journey
 
-1. Open **Command Centre**. Four candidate signals, ranked by computed severity, each showing affected users, rate delta, trend and status.
+1. Open **Command Centre**. Ranked candidate signals, each showing affected users, rate delta, trend and status.
 2. Select the connectivity signal (SIG-001).
 3. Start (or replay) the investigation. The **trace** streams: tool calls, arguments, result summaries, and the reasoning that selected each next call.
 4. Deterministic findings appear as typed claims, each linked to the tool call that produced it.
@@ -308,7 +308,7 @@ Covered by FR-050–054. The design point: the distinction between "open an engi
 
 Four screens. Modern AI-infrastructure restraint — Linear/Vercel register. Information-dense, clear hierarchy, minimal animation. No chatbot surface. The hero is the investigation.
 
-**1 — Command Centre.** Product health summary; four candidate signals ranked by computed severity; affected users, rate delta, trend, status; investigate CTA.
+**1 — Command Centre.** Product health summary; candidate signals as a list ranked by computed severity (count is whatever discovery emits, not a fixed four); affected users, rate delta, trend, status; investigate CTA.
 
 **2 — Incident Investigation (hero).** Live trace of tool calls with arguments and results; deterministic findings as typed claims linked to their source call; retrieved passages, expandable; leading hypothesis with evidence type; critic's alternative and falsifying test; supporting evidence and counter-evidence side by side; residual uncertainty; confidence with ceiling rule shown where applied; recommended actions with risk classes and per-action approval.
 
@@ -451,7 +451,7 @@ Listed so that good ideas have somewhere to go that is not the MVP.
 
 | Time | Beat |
 |---|---|
-| 0:00 | Command Centre — four candidates, severity computed by code, one is noise |
+| 0:00 | Command Centre — ranked candidate list, severity computed by code, one is noise |
 | 0:20 | Open SIG-001. Trace begins |
 | 0:35 | `query_telemetry` → `compare_versions` isolates firmware 1.4.2 |
 | 0:50 | **Because** the ratio is large, the agent calls `search_knowledge` — the branch point |

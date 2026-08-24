@@ -106,3 +106,37 @@ Deterministic analytics sits below triage. It never imports `synthetic-data/sign
 **Quantity.** Analytics returns `{ value, unit }` (`Measured`). It does not import `src/lib/schema`. Tools attach `source` at item 8.
 
 **RATE_FLOOR** remains item 4.
+
+---
+
+## 2026-08-24 — ARCHITECTURE §4 severity (session one, item 4)
+
+Two defects in the original §4 formula, both independent of where any seeded signal lands.
+
+**Defect 1 — HIGH was unreachable for FUNCTIONAL.** The blended base `(0.5 × affected_factor + 0.5 × delta_factor)` is capped at 1.0. FUNCTIONAL `consequence_weight` is 1.0. HIGH was ≥ 1.2. A FUNCTIONAL candidate could never reach HIGH, so magnitude was not an independent route to HIGH despite the section saying it was. The §4 prose example (small REGULATORY cluster outranking a loud connectivity blip) was arithmetically unreachable for the connectivity side: even saturated affected_factor and delta_factor with rising trend yield index 1.0.
+
+Fix: HIGH ≥ 0.9, MEDIUM ≥ 0.45. Those cuts mean “large FUNCTIONAL” (base 0.9 × 1.0) and “moderate REGULATORY” (base 0.45 × 2.0) are both HIGH. They were derived from that meaning, not from a target signal.
+
+**Defect 2 — 250 was a magic denominator.** It implied saturation at 62.5% of a 400-device fleet, which is not an operations threshold.
+
+Fix: `affected_factor = min(affected_users / (0.20 × fleet_size), 1.0)`. Once a fifth of the observed fleet is involved, further headcount does not change the triage decision.
+
+Guard: after wiring, every discovered candidate’s `severity_index` and band is reported. The formula must discriminate (noise low, adhesion mid, claims high on weight, connectivity high on magnitude). If everything is HIGH, the formula is still wrong.
+
+**Triage identity.** Candidates mint their own ids (`cnd_…`). They are not `SIG-00x`. Matching is union coverage, not one-to-one: a candidate is eligible when `|∩|/|candidate| >= 0.5`; the signal is MATCHED when the greedy union covers `>= 0.7` of the sidecar. Evals assert on the primary (highest individual coverage, Jaccard tie-break). The full match set is reported because one issue legitimately fragments across tags. `src/lib/triage` does not import the sidecar.
+
+**Candidate count.** Discovery is sidecar-blind and uncapped. PRD §16 / §28 previously said “four candidates”; that predates discovery. The Command Centre shows a ranked list of whatever discovery emits. A tidy four looks staged; a ranked thirteen with unremarkable rows around the real ones is the artefact. No top-N cap.
+
+---
+
+## 2026-08-24 — RATE_FLOOR removed; union matching; sidecar membership (session one, item 4 follow-up)
+
+**Defect A — RATE_FLOOR corrupted reported ratios.** Ticket incidence sits near 0.02; telemetry rates sit near 10. Substituting `max(rate_prior, 0.05)` into the denominator turned a ~10× claims increase into 0.35. The floor was doing two jobs with one constant.
+
+Fix: `ratio` is always `rate_window / rate_prior`, or `null` when `rate_prior` is 0. Stability travels alongside: `prior_events` and the Poisson CI. `delta_factor` may still be capped when `prior_events < 5` (`min(delta_factor, 0.2)`, `delta_factor_floored: true`). Thin priors stay conservative for the honest reason — two events is not a base rate — without distorting the number. `RATE_FLOOR` as an absolute rate constant is gone. ARCHITECTURE §4 amended.
+
+**Defect B — one-to-one matching was the wrong shape.** SIG-004's members span battery, overheating, and app-ui. No single candidate can cover a multi-tag cluster, so a coverage-of-sidecar gate could never work. Jaccard-as-threshold had the same problem.
+
+Fix: eligible if `|∩|/|candidate| >= 0.5`; greedy add by marginal coverage; MATCHED at union coverage `>= 0.7`; primary = highest individual coverage, Jaccard tie-break. Evals assert on the primary. Fragmentation is a reported fact, not a failure.
+
+**Sidecar membership was inconsistent.** SIG-002/003 were ticket clusters; SIG-004 was the entire nordics region, most of whom never complained. Membership is now uniform: devices observably part of the signal in the **current** window. SIG-001 remains the 1.4.2 cohort (the observable firmware signal). SIG-002/003/004 are current-window cluster ticket devices. Only `signals.json` changes; agent-visible records are untouched. EVAL-10 still has to reach `NOT_AN_INCIDENT` on the primary — that is the hard part.

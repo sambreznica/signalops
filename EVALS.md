@@ -31,9 +31,24 @@ Tool results are cached by argument hash during development. Iterate at `n=1`; c
 
 `Neutral` marks evals the single-call baseline can attempt. The other four are unpassable without the architecture, and scoring the baseline on them would rig the comparison — see §5.
 
+### Matching rule (harness, not triage)
+
+Triage mints its own ids. They are never `SIG-00x`. One underlying issue can legitimately surface as several candidates — a firmware slice and two tags, or three tags on one noise cluster. One-to-one matching was the wrong shape for that. The harness maps by **union coverage**.
+
+```
+precision(candidate, signal) = |∩| / |candidate|
+coverage(candidate, signal)  = |∩| / |signal|
+```
+
+A candidate is eligible for a signal when `precision >= 0.5` (the candidate is majority-about that signal). Eligible candidates are added greedily by marginal coverage of the signal. The signal is **MATCHED** when union coverage of the match set is `>= 0.7`.
+
+**Primary** = highest individual coverage in the match set, Jaccard as tie-break. Evals assert on the primary. The full match set, union coverage, primary, and primary Jaccard are recorded so fragmentation stays visible.
+
+Id-string equality is not a match rule. `src/lib/triage` does not import the sidecar.
+
 ### EVAL-01 — Anomaly represented · *neutral*
-SIG-001 appears in triage output with band `HIGH` and an affected-user count matching the fixture.
-**Assert:** `triage.find(s => s.id === 'SIG-001')` exists; `.band === 'HIGH'`; `.affected_users === expected`.
+The sidecar signal SIG-001 is MATCHED; its primary candidate has band `HIGH` and an affected-user count equal to the sidecar device-set size.
+**Assert:** the matching rule marks SIG-001 as MATCHED; the primary has `.band === 'HIGH'` and `.affected_users === sidecar.device_ids.length`.
 
 ### EVAL-02 — Correct firmware identified · *neutral*
 The investigation names firmware `1.4.2` specifically, not "recent firmware".
@@ -70,7 +85,7 @@ Two checks, one principle: no claim exceeds its evidence.
 **Assert:** every `chunk_id` in `knowledge_sources` resolves to a real chunk in the committed index, and every knowledge-backed claim references at least one.
 
 ### EVAL-10 — Noise rejection · *neutral* · **BLOCKING**
-**Assert:** SIG-004 terminates with `status === 'NOT_AN_INCIDENT'`.
+**Assert:** the matching rule marks SIG-004 as MATCHED; the investigation of its **primary** candidate terminates with `status === 'NOT_AN_INCIDENT'`.
 
 Status, not confidence. "Incident, LOW confidence" is a hedge, and permitting it would let the system pass by never committing.
 
