@@ -1,0 +1,6780 @@
+[
+  {
+    "id": "FB-0001",
+    "timestamp": "2026-05-05T18:17:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0157",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "I have to reopen the app because the Loop disconnects overnight.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0002",
+    "timestamp": "2026-05-08T19:22:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0193",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "iberia",
+    "text": "Sync fails after the latest update — connection dies mid-session.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0003",
+    "timestamp": "2026-05-10T13:35:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0287",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Wearable unpairs from the phone every few hours. Tired of reconnecting.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0004",
+    "timestamp": "2026-05-15T17:52:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0399",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "dach",
+    "text": "I have to reopen the app because the Loop disconnects overnight.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0005",
+    "timestamp": "2026-05-11T14:29:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0299",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "dach",
+    "text": "I have to reopen the app because the Loop disconnects overnight.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0006",
+    "timestamp": "2026-05-13T20:25:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0140",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "benelux",
+    "text": "Sync fails after the latest update — connection dies mid-session.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0007",
+    "timestamp": "2026-05-06T19:17:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0011",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "uk",
+    "text": "I have to reopen the app because the Loop disconnects overnight.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0008",
+    "timestamp": "2026-05-04T21:00:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0037",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "I have to reopen the app because the Loop disconnects overnight.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0009",
+    "timestamp": "2026-05-10T15:12:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0082",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "BLE drops when I walk between rooms. Started after the recent push.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0010",
+    "timestamp": "2026-05-04T09:29:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0394",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "dach",
+    "text": "Sync fails after the latest update — connection dies mid-session.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0011",
+    "timestamp": "2026-05-04T17:09:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0159",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "dach",
+    "text": "I have to reopen the app because the Loop disconnects overnight.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0012",
+    "timestamp": "2026-05-10T13:25:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0155",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "benelux",
+    "text": "Sync fails after the latest update — connection dies mid-session.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0013",
+    "timestamp": "2026-05-09T09:53:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0377",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Sync fails after the latest update — connection dies mid-session.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0014",
+    "timestamp": "2026-05-09T15:18:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0300",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "benelux",
+    "text": "Sync fails after the latest update — connection dies mid-session.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0015",
+    "timestamp": "2026-05-12T18:22:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0320",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "benelux",
+    "text": "BLE drops when I walk between rooms. Started after the recent push.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0016",
+    "timestamp": "2026-05-15T15:59:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0242",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Sync fails after the latest update — connection dies mid-session.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0017",
+    "timestamp": "2026-05-12T12:52:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0204",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "dach",
+    "text": "Sync fails after the latest update — connection dies mid-session.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0018",
+    "timestamp": "2026-05-11T17:47:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0384",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "dach",
+    "text": "Wearable unpairs from the phone every few hours. Tired of reconnecting.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0019",
+    "timestamp": "2026-05-07T13:18:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0399",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "dach",
+    "text": "The patch keeps dropping the Bluetooth connection during the day.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0020",
+    "timestamp": "2026-05-16T21:26:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0124",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "dach",
+    "text": "BLE drops when I walk between rooms. Started after the recent push.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0021",
+    "timestamp": "2026-05-07T18:48:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0228",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "iberia",
+    "text": "BLE drops when I walk between rooms. Started after the recent push.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0022",
+    "timestamp": "2026-05-15T11:13:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0157",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Sync fails after the latest update — connection dies mid-session.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0023",
+    "timestamp": "2026-05-07T20:41:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0130",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "benelux",
+    "text": "Wearable unpairs from the phone every few hours. Tired of reconnecting.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0024",
+    "timestamp": "2026-05-04T13:42:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0357",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "I have to reopen the app because the Loop disconnects overnight.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0025",
+    "timestamp": "2026-05-06T19:27:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0138",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "iberia",
+    "text": "Wearable unpairs from the phone every few hours. Tired of reconnecting.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0026",
+    "timestamp": "2026-05-16T16:22:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0229",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "dach",
+    "text": "Wearable unpairs from the phone every few hours. Tired of reconnecting.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0027",
+    "timestamp": "2026-05-07T21:16:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0130",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "benelux",
+    "text": "BLE drops when I walk between rooms. Started after the recent push.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0028",
+    "timestamp": "2026-05-17T13:50:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0092",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "I have to reopen the app because the Loop disconnects overnight.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0029",
+    "timestamp": "2026-05-14T20:44:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0393",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "iberia",
+    "text": "BLE drops when I walk between rooms. Started after the recent push.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0030",
+    "timestamp": "2026-05-04T21:51:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0100",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "benelux",
+    "text": "The patch keeps dropping the Bluetooth connection during the day.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0031",
+    "timestamp": "2026-05-15T14:23:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0242",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "I have to reopen the app because the Loop disconnects overnight.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0032",
+    "timestamp": "2026-05-12T09:14:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0086",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "uk",
+    "text": "I have to reopen the app because the Loop disconnects overnight.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0033",
+    "timestamp": "2026-05-06T12:09:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0358",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "iberia",
+    "text": "I have to reopen the app because the Loop disconnects overnight.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0034",
+    "timestamp": "2026-05-17T08:56:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0130",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "benelux",
+    "text": "Wearable unpairs from the phone every few hours. Tired of reconnecting.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0035",
+    "timestamp": "2026-05-15T11:09:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0316",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "uk",
+    "text": "BLE drops when I walk between rooms. Started after the recent push.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0036",
+    "timestamp": "2026-05-14T10:47:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0142",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Sync fails after the latest update — connection dies mid-session.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0037",
+    "timestamp": "2026-05-16T16:22:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0124",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "dach",
+    "text": "The patch keeps dropping the Bluetooth connection during the day.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0038",
+    "timestamp": "2026-05-08T16:59:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0248",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "iberia",
+    "text": "The patch keeps dropping the Bluetooth connection during the day.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0039",
+    "timestamp": "2026-05-06T09:19:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0280",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "benelux",
+    "text": "Sync fails after the latest update — connection dies mid-session.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0040",
+    "timestamp": "2026-05-16T15:33:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0399",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "dach",
+    "text": "Sync fails after the latest update — connection dies mid-session.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0041",
+    "timestamp": "2026-05-16T14:36:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0388",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "iberia",
+    "text": "BLE drops when I walk between rooms. Started after the recent push.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0042",
+    "timestamp": "2026-05-06T09:47:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0232",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "BLE drops when I walk between rooms. Started after the recent push.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0043",
+    "timestamp": "2026-05-13T14:36:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0045",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "benelux",
+    "text": "I have to reopen the app because the Loop disconnects overnight.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0044",
+    "timestamp": "2026-05-17T18:51:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0380",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "benelux",
+    "text": "BLE drops when I walk between rooms. Started after the recent push.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0045",
+    "timestamp": "2026-05-16T21:33:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0384",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "dach",
+    "text": "I have to reopen the app because the Loop disconnects overnight.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0046",
+    "timestamp": "2026-05-05T08:23:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0330",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "benelux",
+    "text": "BLE drops when I walk between rooms. Started after the recent push.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0047",
+    "timestamp": "2026-05-10T11:09:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0092",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "BLE drops when I walk between rooms. Started after the recent push.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0048",
+    "timestamp": "2026-05-13T20:33:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0338",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "iberia",
+    "text": "I have to reopen the app because the Loop disconnects overnight.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0049",
+    "timestamp": "2026-05-06T14:15:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0298",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "iberia",
+    "text": "I have to reopen the app because the Loop disconnects overnight.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0050",
+    "timestamp": "2026-05-09T16:03:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0253",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "iberia",
+    "text": "The patch keeps dropping the Bluetooth connection during the day.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0051",
+    "timestamp": "2026-05-16T13:16:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0280",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "benelux",
+    "text": "Wearable unpairs from the phone every few hours. Tired of reconnecting.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0052",
+    "timestamp": "2026-05-09T12:31:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0377",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "I have to reopen the app because the Loop disconnects overnight.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0053",
+    "timestamp": "2026-05-15T11:46:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0012",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "BLE drops when I walk between rooms. Started after the recent push.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0054",
+    "timestamp": "2026-05-09T16:41:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0388",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "iberia",
+    "text": "BLE drops when I walk between rooms. Started after the recent push.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0055",
+    "timestamp": "2026-05-06T08:33:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0358",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "iberia",
+    "text": "The patch keeps dropping the Bluetooth connection during the day.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0056",
+    "timestamp": "2026-05-14T19:49:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0079",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "dach",
+    "text": "Wearable unpairs from the phone every few hours. Tired of reconnecting.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0057",
+    "timestamp": "2026-05-15T18:19:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0254",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "dach",
+    "text": "I have to reopen the app because the Loop disconnects overnight.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0058",
+    "timestamp": "2026-05-13T12:16:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0338",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "iberia",
+    "text": "Wearable unpairs from the phone every few hours. Tired of reconnecting.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0059",
+    "timestamp": "2026-05-05T20:20:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0372",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "I have to reopen the app because the Loop disconnects overnight.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0060",
+    "timestamp": "2026-05-05T11:58:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0033",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "iberia",
+    "text": "BLE drops when I walk between rooms. Started after the recent push.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0061",
+    "timestamp": "2026-05-16T14:45:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0384",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "dach",
+    "text": "I have to reopen the app because the Loop disconnects overnight.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0062",
+    "timestamp": "2026-05-11T17:56:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0377",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Sync fails after the latest update — connection dies mid-session.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0063",
+    "timestamp": "2026-05-15T17:47:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0079",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "dach",
+    "text": "Sync fails after the latest update — connection dies mid-session.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0064",
+    "timestamp": "2026-05-13T16:59:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0140",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "benelux",
+    "text": "Sync fails after the latest update — connection dies mid-session.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0065",
+    "timestamp": "2026-05-14T21:55:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0079",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "dach",
+    "text": "BLE drops when I walk between rooms. Started after the recent push.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0066",
+    "timestamp": "2026-05-04T17:14:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0159",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "dach",
+    "text": "Wearable unpairs from the phone every few hours. Tired of reconnecting.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0067",
+    "timestamp": "2026-05-06T10:25:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0112",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Wearable unpairs from the phone every few hours. Tired of reconnecting.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0068",
+    "timestamp": "2026-05-13T09:02:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0088",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "iberia",
+    "text": "Wearable unpairs from the phone every few hours. Tired of reconnecting.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0069",
+    "timestamp": "2026-05-11T10:41:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0330",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "benelux",
+    "text": "Sync fails after the latest update — connection dies mid-session.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0070",
+    "timestamp": "2026-05-14T19:22:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0017",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Wearable unpairs from the phone every few hours. Tired of reconnecting.",
+    "tags": [
+      "connectivity",
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0071",
+    "timestamp": "2026-04-25T12:41:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0065",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Loop will not stay stuck when I train hard. Edges curl and itch.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0072",
+    "timestamp": "2026-05-09T11:59:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0056",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "Loop will not stay stuck when I train hard. Edges curl and itch.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0073",
+    "timestamp": "2026-04-28T19:58:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0234",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Sweaty workout plus warm skin and the adhesive lets go by lunch.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0074",
+    "timestamp": "2026-05-04T18:22:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0037",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Comfort is fine at rest. Any hard effort and it lifts off the skin.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0075",
+    "timestamp": "2026-05-02T08:48:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0231",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Loop will not stay stuck when I train hard. Edges curl and itch.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0076",
+    "timestamp": "2026-05-12T21:45:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0255",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Adhesive failed on a high-intensity session. Red mark where it lifted.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0077",
+    "timestamp": "2026-05-10T10:01:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0200",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Adhesive failed on a high-intensity session. Red mark where it lifted.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0078",
+    "timestamp": "2026-05-09T11:58:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0265",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Loop will not stay stuck when I train hard. Edges curl and itch.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0079",
+    "timestamp": "2026-05-17T09:17:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0169",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "dach",
+    "text": "Comfort is fine at rest. Any hard effort and it lifts off the skin.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0080",
+    "timestamp": "2026-05-13T16:41:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0140",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "benelux",
+    "text": "The patch peeled off during a long run. Skin was hot underneath.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0081",
+    "timestamp": "2026-05-07T21:38:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0187",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "nordics",
+    "text": "Adhesive failed on a high-intensity session. Red mark where it lifted.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0082",
+    "timestamp": "2026-05-14T14:27:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0352",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Loop will not stay stuck when I train hard. Edges curl and itch.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0083",
+    "timestamp": "2026-05-15T13:36:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0290",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Adhesive failed on a high-intensity session. Red mark where it lifted.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0084",
+    "timestamp": "2026-04-20T14:07:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0229",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Adhesive failed on a high-intensity session. Red mark where it lifted.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0085",
+    "timestamp": "2026-04-21T09:21:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0228",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "Comfort is fine at rest. Any hard effort and it lifts off the skin.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0086",
+    "timestamp": "2026-04-28T15:21:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0052",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "nordics",
+    "text": "Loop will not stay stuck when I train hard. Edges curl and itch.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0087",
+    "timestamp": "2026-05-02T10:28:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0036",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Adhesive failed on a high-intensity session. Red mark where it lifted.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0088",
+    "timestamp": "2026-05-11T19:54:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0221",
+    "firmware_version": "1.4.1",
+    "app_version": "3.2",
+    "region": "uk",
+    "text": "The patch peeled off during a long run. Skin was hot underneath.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0089",
+    "timestamp": "2026-05-12T11:09:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0400",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Adhesive failed on a high-intensity session. Red mark where it lifted.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0090",
+    "timestamp": "2026-04-26T09:50:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0203",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "Adhesive failed on a high-intensity session. Red mark where it lifted.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0091",
+    "timestamp": "2026-05-14T12:55:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0279",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "dach",
+    "text": "Comfort is fine at rest. Any hard effort and it lifts off the skin.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0092",
+    "timestamp": "2026-05-04T17:20:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0390",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "The patch peeled off during a long run. Skin was hot underneath.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0093",
+    "timestamp": "2026-05-06T18:35:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0224",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Loop will not stay stuck when I train hard. Edges curl and itch.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0094",
+    "timestamp": "2026-04-25T15:34:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0324",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "The patch peeled off during a long run. Skin was hot underneath.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0095",
+    "timestamp": "2026-05-05T08:42:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0007",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "nordics",
+    "text": "Adhesive failed on a high-intensity session. Red mark where it lifted.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0096",
+    "timestamp": "2026-04-28T10:09:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0236",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "Sweaty workout plus warm skin and the adhesive lets go by lunch.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0097",
+    "timestamp": "2026-05-06T15:46:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0033",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "iberia",
+    "text": "Comfort is fine at rest. Any hard effort and it lifts off the skin.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0098",
+    "timestamp": "2026-04-26T19:11:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0111",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "Loop will not stay stuck when I train hard. Edges curl and itch.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0099",
+    "timestamp": "2026-05-11T09:40:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0185",
+    "firmware_version": "1.4.1",
+    "app_version": "3.2",
+    "region": "benelux",
+    "text": "Sweaty workout plus warm skin and the adhesive lets go by lunch.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0100",
+    "timestamp": "2026-04-28T15:22:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0320",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "The patch peeled off during a long run. Skin was hot underneath.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0101",
+    "timestamp": "2026-05-01T21:45:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0294",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Loop will not stay stuck when I train hard. Edges curl and itch.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0102",
+    "timestamp": "2026-04-26T08:48:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0211",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "Sweaty workout plus warm skin and the adhesive lets go by lunch.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0103",
+    "timestamp": "2026-05-09T18:07:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0265",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Adhesive failed on a high-intensity session. Red mark where it lifted.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0104",
+    "timestamp": "2026-05-13T20:38:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0140",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "benelux",
+    "text": "The patch peeled off during a long run. Skin was hot underneath.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0105",
+    "timestamp": "2026-04-23T10:14:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0220",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Loop will not stay stuck when I train hard. Edges curl and itch.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0106",
+    "timestamp": "2026-05-10T11:01:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0200",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Loop will not stay stuck when I train hard. Edges curl and itch.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0107",
+    "timestamp": "2026-05-12T20:40:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0180",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Comfort is fine at rest. Any hard effort and it lifts off the skin.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0108",
+    "timestamp": "2026-05-06T09:46:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0224",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "The patch peeled off during a long run. Skin was hot underneath.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0109",
+    "timestamp": "2026-05-10T18:25:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0014",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Adhesive failed on a high-intensity session. Red mark where it lifted.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0110",
+    "timestamp": "2026-04-26T15:52:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0111",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "Adhesive failed on a high-intensity session. Red mark where it lifted.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0111",
+    "timestamp": "2026-05-03T16:47:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0215",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Loop will not stay stuck when I train hard. Edges curl and itch.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0112",
+    "timestamp": "2026-04-25T20:16:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0223",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "Loop will not stay stuck when I train hard. Edges curl and itch.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0113",
+    "timestamp": "2026-04-29T09:59:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0010",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "The patch peeled off during a long run. Skin was hot underneath.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0114",
+    "timestamp": "2026-05-15T20:42:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0013",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "Sweaty workout plus warm skin and the adhesive lets go by lunch.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0115",
+    "timestamp": "2026-05-16T10:49:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0299",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "dach",
+    "text": "Sweaty workout plus warm skin and the adhesive lets go by lunch.",
+    "tags": [
+      "adhesion",
+      "skin-irritation",
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0116",
+    "timestamp": "2026-05-07T13:12:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0069",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "dach",
+    "text": "The readiness score looks like a medical result. I showed it to my partner as if it were a clinical finding.",
+    "tags": [
+      "claims-interpretation",
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0117",
+    "timestamp": "2026-05-08T21:37:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0149",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "The number appeared next to the word ready and I read it as a health verdict, not a wellness hint.",
+    "tags": [
+      "claims-interpretation",
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0118",
+    "timestamp": "2026-05-15T11:45:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0303",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "The number appeared next to the word ready and I read it as a health verdict, not a wellness hint.",
+    "tags": [
+      "claims-interpretation",
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0119",
+    "timestamp": "2026-05-04T14:22:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0328",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "iberia",
+    "text": "The number appeared next to the word ready and I read it as a health verdict, not a wellness hint.",
+    "tags": [
+      "claims-interpretation",
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0120",
+    "timestamp": "2026-05-13T08:02:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0008",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "Friends asked if the score means I am sick. I did not know how to answer without sounding clinical.",
+    "tags": [
+      "claims-interpretation",
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0121",
+    "timestamp": "2026-05-10T19:20:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0326",
+    "firmware_version": "1.4.1",
+    "app_version": "3.2",
+    "region": "uk",
+    "text": "The number appeared next to the word ready and I read it as a health verdict, not a wellness hint.",
+    "tags": [
+      "claims-interpretation",
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0122",
+    "timestamp": "2026-05-05T16:06:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0015",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "I treated yesterday's score as a lab result and cancelled a meeting. Need to know if that is what it is for.",
+    "tags": [
+      "claims-interpretation",
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0123",
+    "timestamp": "2026-05-05T11:39:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0103",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "I treated yesterday's score as a lab result and cancelled a meeting. Need to know if that is what it is for.",
+    "tags": [
+      "claims-interpretation",
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0124",
+    "timestamp": "2026-05-10T19:30:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0271",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "The number appeared next to the word ready and I read it as a health verdict, not a wellness hint.",
+    "tags": [
+      "claims-interpretation",
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0125",
+    "timestamp": "2026-05-14T09:56:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0099",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "dach",
+    "text": "Friends asked if the score means I am sick. I did not know how to answer without sounding clinical.",
+    "tags": [
+      "claims-interpretation",
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0126",
+    "timestamp": "2026-05-08T15:11:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0149",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "The number appeared next to the word ready and I read it as a health verdict, not a wellness hint.",
+    "tags": [
+      "claims-interpretation",
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0127",
+    "timestamp": "2026-05-04T19:02:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0353",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "The readiness score looks like a medical result. I showed it to my partner as if it were a clinical finding.",
+    "tags": [
+      "claims-interpretation",
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0128",
+    "timestamp": "2026-05-13T11:18:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0004",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "The number appeared next to the word ready and I read it as a health verdict, not a wellness hint.",
+    "tags": [
+      "claims-interpretation",
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0129",
+    "timestamp": "2026-05-15T11:42:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0309",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "dach",
+    "text": "The readiness score looks like a medical result. I showed it to my partner as if it were a clinical finding.",
+    "tags": [
+      "claims-interpretation",
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0130",
+    "timestamp": "2026-05-17T17:12:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0084",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "dach",
+    "text": "The readiness score looks like a medical result. I showed it to my partner as if it were a clinical finding.",
+    "tags": [
+      "claims-interpretation",
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0131",
+    "timestamp": "2026-05-07T08:40:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0137",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "nordics",
+    "text": "I treated yesterday's score as a lab result and cancelled a meeting. Need to know if that is what it is for.",
+    "tags": [
+      "claims-interpretation",
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0132",
+    "timestamp": "2026-05-06T11:16:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0011",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "uk",
+    "text": "The readiness score looks like a medical result. I showed it to my partner as if it were a clinical finding.",
+    "tags": [
+      "claims-interpretation",
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0133",
+    "timestamp": "2026-05-08T21:02:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0162",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "The number appeared next to the word ready and I read it as a health verdict, not a wellness hint.",
+    "tags": [
+      "claims-interpretation",
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0134",
+    "timestamp": "2026-05-16T10:39:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0127",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "nordics",
+    "text": "Cold walk and the battery falls off a cliff. App overheating warning popped once too.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0135",
+    "timestamp": "2026-04-20T10:57:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0272",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Cold walk and the battery falls off a cliff. App overheating warning popped once too.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0136",
+    "timestamp": "2026-05-03T15:57:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0202",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Nordic mornings kill the charge. Device gets toasty on the charger in the hotel.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0137",
+    "timestamp": "2026-04-24T15:21:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0227",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "nordics",
+    "text": "Battery drains fast in the cold. Phone also feels warm when syncing.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0138",
+    "timestamp": "2026-04-26T13:57:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0042",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "nordics",
+    "text": "Cold walk and the battery falls off a cliff. App overheating warning popped once too.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0139",
+    "timestamp": "2026-05-15T10:20:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0342",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Battery life is poor outdoors here. Sync screen looks alarming even when it still has charge.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0140",
+    "timestamp": "2026-04-28T11:45:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0342",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Battery drains fast in the cold. Phone also feels warm when syncing.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0141",
+    "timestamp": "2026-04-21T08:00:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0177",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "In this weather the Loop dies by evening. The app UI shows a harsh red battery.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0142",
+    "timestamp": "2026-04-24T15:35:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0227",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "nordics",
+    "text": "Nordic mornings kill the charge. Device gets toasty on the charger in the hotel.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0143",
+    "timestamp": "2026-05-06T18:12:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0397",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Battery drains fast in the cold. Phone also feels warm when syncing.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0144",
+    "timestamp": "2026-05-06T15:50:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0322",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Battery life is poor outdoors here. Sync screen looks alarming even when it still has charge.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0145",
+    "timestamp": "2026-05-10T18:26:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0367",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Cold walk and the battery falls off a cliff. App overheating warning popped once too.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0146",
+    "timestamp": "2026-04-29T18:55:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0352",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Cold walk and the battery falls off a cliff. App overheating warning popped once too.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0147",
+    "timestamp": "2026-04-22T15:27:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0042",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "nordics",
+    "text": "In this weather the Loop dies by evening. The app UI shows a harsh red battery.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0148",
+    "timestamp": "2026-04-23T19:00:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0217",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "nordics",
+    "text": "Battery life is poor outdoors here. Sync screen looks alarming even when it still has charge.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0149",
+    "timestamp": "2026-05-04T13:44:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0367",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Cold walk and the battery falls off a cliff. App overheating warning popped once too.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0150",
+    "timestamp": "2026-04-27T15:27:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0107",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Cold walk and the battery falls off a cliff. App overheating warning popped once too.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0151",
+    "timestamp": "2026-05-05T11:29:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0157",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "In this weather the Loop dies by evening. The app UI shows a harsh red battery.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0152",
+    "timestamp": "2026-04-28T08:38:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0212",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Cold walk and the battery falls off a cliff. App overheating warning popped once too.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0153",
+    "timestamp": "2026-05-07T10:58:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0122",
+    "firmware_version": "1.4.1",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Cold walk and the battery falls off a cliff. App overheating warning popped once too.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0154",
+    "timestamp": "2026-04-21T11:09:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0162",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Cold walk and the battery falls off a cliff. App overheating warning popped once too.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0155",
+    "timestamp": "2026-05-09T09:28:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0037",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Nordic mornings kill the charge. Device gets toasty on the charger in the hotel.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0156",
+    "timestamp": "2026-05-10T10:38:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0082",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Battery drains fast in the cold. Phone also feels warm when syncing.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0157",
+    "timestamp": "2026-05-09T16:04:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0037",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Cold walk and the battery falls off a cliff. App overheating warning popped once too.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0158",
+    "timestamp": "2026-05-12T13:28:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0172",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Nordic mornings kill the charge. Device gets toasty on the charger in the hotel.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0159",
+    "timestamp": "2026-05-09T16:56:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0302",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "nordics",
+    "text": "Battery life is poor outdoors here. Sync screen looks alarming even when it still has charge.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0160",
+    "timestamp": "2026-05-09T15:29:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0202",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "In this weather the Loop dies by evening. The app UI shows a harsh red battery.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0161",
+    "timestamp": "2026-04-23T08:57:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0377",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Cold walk and the battery falls off a cliff. App overheating warning popped once too.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0162",
+    "timestamp": "2026-04-21T16:03:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0177",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Nordic mornings kill the charge. Device gets toasty on the charger in the hotel.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0163",
+    "timestamp": "2026-05-14T16:27:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0292",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "In this weather the Loop dies by evening. The app UI shows a harsh red battery.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0164",
+    "timestamp": "2026-04-21T14:17:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0267",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "In this weather the Loop dies by evening. The app UI shows a harsh red battery.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0165",
+    "timestamp": "2026-04-24T12:39:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0207",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "In this weather the Loop dies by evening. The app UI shows a harsh red battery.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0166",
+    "timestamp": "2026-05-05T13:47:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0137",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "nordics",
+    "text": "Battery drains fast in the cold. Phone also feels warm when syncing.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0167",
+    "timestamp": "2026-04-22T21:49:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0142",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Battery drains fast in the cold. Phone also feels warm when syncing.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0168",
+    "timestamp": "2026-05-17T16:23:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0232",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Battery drains fast in the cold. Phone also feels warm when syncing.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0169",
+    "timestamp": "2026-04-23T20:12:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0087",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "nordics",
+    "text": "In this weather the Loop dies by evening. The app UI shows a harsh red battery.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0170",
+    "timestamp": "2026-04-28T13:10:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0337",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "In this weather the Loop dies by evening. The app UI shows a harsh red battery.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0171",
+    "timestamp": "2026-05-10T17:26:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0382",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Battery drains fast in the cold. Phone also feels warm when syncing.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0172",
+    "timestamp": "2026-04-22T10:03:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0247",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Battery drains fast in the cold. Phone also feels warm when syncing.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0173",
+    "timestamp": "2026-05-14T11:08:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0142",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Battery drains fast in the cold. Phone also feels warm when syncing.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0174",
+    "timestamp": "2026-05-05T08:59:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0052",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "nordics",
+    "text": "Nordic mornings kill the charge. Device gets toasty on the charger in the hotel.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0175",
+    "timestamp": "2026-05-08T13:16:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0257",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Nordic mornings kill the charge. Device gets toasty on the charger in the hotel.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0176",
+    "timestamp": "2026-05-11T12:51:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0212",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Battery drains fast in the cold. Phone also feels warm when syncing.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0177",
+    "timestamp": "2026-05-14T08:11:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0112",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Battery life is poor outdoors here. Sync screen looks alarming even when it still has charge.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0178",
+    "timestamp": "2026-05-17T19:27:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0097",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "nordics",
+    "text": "Battery drains fast in the cold. Phone also feels warm when syncing.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0179",
+    "timestamp": "2026-04-22T13:52:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0177",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Battery life is poor outdoors here. Sync screen looks alarming even when it still has charge.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0180",
+    "timestamp": "2026-04-25T13:10:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0382",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Cold walk and the battery falls off a cliff. App overheating warning popped once too.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0181",
+    "timestamp": "2026-04-27T10:15:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0232",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Battery life is poor outdoors here. Sync screen looks alarming even when it still has charge.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0182",
+    "timestamp": "2026-05-10T19:33:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0082",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Nordic mornings kill the charge. Device gets toasty on the charger in the hotel.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0183",
+    "timestamp": "2026-04-22T21:55:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0187",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "nordics",
+    "text": "Cold walk and the battery falls off a cliff. App overheating warning popped once too.",
+    "tags": [
+      "battery",
+      "overheating",
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0184",
+    "timestamp": "2026-04-20T18:30:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0146",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Read the help article — score is not a medical result. All good on my side.",
+    "tags": [
+      "claims-interpretation"
+    ]
+  },
+  {
+    "id": "FB-0185",
+    "timestamp": "2026-05-10T21:49:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0124",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "dach",
+    "text": "Read the help article — score is not a medical result. All good on my side.",
+    "tags": [
+      "claims-interpretation"
+    ]
+  },
+  {
+    "id": "FB-0186",
+    "timestamp": "2026-05-01T17:42:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0391",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Just confirming the score is wellness only, not a diagnosis. Thanks for clarifying.",
+    "tags": [
+      "claims-interpretation"
+    ]
+  },
+  {
+    "id": "FB-0187",
+    "timestamp": "2026-05-14T08:51:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0335",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "benelux",
+    "text": "Just confirming the score is wellness only, not a diagnosis. Thanks for clarifying.",
+    "tags": [
+      "claims-interpretation"
+    ]
+  },
+  {
+    "id": "FB-0188",
+    "timestamp": "2026-05-17T14:23:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0305",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "I asked support whether readiness is medical-grade. They said it is not, which is what I needed.",
+    "tags": [
+      "claims-interpretation"
+    ]
+  },
+  {
+    "id": "FB-0189",
+    "timestamp": "2026-05-01T11:59:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0290",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0190",
+    "timestamp": "2026-05-17T14:22:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0341",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "Fit is snug on the upper arm. Not a complaint, just feedback.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0191",
+    "timestamp": "2026-05-15T08:34:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0178",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "adhesion"
+    ]
+  },
+  {
+    "id": "FB-0192",
+    "timestamp": "2026-04-27T10:52:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0296",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "skin-irritation"
+    ]
+  },
+  {
+    "id": "FB-0193",
+    "timestamp": "2026-04-30T13:28:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0336",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0194",
+    "timestamp": "2026-05-16T11:34:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0019",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "dach",
+    "text": "Privacy settings page is easy to find. Appreciate that.",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0195",
+    "timestamp": "2026-04-23T09:15:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0133",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0196",
+    "timestamp": "2026-05-14T13:58:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0286",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "overheating"
+    ]
+  },
+  {
+    "id": "FB-0197",
+    "timestamp": "2026-05-04T08:28:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0030",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "benelux",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0198",
+    "timestamp": "2026-05-17T10:20:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0035",
+    "firmware_version": "1.4.1",
+    "app_version": "3.2",
+    "region": "benelux",
+    "text": "Fit is snug on the upper arm. Not a complaint, just feedback.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0199",
+    "timestamp": "2026-05-11T08:50:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0376",
+    "firmware_version": "1.4.1",
+    "app_version": "3.2",
+    "region": "uk",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0200",
+    "timestamp": "2026-05-14T15:19:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0015",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0201",
+    "timestamp": "2026-05-11T12:24:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0142",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Privacy settings page is easy to find. Appreciate that.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0202",
+    "timestamp": "2026-05-06T08:17:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0298",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "iberia",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0203",
+    "timestamp": "2026-05-11T15:40:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0145",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0204",
+    "timestamp": "2026-04-24T10:56:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0306",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "Numbers in the diary look a bit jumpy but usable.",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0205",
+    "timestamp": "2026-05-04T21:27:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0010",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0206",
+    "timestamp": "2026-04-21T08:25:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0244",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0207",
+    "timestamp": "2026-05-16T18:47:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0146",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0208",
+    "timestamp": "2026-04-29T10:41:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0321",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0209",
+    "timestamp": "2026-04-27T17:40:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0249",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Fit is snug on the upper arm. Not a complaint, just feedback.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0210",
+    "timestamp": "2026-05-06T18:38:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0148",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "iberia",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0211",
+    "timestamp": "2026-05-17T15:48:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0323",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "iberia",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0212",
+    "timestamp": "2026-05-07T13:53:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0237",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Fit is snug on the upper arm. Not a complaint, just feedback.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0213",
+    "timestamp": "2026-05-17T16:56:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0347",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "nordics",
+    "text": "Numbers in the diary look a bit jumpy but usable.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0214",
+    "timestamp": "2026-05-14T18:02:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0072",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Numbers in the diary look a bit jumpy but usable.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0215",
+    "timestamp": "2026-05-05T20:15:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0396",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0216",
+    "timestamp": "2026-05-01T16:30:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0021",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0217",
+    "timestamp": "2026-04-29T11:22:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0368",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0218",
+    "timestamp": "2026-05-12T08:37:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0058",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0219",
+    "timestamp": "2026-05-14T15:00:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0031",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0220",
+    "timestamp": "2026-04-20T18:38:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0397",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0221",
+    "timestamp": "2026-05-07T13:25:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0020",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0222",
+    "timestamp": "2026-04-24T13:41:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0108",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "iberia",
+    "text": "Privacy settings page is easy to find. Appreciate that.",
+    "tags": [
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0223",
+    "timestamp": "2026-05-10T17:04:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0331",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0224",
+    "timestamp": "2026-05-05T21:09:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0314",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Numbers in the diary look a bit jumpy but usable.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0225",
+    "timestamp": "2026-04-25T16:42:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0241",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0226",
+    "timestamp": "2026-05-05T19:49:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0381",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "Numbers in the diary look a bit jumpy but usable.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0227",
+    "timestamp": "2026-04-22T11:35:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0224",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0228",
+    "timestamp": "2026-05-01T14:06:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0048",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0229",
+    "timestamp": "2026-05-17T19:58:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0386",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Privacy settings page is easy to find. Appreciate that.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0230",
+    "timestamp": "2026-05-06T08:59:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0332",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "nordics",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0231",
+    "timestamp": "2026-05-05T09:30:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0230",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0232",
+    "timestamp": "2026-05-01T12:34:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0294",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0233",
+    "timestamp": "2026-05-07T09:32:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0040",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0234",
+    "timestamp": "2026-04-29T13:40:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0248",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0235",
+    "timestamp": "2026-05-02T10:54:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0221",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0236",
+    "timestamp": "2026-05-01T12:12:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0005",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0237",
+    "timestamp": "2026-04-29T10:48:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0178",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "Fit is snug on the upper arm. Not a complaint, just feedback.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0238",
+    "timestamp": "2026-05-08T10:54:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0164",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "dach",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0239",
+    "timestamp": "2026-04-22T12:33:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0123",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "iberia",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0240",
+    "timestamp": "2026-05-03T10:35:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0246",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0241",
+    "timestamp": "2026-05-09T19:06:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0212",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Fit is snug on the upper arm. Not a complaint, just feedback.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0242",
+    "timestamp": "2026-04-27T19:43:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0031",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0243",
+    "timestamp": "2026-05-11T17:10:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0295",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Privacy settings page is easy to find. Appreciate that.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0244",
+    "timestamp": "2026-05-06T20:55:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0332",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "nordics",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0245",
+    "timestamp": "2026-05-17T14:41:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0068",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "iberia",
+    "text": "Numbers in the diary look a bit jumpy but usable.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0246",
+    "timestamp": "2026-05-16T09:30:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0349",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0247",
+    "timestamp": "2026-05-05T11:23:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0074",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Privacy settings page is easy to find. Appreciate that.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0248",
+    "timestamp": "2026-05-06T16:41:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0373",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "iberia",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0249",
+    "timestamp": "2026-05-11T11:32:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0295",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Fit is snug on the upper arm. Not a complaint, just feedback.",
+    "tags": [
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0250",
+    "timestamp": "2026-05-02T10:02:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0101",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0251",
+    "timestamp": "2026-05-09T12:20:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0245",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0252",
+    "timestamp": "2026-05-01T13:18:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0188",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0253",
+    "timestamp": "2026-05-07T19:37:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0360",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0254",
+    "timestamp": "2026-05-03T11:31:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0322",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0255",
+    "timestamp": "2026-04-20T20:02:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0183",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0256",
+    "timestamp": "2026-04-25T09:02:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0296",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0257",
+    "timestamp": "2026-05-15T18:29:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0012",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0258",
+    "timestamp": "2026-05-10T08:35:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0186",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0259",
+    "timestamp": "2026-05-08T09:55:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0248",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "iberia",
+    "text": "Fit is snug on the upper arm. Not a complaint, just feedback.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0260",
+    "timestamp": "2026-05-04T16:22:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0262",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "nordics",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0261",
+    "timestamp": "2026-05-09T17:52:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0398",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0262",
+    "timestamp": "2026-04-25T12:22:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0079",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0263",
+    "timestamp": "2026-05-12T15:50:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0200",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0264",
+    "timestamp": "2026-05-03T14:49:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0277",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Privacy settings page is easy to find. Appreciate that.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0265",
+    "timestamp": "2026-04-24T19:29:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0024",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0266",
+    "timestamp": "2026-04-24T08:45:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0026",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0267",
+    "timestamp": "2026-05-07T13:15:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0275",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0268",
+    "timestamp": "2026-04-27T14:31:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0344",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "dach",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0269",
+    "timestamp": "2026-04-21T17:38:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0205",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0270",
+    "timestamp": "2026-04-21T14:08:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0114",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "dach",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0271",
+    "timestamp": "2026-04-27T09:17:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0296",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0272",
+    "timestamp": "2026-05-14T18:31:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0144",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "dach",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0273",
+    "timestamp": "2026-05-11T08:06:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0046",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "Fit is snug on the upper arm. Not a complaint, just feedback.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0274",
+    "timestamp": "2026-04-23T09:23:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0393",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0275",
+    "timestamp": "2026-04-21T19:08:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0129",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "dach",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0276",
+    "timestamp": "2026-04-28T17:16:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0328",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "iberia",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0277",
+    "timestamp": "2026-04-20T12:26:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0117",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "nordics",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0278",
+    "timestamp": "2026-04-23T14:34:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0204",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Fit is snug on the upper arm. Not a complaint, just feedback.",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0279",
+    "timestamp": "2026-04-28T08:40:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0114",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "dach",
+    "text": "Numbers in the diary look a bit jumpy but usable.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0280",
+    "timestamp": "2026-04-22T16:11:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0397",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0281",
+    "timestamp": "2026-05-14T14:47:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0049",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0282",
+    "timestamp": "2026-04-25T11:23:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0305",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0283",
+    "timestamp": "2026-05-11T18:28:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0341",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0284",
+    "timestamp": "2026-04-25T13:25:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0253",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0285",
+    "timestamp": "2026-04-23T20:54:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0328",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "iberia",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0286",
+    "timestamp": "2026-05-08T16:05:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0170",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Numbers in the diary look a bit jumpy but usable.",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0287",
+    "timestamp": "2026-05-10T09:30:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0219",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "dach",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0288",
+    "timestamp": "2026-05-17T20:20:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0230",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0289",
+    "timestamp": "2026-05-10T17:23:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0082",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0290",
+    "timestamp": "2026-05-12T11:55:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0327",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "nordics",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0291",
+    "timestamp": "2026-05-02T16:23:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0345",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0292",
+    "timestamp": "2026-05-13T18:51:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0045",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "benelux",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0293",
+    "timestamp": "2026-04-26T20:29:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0141",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0294",
+    "timestamp": "2026-04-25T20:06:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0343",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "iberia",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0295",
+    "timestamp": "2026-05-17T16:43:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0255",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0296",
+    "timestamp": "2026-05-11T20:32:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0376",
+    "firmware_version": "1.4.1",
+    "app_version": "3.2",
+    "region": "uk",
+    "text": "Privacy settings page is easy to find. Appreciate that.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0297",
+    "timestamp": "2026-05-07T15:32:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0324",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "dach",
+    "text": "Privacy settings page is easy to find. Appreciate that.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0298",
+    "timestamp": "2026-05-09T13:39:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0398",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0299",
+    "timestamp": "2026-05-02T09:00:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0028",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "Fit is snug on the upper arm. Not a complaint, just feedback.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0300",
+    "timestamp": "2026-05-13T11:59:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0332",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "nordics",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0301",
+    "timestamp": "2026-05-12T10:14:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0281",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "Numbers in the diary look a bit jumpy but usable.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0302",
+    "timestamp": "2026-05-05T12:03:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0318",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "iberia",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0303",
+    "timestamp": "2026-05-17T19:24:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0390",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0304",
+    "timestamp": "2026-04-22T18:24:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0110",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0305",
+    "timestamp": "2026-04-20T14:21:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0224",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0306",
+    "timestamp": "2026-04-23T09:00:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0385",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0307",
+    "timestamp": "2026-04-22T16:03:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0233",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "iberia",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0308",
+    "timestamp": "2026-04-28T15:10:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0093",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "iberia",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0309",
+    "timestamp": "2026-05-15T17:53:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0113",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0310",
+    "timestamp": "2026-04-26T10:40:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0040",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0311",
+    "timestamp": "2026-04-25T18:26:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0194",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0312",
+    "timestamp": "2026-05-17T09:32:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0194",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Privacy settings page is easy to find. Appreciate that.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0313",
+    "timestamp": "2026-05-04T17:59:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0214",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "dach",
+    "text": "Numbers in the diary look a bit jumpy but usable.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0314",
+    "timestamp": "2026-04-23T09:24:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0004",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0315",
+    "timestamp": "2026-04-26T15:44:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0285",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0316",
+    "timestamp": "2026-05-06T15:08:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0377",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0317",
+    "timestamp": "2026-05-08T16:05:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0198",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "iberia",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0318",
+    "timestamp": "2026-04-21T17:54:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0324",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Fit is snug on the upper arm. Not a complaint, just feedback.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0319",
+    "timestamp": "2026-05-11T15:13:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0142",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0320",
+    "timestamp": "2026-05-15T16:11:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0135",
+    "firmware_version": "1.4.1",
+    "app_version": "3.2",
+    "region": "benelux",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0321",
+    "timestamp": "2026-04-20T14:28:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0306",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0322",
+    "timestamp": "2026-05-09T14:47:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0367",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Privacy settings page is easy to find. Appreciate that.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0323",
+    "timestamp": "2026-04-30T08:12:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0001",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0324",
+    "timestamp": "2026-05-05T11:07:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0382",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0325",
+    "timestamp": "2026-05-06T20:39:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0239",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "dach",
+    "text": "Privacy settings page is easy to find. Appreciate that.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0326",
+    "timestamp": "2026-05-05T20:44:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0271",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0327",
+    "timestamp": "2026-05-03T19:07:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0395",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0328",
+    "timestamp": "2026-05-13T20:47:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0022",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0329",
+    "timestamp": "2026-05-17T13:04:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0165",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0330",
+    "timestamp": "2026-05-11T21:53:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0333",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0331",
+    "timestamp": "2026-05-13T17:43:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0140",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "benelux",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0332",
+    "timestamp": "2026-05-16T20:53:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0353",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "Fit is snug on the upper arm. Not a complaint, just feedback.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0333",
+    "timestamp": "2026-05-02T10:48:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0150",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0334",
+    "timestamp": "2026-05-16T09:01:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0379",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "dach",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0335",
+    "timestamp": "2026-05-05T09:13:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0122",
+    "firmware_version": "1.4.1",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0336",
+    "timestamp": "2026-05-11T14:13:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0281",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0337",
+    "timestamp": "2026-05-11T10:10:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0038",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "iberia",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0338",
+    "timestamp": "2026-05-12T16:46:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0287",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0339",
+    "timestamp": "2026-04-27T18:37:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0043",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "iberia",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0340",
+    "timestamp": "2026-04-30T13:03:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0088",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0341",
+    "timestamp": "2026-05-10T17:00:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0031",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "Fit is snug on the upper arm. Not a complaint, just feedback.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0342",
+    "timestamp": "2026-04-25T08:58:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0126",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0343",
+    "timestamp": "2026-05-10T17:02:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0221",
+    "firmware_version": "1.4.1",
+    "app_version": "3.2",
+    "region": "uk",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0344",
+    "timestamp": "2026-05-03T19:17:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0142",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0345",
+    "timestamp": "2026-05-10T18:49:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0271",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "Privacy settings page is easy to find. Appreciate that.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0346",
+    "timestamp": "2026-05-14T16:03:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0099",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "dach",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0347",
+    "timestamp": "2026-05-12T18:45:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0375",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "benelux",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0348",
+    "timestamp": "2026-05-16T12:31:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0050",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "benelux",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0349",
+    "timestamp": "2026-05-12T08:24:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0039",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "dach",
+    "text": "Fit is snug on the upper arm. Not a complaint, just feedback.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0350",
+    "timestamp": "2026-04-29T19:29:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0043",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "iberia",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0351",
+    "timestamp": "2026-05-04T08:01:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0010",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Numbers in the diary look a bit jumpy but usable.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0352",
+    "timestamp": "2026-04-28T16:07:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0036",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Privacy settings page is easy to find. Appreciate that.",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0353",
+    "timestamp": "2026-05-17T12:46:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0396",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Privacy settings page is easy to find. Appreciate that.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0354",
+    "timestamp": "2026-04-29T19:28:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0002",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0355",
+    "timestamp": "2026-04-23T11:59:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0377",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0356",
+    "timestamp": "2026-05-02T09:08:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0231",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0357",
+    "timestamp": "2026-04-25T18:44:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0150",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0358",
+    "timestamp": "2026-04-22T09:50:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0288",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0359",
+    "timestamp": "2026-05-17T21:50:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0072",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Numbers in the diary look a bit jumpy but usable.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0360",
+    "timestamp": "2026-04-20T14:14:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0146",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Privacy settings page is easy to find. Appreciate that.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0361",
+    "timestamp": "2026-05-06T09:35:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0295",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0362",
+    "timestamp": "2026-04-30T21:20:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0326",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Numbers in the diary look a bit jumpy but usable.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0363",
+    "timestamp": "2026-05-14T12:40:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0329",
+    "firmware_version": "1.4.1",
+    "app_version": "3.2",
+    "region": "dach",
+    "text": "Fit is snug on the upper arm. Not a complaint, just feedback.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0364",
+    "timestamp": "2026-05-03T08:41:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0067",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Numbers in the diary look a bit jumpy but usable.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0365",
+    "timestamp": "2026-05-15T21:39:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0292",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0366",
+    "timestamp": "2026-04-28T11:21:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0310",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0367",
+    "timestamp": "2026-04-30T09:36:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0006",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Numbers in the diary look a bit jumpy but usable.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0368",
+    "timestamp": "2026-04-27T19:10:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0271",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "Privacy settings page is easy to find. Appreciate that.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0369",
+    "timestamp": "2026-04-23T12:35:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0213",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0370",
+    "timestamp": "2026-05-05T09:09:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0256",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0371",
+    "timestamp": "2026-05-10T16:19:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0111",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0372",
+    "timestamp": "2026-04-30T10:16:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0255",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0373",
+    "timestamp": "2026-05-05T08:50:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0396",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Numbers in the diary look a bit jumpy but usable.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0374",
+    "timestamp": "2026-04-28T12:06:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0238",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "iberia",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0375",
+    "timestamp": "2026-04-22T16:30:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0205",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Privacy settings page is easy to find. Appreciate that.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0376",
+    "timestamp": "2026-04-22T08:08:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0351",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Privacy settings page is easy to find. Appreciate that.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0377",
+    "timestamp": "2026-05-15T15:14:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0165",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Fit is snug on the upper arm. Not a complaint, just feedback.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0378",
+    "timestamp": "2026-04-24T11:38:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0109",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0379",
+    "timestamp": "2026-04-23T18:14:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0294",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Numbers in the diary look a bit jumpy but usable.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0380",
+    "timestamp": "2026-05-07T10:55:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0268",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "iberia",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0381",
+    "timestamp": "2026-04-26T16:11:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0359",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0382",
+    "timestamp": "2026-05-07T21:31:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0106",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "uk",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0383",
+    "timestamp": "2026-04-20T15:17:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0115",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0384",
+    "timestamp": "2026-05-01T13:59:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0290",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Privacy settings page is easy to find. Appreciate that.",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0385",
+    "timestamp": "2026-05-02T16:05:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0203",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0386",
+    "timestamp": "2026-05-03T11:03:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0285",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0387",
+    "timestamp": "2026-05-15T11:05:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0316",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "uk",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0388",
+    "timestamp": "2026-05-05T18:00:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0294",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Numbers in the diary look a bit jumpy but usable.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0389",
+    "timestamp": "2026-05-02T14:26:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0029",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0390",
+    "timestamp": "2026-05-01T16:49:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0197",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0391",
+    "timestamp": "2026-05-06T13:21:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0270",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0392",
+    "timestamp": "2026-04-20T12:27:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0146",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0393",
+    "timestamp": "2026-04-26T08:49:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0327",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "nordics",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0394",
+    "timestamp": "2026-04-22T11:11:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0303",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0395",
+    "timestamp": "2026-05-16T20:53:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0285",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0396",
+    "timestamp": "2026-05-08T20:51:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0032",
+    "firmware_version": "1.4.1",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0397",
+    "timestamp": "2026-05-09T12:55:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0064",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0398",
+    "timestamp": "2026-05-01T09:01:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0018",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "iberia",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0399",
+    "timestamp": "2026-04-27T19:53:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0184",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0400",
+    "timestamp": "2026-04-20T12:42:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0224",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0401",
+    "timestamp": "2026-05-02T14:35:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0016",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0402",
+    "timestamp": "2026-05-03T13:02:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0277",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0403",
+    "timestamp": "2026-05-09T08:09:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0168",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "iberia",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0404",
+    "timestamp": "2026-04-23T12:45:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0301",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0405",
+    "timestamp": "2026-04-26T15:58:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0196",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0406",
+    "timestamp": "2026-05-14T21:29:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0254",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "dach",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0407",
+    "timestamp": "2026-04-22T12:15:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0317",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "nordics",
+    "text": "Numbers in the diary look a bit jumpy but usable.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0408",
+    "timestamp": "2026-04-26T12:19:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0364",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0409",
+    "timestamp": "2026-05-08T09:07:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0164",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "dach",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0410",
+    "timestamp": "2026-05-14T09:35:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0052",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "nordics",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0411",
+    "timestamp": "2026-05-17T08:30:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0200",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0412",
+    "timestamp": "2026-05-06T14:31:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0365",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Privacy settings page is easy to find. Appreciate that.",
+    "tags": [
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0413",
+    "timestamp": "2026-04-27T11:51:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0296",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0414",
+    "timestamp": "2026-05-15T19:11:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0317",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "nordics",
+    "text": "Privacy settings page is easy to find. Appreciate that.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0415",
+    "timestamp": "2026-04-24T19:10:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0249",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0416",
+    "timestamp": "2026-04-28T12:11:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0348",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0417",
+    "timestamp": "2026-05-11T14:28:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0170",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0418",
+    "timestamp": "2026-04-21T11:55:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0394",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Fit is snug on the upper arm. Not a complaint, just feedback.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0419",
+    "timestamp": "2026-04-26T15:20:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0007",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "nordics",
+    "text": "Fit is snug on the upper arm. Not a complaint, just feedback.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0420",
+    "timestamp": "2026-05-05T20:16:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0153",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0421",
+    "timestamp": "2026-05-16T09:06:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0369",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "dach",
+    "text": "Privacy settings page is easy to find. Appreciate that.",
+    "tags": [
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0422",
+    "timestamp": "2026-04-25T10:12:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0186",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0423",
+    "timestamp": "2026-05-13T15:19:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0319",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "dach",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0424",
+    "timestamp": "2026-04-26T13:04:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0276",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0425",
+    "timestamp": "2026-04-24T13:06:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0340",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0426",
+    "timestamp": "2026-05-15T10:18:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0355",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0427",
+    "timestamp": "2026-04-22T15:23:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0316",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Numbers in the diary look a bit jumpy but usable.",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0428",
+    "timestamp": "2026-04-27T11:01:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0019",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "dach",
+    "text": "Privacy settings page is easy to find. Appreciate that.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0429",
+    "timestamp": "2026-04-23T09:07:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0294",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0430",
+    "timestamp": "2026-05-04T18:02:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0062",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0431",
+    "timestamp": "2026-05-03T16:53:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0365",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0432",
+    "timestamp": "2026-05-04T17:37:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0367",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0433",
+    "timestamp": "2026-05-15T08:02:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0241",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Numbers in the diary look a bit jumpy but usable.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0434",
+    "timestamp": "2026-04-24T16:22:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0264",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "dach",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0435",
+    "timestamp": "2026-04-23T14:07:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0384",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0436",
+    "timestamp": "2026-05-07T20:13:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0222",
+    "firmware_version": "1.4.1",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0437",
+    "timestamp": "2026-05-07T12:09:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0006",
+    "firmware_version": "1.4.1",
+    "app_version": "3.2",
+    "region": "uk",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0438",
+    "timestamp": "2026-05-17T15:13:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0356",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0439",
+    "timestamp": "2026-05-04T08:19:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0040",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0440",
+    "timestamp": "2026-05-01T15:07:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0256",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0441",
+    "timestamp": "2026-05-16T11:36:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0246",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0442",
+    "timestamp": "2026-04-28T21:37:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0372",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Numbers in the diary look a bit jumpy but usable.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0443",
+    "timestamp": "2026-04-25T17:32:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0055",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0444",
+    "timestamp": "2026-05-02T15:08:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0182",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0445",
+    "timestamp": "2026-05-11T08:49:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0145",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Fit is snug on the upper arm. Not a complaint, just feedback.",
+    "tags": [
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0446",
+    "timestamp": "2026-05-09T10:06:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0202",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0447",
+    "timestamp": "2026-05-12T09:25:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0235",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0448",
+    "timestamp": "2026-04-26T11:33:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0299",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0449",
+    "timestamp": "2026-04-22T10:36:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0072",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Fit is snug on the upper arm. Not a complaint, just feedback.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0450",
+    "timestamp": "2026-04-27T21:04:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0187",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "nordics",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0451",
+    "timestamp": "2026-04-30T16:57:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0123",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "iberia",
+    "text": "Fit is snug on the upper arm. Not a complaint, just feedback.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0452",
+    "timestamp": "2026-04-20T15:30:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0271",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0453",
+    "timestamp": "2026-05-01T09:07:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0266",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0454",
+    "timestamp": "2026-04-30T10:01:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0201",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0455",
+    "timestamp": "2026-05-01T13:08:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0202",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Numbers in the diary look a bit jumpy but usable.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0456",
+    "timestamp": "2026-04-29T19:21:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0049",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0457",
+    "timestamp": "2026-05-14T11:59:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0260",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0458",
+    "timestamp": "2026-05-14T20:52:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0320",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "benelux",
+    "text": "Fit is snug on the upper arm. Not a complaint, just feedback.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0459",
+    "timestamp": "2026-04-28T16:11:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0225",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0460",
+    "timestamp": "2026-05-02T14:00:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0252",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "nordics",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0461",
+    "timestamp": "2026-05-16T18:00:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0121",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0462",
+    "timestamp": "2026-05-15T08:41:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0197",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0463",
+    "timestamp": "2026-04-28T09:28:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0385",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Numbers in the diary look a bit jumpy but usable.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0464",
+    "timestamp": "2026-05-12T09:53:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0085",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "benelux",
+    "text": "Fit is snug on the upper arm. Not a complaint, just feedback.",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0465",
+    "timestamp": "2026-05-09T16:49:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0141",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0466",
+    "timestamp": "2026-04-23T09:32:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0023",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "iberia",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0467",
+    "timestamp": "2026-05-02T18:21:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0014",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Numbers in the diary look a bit jumpy but usable.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0468",
+    "timestamp": "2026-04-30T19:12:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0241",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0469",
+    "timestamp": "2026-04-30T17:05:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0144",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "dach",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0470",
+    "timestamp": "2026-05-16T10:28:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0286",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0471",
+    "timestamp": "2026-05-04T08:11:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0030",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "benelux",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0472",
+    "timestamp": "2026-05-08T08:20:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0082",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Fit is snug on the upper arm. Not a complaint, just feedback.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0473",
+    "timestamp": "2026-04-23T20:54:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0151",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "Privacy settings page is easy to find. Appreciate that.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0474",
+    "timestamp": "2026-04-21T19:22:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0119",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0475",
+    "timestamp": "2026-05-16T21:42:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0156",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "uk",
+    "text": "Fit is snug on the upper arm. Not a complaint, just feedback.",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0476",
+    "timestamp": "2026-05-13T19:38:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0088",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "iberia",
+    "text": "App sync took a moment this morning then caught up.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0477",
+    "timestamp": "2026-04-25T15:18:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0236",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0478",
+    "timestamp": "2026-05-09T17:18:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0398",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "packaging"
+    ]
+  },
+  {
+    "id": "FB-0479",
+    "timestamp": "2026-04-29T13:20:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0186",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0480",
+    "timestamp": "2026-05-09T13:05:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0096",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0481",
+    "timestamp": "2026-04-22T21:29:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0131",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0482",
+    "timestamp": "2026-05-15T16:11:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0231",
+    "firmware_version": "1.4.1",
+    "app_version": "3.2",
+    "region": "uk",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0483",
+    "timestamp": "2026-05-04T17:49:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0194",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0484",
+    "timestamp": "2026-05-09T18:53:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0131",
+    "firmware_version": "1.3.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0485",
+    "timestamp": "2026-05-07T17:10:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0305",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0486",
+    "timestamp": "2026-04-22T10:10:00Z",
+    "channel": "app_store_review",
+    "device_id": "KL-0113",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "Numbers in the diary look a bit jumpy but usable.",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0487",
+    "timestamp": "2026-04-30T10:50:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0393",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "iberia",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0488",
+    "timestamp": "2026-05-03T13:50:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0110",
+    "firmware_version": "1.4.1",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Numbers in the diary look a bit jumpy but usable.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0489",
+    "timestamp": "2026-04-28T13:38:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0125",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "benelux",
+    "text": "Privacy settings page is easy to find. Appreciate that.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0490",
+    "timestamp": "2026-04-21T11:06:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0387",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Fit is snug on the upper arm. Not a complaint, just feedback.",
+    "tags": [
+      "connectivity"
+    ]
+  },
+  {
+    "id": "FB-0491",
+    "timestamp": "2026-05-04T18:35:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0360",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Can you confirm what data the companion app uploads?",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0492",
+    "timestamp": "2026-04-24T16:57:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0251",
+    "firmware_version": "1.2.0",
+    "app_version": "3.0",
+    "region": "uk",
+    "text": "Battery icon flickered once. Fine afterwards.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0493",
+    "timestamp": "2026-04-29T21:52:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0143",
+    "firmware_version": "1.3.0",
+    "app_version": "3.0",
+    "region": "iberia",
+    "text": "Numbers in the diary look a bit jumpy but usable.",
+    "tags": [
+      "battery"
+    ]
+  },
+  {
+    "id": "FB-0494",
+    "timestamp": "2026-05-11T20:51:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0135",
+    "firmware_version": "1.4.1",
+    "app_version": "3.2",
+    "region": "benelux",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "data-accuracy"
+    ]
+  },
+  {
+    "id": "FB-0495",
+    "timestamp": "2026-05-15T16:47:00Z",
+    "channel": "beta_forum",
+    "device_id": "KL-0074",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "dach",
+    "text": "Colour theme on the home screen is hard to read at night.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0496",
+    "timestamp": "2026-05-17T17:37:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0176",
+    "firmware_version": "1.4.0",
+    "app_version": "3.1",
+    "region": "uk",
+    "text": "Packaging arrived dented but the patch looks fine.",
+    "tags": [
+      "comfort-fit"
+    ]
+  },
+  {
+    "id": "FB-0497",
+    "timestamp": "2026-05-04T20:39:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0357",
+    "firmware_version": "1.4.2",
+    "app_version": "3.2",
+    "region": "nordics",
+    "text": "Fit is snug on the upper arm. Not a complaint, just feedback.",
+    "tags": [
+      "app-ui"
+    ]
+  },
+  {
+    "id": "FB-0498",
+    "timestamp": "2026-05-05T16:28:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0352",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Numbers in the diary look a bit jumpy but usable.",
+    "tags": [
+      "app-sync"
+    ]
+  },
+  {
+    "id": "FB-0499",
+    "timestamp": "2026-04-27T08:34:00Z",
+    "channel": "support_ticket",
+    "device_id": "KL-0090",
+    "firmware_version": "1.4.0",
+    "app_version": "3.0",
+    "region": "benelux",
+    "text": "Adhesive held for the office day. No issue.",
+    "tags": [
+      "data-privacy"
+    ]
+  },
+  {
+    "id": "FB-0500",
+    "timestamp": "2026-05-07T21:22:00Z",
+    "channel": "in_app_survey",
+    "device_id": "KL-0067",
+    "firmware_version": "1.2.0",
+    "app_version": "3.1",
+    "region": "nordics",
+    "text": "Mild warmth after a session, nothing that lasted.",
+    "tags": [
+      "app-ui"
+    ]
+  }
+]

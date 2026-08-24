@@ -1,0 +1,2002 @@
+[
+  {
+    "device_id": "KL-0001",
+    "region": "uk",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0002",
+    "region": "nordics",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0003",
+    "region": "iberia",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0004",
+    "region": "dach",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0005",
+    "region": "benelux",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0006",
+    "region": "uk",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0007",
+    "region": "nordics",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0008",
+    "region": "iberia",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0009",
+    "region": "dach",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0010",
+    "region": "benelux",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0011",
+    "region": "uk",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0012",
+    "region": "nordics",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0013",
+    "region": "iberia",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0014",
+    "region": "dach",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0015",
+    "region": "benelux",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0016",
+    "region": "uk",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0017",
+    "region": "nordics",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0018",
+    "region": "iberia",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0019",
+    "region": "dach",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0020",
+    "region": "benelux",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0021",
+    "region": "uk",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0022",
+    "region": "nordics",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0023",
+    "region": "iberia",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0024",
+    "region": "dach",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0025",
+    "region": "benelux",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0026",
+    "region": "uk",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0027",
+    "region": "nordics",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0028",
+    "region": "iberia",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0029",
+    "region": "dach",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0030",
+    "region": "benelux",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0031",
+    "region": "uk",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0032",
+    "region": "nordics",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0033",
+    "region": "iberia",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0034",
+    "region": "dach",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0035",
+    "region": "benelux",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0036",
+    "region": "uk",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0037",
+    "region": "nordics",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0038",
+    "region": "iberia",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0039",
+    "region": "dach",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0040",
+    "region": "benelux",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0041",
+    "region": "uk",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0042",
+    "region": "nordics",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0043",
+    "region": "iberia",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0044",
+    "region": "dach",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0045",
+    "region": "benelux",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0046",
+    "region": "uk",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0047",
+    "region": "nordics",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0048",
+    "region": "iberia",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0049",
+    "region": "dach",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0050",
+    "region": "benelux",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0051",
+    "region": "uk",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0052",
+    "region": "nordics",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0053",
+    "region": "iberia",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0054",
+    "region": "dach",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0055",
+    "region": "benelux",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0056",
+    "region": "uk",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0057",
+    "region": "nordics",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0058",
+    "region": "iberia",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0059",
+    "region": "dach",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0060",
+    "region": "benelux",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0061",
+    "region": "uk",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0062",
+    "region": "nordics",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0063",
+    "region": "iberia",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0064",
+    "region": "dach",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0065",
+    "region": "benelux",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0066",
+    "region": "uk",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0067",
+    "region": "nordics",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0068",
+    "region": "iberia",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0069",
+    "region": "dach",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0070",
+    "region": "benelux",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0071",
+    "region": "uk",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0072",
+    "region": "nordics",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0073",
+    "region": "iberia",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0074",
+    "region": "dach",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0075",
+    "region": "benelux",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0076",
+    "region": "uk",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0077",
+    "region": "nordics",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0078",
+    "region": "iberia",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0079",
+    "region": "dach",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0080",
+    "region": "benelux",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0081",
+    "region": "uk",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0082",
+    "region": "nordics",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0083",
+    "region": "iberia",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0084",
+    "region": "dach",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0085",
+    "region": "benelux",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0086",
+    "region": "uk",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0087",
+    "region": "nordics",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0088",
+    "region": "iberia",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0089",
+    "region": "dach",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0090",
+    "region": "benelux",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0091",
+    "region": "uk",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0092",
+    "region": "nordics",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0093",
+    "region": "iberia",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0094",
+    "region": "dach",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0095",
+    "region": "benelux",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0096",
+    "region": "uk",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0097",
+    "region": "nordics",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0098",
+    "region": "iberia",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0099",
+    "region": "dach",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0100",
+    "region": "benelux",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0101",
+    "region": "uk",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0102",
+    "region": "nordics",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0103",
+    "region": "iberia",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0104",
+    "region": "dach",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0105",
+    "region": "benelux",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0106",
+    "region": "uk",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0107",
+    "region": "nordics",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0108",
+    "region": "iberia",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0109",
+    "region": "dach",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0110",
+    "region": "benelux",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0111",
+    "region": "uk",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0112",
+    "region": "nordics",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0113",
+    "region": "iberia",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0114",
+    "region": "dach",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0115",
+    "region": "benelux",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0116",
+    "region": "uk",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0117",
+    "region": "nordics",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0118",
+    "region": "iberia",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0119",
+    "region": "dach",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0120",
+    "region": "benelux",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0121",
+    "region": "uk",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0122",
+    "region": "nordics",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0123",
+    "region": "iberia",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0124",
+    "region": "dach",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0125",
+    "region": "benelux",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0126",
+    "region": "uk",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0127",
+    "region": "nordics",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0128",
+    "region": "iberia",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0129",
+    "region": "dach",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0130",
+    "region": "benelux",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0131",
+    "region": "uk",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0132",
+    "region": "nordics",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0133",
+    "region": "iberia",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0134",
+    "region": "dach",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0135",
+    "region": "benelux",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0136",
+    "region": "uk",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0137",
+    "region": "nordics",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0138",
+    "region": "iberia",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0139",
+    "region": "dach",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0140",
+    "region": "benelux",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0141",
+    "region": "uk",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0142",
+    "region": "nordics",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0143",
+    "region": "iberia",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0144",
+    "region": "dach",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0145",
+    "region": "benelux",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0146",
+    "region": "uk",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0147",
+    "region": "nordics",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0148",
+    "region": "iberia",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0149",
+    "region": "dach",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0150",
+    "region": "benelux",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0151",
+    "region": "uk",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0152",
+    "region": "nordics",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0153",
+    "region": "iberia",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0154",
+    "region": "dach",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0155",
+    "region": "benelux",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0156",
+    "region": "uk",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0157",
+    "region": "nordics",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0158",
+    "region": "iberia",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0159",
+    "region": "dach",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0160",
+    "region": "benelux",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0161",
+    "region": "uk",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0162",
+    "region": "nordics",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0163",
+    "region": "iberia",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0164",
+    "region": "dach",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0165",
+    "region": "benelux",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0166",
+    "region": "uk",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0167",
+    "region": "nordics",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0168",
+    "region": "iberia",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0169",
+    "region": "dach",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0170",
+    "region": "benelux",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0171",
+    "region": "uk",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0172",
+    "region": "nordics",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0173",
+    "region": "iberia",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0174",
+    "region": "dach",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0175",
+    "region": "benelux",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0176",
+    "region": "uk",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0177",
+    "region": "nordics",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0178",
+    "region": "iberia",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0179",
+    "region": "dach",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0180",
+    "region": "benelux",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0181",
+    "region": "uk",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0182",
+    "region": "nordics",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0183",
+    "region": "iberia",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0184",
+    "region": "dach",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0185",
+    "region": "benelux",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0186",
+    "region": "uk",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0187",
+    "region": "nordics",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0188",
+    "region": "iberia",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0189",
+    "region": "dach",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0190",
+    "region": "benelux",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0191",
+    "region": "uk",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0192",
+    "region": "nordics",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0193",
+    "region": "iberia",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0194",
+    "region": "dach",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0195",
+    "region": "benelux",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0196",
+    "region": "uk",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0197",
+    "region": "nordics",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0198",
+    "region": "iberia",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0199",
+    "region": "dach",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0200",
+    "region": "benelux",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0201",
+    "region": "uk",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0202",
+    "region": "nordics",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0203",
+    "region": "iberia",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0204",
+    "region": "dach",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0205",
+    "region": "benelux",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0206",
+    "region": "uk",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0207",
+    "region": "nordics",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0208",
+    "region": "iberia",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0209",
+    "region": "dach",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0210",
+    "region": "benelux",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0211",
+    "region": "uk",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0212",
+    "region": "nordics",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0213",
+    "region": "iberia",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0214",
+    "region": "dach",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0215",
+    "region": "benelux",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0216",
+    "region": "uk",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0217",
+    "region": "nordics",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0218",
+    "region": "iberia",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0219",
+    "region": "dach",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0220",
+    "region": "benelux",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0221",
+    "region": "uk",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0222",
+    "region": "nordics",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0223",
+    "region": "iberia",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0224",
+    "region": "dach",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0225",
+    "region": "benelux",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0226",
+    "region": "uk",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0227",
+    "region": "nordics",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0228",
+    "region": "iberia",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0229",
+    "region": "dach",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0230",
+    "region": "benelux",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0231",
+    "region": "uk",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0232",
+    "region": "nordics",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0233",
+    "region": "iberia",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0234",
+    "region": "dach",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0235",
+    "region": "benelux",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0236",
+    "region": "uk",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0237",
+    "region": "nordics",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0238",
+    "region": "iberia",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0239",
+    "region": "dach",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0240",
+    "region": "benelux",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0241",
+    "region": "uk",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0242",
+    "region": "nordics",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0243",
+    "region": "iberia",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0244",
+    "region": "dach",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0245",
+    "region": "benelux",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0246",
+    "region": "uk",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0247",
+    "region": "nordics",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0248",
+    "region": "iberia",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0249",
+    "region": "dach",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0250",
+    "region": "benelux",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0251",
+    "region": "uk",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0252",
+    "region": "nordics",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0253",
+    "region": "iberia",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0254",
+    "region": "dach",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0255",
+    "region": "benelux",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0256",
+    "region": "uk",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0257",
+    "region": "nordics",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0258",
+    "region": "iberia",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0259",
+    "region": "dach",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0260",
+    "region": "benelux",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0261",
+    "region": "uk",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0262",
+    "region": "nordics",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0263",
+    "region": "iberia",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0264",
+    "region": "dach",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0265",
+    "region": "benelux",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0266",
+    "region": "uk",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0267",
+    "region": "nordics",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0268",
+    "region": "iberia",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0269",
+    "region": "dach",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0270",
+    "region": "benelux",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0271",
+    "region": "uk",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0272",
+    "region": "nordics",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0273",
+    "region": "iberia",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0274",
+    "region": "dach",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0275",
+    "region": "benelux",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0276",
+    "region": "uk",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0277",
+    "region": "nordics",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0278",
+    "region": "iberia",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0279",
+    "region": "dach",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0280",
+    "region": "benelux",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0281",
+    "region": "uk",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0282",
+    "region": "nordics",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0283",
+    "region": "iberia",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0284",
+    "region": "dach",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0285",
+    "region": "benelux",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0286",
+    "region": "uk",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0287",
+    "region": "nordics",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0288",
+    "region": "iberia",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0289",
+    "region": "dach",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0290",
+    "region": "benelux",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0291",
+    "region": "uk",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0292",
+    "region": "nordics",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0293",
+    "region": "iberia",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0294",
+    "region": "dach",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0295",
+    "region": "benelux",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0296",
+    "region": "uk",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0297",
+    "region": "nordics",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0298",
+    "region": "iberia",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0299",
+    "region": "dach",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0300",
+    "region": "benelux",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0301",
+    "region": "uk",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0302",
+    "region": "nordics",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0303",
+    "region": "iberia",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0304",
+    "region": "dach",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0305",
+    "region": "benelux",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0306",
+    "region": "uk",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0307",
+    "region": "nordics",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0308",
+    "region": "iberia",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0309",
+    "region": "dach",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0310",
+    "region": "benelux",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0311",
+    "region": "uk",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0312",
+    "region": "nordics",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0313",
+    "region": "iberia",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0314",
+    "region": "dach",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0315",
+    "region": "benelux",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0316",
+    "region": "uk",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0317",
+    "region": "nordics",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0318",
+    "region": "iberia",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0319",
+    "region": "dach",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0320",
+    "region": "benelux",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0321",
+    "region": "uk",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0322",
+    "region": "nordics",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0323",
+    "region": "iberia",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0324",
+    "region": "dach",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0325",
+    "region": "benelux",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0326",
+    "region": "uk",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0327",
+    "region": "nordics",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0328",
+    "region": "iberia",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0329",
+    "region": "dach",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0330",
+    "region": "benelux",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0331",
+    "region": "uk",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0332",
+    "region": "nordics",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0333",
+    "region": "iberia",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0334",
+    "region": "dach",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0335",
+    "region": "benelux",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0336",
+    "region": "uk",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0337",
+    "region": "nordics",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0338",
+    "region": "iberia",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0339",
+    "region": "dach",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0340",
+    "region": "benelux",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0341",
+    "region": "uk",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0342",
+    "region": "nordics",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0343",
+    "region": "iberia",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0344",
+    "region": "dach",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0345",
+    "region": "benelux",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0346",
+    "region": "uk",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0347",
+    "region": "nordics",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0348",
+    "region": "iberia",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0349",
+    "region": "dach",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0350",
+    "region": "benelux",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0351",
+    "region": "uk",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0352",
+    "region": "nordics",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0353",
+    "region": "iberia",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0354",
+    "region": "dach",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0355",
+    "region": "benelux",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0356",
+    "region": "uk",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0357",
+    "region": "nordics",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0358",
+    "region": "iberia",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0359",
+    "region": "dach",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0360",
+    "region": "benelux",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0361",
+    "region": "uk",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0362",
+    "region": "nordics",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0363",
+    "region": "iberia",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0364",
+    "region": "dach",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0365",
+    "region": "benelux",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0366",
+    "region": "uk",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0367",
+    "region": "nordics",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0368",
+    "region": "iberia",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0369",
+    "region": "dach",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0370",
+    "region": "benelux",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0371",
+    "region": "uk",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0372",
+    "region": "nordics",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0373",
+    "region": "iberia",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0374",
+    "region": "dach",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0375",
+    "region": "benelux",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0376",
+    "region": "uk",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0377",
+    "region": "nordics",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0378",
+    "region": "iberia",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0379",
+    "region": "dach",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0380",
+    "region": "benelux",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0381",
+    "region": "uk",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0382",
+    "region": "nordics",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0383",
+    "region": "iberia",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0384",
+    "region": "dach",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0385",
+    "region": "benelux",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0386",
+    "region": "uk",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0387",
+    "region": "nordics",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0388",
+    "region": "iberia",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0389",
+    "region": "dach",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0390",
+    "region": "benelux",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0391",
+    "region": "uk",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0392",
+    "region": "nordics",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0393",
+    "region": "iberia",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0394",
+    "region": "dach",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0395",
+    "region": "benelux",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0396",
+    "region": "uk",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0397",
+    "region": "nordics",
+    "cohort": "beta_wave_1"
+  },
+  {
+    "device_id": "KL-0398",
+    "region": "iberia",
+    "cohort": "beta_wave_2"
+  },
+  {
+    "device_id": "KL-0399",
+    "region": "dach",
+    "cohort": "internal_dogfood"
+  },
+  {
+    "device_id": "KL-0400",
+    "region": "benelux",
+    "cohort": "beta_wave_1"
+  }
+]

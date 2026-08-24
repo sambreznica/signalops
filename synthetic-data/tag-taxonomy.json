@@ -1,0 +1,62 @@
+[
+  {
+    "tag": "claims-interpretation",
+    "consequence_class": "REGULATORY",
+    "weight": 2
+  },
+  {
+    "tag": "data-privacy",
+    "consequence_class": "REGULATORY",
+    "weight": 2
+  },
+  {
+    "tag": "adhesion",
+    "consequence_class": "SAFETY_ADJACENT",
+    "weight": 1.5
+  },
+  {
+    "tag": "skin-irritation",
+    "consequence_class": "SAFETY_ADJACENT",
+    "weight": 1.5
+  },
+  {
+    "tag": "overheating",
+    "consequence_class": "SAFETY_ADJACENT",
+    "weight": 1.5
+  },
+  {
+    "tag": "connectivity",
+    "consequence_class": "FUNCTIONAL",
+    "weight": 1
+  },
+  {
+    "tag": "battery",
+    "consequence_class": "FUNCTIONAL",
+    "weight": 1
+  },
+  {
+    "tag": "app-sync",
+    "consequence_class": "FUNCTIONAL",
+    "weight": 1
+  },
+  {
+    "tag": "data-accuracy",
+    "consequence_class": "FUNCTIONAL",
+    "weight": 1
+  },
+  {
+    "tag": "packaging",
+    "consequence_class": "COSMETIC",
+    "weight": 0.5
+  },
+  {
+    "tag": "app-ui",
+    "consequence_class": "COSMETIC",
+    "weight": 0.5
+  },
+  {
+    "tag": "comfort-fit",
+    "consequence_class": "COSMETIC",
+    "weight": 0.5
+  }
+]

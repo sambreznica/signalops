@@ -68,3 +68,21 @@ Zod validates shape. The eval harness validates that each `Provenance` resolves,
 - **No regex on free-text** in the schema. EVAL-02 vs EVAL-04b (version strings vs bare numerals) is the harness’s problem.
 - **Empty `alternative_hypotheses` is valid.** `INCONCLUSIVE` must be representable. EVAL-05a asserts on completed runs only.
 - **No hypothesis ids.** Leading vs alternative asymmetry is kept. EVAL-05b is a disjunction; status and band are already unambiguous.
+
+---
+
+## 2026-08-24 — PRD §13 fixture packaging (session one, item 2)
+
+PRD §13 listed `ground_truth_cluster` on every feedback record. That puts signal identity in a field the rest of the record shape shares with agent-readable data — a strip miss would leak the answer.
+
+**Amendment.** No ground-truth keys on feedback, telemetry, or device records. Membership, `is_real`, `authorial_severity`, and `claims_risk` live only in `synthetic-data/signals.json`. The harness reads that sidecar; the agent never receives the file. `strip()` still removes a closed key list if present, so a future leak fails the strip test rather than becoming prompt context.
+
+`authorial_severity` for SIG-003 is `null` with `claims_risk: true`. Claims risk is not a severity band. SIG-003 cluster size is a plausible high-teens for a 400-device beta, not 11 (that figure was prose illustration) and not inflated past 25 to dodge FR-042.
+
+The twelve-tag → consequence-class table is committed at `synthetic-data/tag-taxonomy.json`. Tags name subject matter; they are not ground truth. SIG-001 carries only FUNCTIONAL tags by design — it must earn HIGH from magnitude and delta, not from `consequence_weight`.
+
+Windows are pinned: current `[2026-05-04, 2026-05-17]`, prior `[2026-04-20, 2026-05-03]`, no rows on `SYNTHETIC_TODAY`. Panel: 400 devices × 6 dates = 2400, at least one date per window. Resolver cell (firmware 1.4.1 AND app 3.2) ≥ 30 devices.
+
+EVAL-01 is not a data-tuning target. If `severity_index` undershoots HIGH on this plausible fleet, the formula is wrong and item 4 fixes it.
+
+No knowledge documents in this step. RATE_FLOOR and significance wait for item 3. Baseline difficulty waits for item 13.
