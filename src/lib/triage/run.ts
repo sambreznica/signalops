@@ -1,4 +1,5 @@
 import { compareRates, rateInWindow, trendDirection } from "../analytics";
+import { isCountMetric } from "../analytics/rows";
 import type { DateWindow, TrendDirection } from "../analytics/types";
 import type { FirmwareVersion, SupportTag } from "../fixtures/constants";
 import type {
@@ -177,7 +178,9 @@ function discoverTags(input: TriageInput, fleet_size: number): TriageCandidate[]
           rate_window: windowRate.rate.value,
           rate_prior: priorRate.rate.value,
           rate_unit: windowRate.rate.unit,
-          prior_events: priorRate.event_total,
+          prior_events: isCountMetric(metric)
+            ? priorRate.event_total
+            : priorRate.device_days,
           ratio_ci_low: comparison.ratio_ci_low,
           ratio_ci_high: comparison.ratio_ci_high,
           ci_excludes_one: comparison.ci_excludes_one,
