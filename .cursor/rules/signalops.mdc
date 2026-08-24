@@ -1,0 +1,9 @@
+---
+description: SignalOps implementation constraints
+alwaysApply: true
+---
+Read AGENTS.md and PRD.md before any implementation work.
+
+PRD P0 is authoritative. Do not implement P1/P2 without explicit instruction.
+Do not add dependencies. Do not create new product surfaces.
+Frozen manifest: 5 tools, 4 screens, 10 evals, 6 knowledge documents.
