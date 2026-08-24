@@ -4,8 +4,8 @@
   "terminals": [
     {
       "name": "dev",
-      "command": "npm run dev",
-      "description": "Next.js dev server on http://localhost:3000"
+      "command": "env -u CURSOR_AGENT -u CURSOR_TRACE_ID -u CURSOR_EXTENSION_HOST_ROLE -u AI_AGENT npm run dev",
+      "description": "Next.js dev server on http://localhost:3000. Agent-detection env vars are unset so `next dev` does not auto-inject its managed block into the frozen AGENTS.md."
     }
   ],
   "ports": [
