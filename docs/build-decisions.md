@@ -150,3 +150,17 @@ Six internal documents in `knowledge/`. Chunker in `src/lib/retrieval` (section 
 **KD-04 fixture basis (EVAL-10).** `synthetic-data/telemetry.json` has no ambient temperature. KI-NW-014 uses checkable `battery_drain_pct`: Nordics current mean 17.3 % vs UK 13.0 % (+4.3 pp, ~1.33×; generator +4.5). Prior-window Nordics 17.6 % (current/prior ~0.98). `skin_temp_delta_c` is a patch-site delta (Nordics 1.35 °C vs UK 1.31 °C; corr with drain −0.04) and is not the explanation. Near-neighbour: Iberia `session_gap_minutes` ~130 vs ~36. Adhesion (KI-AD-007) stays open.
 
 **Chunk count (not padded).** 136 total: KD-01 33, KD-02 23, KD-03 17, KD-04 21, KD-05 22, KD-06 20. ~150 in the PRD is a size check, not a target. Discrimination comes from near-neighbour sections (1.4.1 BLE idle-skip vs 1.4.2 supervisor; companion 3.2 as a sibling; other regional KIs), not filler.
+
+---
+
+## 2026-08-24 — Eval harness (session one, item 6)
+
+Ten structural assertions in `evals/`. No investigation artefacts yet. First `npm run eval` is expected **1 pass / 9 fail**, overall **FAIL** because EVAL-10 is blocking.
+
+**Artefact.** `runs/<run_id>.json` is a `CertificationRun`: investigations keyed by triage `candidate_id` (never `SIG-00x`), post-critic `output`, optional `pre_critic`, `approvals`, `execution_log`. The harness maps sidecar ids via `unionCoverageMatch`. Session two writes these; this step does not stub them.
+
+**EVAL-07.** Directed phrases only, on system voice (`summary`, hypothesis statements, `uncertainty[]`, action descriptions). No quote exemption. Evidence claims may hold KD-05 policy text. `diagnosis` is not banned.
+
+**EVAL-04c.** Causal verbs only on correlational hypothesis statements. Noun “cause” in KD-06 is not a hit.
+
+**Baseline.** `npm run baseline` scores EVAL-01, 02, 03, 06, 07, 10 only and prints that scope. EVAL-01 uses live triage (the assertion has no investigation-shaped equivalent). EVAL-04/05/08/09 are not scored.
