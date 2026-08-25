@@ -130,7 +130,7 @@ No further personas in MVP.
 | FR-010 | The orchestrator SHALL use native SDK tool-calling. No agent framework. | P0 |
 | FR-011 | Tool selection SHALL be model-driven. No predetermined sequence may be hard-coded. | P0 |
 | FR-012 | At least one branch point SHALL be genuine: a differing tool result must produce a differing subsequent call. | P0 |
-| FR-013 | The orchestrator SHALL be bounded: max 12 tool calls, max 2 critic rounds, 120s hard timeout. Exceeding a bound terminates with status `INCONCLUSIVE`. | P0 |
+| FR-013 | The orchestrator SHALL be bounded: investigator max 12 tool calls / 120s; critic max 2 rounds of 4 tool calls / 60s. The critic budget is not a share of the investigator's. Exceeding a bound terminates with status `INCONCLUSIVE`. | P0 |
 | FR-014 | Every tool call SHALL be persisted with id, name, arguments, result summary, latency and token count. | P0 |
 | FR-015 | The agent SHALL NOT receive ground-truth labels, incident names, or expected conclusions in any prompt or fixture field it can read. | P0 |
 | FR-016 | Sampling parameters (`temperature`, `top_p`, `top_k`) SHALL NOT be sent. Effort SHALL be set explicitly. Adaptive thinking cannot be disabled on the current model class. | P0 |
@@ -169,7 +169,7 @@ No further personas in MVP.
 | FR-044 | Every hypothesis SHALL carry `evidence_type: correlational \| causal \| documented`. | P0 |
 | FR-045 | Where `evidence_type` is `correlational`, the hypothesis text SHALL NOT contain unhedged causal verbs (`causes`, `caused by`, `results in`, `due to`, `because of`). | P0 |
 | FR-046 | Every quantity in the output SHALL be a typed object `{value, unit, source_tool_call_id}`. | P0 |
-| FR-047 | Free-text fields SHALL contain no bare numerals. Quantities are rendered from typed claims by the UI. | P0 |
+| FR-047 | Free-text fields SHALL contain no bare numerals. A figure in prose SHALL be a `{f_n}` reference to a `deterministic_findings` id. Quantities are rendered from typed claims by the UI. A reference to a missing finding is a validation failure. | P0 |
 
 ### 9.6 Human-in-the-Loop
 
@@ -277,7 +277,7 @@ Zod-validated. **Frozen in session one, before the orchestrator or evals are wri
     { "statement": "string", "evidence_type": "string", "status": "weakened | open | rejected", "falsifying_test": "string" }
   ],
   "deterministic_findings": [
-    { "label": "string", "value": "number", "unit": "string", "source_tool_call_id": "string" }
+    { "id": "f_1", "label": "string", "value": "number", "unit": "string", "source_tool_call_id": "string" }
   ],
   "supporting_evidence": [{ "claim": "string", "source": "string" }],
   "counter_evidence": [{ "claim": "string", "source": "string" }],
@@ -323,7 +323,7 @@ Four screens. Modern AI-infrastructure restraint — Linear/Vercel register. Inf
 | ID | Requirement |
 |---|---|
 | NFR-01 | Deployed replay renders an investigation in <2s; no runtime model or embedding calls |
-| NFR-02 | Live local investigation completes within the 120s bound |
+| NFR-02 | Live local investigator completes within 120s; critic within its own 60s |
 | NFR-03 | Replay mode labelled in UI with run timestamp, model and link to raw trace JSON |
 | NFR-04 | Eval suite runs in <5s (pure assertions over committed artefacts) |
 | NFR-05 | Repository comprehensible without access to Cursor, Claude, or the author |

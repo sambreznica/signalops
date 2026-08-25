@@ -1,18 +1,23 @@
 import type { InvestigationOutput, ToolName, TraceEvent } from "../schema";
 import {
+  claimDisciplineErrors,
   investigationOutputSchema,
   toolNameSchema,
   type ConfidenceBand,
 } from "../schema";
 import type { TriageCandidate } from "../triage/types";
+import { factsFromToolResults, type RecordedToolCall } from "./bound-record";
 import type { ToolCache } from "./cache";
 import { citeableCallIds, INVESTIGATOR_SYSTEM_PROMPT } from "./prompt";
 import { invoke, summarise } from "./tools/invoke";
 import type { ToolRuntime } from "./tools/types";
 
 export const MAX_TOOL_CALLS = 12;
-export const MAX_CRITIC_ROUNDS = 2;
 export const TIMEOUT_MS = 120_000;
+export const MAX_CRITIC_ROUNDS = 2;
+/** Critic budget is not a share of the investigator's. */
+export const MAX_CRITIC_TOOL_CALLS = 4;
+export const CRITIC_TIMEOUT_MS = 60_000;
 
 export type ContentBlock =
   | { type: "text"; text: string }
@@ -177,9 +182,11 @@ function provenanceErrors(
 function inconclusive(
   candidate: TriageCandidate,
   trace: TraceEvent[],
+  recorded: readonly RecordedToolCall[],
   uncertainty: string,
   requested: ConfidenceBand = "LOW",
 ): InvestigationOutput {
+  const facts = factsFromToolResults(recorded);
   return investigationOutputSchema.parse({
     investigation_id: `inv_${candidate.id}`,
     signal_id: candidate.id,
@@ -198,10 +205,10 @@ function inconclusive(
       evidence_type: "correlational",
     },
     alternative_hypotheses: [],
-    deterministic_findings: [],
+    deterministic_findings: facts.deterministic_findings,
     supporting_evidence: [],
     counter_evidence: [],
-    knowledge_sources: [],
+    knowledge_sources: facts.knowledge_sources,
     recommended_actions: [],
     uncertainty: [uncertainty],
     trace,
@@ -230,6 +237,7 @@ export async function investigate(
 
   const messages: ModelMessage[] = [{ role: "user", content: deps.userMessage }];
   const trace: Extract<TraceEvent, { kind: "tool_call" }>[] = [];
+  const recorded: RecordedToolCall[] = [];
   let seq = 1;
   let tokens = 0;
   let repairUsed = false;
@@ -249,7 +257,7 @@ export async function investigate(
   });
 
   const boundInconclusive = (reason: string) =>
-    finish(inconclusive(candidate, trace, reason));
+    finish(inconclusive(candidate, trace, recorded, reason));
 
   try {
     while (true) {
@@ -330,6 +338,12 @@ export async function investigate(
               latency_ms: 0,
               tokens: 0,
             });
+            recorded.push({
+              call_id,
+              tool,
+              arguments: asArgRecord(use.input),
+              result: cached,
+            });
             results.push({
               type: "tool_result",
               tool_use_id: use.id,
@@ -348,6 +362,12 @@ export async function investigate(
           trace.push({
             ...outcome.event,
             result_summary: noteOnSummary(said, outcome.event.result_summary),
+          });
+          recorded.push({
+            call_id,
+            tool,
+            arguments: asArgRecord(use.input),
+            result: outcome.result,
           });
           results.push({
             type: "tool_result",
@@ -370,6 +390,10 @@ export async function investigate(
         const orphans = provenanceErrors(stamped, candidate, chunkIds);
         if (orphans.length > 0) {
           return { ok: false, error: orphans.join("\n") };
+        }
+        const discipline = claimDisciplineErrors(stamped);
+        if (discipline.length > 0) {
+          return { ok: false, error: discipline.join("\n") };
         }
         return { ok: true, output: stamped };
       };

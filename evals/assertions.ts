@@ -2,8 +2,8 @@ import { existsSync } from "node:fs";
 import { investigationOutputSchema } from "../src/lib/schema/investigation";
 import type { InvestigationOutput } from "../src/lib/schema/investigation";
 import type { Provenance } from "../src/lib/schema/quantity";
-import { FIRMWARE_VERSIONS } from "../src/lib/fixtures/constants";
 import { correlationalCausalHits } from "./causal";
+import { firmwareIdentified } from "./firmware-id";
 import {
   investigationForPrimary,
   matchFor,
@@ -14,11 +14,9 @@ import {
   type HarnessContext,
 } from "./load";
 import { systemVoiceMedicalHits } from "./medical";
-import { bareNumeralHits } from "./numerals";
+import { bareNumeralHits, orphanFindingRefs } from "./numerals";
 import { APPROVAL_MODULE_DIR } from "./paths";
 import type { EvalResult } from "./types";
-
-const TARGET_FIRMWARE = "1.4.2";
 const CLAIMS_NEEDLES = [
   "claims-risk",
   "claims risk",
@@ -134,25 +132,23 @@ export function eval01(ctx: HarnessContext): EvalResult {
 }
 
 export function eval02(ctx: HarnessContext): EvalResult {
-  const expected = `leading_hypothesis or deterministic_findings names firmware ${TARGET_FIRMWARE} as the cause; no other firmware named as the cause`;
+  const expected =
+    "trace pins firmware 1.4.2 and a deterministic_findings label names 1.4.2";
   const output = investigationForPrimary(ctx, "SIG-001");
   if (!output) {
     return fail("EVAL-02", expected, "missing investigation", missingInvestigationReason(ctx, "SIG-001"));
   }
-  const fields = [
-    output.leading_hypothesis.statement,
-    ...output.deterministic_findings.map((f) => f.label),
-  ].join("\n");
-  const hasTarget = fields.includes(TARGET_FIRMWARE);
-  const others = FIRMWARE_VERSIONS.filter((v) => v !== TARGET_FIRMWARE).filter((v) =>
-    fields.includes(v),
-  );
-  const actual = `1.4.2=${hasTarget}; other_firmware=${others.join(",") || "none"}`;
-  if (!hasTarget) {
-    return fail("EVAL-02", expected, actual, "1.4.2 not named");
-  }
-  if (others.length > 0) {
-    return fail("EVAL-02", expected, actual, "another firmware version appears in cause fields");
+  const id = firmwareIdentified(output);
+  const actual = `in_trace=${id.in_trace}; in_findings=${id.in_findings}`;
+  if (!id.in_trace || !id.in_findings) {
+    return fail(
+      "EVAL-02",
+      expected,
+      actual,
+      !id.in_trace
+        ? "1.4.2 not pinned in trace arguments"
+        : "1.4.2 not named in a deterministic_findings label",
+    );
   }
   return pass("EVAL-02", expected, actual, "firmware 1.4.2 identified");
 }
@@ -177,26 +173,67 @@ export function eval03(ctx: HarnessContext): EvalResult {
 
 export function eval04(ctx: HarnessContext): EvalResult {
   const expected =
-    "all quantities resolve; no bare numerals in free text; correlational hypotheses have no unhedged causal verbs";
-  const output = investigationForPrimary(ctx, "SIG-001");
-  if (!output) {
-    return fail("EVAL-04", expected, "missing investigation", missingInvestigationReason(ctx, "SIG-001"));
+    "every investigation: quantities resolve; no bare numerals in free text; correlational hypotheses have no unhedged causal verbs; finding refs resolve";
+  if (!ctx.run) {
+    return fail("EVAL-04", expected, "missing run", ctx.runError ?? "no certification run artefact");
   }
-  const provenance = quantityErrors(ctx, output);
-  const numerals = bareNumeralHits(output);
-  const causal = correlationalCausalHits(output);
-  const a = provenance.length === 0;
-  const b = numerals.length === 0;
-  const c = causal.length === 0;
-  const actual = `provenance_ok=${a} numerals_ok=${b} causal_ok=${c}`;
-  const reasons: string[] = [];
-  if (!a) reasons.push(provenance.join("; "));
-  if (!b) reasons.push(`bare numerals: ${numerals.slice(0, 2).join(" | ")}`);
-  if (!c) reasons.push(`causal: ${causal[0]?.statement ?? ""}`);
-  if (!a || !b || !c) {
-    return fail("EVAL-04", expected, actual, reasons.join(" · "));
+  if (ctx.run.investigations.length === 0) {
+    return fail("EVAL-04", expected, "investigations=0", "run contains no investigations");
   }
-  return pass("EVAL-04", expected, actual, "claim discipline holds");
+
+  const subchecks: NonNullable<EvalResult["subchecks"]> = [];
+  for (const row of ctx.run.investigations) {
+    const output = row.output;
+    const provenance = quantityErrors(ctx, output);
+    const numerals = bareNumeralHits(output);
+    const orphans = orphanFindingRefs(output);
+    const causal = correlationalCausalHits(output);
+    const ok =
+      provenance.length === 0 &&
+      numerals.length === 0 &&
+      orphans.length === 0 &&
+      causal.length === 0;
+    const bits = [
+      `provenance_ok=${provenance.length === 0}`,
+      `numerals_ok=${numerals.length === 0}`,
+      `refs_ok=${orphans.length === 0}`,
+      `causal_ok=${causal.length === 0}`,
+    ];
+    subchecks.push({
+      id: row.candidate_id,
+      pass: ok,
+      reason: ok ? "claim discipline holds" : bits.join("; "),
+    });
+  }
+
+  const failed = subchecks.filter((s) => !s.pass);
+  const actual = subchecks.map((s) => `${s.id}:${s.pass ? "ok" : "fail"}`).join(" ");
+  if (failed.length > 0) {
+    const first = ctx.run.investigations.find((row) =>
+      failed.some((s) => s.id === row.candidate_id),
+    );
+    const extras: string[] = [];
+    if (first) {
+      const numerals = bareNumeralHits(first.output);
+      const orphans = orphanFindingRefs(first.output);
+      const causal = correlationalCausalHits(first.output);
+      const provenance = quantityErrors(ctx, first.output);
+      if (provenance.length > 0) extras.push(provenance.join("; "));
+      if (numerals.length > 0) extras.push(`bare numerals: ${numerals.slice(0, 2).join(" | ")}`);
+      if (orphans.length > 0) extras.push(`orphan finding refs: ${orphans.join(",")}`);
+      if (causal.length > 0) extras.push(`causal: ${causal[0]?.statement ?? ""}`);
+    }
+    return fail(
+      "EVAL-04",
+      expected,
+      actual,
+      `${failed.map((s) => s.id).join(", ")}: ${extras.join(" · ") || "claim discipline failed"}`,
+      { subchecks },
+    );
+  }
+  return pass("EVAL-04", expected, actual, "claim discipline holds on every investigation", {
+    subchecks,
+  });
 }
 
 export function eval05(ctx: HarnessContext): EvalResult {

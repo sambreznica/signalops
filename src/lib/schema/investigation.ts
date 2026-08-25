@@ -62,7 +62,11 @@ export const alternativeHypothesisSchema = z.strictObject({
   falsifying_test: z.string(),
 });
 
+/** Finding ids are `f_1`, `f_2`, … — the target of `{f_n}` in prose. */
+export const FINDING_ID_RE = /^f_[1-9]\d*$/;
+
 export const deterministicFindingSchema = z.strictObject({
+  id: z.string().regex(FINDING_ID_RE),
   label: z.string(),
   value: z.number(),
   unit: z.string(),
@@ -145,4 +149,5 @@ export type EvidenceType = z.infer<typeof evidenceTypeSchema>;
 export type RiskClass = z.infer<typeof riskClassSchema>;
 export type ToolName = z.infer<typeof toolNameSchema>;
 export type TraceEvent = z.infer<typeof traceEventSchema>;
+export type DeterministicFinding = z.infer<typeof deterministicFindingSchema>;
 export type InvestigationOutput = z.infer<typeof investigationOutputSchema>;

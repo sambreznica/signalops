@@ -36,6 +36,7 @@ function validInvestigation(
     alternative_hypotheses: [],
     deterministic_findings: [
       {
+        id: "f_1",
         label: "disconnect rate window",
         value: 12.5,
         unit: "per_thousand_device_days",
@@ -133,6 +134,16 @@ describe("investigation output schema freeze", () => {
     });
     expect(parsed.confidence.granted).toBeNull();
     expect(parsed.confidence.model_requested).toBe("HIGH");
+  });
+
+  it("rejects a finding without an id", () => {
+    const parsed = validInvestigation();
+    const { id: _id, ...rest } = parsed.deterministic_findings[0]!;
+    const result = investigationOutputSchema.safeParse({
+      ...parsed,
+      deterministic_findings: [rest],
+    });
+    expect(result.success).toBe(false);
   });
 
   it("rejects numeric confidence", () => {

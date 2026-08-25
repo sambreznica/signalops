@@ -34,7 +34,7 @@ Violating any of these breaks the project's core argument. They are not preferen
 
 2. **Signal Triage contains zero model calls.** If a model call appears anywhere in the triage path, the architecture is broken.
 
-3. **Typed numeric claims.** Every quantity in output is `{value, unit, source_tool_call_id}`. Free-text fields contain no bare numerals. The UI renders numbers from typed claims.
+3. **Typed numeric claims.** Every quantity in output is `{value, unit, source}`. Free-text fields contain no bare numerals; figures appear only as `{f_n}` references to `deterministic_findings`. The UI renders numbers from typed claims.
 
 4. **Confidence is banded and code-capped.** `LOW | MEDIUM | HIGH`. The model proposes; code enforces the ceiling. Numeric confidence is prohibited anywhere in the codebase.
 
@@ -91,7 +91,7 @@ Run relevant tests after every material change.
 
 ## Bounds
 
-Max 12 tool calls per investigation. Max 2 critic rounds. 120s hard timeout. Exceeding a bound terminates with status `INCONCLUSIVE` — it does not retry indefinitely.
+Investigator: max 12 tool calls, 120s hard timeout. Critic: max 2 rounds, 4 tool calls, 60s — its own budget, not a share of the investigator's. Exceeding a bound terminates with status `INCONCLUSIVE` — it does not retry indefinitely.
 
 Sampling parameters (`temperature`, `top_p`, `top_k`) are not sent. Claude Sonnet 5 / Opus 5 reject them. Adaptive thinking is always on. Effort is set explicitly (`medium` for the investigator). Run-to-run variation exists and is not eliminated by any parameter we set.
 

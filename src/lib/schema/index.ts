@@ -6,6 +6,17 @@ export {
 } from "./quantity";
 
 export {
+  bareNumeralHits,
+  claimDisciplineErrors,
+  FINDING_REF_RE,
+  freeTextFields,
+  hasBareNumeral,
+  orphanFindingRefs,
+  renderFindingRefs,
+  stripIdentifiers,
+} from "./prose";
+
+export {
   actorSchema,
   alternativeHypothesisSchema,
   alternativeHypothesisStatusSchema,
@@ -25,6 +36,7 @@ export {
   traceEventSchema,
   type CeilingRule,
   type ConfidenceBand,
+  type DeterministicFinding,
   type EvidenceType,
   type InvestigationOutput,
   type RiskClass,

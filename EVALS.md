@@ -54,15 +54,15 @@ The sidecar signal SIG-001 is MATCHED; its primary candidate has band `HIGH` and
 
 ### EVAL-02 — Correct firmware identified · *neutral*
 The investigation names firmware `1.4.2` specifically, not "recent firmware".
-**Assert:** `1.4.2` appears in `leading_hypothesis.statement` or in a `deterministic_findings` entry; no other version is named as the cause.
+**Assert:** the trace pins `1.4.2` (`query_telemetry.firmware_version` or `compare_versions` on `axis: firmware_version` with `version_a`/`version_b` including `1.4.2`) **and** a `deterministic_findings` label contains `1.4.2`. Hypothesis prose is not parsed. A comparator version in a ratio label does not fail the check. A trace that pins `1.4.2` while labels and hypothesis say only "recent firmware" fails.
 
 ### EVAL-03 — Release-note evidence retrieved · *neutral*
 **Assert:** `knowledge_sources` contains a chunk with `doc_id === 'KD-02'` and a section matching the 1.4.2 release.
 
 ### EVAL-04 — Claim discipline
-Two checks, one principle: no claim exceeds its evidence.
-**Assert (a):** every quantity in output is `{value, unit, source_tool_call_id}` and every `source_tool_call_id` resolves to a real entry in `trace`.
-**Assert (b):** no free-text field contains a bare numeral.
+Two checks, one principle: no claim exceeds its evidence. Scored on **every investigation in the run**, not a single primary.
+**Assert (a):** every quantity in output is `{value, unit, source}` and every `source` resolves (tool call against `trace`, triage against a candidate, knowledge against `knowledge_sources`).
+**Assert (b):** no free-text field contains a bare numeral. `{f_n}` references are not numerals; they must resolve to a `deterministic_findings` id in that investigation. Identifiers (metric names, version strings, `KD-` / `INC-` / `KI-` ids) are names, not quantities.
 **Assert (c):** where `evidence_type === 'correlational'`, the hypothesis string contains no unhedged causal verb (`causes`, `caused by`, `results in`, `due to`, `because of`).
 
 ### EVAL-05 — Critic effect

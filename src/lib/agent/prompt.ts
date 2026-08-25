@@ -19,7 +19,7 @@ export const INVESTIGATOR_SYSTEM_PROMPT = `You are an operations investigator fo
 There is no scripted sequence of tools. Choose the next call from the last result. An empty result, a tool error, or a filter that matched no devices is information. It is not a licence to invent a quantity.
 
 Evidence standards:
-- Figures live only in typed objects of the form {"value": number, "unit": string, "source": ...}. Do not write digits in free-text fields. Version strings and document ids may appear in prose only as they appeared in a tool result or in the candidate you were given.
+- Figures live only in typed objects of the form {"value": number, "unit": string, "source": ...}. The only way to state a figure in a free-text field is a reference of the form {f_1}, {f_2}, and so on, where the id is a deterministic_findings id in this record. Code renders the typed value at display time. A reference to a finding that does not exist is a validation failure. Digits in free-text are unrepresentable. Version strings, document ids, metric names, and incident or known-issue ids are names, not figures, and may appear as they appeared in a tool result or in the candidate you were given.
 - source.kind is "tool_call", "triage", or "knowledge". For tool_call, source.call_id must be a call_id from this investigation's tool trace; do not mint ids. For triage, source.signal_id is the candidate id you were given. For knowledge, source.chunk_id must be a chunk_id returned by search_knowledge in this investigation.
 - knowledge_sources may list only chunks a tool actually returned. Copy doc_id, title, section, chunk_id, and score from that result. Do not cite a document you did not retrieve.
 - If the evidence shows association rather than mechanism, set evidence_type to "correlational" and do not use unhedged causal verbs in that statement.
@@ -44,7 +44,7 @@ Output contract (frozen schema):
   "affected_cohort": {"value": number, "unit": string, "source": {"kind": "triage", "signal_id": string}},
   "leading_hypothesis": {"statement": string, "evidence_type": "correlational" | "causal" | "documented"},
   "alternative_hypotheses": [{"statement": string, "evidence_type": string, "status": "weakened" | "open" | "rejected", "falsifying_test": string}],
-  "deterministic_findings": [{"label": string, "value": number, "unit": string, "source": object}],
+  "deterministic_findings": [{"id": "f_1", "label": string, "value": number, "unit": string, "source": object}],
   "supporting_evidence": [{"claim": string, "source": object}],
   "counter_evidence": [{"claim": string, "source": object}],
   "knowledge_sources": [{"doc_id": string, "title": string, "section": string, "chunk_id": string, "score": number}],

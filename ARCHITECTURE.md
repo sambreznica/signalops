@@ -33,7 +33,7 @@ Everything in this system sits on one side of a line.
                     └──────────────────────────────────┘
 ```
 
-The model never computes a number that appears in output. It requests numbers through tools and cites the call that produced them. This is enforced structurally — see §5 — not asked for in a prompt.
+The model never computes a number that appears in output. It requests numbers through tools, cites the call that produced them, and in prose refers to them as `{f_n}` — never as a literal. This is enforced structurally — see §5 — not asked for in a prompt.
 
 ---
 
@@ -163,7 +163,7 @@ Two consequences fall out of this:
 1. A number can only exist if a tool produced it. There is nowhere for a model-invented figure to live.
 2. EVAL-04 becomes a mechanical check — walk the output, resolve every `source_tool_call_id` against the trace, fail on any orphan.
 
-Free-text fields are scanned for bare numerals and fail on match. The UI renders numbers from typed claims, so prose and figures cannot drift apart.
+Free-text fields are scanned for bare numerals and fail on match. Figures in narrative are `{f_n}` references to `deterministic_findings` ids; code substitutes the typed `{value, unit}` at display time. A reference to a missing finding is a validation failure (repair, then `INCONCLUSIVE`) — the same mechanism as an orphan `call_id`. A digit in the system's prose is unrepresentable, not discouraged. Identifiers — metric names, version strings, `KD-` / `INC-` / `KI-` ids — are names, not quantities.
 
 The same principle extends to causal language. Each hypothesis carries `evidence_type: correlational | causal | documented`. Where it is `correlational`, the ceiling caps confidence at MEDIUM *and* the hypothesis string is checked against unhedged causal verbs. Bounding the confidence band without bounding the prose would leave the loophole open.
 
@@ -183,7 +183,9 @@ In replay mode no embedding runs at request time — retrieval results are read 
 
 ## 7. Investigator
 
-A bounded tool-calling loop over the five tools. Bounds: 12 tool calls, 2 critic rounds, 120s. Exceeding any bound terminates with `INCONCLUSIVE` — it does not retry indefinitely, and a bounded failure is a legitimate answer.
+A bounded tool-calling loop over the five tools. Investigator bounds: 12 tool calls, 120s. Critic bounds are separate (see §8). Exceeding a bound terminates with `INCONCLUSIVE` — it does not retry indefinitely, and a bounded failure is a legitimate answer.
+
+`INCONCLUSIVE` means no conclusion inside the budget, not that no evidence was gathered. A bound stop templates the interpretive fields (status, leading hypothesis, confidence, recommended actions, an uncertainty entry naming the bound) and **keeps** `deterministic_findings` and `knowledge_sources` projected from in-memory tool JSON: labels from arguments (metric, window, versions), values from quantities the tool already stamped. Digit-free `result_summary` cannot reconstruct a rate; the model is not asked to label findings on this path. Empty supporting/counter-evidence and an empty hypothesis are honest about missing synthesis.
 
 Adaptivity is only real if a different result produces a different next call. The seeded data contains a genuine branch point: firmware 1.4.2 and app 3.2 shipped in the same window, so isolating firmware requires noticing the confound and testing it. Devices on firmware 1.4.1 with app 3.2 show baseline disconnect rates — the confound resolves against evidence, not assertion. A trace that runs the same sequence regardless of results has failed FR-012 whether or not the evals pass.
 
@@ -195,7 +197,7 @@ Sampling is not controllable on Claude Sonnet 5 / Opus 5: `temperature` and othe
 
 Separate context. Does not receive the investigator's proposed confidence band — knowing the investigator was confident is precisely the anchor that turns a critic into an agreement machine.
 
-Its objective is falsification, never review. Its prompt contains no evaluative framing. It must produce at least one alternative hypothesis and at least one **named falsifying test**: a specific observation that would disprove the leading hypothesis. It may call tools to run that test.
+Its objective is falsification, never review. Its prompt contains no evaluative framing. It must produce at least one alternative hypothesis and at least one **named falsifying test**: a specific observation that would disprove the leading hypothesis. It may call tools to run that test, under its own budget: 4 tool calls and 60s, not a share of the investigator's 12 / 120s. A shared ceiling lets a slow investigator starve the critic, which is how a falsification pass degrades into a rubber stamp.
 
 It may downgrade status, downgrade confidence, or reorder hypotheses, and its effect is recorded in the trace.
 
@@ -279,4 +281,5 @@ Stated plainly, because a prototype that claims no limitations is not credible.
 - **Four scenarios is a small eval set.** Enough to catch gross failure, not enough for calibration.
 - **`n=3` observes variance; it does not prove determinism.** Sampling is not controllable on this model and adaptive thinking is always on. Three committed runs show how much the structural assertions move, not that the model is pinned.
 - **The severity formula is a defensible guess.** It has not been validated against outcomes, because there are no outcomes. It is documented so it can be argued with.
+- **The investigator's call bound is binding, not merely protective.** The first live run of `cnd_fw_1_4_2` exhausted 12 calls with a measurement-definition alternative still open, so the bound shaped the conclusion. That is honest and stays; a real operations tool has a budget too. About 8–9 of the 12 were load-bearing (ratio, hold-filters, empty-window findings, confound check, retrieval); the rest were slack, not unused slots. Raising the investigator cap would only postpone the same trade-off. The critic therefore has its own 4 calls / 60s rather than competing for leftovers.
 - **Retrieval quality is untested in isolation.** EVAL-03 and EVAL-09 test whether the right passage reached the conclusion, not precision and recall across the corpus.

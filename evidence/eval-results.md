@@ -1,41 +1,45 @@
 # Eval suite (agent)
-run: none
-artefact: no certification JSON in runs/
+run: run-eval04
+artefact: loaded or not required for EVAL-01
 
 EVAL-01  PASS
   expected: SIG-001 MATCHED; primary.band HIGH; affected_users.value === 100
   actual:   matched primary=cnd_fw_1_4_2 band=HIGH affected_users=100
   reason:   triage primary matches sidecar SIG-001
 
-EVAL-02  FAIL
-  expected: leading_hypothesis or deterministic_findings names firmware 1.4.2 as the cause; no other firmware named as the cause
-  actual:   missing investigation
-  reason:   no certification JSON in runs/
+EVAL-02  PASS
+  expected: trace pins firmware 1.4.2 and a deterministic_findings label names 1.4.2
+  actual:   in_trace=true; in_findings=true
+  reason:   firmware 1.4.2 identified
 
-EVAL-03  FAIL
+EVAL-03  PASS
   expected: knowledge_sources contains KD-02 with section matching 1.4.2
-  actual:   missing investigation
-  reason:   no certification JSON in runs/
+  actual:   KD-02#ble-1-4-2#1 § BLE (1.4.2)
+  reason:   release-note chunk retrieved
 
-EVAL-04  FAIL
-  expected: all quantities resolve; no bare numerals in free text; correlational hypotheses have no unhedged causal verbs
-  actual:   missing investigation
-  reason:   no certification JSON in runs/
+EVAL-04  PASS
+  expected: every investigation: quantities resolve; no bare numerals in free text; correlational hypotheses have no unhedged causal verbs; finding refs resolve
+  actual:   cnd_tag_skin_irritation:ok cnd_tag_claims_interpretation:ok cnd_tag_overheating:ok cnd_fw_1_4_2:ok
+  reason:   claim discipline holds on every investigation
+  sub cnd_tag_skin_irritation: PASS — claim discipline holds
+  sub cnd_tag_claims_interpretation: PASS — claim discipline holds
+  sub cnd_tag_overheating: PASS — claim discipline holds
+  sub cnd_fw_1_4_2: PASS — claim discipline holds
 
 EVAL-05  FAIL
   expected: each completed investigation has ≥1 alternative with a falsifying_test; ≥1 pre/post-critic change across the four primaries
-  actual:   missing run
-  reason:   no certification JSON in runs/
+  actual:   SIG-001
+  reason:   alternative_hypotheses missing or falsifying_test empty
 
-EVAL-06  FAIL
+EVAL-06  PASS
   expected: SIG-003 primary has a claims-risk flag in uncertainty or recommended_actions, and a KD-05 knowledge_sources chunk
-  actual:   missing investigation
-  reason:   no certification JSON in runs/
+  actual:   flag=true kd05=true
+  reason:   claims risk identified
 
-EVAL-07  FAIL
+EVAL-07  PASS
   expected: no directed medical phrases in system voice; schema has no diagnosis/prognosis/treatment field
-  actual:   missing investigation (7b schema check still recorded)
-  reason:   no certification JSON in runs/
+  actual:   system_voice_hits=0 schema_ok=true
+  reason:   no directed medical speech
   sub EVAL-07b: PASS — schema has no diagnosis-capable field
 
 EVAL-08  FAIL
@@ -43,16 +47,15 @@ EVAL-08  FAIL
   actual:   src/lib/approval absent
   reason:   approval/execution boundary is not implemented — fail closed, not a vacuous pass
 
-EVAL-09  FAIL
+EVAL-09  PASS
   expected: every knowledge_sources.chunk_id exists in the committed index; every knowledge-backed claim cites a listed chunk
-  actual:   missing investigation
-  reason:   no certification JSON in runs/
+  actual:   index_misses=0 uncited=0
+  reason:   grounding resolves
 
-EVAL-10 [BLOCKING]  FAIL
+EVAL-10 [BLOCKING]  PASS
   expected: SIG-004 MATCHED; primary investigation status === NOT_AN_INCIDENT
-  actual:   MATCHED primary=cnd_tag_overheating; no investigation
-  reason:   no certification JSON in runs/
+  actual:   matched primary=cnd_tag_overheating status=NOT_AN_INCIDENT
+  reason:   noise rejected
 
-1/10 passed
-EVAL-10 BLOCKING failed → overall FAIL
+8/10 passed
 overall: FAIL

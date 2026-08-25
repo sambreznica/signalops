@@ -240,7 +240,7 @@ Triage under EVALS.md, before touching the assertion or the prompt.
 **Reasoning, argued against.** A reasoning failure would be: naming 1.4.1 as a co-cause, or never identifying 1.4.2 in tools/findings and writing "recent firmware". This output does neither. The alternative that *was* weakened is app 3.2, not 1.4.1-as-cause.
 **Class: eval failure.** EVALS.md EVAL-02 is "names 1.4.2 specifically, not recent firmware" and "no other version named as the cause". The implementation is `fields.includes(v)` over hypothesis statement plus finding labels. That cannot distinguish comparator from cause, so a correct ratio write fails.
 
-Proposed fix (not applied in this commit): assert identification on `deterministic_findings` and the trace — `1.4.2` appears as `firmware_version` or as a `compare_versions` side — and drop the "no other version substring" scan of the hypothesis string. That tests what EVAL-02 was for without becoming a prose-style check.
+**Fix applied.** Pass iff (1) the trace pins `1.4.2` via `query_telemetry.firmware_version` or `compare_versions` on `axis: firmware_version`, and (2) a `deterministic_findings` label contains `1.4.2`. Hypothesis prose is not parsed; a comparator version in a ratio label does not fail. Fixture: a trace that pins `1.4.2` while labels and hypothesis say only "recent firmware" must fail — if it passes, the assertion was relaxed rather than corrected.
 
 ---
 
@@ -250,4 +250,52 @@ The investigator used all 12 and still left a measurement-definition alternative
 
 Per-call: 1 (ble ratio) and 2 (session_gap) are load-bearing; they were cache hits from aborted turns but would still occupy slots cold. 4 and 10 returned empty and are still load-bearing (`empty_reason` is the finding: no 1.4.2 in prior; no 3.1 on 1.4.2). 6 (similar incidents), 7 (knowledge), 9 (app breakdown on 1.4.2), 11 (firmware breakdown held at app 3.2) are load-bearing. 3 is redundant with 5 (only 5 is cited). 8 (region) is optional. 12 repeats KD-02 after 7 already returned `BLE (1.4.2)`. About 8–9 genuine, 3 slack, **zero unused slots**. A cold run of this sequence is still 12 calls; the cache does not create headroom.
 
-Do not raise the investigator cap. A bound that never binds is not a bound. Item 10's critic has **no remaining tool-call slots** under a shared 12, and ~25s of the 120s wall left after 95s. Two critic rounds with tools would not fit. Restructure: keep investigator 12; give the critic its own call budget (about 4) rather than sharing 12; give the wall-clock a critic allowance or raise the shared wall (180s is the honest alternative to pretending 25s is enough). Raising investigator to 16 would add ~4 rounds at this run's ~8s / ~8k tokens each — about +32s / +31k — and would blow 120s before the critic starts.
+Do not raise the investigator cap. A bound that never binds is not a bound. Investigator stays 12 / 120s. Critic gets its own 4 calls / 60s, recorded in `MAX_CRITIC_TOOL_CALLS` / `CRITIC_TIMEOUT_MS`. A shared ceiling lets a slow investigator starve the critic. Raising investigator to 16 would add ~4 rounds at this run's ~8s / ~8k tokens each — about +32s / +31k — and would blow 120s before the critic starts. ARCHITECTURE.md §13 records that the bound is binding.
+
+---
+
+## 2026-08-25 — EVAL-04 class (four-primary run-dev)
+
+Triage under EVALS.md, before changing the assertion, the prompt, or re-running `cnd_fw_1_4_2`.
+
+EVAL-04b fails on SIG-001's primary. Question was stale artefact (pre-`summarise()` digits in `trace[].result_summary`) vs live claim-discipline (model free text).
+
+**Not stale.** Zero hits in `result_summary` on any of the four investigations. `summarise()` is doing its job on this artefact.
+
+**Not retrieval / not analytics.** Provenance resolves; EVAL-04c (causal verbs) is clean.
+
+**Not eval-over-tight as the suite failure.** Some hits are metric names (`ble_disconnects_24h` → remaining `24`) or incident/KI ids the stripper does not allow (`INC-…`, `KI-…`). Those would still be a harness conversation. They are not why the summary fails: the model restated rates, timeouts, percents, and cohort size in prose.
+
+**Class: reasoning / claim-discipline (live).** Invariant 3. The prompt already forbids digits in free-text; the model wrote them anyway, on all four primaries. EVAL-04 only scores SIG-001, so the other three were never asserted — they did not "pass EVAL-04". Re-running firmware will not fix the system.
+
+Code-composed `summary` was rejected: it inverts ARCHITECTURE §1 (synthesis is the model's job). The applied resolution is the next two entries, recorded separately so identifier over-tightness is not collapsed into the live defect.
+
+---
+
+## 2026-08-25 — EVAL-04 live claim-discipline defect (resolved structurally)
+
+The contract asked for prose about quantities and forbade digits in that prose. Asking more firmly leaves the conflict in place.
+
+**Resolution.** The model writes narrative containing `{f_n}` references, never literals. `deterministic_findings` carry `id` (`f_1`, `f_2`, …). Code renders `{value, unit}` from the matching finding at display time (`renderFindingRefs`). A reference to a missing finding is a validation failure — repair, then `INCONCLUSIVE` — the same mechanism as an orphan `call_id`. Bare numerals in free text are the same class of failure. A digit in the system's prose is unrepresentable.
+
+EVAL-04 now scores **every investigation in the run**, not only SIG-001. Three violating artefacts went unscored under the old scope.
+
+Schema: additive `id` on `deterministic_findings`. Not a new tool, screen, eval, or dependency.
+
+---
+
+## 2026-08-25 — EVAL-04b identifier grammar (eval over-tightness)
+
+Distinct from the live defect. `ble_disconnects_24h`, `INC-2025-002`, `KI-NW-014`, `KD-02`, and `1.4.2` are names. The stripper already exempted versions and KD-ids; it treated metric names and incident/issue ids as numerals (`24` in `ble_disconnects_24h`, `2025` in `INC-…`).
+
+**Class: eval failure (over-tight).** Widened to a defined identifier grammar. Tests pin that the widening does not admit a bare figure (`12`, `6.8x`, `100%`, `4s`, `22`, `ratio near 1`).
+
+---
+
+## 2026-08-25 — Bound wipe discarded real evidence
+
+`INCONCLUSIVE` on the 120s bound replaced the whole output. The firmware cold run had compared 1.4.1 vs 1.4.2 (`interval_excludes_one`) and retrieved KD-02; the artefact's `deterministic_findings` and `knowledge_sources` were empty. That inverts the item-9 rule that the trace cannot tidy away what happened.
+
+**Fix.** Bound stop templates synthesis only (status, hypothesis, confidence, actions, bound uncertainty). Findings and knowledge_sources are projected from in-memory `ToolResult` objects the loop already held. Labels come from arguments; values from stamped quantities. Digit-free `result_summary` cannot reconstruct a rate — if we only had the persisted trace we could not do this. `find_similar_incidents` is left out of findings (no incident measurement); retrieval facts come from `search_knowledge` chunks only.
+
+Wall-clock now binds before call count on a cold firmware run (9 calls / 120s). Tool `latency_ms` summed to 267ms; first MiniLM call 245ms, subsequent 10ms and 4ms. ~99.8% of the 120s is API/thinking. Bound not raised until that is the intended constraint rather than a measurement error.
