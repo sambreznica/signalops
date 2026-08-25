@@ -8,6 +8,8 @@ Evaluation is P0. This document is written **before** the agent exists, so the a
 
 **No LLM judge.** All ten assertions are structural. Non-determinism in the measurement layer makes a failing eval ambiguous between a real regression and judge variance, and an eval you have to interpret is not an eval.
 
+**Structural, not exact-match.** The assertions check presence, provenance, status, and named identifiers — not that two runs produced the same wording or the same tool order. They tolerate variation in prose and call sequence. That is load-bearing: sampling is not controllable on Claude Sonnet 5 / Opus 5, adaptive thinking is always on, and no parameter we set eliminates run-to-run variation.
+
 **Ground truth never reaches the agent.** Expected answers live in fixture fields that are stripped before any prompt is constructed. The harness reads them; the agent cannot.
 
 **Results are never hand-edited.** Every committed artefact comes from an actual run. A fabricated green tick is worse than a red one.
@@ -23,7 +25,7 @@ npm run eval          # full suite against committed run artefacts
 npm run baseline      # single-call control, neutral subset only
 ```
 
-Tool results are cached by argument hash during development. Iterate at `n=1`; certify at `n=3`. All three runs are committed.
+Tool results are cached by argument hash during development. Iterate at `n=1`; certify at `n=3`. All three runs are committed. `n=3` exists to observe variance, not to prove determinism — that is now the only defensible reading.
 
 ---
 
@@ -123,7 +125,7 @@ Changing the prompt is the last resort, not the first. Record the diagnosis in `
 Each certification run writes to `evidence/eval-results.md` and `runs/`:
 
 ```
-run_id · timestamp · model · temperature · n
+run_id · timestamp · model · effort · n
 per-eval: id · expected · actual · pass/fail
 per-scenario: tool calls · tokens · wall-clock
 baseline: neutral-subset score

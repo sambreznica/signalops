@@ -18,7 +18,7 @@ export const certificationRunSchema = z.strictObject({
   run_id: z.string(),
   timestamp: z.string(),
   model: z.string(),
-  temperature: z.literal(0),
+  effort: z.enum(["low", "medium", "high", "xhigh", "max"]),
   n: z.union([z.literal(1), z.literal(3)]),
   kind: z.enum(["agent", "baseline"]),
   investigations: z.array(investigationRecordSchema),

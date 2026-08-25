@@ -206,3 +206,48 @@ Bounded native-SDK loop in `src/lib/agent/investigator.ts`. CLI: `npm run invest
 **EVAL-10.** Not prompt-fitted. A first real `UNCERTAIN` on the SIG-004 primary is diagnosed under EVALS.md (retrieval / reasoning / eval) before anything is changed.
 
 **Eval.** Item 9 makes EVAL-02, 03, 04, 06, 07, 09 reachable once the right primaries are in the newest run. EVAL-05 stays red (no critic). EVAL-08 stays red (no approval). EVAL-10 likely still red (blocking) until a real `NOT_AN_INCIDENT`. Overall FAIL until then. No fabricated run is committed.
+
+---
+
+## 2026-08-25 — Sampling is not controllable (first live call)
+
+First `npm run investigate -- --candidate cnd_fw_1_4_2 --run-id run-dev` failed before any tool ran:
+
+```
+400 {"type":"error","error":{"type":"invalid_request_error","message":"`temperature` is deprecated for this model."},"request_id":"req_011CePKZ7JzAPpKpswvNS9Ey"}
+```
+
+Model was `claude-sonnet-5`. Anthropic rejects non-default sampling parameters on Sonnet 5 / Opus 5. Adaptive thinking is always on. The API default for `effort` is `high`.
+
+**Fix.** Do not send `temperature`, `top_p`, or `top_k`. Set `output_config.effort` explicitly to `medium`. CertificationRun records `effort` instead of `temperature: 0`. AGENTS.md, ARCHITECTURE.md §7, PRD FR-016 / §23, and EVALS.md no longer claim temperature 0.
+
+**Why medium.** The loop is capped at 12 tool calls and 120s. `high` / `xhigh` / `max` spend thinking tokens and extra tool calls that compete with that budget. `low` would skim. Docs describe `medium` as the cost-saving step-down for agentic work that still needs a branch (hold-filters, knowledge retrieval). Expected effect versus the API default: fewer thinking tokens per turn, somewhat fewer tool calls, lower cost and wall-clock, more likely to finish inside the bound; some reduction in reasoning depth. Versus `low`: enough depth to actually compare versions and retrieve KD-02.
+
+The 400 that followed, after temperature was removed — `messages: text content blocks must be non-empty` — was the mapper turning adaptive-thinking blocks into empty `text` blocks. Thinking and redacted-thinking blocks are now passed through unchanged (the API requires them on subsequent turns when tools are used). Empty text is dropped, not forwarded.
+
+**What did not change.** Fixtures, analytics, triage, and retrieval over the committed index remain deterministic. The model was always the only source of non-determinism. This changes how much of it there is, not where it lives. The ten evals are structural, not exact-match; `n=3` observes that variance rather than proving it away.
+
+---
+
+## 2026-08-25 — EVAL-02 class (first live artefact, not yet changed)
+
+Triage under EVALS.md, before touching the assertion or the prompt.
+
+`runs/run-dev.json` on `cnd_fw_1_4_2`: leading hypothesis names 1.4.2 as the subject and 1.4.1 as the comparator of a rate ratio (`relative to 1.4.1`). Trace `tc_1` is `compare_versions` firmware 1.4.1 vs 1.4.2, CI excluding one. Findings labels include both versions because a ratio has two sides.
+
+**Not retrieval.** KD-02 `BLE (1.4.2)` is in `knowledge_sources`.
+**Not analytics.** The 1.4.2 vs 1.4.1 disconnect ratio is the fixture-backed comparison unit tests already pin.
+**Reasoning, argued against.** A reasoning failure would be: naming 1.4.1 as a co-cause, or never identifying 1.4.2 in tools/findings and writing "recent firmware". This output does neither. The alternative that *was* weakened is app 3.2, not 1.4.1-as-cause.
+**Class: eval failure.** EVALS.md EVAL-02 is "names 1.4.2 specifically, not recent firmware" and "no other version named as the cause". The implementation is `fields.includes(v)` over hypothesis statement plus finding labels. That cannot distinguish comparator from cause, so a correct ratio write fails.
+
+Proposed fix (not applied in this commit): assert identification on `deterministic_findings` and the trace — `1.4.2` appears as `firmware_version` or as a `compare_versions` side — and drop the "no other version substring" scan of the hypothesis string. That tests what EVAL-02 was for without becoming a prose-style check.
+
+---
+
+## 2026-08-25 — Twelve-call cap on the first live run
+
+The investigator used all 12 and still left a measurement-definition alternative open. The cap shaped the stop, not only runaway.
+
+Per-call: 1 (ble ratio) and 2 (session_gap) are load-bearing; they were cache hits from aborted turns but would still occupy slots cold. 4 and 10 returned empty and are still load-bearing (`empty_reason` is the finding: no 1.4.2 in prior; no 3.1 on 1.4.2). 6 (similar incidents), 7 (knowledge), 9 (app breakdown on 1.4.2), 11 (firmware breakdown held at app 3.2) are load-bearing. 3 is redundant with 5 (only 5 is cited). 8 (region) is optional. 12 repeats KD-02 after 7 already returned `BLE (1.4.2)`. About 8–9 genuine, 3 slack, **zero unused slots**. A cold run of this sequence is still 12 calls; the cache does not create headroom.
+
+Do not raise the investigator cap. A bound that never binds is not a bound. Item 10's critic has **no remaining tool-call slots** under a shared 12, and ~25s of the 120s wall left after 95s. Two critic rounds with tools would not fit. Restructure: keep investigator 12; give the critic its own call budget (about 4) rather than sharing 12; give the wall-clock a critic allowance or raise the shared wall (180s is the honest alternative to pretending 25s is enough). Raising investigator to 16 would add ~4 rounds at this run's ~8s / ~8k tokens each — about +32s / +31k — and would blow 120s before the critic starts.

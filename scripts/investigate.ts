@@ -17,6 +17,7 @@ import {
 import { buildUserMessage } from "../src/lib/agent/prompt";
 import { TOOL_DEFINITIONS } from "../src/lib/agent/tools/definitions";
 import { loadStaticRuntime } from "../src/lib/agent/tools/runtime";
+import { INVESTIGATOR_EFFORT, investigatorOutputConfig } from "../src/lib/agent/sampling";
 import {
   CURRENT_WINDOW_END,
   CURRENT_WINDOW_START,
@@ -46,28 +47,42 @@ function wrapClient(client: Anthropic, model: string): ModelClient {
         {
           model,
           max_tokens: 8192,
-          temperature: 0,
           system,
           tools: TOOL_DEFINITIONS,
           tool_choice: { type: toolChoice },
           messages: messages as Anthropic.MessageParam[],
-        },
+          output_config: investigatorOutputConfig(),
+        } as Anthropic.MessageCreateParamsNonStreaming,
         { signal },
       );
       return {
-        content: response.content.map((block) => {
+        content: response.content.flatMap((block) => {
           if (block.type === "tool_use") {
-            return {
-              type: "tool_use" as const,
-              id: block.id,
-              name: block.name,
-              input: block.input,
-            };
+            return [
+              {
+                type: "tool_use" as const,
+                id: block.id,
+                name: block.name,
+                input: block.input,
+              },
+            ];
           }
-          if (block.type === "text") {
-            return { type: "text" as const, text: block.text };
+          if (block.type === "text" && block.text.trim().length > 0) {
+            return [{ type: "text" as const, text: block.text }];
           }
-          return { type: "text" as const, text: "" };
+          if (block.type === "thinking") {
+            return [
+              {
+                type: "thinking" as const,
+                thinking: block.thinking,
+                signature: block.signature,
+              },
+            ];
+          }
+          if (block.type === "redacted_thinking") {
+            return [{ type: "redacted_thinking" as const, data: block.data }];
+          }
+          return [];
         }),
         usage: {
           input_tokens: response.usage.input_tokens,
@@ -95,13 +110,18 @@ function loadOrCreateRun(
         `runs/${runId}.json was produced by ${parsed.data.model}; refusing to mix with ${model}`,
       );
     }
+    if (parsed.data.effort !== INVESTIGATOR_EFFORT) {
+      throw new Error(
+        `runs/${runId}.json was produced at effort ${parsed.data.effort}; refusing to mix with ${INVESTIGATOR_EFFORT}`,
+      );
+    }
     return parsed.data;
   }
   return {
     run_id: runId,
     timestamp: new Date().toISOString(),
     model,
-    temperature: 0,
+    effort: INVESTIGATOR_EFFORT,
     n: 1,
     kind: "agent",
     investigations: [],

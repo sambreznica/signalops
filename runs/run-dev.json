@@ -1,0 +1,442 @@
+{
+  "run_id": "run-dev",
+  "timestamp": "2026-08-25T10:42:56.674Z",
+  "model": "claude-sonnet-5",
+  "effort": "medium",
+  "n": 1,
+  "kind": "agent",
+  "investigations": [
+    {
+      "candidate_id": "cnd_fw_1_4_2",
+      "output": {
+        "investigation_id": "inv_cnd_fw_1_4_2",
+        "signal_id": "cnd_fw_1_4_2",
+        "title": "Elevated ble_disconnects_24h rate on firmware 1.4.2",
+        "status": "UNCERTAIN",
+        "severity": {
+          "value": 1,
+          "unit": "index",
+          "source": {
+            "kind": "triage",
+            "signal_id": "cnd_fw_1_4_2"
+          }
+        },
+        "confidence": {
+          "granted": null,
+          "model_requested": "MEDIUM",
+          "ceiling_rule_applied": null
+        },
+        "summary": "Devices on firmware 1.4.2 show a roughly 6.8x higher ble_disconnects_24h rate than 1.4.1 in the current window (10.53 vs 1.54 disconnects/device-day), with the rate-ratio CI excluding one, matching the triage candidate. This holds even when app version is held fixed at 3.2 for both firmware groups, so the effect is not explained by the app-version confound that initially looked plausible given 100% of 1.4.2 devices also run app 3.2. Release notes show 1.4.2 shortened the BLE supervision timeout from 4s to 2s and moved retry backoff to a tighter exponential cap, intended for faster drop detection — a change that mechanically increases counted disconnect events. Session_gap_minutes, a proxy for user-facing connectivity loss, shows no significant difference between 1.4.1 and 1.4.2 (ratio near 1, CI not excluding one), and zero support tickets tagged connectivity/battery/app-sync matched in the current window. This pattern is consistent with either (a) a genuine increase in connection instability on 1.4.2, or (b) a measurement-definition shift where the same underlying radio behavior is now logged as more, shorter disconnects without a corresponding increase in user-visible session gaps. A structurally similar historical incident (1.3.0 disconnect cluster) was initially attributed to a firmware radio change and later found to be a phone-OS-side issue, so a firmware-first read here should be held cautiously pending further characterization.",
+        "affected_cohort": {
+          "value": 100,
+          "unit": "users",
+          "source": {
+            "kind": "triage",
+            "signal_id": "cnd_fw_1_4_2"
+          }
+        },
+        "leading_hypothesis": {
+          "statement": "Firmware 1.4.2's revised BLE connection-supervisor timing (4s->2s supervision timeout, shorter exponential retry backoff) is associated with a large increase in counted ble_disconnects_24h events relative to 1.4.1, an association that persists after controlling for app version.",
+          "evidence_type": "correlational"
+        },
+        "alternative_hypotheses": [
+          {
+            "statement": "App 3.2's rewritten background-sync scheduler, not the firmware change, drives the higher disconnect count, since all 1.4.2 devices in this window also run app 3.2.",
+            "evidence_type": "correlational",
+            "status": "weakened",
+            "falsifying_test": "Compare ble_disconnects_24h between 1.4.1 and 1.4.2 while holding app_version at 3.2 for both groups; this was already done (rate 1.54 vs 10.53), and the gap persisted, weakening but not fully eliminating a residual app interaction."
+          },
+          {
+            "statement": "The 1.4.2 change to a 2s supervision timeout is a measurement/definition shift that logs more, shorter disconnect events without a corresponding increase in user-visible session interruption.",
+            "evidence_type": "correlational",
+            "status": "open",
+            "falsifying_test": "If session_gap_minutes and reconnection-latency telemetry remain unchanged between 1.4.1 and 1.4.2 while support tickets stay flat, that would support the artifact explanation; a rise in either would argue against it. Current session_gap_minutes comparison shows no significant difference, but outdoor/body-block/commuting RF conditions were not re-characterized in the soak lab per release notes, leaving this open."
+          }
+        ],
+        "deterministic_findings": [
+          {
+            "label": "ble_disconnects_24h rate, firmware 1.4.1 vs 1.4.2 (current window)",
+            "value": 6.83,
+            "unit": "rate_ratio_1.4.2_over_1.4.1",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_1"
+            }
+          },
+          {
+            "label": "ble_disconnects_24h rate 1.4.1 (current window)",
+            "value": 1.5416666666666667,
+            "unit": "disconnects_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_1"
+            }
+          },
+          {
+            "label": "ble_disconnects_24h rate 1.4.2 (current window)",
+            "value": 10.53,
+            "unit": "disconnects_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_1"
+            }
+          },
+          {
+            "label": "ble_disconnects_24h, app version held at 3.2: 1.4.1 rate",
+            "value": 1.5416666666666667,
+            "unit": "disconnects_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_11"
+            }
+          },
+          {
+            "label": "ble_disconnects_24h, app version held at 3.2: 1.4.2 rate",
+            "value": 10.53,
+            "unit": "disconnects_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_11"
+            }
+          },
+          {
+            "label": "session_gap_minutes rate ratio, 1.4.1 vs 1.4.2 (current window)",
+            "value": 0.8703678012085337,
+            "unit": "ratio",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_2"
+            }
+          },
+          {
+            "label": "Support tickets matching connectivity tag, firmware 1.4.2, current window",
+            "value": 0,
+            "unit": "records",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_5"
+            }
+          },
+          {
+            "label": "ble_disconnects_24h rate by region, benelux (1.4.2, current window)",
+            "value": 10.266666666666667,
+            "unit": "disconnects_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_8"
+            }
+          },
+          {
+            "label": "ble_disconnects_24h rate by region, dach (1.4.2, current window)",
+            "value": 10.76923076923077,
+            "unit": "disconnects_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_8"
+            }
+          }
+        ],
+        "supporting_evidence": [
+          {
+            "claim": "The 1.4.1-vs-1.4.2 disconnect rate ratio's confidence interval excludes one, matching the triage candidate's ci_excludes_one flag.",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_1"
+            }
+          },
+          {
+            "claim": "The elevated disconnect rate on 1.4.2 persists when app version is held constant at 3.2, weakening a pure app-confound explanation.",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_11"
+            }
+          },
+          {
+            "claim": "The disconnect rate elevation is broadly uniform across regions (roughly 10.0-10.8 disconnects/device-day), consistent with a firmware-wide rather than regional-RF-specific effect.",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_8"
+            }
+          },
+          {
+            "claim": "Firmware 1.4.2 release notes document a supervision-timeout reduction from 4s to 2s and a tighter exponential retry backoff, explicitly intended for faster drop detection, which provides a documented mechanism that could increase counted disconnect events.",
+            "source": {
+              "kind": "knowledge",
+              "chunk_id": "KD-02#ble-1-4-2#1"
+            }
+          }
+        ],
+        "counter_evidence": [
+          {
+            "claim": "session_gap_minutes, a proxy for user-facing connectivity interruption, shows no significant difference between 1.4.1 and 1.4.2 (ratio near 1, confidence interval not excluding one).",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_2"
+            }
+          },
+          {
+            "claim": "No support tickets tagged connectivity, battery, or app-sync matched in the current window for firmware 1.4.2, despite the large telemetry-side increase.",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_5"
+            }
+          },
+          {
+            "claim": "1.4.2's own release notes state that soak-lab testing (indoor office RF) showed link-loss counts in the same band as 1.4.1, and that outdoor, body-block, and commuting RF were not re-characterized for this train, so field conditions rather than the firmware change itself may explain the field-observed rise.",
+            "source": {
+              "kind": "knowledge",
+              "chunk_id": "KD-02#ble-1-4-2#1"
+            }
+          },
+          {
+            "claim": "A structurally similar historical firmware disconnect cluster (1.3.0) was initially attributed to the firmware's interval change but was later found to be caused by a phone OS Bluetooth stack on a beta channel, illustrating that a firmware radio note co-occurring with a disconnect rise is not proof of firmware causation.",
+            "source": {
+              "kind": "knowledge",
+              "chunk_id": "KD-06#close#1"
+            }
+          }
+        ],
+        "knowledge_sources": [
+          {
+            "doc_id": "KD-02",
+            "title": "Firmware and Companion Release Notes",
+            "section": "BLE (1.4.2)",
+            "chunk_id": "KD-02#ble-1-4-2#1",
+            "score": 0.4569902433901403
+          },
+          {
+            "doc_id": "KD-02",
+            "title": "Firmware and Companion Release Notes",
+            "section": "BLE (1.4.1)",
+            "chunk_id": "KD-02#ble-1-4-1#1",
+            "score": 0.6656341871019621
+          },
+          {
+            "doc_id": "KD-06",
+            "title": "Historical Incident Log — Kestrel Loop",
+            "section": "Close",
+            "chunk_id": "KD-06#close#1",
+            "score": 0.5899169720079448
+          },
+          {
+            "doc_id": "KD-02",
+            "title": "Firmware and Companion Release Notes",
+            "section": "Background sync (3.2)",
+            "chunk_id": "KD-02#background-sync-3-2#1",
+            "score": 0.4770175209444876
+          }
+        ],
+        "recommended_actions": [
+          {
+            "action_id": "act_1",
+            "description": "Re-characterize 1.4.2 BLE link-loss behavior in outdoor, body-block, and commuting RF conditions (not covered by the original indoor soak lab) to determine whether the field disconnect rise reflects real conditions the lab did not test.",
+            "risk_class": "INTERNAL"
+          },
+          {
+            "action_id": "act_2",
+            "description": "Obtain or instrument per-event disconnect duration/reconnection-latency data to test whether the 2s-vs-4s supervision timeout change is primarily reclassifying brief link hiccups as full disconnects, versus producing genuinely longer or more frequent connection loss.",
+            "risk_class": "INTERNAL"
+          },
+          {
+            "action_id": "act_3",
+            "description": "Monitor support ticket volume for connectivity/battery tags on 1.4.2 devices over the next reporting window before deciding on any firmware rollback or hotfix, since current ticket volume is flat despite the telemetry signal.",
+            "risk_class": "INTERNAL"
+          }
+        ],
+        "uncertainty": [
+          "Whether the 1.4.2 supervision-timeout change causes genuinely more connection instability or merely counts pre-existing brief radio drops as distinct disconnect events is not resolved by the available metrics.",
+          "No phone-OS or device-model breakdown is available to rule out a phone-side contribution analogous to the prior 1.3.0 incident.",
+          "Support-ticket volume is a lagging and possibly low-sensitivity indicator for this kind of background radio metric, so its current absence does not conclusively rule out user impact.",
+          "Cohort size in this window (100 devices on 1.4.2) is a beta-scale population; broader-fleet behavior at general availability is unverified."
+        ],
+        "trace": [
+          {
+            "kind": "tool_call",
+            "call_id": "tc_1",
+            "actor": "investigator",
+            "tool": "compare_versions",
+            "arguments": {
+              "metric": "ble_disconnects_24h",
+              "window": "current",
+              "axis": "firmware_version",
+              "version_a": "1.4.1",
+              "version_b": "1.4.2"
+            },
+            "result_summary": "interval_excludes_one cache_hit",
+            "latency_ms": 0,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_2",
+            "actor": "investigator",
+            "tool": "compare_versions",
+            "arguments": {
+              "metric": "session_gap_minutes",
+              "window": "current",
+              "axis": "firmware_version",
+              "version_a": "1.4.1",
+              "version_b": "1.4.2"
+            },
+            "result_summary": "interval_includes_one cache_hit",
+            "latency_ms": 0,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_3",
+            "actor": "investigator",
+            "tool": "search_feedback",
+            "arguments": {
+              "query": "firmware 1.4.2 connectivity disconnect",
+              "window": "current",
+              "firmware_version": "1.4.2"
+            },
+            "result_summary": "sample_is_complete",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_4",
+            "actor": "investigator",
+            "tool": "query_telemetry",
+            "arguments": {
+              "metric": "ble_disconnects_24h",
+              "window": "prior",
+              "firmware_version": "1.4.2"
+            },
+            "result_summary": "filter_matched_no_devices",
+            "latency_ms": 2,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_5",
+            "actor": "investigator",
+            "tool": "search_feedback",
+            "arguments": {
+              "query": "bluetooth disconnect dropout",
+              "window": "current",
+              "tag": "connectivity"
+            },
+            "result_summary": "sample_is_complete",
+            "latency_ms": 0,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_6",
+            "actor": "investigator",
+            "tool": "find_similar_incidents",
+            "arguments": {
+              "description": "Firmware update causing increased BLE disconnects per device day"
+            },
+            "result_summary": "incident_list_truncated",
+            "latency_ms": 143,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_7",
+            "actor": "investigator",
+            "tool": "search_knowledge",
+            "arguments": {
+              "query": "firmware 1.4.2 BLE radio interval change disconnect"
+            },
+            "result_summary": "chunks_returned",
+            "latency_ms": 9,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_8",
+            "actor": "investigator",
+            "tool": "query_telemetry",
+            "arguments": {
+              "metric": "ble_disconnects_24h",
+              "window": "current",
+              "firmware_version": "1.4.2",
+              "breakdown": "region"
+            },
+            "result_summary": "aggregates_returned",
+            "latency_ms": 2,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_9",
+            "actor": "investigator",
+            "tool": "query_telemetry",
+            "arguments": {
+              "metric": "ble_disconnects_24h",
+              "window": "current",
+              "firmware_version": "1.4.2",
+              "breakdown": "app_version"
+            },
+            "result_summary": "aggregates_returned",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_10",
+            "actor": "investigator",
+            "tool": "compare_versions",
+            "arguments": {
+              "metric": "ble_disconnects_24h",
+              "window": "current",
+              "axis": "app_version",
+              "version_a": "3.1",
+              "version_b": "3.2",
+              "hold": {
+                "firmware_version": "1.4.2"
+              }
+            },
+            "result_summary": "filter_matched_no_devices",
+            "latency_ms": 2,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_11",
+            "actor": "investigator",
+            "tool": "query_telemetry",
+            "arguments": {
+              "metric": "ble_disconnects_24h",
+              "window": "current",
+              "app_version": "3.2",
+              "breakdown": "firmware_version"
+            },
+            "result_summary": "aggregates_returned",
+            "latency_ms": 2,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_12",
+            "actor": "investigator",
+            "tool": "search_knowledge",
+            "arguments": {
+              "query": "1.4.2 firmware release notes connection supervisor retry backoff changes",
+              "doc_id": "KD-02"
+            },
+            "result_summary": "chunks_returned",
+            "latency_ms": 6,
+            "tokens": 0
+          }
+        ]
+      },
+      "pre_critic": null,
+      "metrics": {
+        "tool_calls": 12,
+        "tokens": 92557,
+        "wall_clock_ms": 94962,
+        "cache_hits": 2,
+        "cache_misses": 10
+      }
+    }
+  ],
+  "approvals": [],
+  "execution_log": []
+}

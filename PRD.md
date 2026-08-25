@@ -133,7 +133,7 @@ No further personas in MVP.
 | FR-013 | The orchestrator SHALL be bounded: max 12 tool calls, max 2 critic rounds, 120s hard timeout. Exceeding a bound terminates with status `INCONCLUSIVE`. | P0 |
 | FR-014 | Every tool call SHALL be persisted with id, name, arguments, result summary, latency and token count. | P0 |
 | FR-015 | The agent SHALL NOT receive ground-truth labels, incident names, or expected conclusions in any prompt or fixture field it can read. | P0 |
-| FR-016 | Temperature SHALL be 0 for all calls. | P0 |
+| FR-016 | Sampling parameters (`temperature`, `top_p`, `top_k`) SHALL NOT be sent. Effort SHALL be set explicitly. Adaptive thinking cannot be disabled on the current model class. | P0 |
 
 ### 9.3 Tools (exactly five)
 
@@ -405,14 +405,14 @@ Tool count > 5 · screens > 4 · dependencies added without a removal · any num
 | R-1 | Scope drift | Frozen manifest; swap-required change policy; hard stop at 10/10 |
 | R-2 | Circular evaluation (model detecting what a model wrote) | Ground truth in structured fields only; SIG-001/002 discoverable by arithmetic; SIG-003 scored on retrieval + flag, not text detection |
 | R-3 | Critic degenerates into agreement | Separate context; no access to proposed confidence; mandatory falsifying test; EVAL-05 requires a changed outcome; SIG-004 is the canary |
-| R-4 | Non-determinism vs binary evals | Temperature 0; structural assertions only; n=3 certification; artefacts committed |
+| R-4 | Non-determinism vs binary evals | Sampling not controllable; structural assertions (not exact-match); n=3 observes variance; artefacts committed |
 | R-5 | Demo fragility | Replay-first deploy, labelled; live mode local only |
 
 ---
 
 ## 23. Assumptions
 
-Two build sessions with a checkpoint · Anthropic API key available from ~hour three · temperature 0 throughout · Next.js App Router + TypeScript + Tailwind · no database, vector store or agent framework · fixtures committed and never regenerated at runtime · `SYNTHETIC_TODAY = 2026-05-18` · deployment to Vercel.
+Two build sessions with a checkpoint · Anthropic API key available from ~hour three · sampling not controllable on Claude Sonnet 5 / Opus 5 (no `temperature` / `top_p`; effort set explicitly; adaptive thinking always on) · Next.js App Router + TypeScript + Tailwind · no database, vector store or agent framework · fixtures committed and never regenerated at runtime · `SYNTHETIC_TODAY = 2026-05-18` · deployment to Vercel.
 
 ## 24. Open Questions
 

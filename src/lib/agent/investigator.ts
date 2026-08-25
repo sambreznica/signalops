@@ -16,7 +16,9 @@ export const TIMEOUT_MS = 120_000;
 
 export type ContentBlock =
   | { type: "text"; text: string }
-  | { type: "tool_use"; id: string; name: string; input: unknown };
+  | { type: "tool_use"; id: string; name: string; input: unknown }
+  | { type: "thinking"; thinking: string; signature: string }
+  | { type: "redacted_thinking"; data: string };
 
 export type ModelResponse = {
   content: ContentBlock[];

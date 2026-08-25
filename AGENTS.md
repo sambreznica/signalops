@@ -93,7 +93,7 @@ Run relevant tests after every material change.
 
 Max 12 tool calls per investigation. Max 2 critic rounds. 120s hard timeout. Exceeding a bound terminates with status `INCONCLUSIVE` — it does not retry indefinitely.
 
-Temperature 0 on every model call.
+Sampling parameters (`temperature`, `top_p`, `top_k`) are not sent. Claude Sonnet 5 / Opus 5 reject them. Adaptive thinking is always on. Effort is set explicitly (`medium` for the investigator). Run-to-run variation exists and is not eliminated by any parameter we set.
 
 `SYNTHETIC_TODAY = 2026-05-18`. Windows are 14 days against the prior 14.
 

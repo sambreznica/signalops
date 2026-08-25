@@ -26,9 +26,10 @@ Everything in this system sits on one side of a line.
                     ┌──────────────────────────────────┐
    PROBABILISTIC    │  investigator (tool selection,   │
    (model calls,    │   hypothesis generation)         │
-    temperature 0,  │  critic (falsification)          │
-    never trusted   │  semantic clustering             │
-    with numbers)   │  document interpretation         │
+    sampling not    │  critic (falsification)          │
+    controllable,   │  semantic clustering             │
+    never trusted   │  document interpretation         │
+    with numbers)   │                                  │
                     └──────────────────────────────────┘
 ```
 
@@ -186,7 +187,7 @@ A bounded tool-calling loop over the five tools. Bounds: 12 tool calls, 2 critic
 
 Adaptivity is only real if a different result produces a different next call. The seeded data contains a genuine branch point: firmware 1.4.2 and app 3.2 shipped in the same window, so isolating firmware requires noticing the confound and testing it. Devices on firmware 1.4.1 with app 3.2 show baseline disconnect rates — the confound resolves against evidence, not assertion. A trace that runs the same sequence regardless of results has failed FR-012 whether or not the evals pass.
 
-Temperature 0 throughout.
+Sampling is not controllable on Claude Sonnet 5 / Opus 5: `temperature` and other sampling parameters are rejected. Adaptive thinking is always on. Effort is set explicitly (`medium`) rather than left at the API default (`high`). Run-to-run variation therefore exists and is not eliminated by any parameter we set.
 
 ---
 
@@ -276,6 +277,6 @@ Stated plainly, because a prototype that claims no limitations is not credible.
 
 - **Synthetic data is easier than reality.** Confounders are present by design, but real signal is dirtier. The baseline control exists partly to test whether the data is too easy — if a single call scores well on the neutral evals, the fixtures need hardening.
 - **Four scenarios is a small eval set.** Enough to catch gross failure, not enough for calibration.
-- **`n=3` at temperature 0** bounds variance observation; it does not characterise the tail.
+- **`n=3` observes variance; it does not prove determinism.** Sampling is not controllable on this model and adaptive thinking is always on. Three committed runs show how much the structural assertions move, not that the model is pinned.
 - **The severity formula is a defensible guess.** It has not been validated against outcomes, because there are no outcomes. It is documented so it can be argued with.
 - **Retrieval quality is untested in isolation.** EVAL-03 and EVAL-09 test whether the right passage reached the conclusion, not precision and recall across the corpus.
