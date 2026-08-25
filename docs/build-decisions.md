@@ -164,3 +164,25 @@ Ten structural assertions in `evals/`. No investigation artefacts yet. First `np
 **EVAL-04c.** Causal verbs only on correlational hypothesis statements. Noun “cause” in KD-06 is not a hit.
 
 **Baseline.** `npm run baseline` scores EVAL-01, 02, 03, 06, 07, 10 only and prints that scope. EVAL-01 uses live triage (the assertion has no investigation-shaped equivalent). EVAL-04/05/08/09 are not scored.
+
+---
+
+## 2026-08-25 — Five tools (session two, item 8)
+
+Wrappers in `src/lib/agent/tools`. No orchestrator. No critic. No UI. No `ANTHROPIC_MODEL`. Descriptions are operational; they do not name a firmware version, a regression, or a signal id.
+
+**JSON schemas.** Hand-written Anthropic `input_schema` objects. Zod parsers in `args.ts` share the same required-key arrays; a parity test rejects a missing key on both sides. `zod-to-json-schema` is not added (Zod 4.4.3 has no `toJSONSchema` here, and the dependency set is closed).
+
+**Window.** `current` | `prior` only, required on `query_telemetry`, `compare_versions`, and `search_feedback`. Omitting it is `{ ok: false, error }` plus a trace event, not a silent current-window default. Results include `window_resolved: { label, start, end }`.
+
+**Caps in code.** Feedback sample 5, text 240 characters. Knowledge `k` default 5, clamped 1–8. Similar incidents top 3. `compare_versions` requires `axis`. `query_telemetry` returns aggregates and at most one breakdown dimension, never per-device rows. `ci_excludes_one` is the interval flag; there is no field named `significant`.
+
+**Sample denominators.** `search_feedback` returns `n_matched`, `sample_size`, and `sampled_from` (the last two are 5 of n, not 5 of 5). Selection is deterministic: matches ordered by timestamp then id, then evenly spaced so the sample spans the window rather than clustering on the first records (`selection: evenly_spaced_by_timestamp`). `find_similar_incidents` returns `returned` and `corpus_size` (3 of 4 on this corpus) so the top-3 cap is visible. Incidents are grouped from KD-06 `## INC-…` headings and ranked by max chunk cosine (`selection: top_k_by_max_chunk_cosine`).
+
+**Empty vs filtered-to-nothing.** `query_telemetry` / `compare_versions` return `n_devices_in_window`, `n_devices_before_metric`, and `empty_reason`: `filter_matched_no_devices` when the filter cohort is empty, `no_events` when the cohort is non-empty and the metric sums to zero. Those are different next moves; collapsing both to `n_devices: 0` would make `INCONCLUSIVE` indistinguishable from a bad query.
+
+**Provenance.** `invoke` mints `call_id`. `asQuantity` is the only `Measured` → `Quantity` path. The matching `trace` `tool_call` event is emitted on success and on parse failure. Tests use `tc_test_1`.
+
+**MiniLM.** `search_knowledge` and `find_similar_incidents` take an injected `embedQuery`. The encoder is `Xenova/all-MiniLM-L6-v2` (mean pool, normalize) — a frozen query encoder, not the investigator. Unit tests inject stored index vectors and do not load the model. Query-time vectors are not bit-identical across hardware; ranking is over the committed index. Cosine is the project function, not Hugging Face `cos_sim`.
+
+**Eval.** Item 8 alone does not produce investigation artefacts. The harness remains 1/10, EVAL-10 blocking.

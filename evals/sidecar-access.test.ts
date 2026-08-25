@@ -25,8 +25,8 @@ describe("sidecar access", () => {
     expect(combined).toContain("signals.json");
   });
 
-  it("analytics and triage production code still do not", () => {
-    for (const rel of ["src/lib/analytics", "src/lib/triage"]) {
+  it("analytics, triage, and agent production code still do not", () => {
+    for (const rel of ["src/lib/analytics", "src/lib/triage", "src/lib/agent"]) {
       const files = walkTs(path.join(ROOT, rel), true);
       expect(files.length).toBeGreaterThan(0);
       for (const file of files) {
