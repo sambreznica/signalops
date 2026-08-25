@@ -52,9 +52,12 @@ describe("invoke", () => {
     expect(outcome.result.ok).toBe(false);
     if (outcome.result.ok) return;
     expect(outcome.result.error).toMatch(/window/i);
-    expect(traceEventSchema.parse(outcome.event).call_id).toBe("tc_test_1");
-    expect(outcome.event.tool).toBe("query_telemetry");
-    expect(outcome.event.tokens).toBe(0);
+    const event = traceEventSchema.parse(outcome.event);
+    expect(event.kind).toBe("tool_call");
+    if (event.kind !== "tool_call") return;
+    expect(event.call_id).toBe("tc_test_1");
+    expect(event.tool).toBe("query_telemetry");
+    expect(event.tokens).toBe(0);
   });
 
   it("stamps quantities with the dispatcher call_id", async () => {
@@ -69,6 +72,7 @@ describe("invoke", () => {
     const rate = qty(outcome.result.rate);
     expect(rate.source).toEqual({ kind: "tool_call", call_id: "tc_test_1" });
     expect(outcome.event.call_id).toBe("tc_test_1");
+    expect(outcome.event.result_summary).not.toMatch(/\d/);
   });
 });
 

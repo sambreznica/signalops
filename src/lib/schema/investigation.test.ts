@@ -123,6 +123,18 @@ describe("investigation output schema freeze", () => {
     ]);
   });
 
+  it("allows granted null so a missing ceiling cannot silently pass as the model's band", () => {
+    const parsed = validInvestigation({
+      confidence: {
+        granted: null,
+        model_requested: "HIGH",
+        ceiling_rule_applied: null,
+      },
+    });
+    expect(parsed.confidence.granted).toBeNull();
+    expect(parsed.confidence.model_requested).toBe("HIGH");
+  });
+
   it("rejects numeric confidence", () => {
     expect(() =>
       investigationOutputSchema.parse({

@@ -9,6 +9,8 @@ export const investigationRecordSchema = z.strictObject({
     tool_calls: z.number(),
     tokens: z.number(),
     wall_clock_ms: z.number(),
+    cache_hits: z.number(),
+    cache_misses: z.number(),
   }),
 });
 

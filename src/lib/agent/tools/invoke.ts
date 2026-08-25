@@ -44,19 +44,39 @@ function formatParseError(error: {
     .join("; ");
 }
 
-function summarise(tool: ToolName, result: ToolResult): string {
-  if (!result.ok) return result.error;
+/** Digit-free. EVAL-04b scans result_summary. Counts stay in the tool JSON. */
+export function summarise(tool: ToolName, result: ToolResult): string {
+  if (!result.ok) return "tool_error";
   switch (tool) {
-    case "query_telemetry":
-      return `empty_reason=${String(result.empty_reason)}`;
-    case "compare_versions":
-      return `ci_excludes_one=${String(result.ci_excludes_one)}`;
-    case "search_feedback":
-      return `sample_size=${String((result.sample_size as { value: number }).value)} sampled_from=${String((result.sampled_from as { value: number }).value)}`;
+    case "query_telemetry": {
+      const reason = result.empty_reason;
+      if (reason === "filter_matched_no_devices") return "filter_matched_no_devices";
+      if (reason === "no_events") return "no_events";
+      return "aggregates_returned";
+    }
+    case "compare_versions": {
+      const a = result.empty_reason_a;
+      const b = result.empty_reason_b;
+      if (a === "filter_matched_no_devices" || b === "filter_matched_no_devices") {
+        return "filter_matched_no_devices";
+      }
+      if (a === "no_events" || b === "no_events") return "no_events";
+      return result.ci_excludes_one === true
+        ? "interval_excludes_one"
+        : "interval_includes_one";
+    }
+    case "search_feedback": {
+      const sample = result.sample_size as { value: number };
+      const from = result.sampled_from as { value: number };
+      if (sample.value < from.value) return "sample_is_subset";
+      return "sample_is_complete";
+    }
     case "search_knowledge":
-      return `returned=${String((result.returned as { value: number }).value)}`;
+      return "chunks_returned";
     case "find_similar_incidents":
-      return `returned=${String((result.returned as { value: number }).value)} corpus_size=${String((result.corpus_size as { value: number }).value)}`;
+      return result.truncated === true
+        ? "incident_list_truncated"
+        : "incident_list_complete";
   }
 }
 
@@ -124,7 +144,7 @@ export async function invoke(
         actor: ctx.actor,
         tool,
         arguments: asArgRecord(rawArgs),
-        result_summary: error,
+        result_summary: "args_invalid",
         latency_ms: Date.now() - started,
         tokens: 0,
       },

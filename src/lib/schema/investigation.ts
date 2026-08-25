@@ -41,7 +41,11 @@ export const toolNameSchema = z.enum([
 ]);
 
 export const confidenceSchema = z.strictObject({
-  granted: confidenceBandSchema,
+  /**
+   * Null until the ceiling (item 11) writes it. The investigator must not
+   * copy model_requested here — a missing ceiling must not silently pass.
+   */
+  granted: confidenceBandSchema.nullable(),
   model_requested: confidenceBandSchema,
   ceiling_rule_applied: ceilingRuleSchema.nullable(),
 });

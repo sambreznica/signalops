@@ -186,3 +186,23 @@ Wrappers in `src/lib/agent/tools`. No orchestrator. No critic. No UI. No `ANTHRO
 **MiniLM.** `search_knowledge` and `find_similar_incidents` take an injected `embedQuery`. The encoder is `Xenova/all-MiniLM-L6-v2` (mean pool, normalize) — a frozen query encoder, not the investigator. Unit tests inject stored index vectors and do not load the model. Query-time vectors are not bit-identical across hardware; ranking is over the committed index. Cosine is the project function, not Hugging Face `cos_sim`.
 
 **Eval.** Item 8 alone does not produce investigation artefacts. The harness remains 1/10, EVAL-10 blocking.
+
+---
+
+## 2026-08-25 — Investigation orchestrator (session two, item 9)
+
+Bounded native-SDK loop in `src/lib/agent/investigator.ts`. CLI: `npm run investigate -- --candidate <id> [--run-id <id>] [--no-cache]`. No critic, no ceiling, no UI. `ANTHROPIC_MODEL` is read from the environment with no default; unset exits naming the variable. `.env.example` holds an empty key and a pointer at Anthropic's model docs.
+
+**Prompt.** Operational standards only. Structural leak test: the system prompt matches no `/\d+\.\d+(\.\d+)?/`, plus a word list. `buildUserMessage` for tag candidates has the same regex constraint. Firmware candidates may contain the slice key; a test asserts that field is the only exemption. Float rates are not inlined in the user message (they would look like version strings); integer affected-user and prior-event counts are. The agent re-queries rates with tools.
+
+**granted.** The frozen schema required a non-null band. That is the `requires_approval` shape: if the investigator writes `granted = model_requested`, a missing ceiling silently keeps the model's band. Amendment: `granted` is `LOW | MEDIUM | HIGH | null`. The investigator is the sole writer of `model_requested` and always stamps `granted: null` and `ceiling_rule_applied: null`. Item 11 is the sole writer of `granted`. A missing ceiling is then visible (`granted` stays null), not an invisible pass. `makeInvestigation` fixtures used in eval unit tests may still set a band.
+
+**Cache.** `runs/tool-cache.json` (gitignored), keyed by SHA-256 of canonical `(tool, args)` plus a telemetry/feedback/embeddings fingerprint. Hits still emit a real trace event (`cache_hit` on the summary). `InvestigationRecord.metrics` now includes `cache_hits` and `cache_misses` so a cold n=3 certification is distinguishable from iteration.
+
+**Trace.** Code-owned. Model-supplied `trace` is overwritten. Empty and error tool calls stay. Orphan `call_id`s and unknown `chunk_id`s are repair-triggering validation failures, then `INCONCLUSIVE`. Digit-free `result_summary` so EVAL-04b can pass on a real trace; counts remain in the tool JSON.
+
+**Artefact.** One candidate per invocation. `--run-id` merges into `runs/<id>.json` (`n: 1`, `kind: "agent"`, `pre_critic: null`). Four sequential calls with the same run id produce the four-primary file the harness loads. Do not mix models in one file.
+
+**EVAL-10.** Not prompt-fitted. A first real `UNCERTAIN` on the SIG-004 primary is diagnosed under EVALS.md (retrieval / reasoning / eval) before anything is changed.
+
+**Eval.** Item 9 makes EVAL-02, 03, 04, 06, 07, 09 reachable once the right primaries are in the newest run. EVAL-05 stays red (no critic). EVAL-08 stays red (no approval). EVAL-10 likely still red (blocking) until a real `NOT_AN_INCIDENT`. Overall FAIL until then. No fabricated run is committed.
