@@ -23,6 +23,13 @@ export type EffortLevel = (typeof EFFORT_LEVELS)[number];
  */
 export const INVESTIGATOR_EFFORT: EffortLevel = "medium";
 
+/** Same effort as the investigator. Not tuned to chase a bound. */
+export const CRITIC_EFFORT: EffortLevel = "medium";
+
 export function investigatorOutputConfig(): { effort: EffortLevel } {
   return { effort: INVESTIGATOR_EFFORT };
+}
+
+export function criticOutputConfig(): { effort: EffortLevel } {
+  return { effort: CRITIC_EFFORT };
 }

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  CRITIC_EFFORT,
   INVESTIGATOR_EFFORT,
   investigatorOutputConfig,
 } from "./sampling";
@@ -7,6 +8,7 @@ import {
 describe("investigator sampling", () => {
   it("sets effort explicitly and does not send a sampling parameter", () => {
     expect(INVESTIGATOR_EFFORT).toBe("medium");
+    expect(CRITIC_EFFORT).toBe("medium");
     const body = {
       max_tokens: 8192,
       output_config: investigatorOutputConfig(),

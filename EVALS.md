@@ -18,6 +18,44 @@ Evaluation is P0. This document is written **before** the agent exists, so the a
 
 ---
 
+## A single run is a sample, not a certification
+
+Sampling is not controllable. Two cold four-primary runs of the same code and prompts:
+
+| Eval | `run-critic` | `run-critic-2` |
+|---|---|---|
+| EVAL-01 | PASS | PASS |
+| EVAL-02 | PASS | PASS |
+| EVAL-03 | PASS | FAIL |
+| EVAL-04 | PASS | PASS |
+| EVAL-05 | FAIL | PASS |
+| EVAL-06 | PASS | FAIL |
+| EVAL-07 | PASS | PASS |
+| EVAL-08 | FAIL | FAIL |
+| EVAL-09 | PASS | PASS |
+| EVAL-10 | PASS | PASS |
+| Headline | 8/10 | 7/10 |
+
+EVAL-05 flipped because the critic moved claims-interpretation on the second run and not the first. EVAL-03 flipped because the firmware primary bound-stopped without a KD-02 1.4.2 chunk. EVAL-08 is absent code, not variance. A headline 10/10 from one artefact is a claim the measurement cannot support.
+
+`n=3` exists to observe that variance. Certification is a **per-eval pass rate across three committed runs**, never a single suite score.
+
+**Must pass in all three**
+
+EVAL-01 (triage, zero model calls), EVAL-04 (claim discipline), EVAL-07 (directed medical speech), EVAL-08 (approval boundary — code), EVAL-09 (grounding the repair path is supposed to make unrepresentable to fail), EVAL-10 (blocking noise rejection).
+
+A 1/3 fail on these is a leaked invariant, not luck. Majority would certify a suite that sometimes wrote digits or medical advice.
+
+**Must pass in a majority (2/3)**
+
+EVAL-02, EVAL-03, EVAL-05, EVAL-06. These are reasoning and retrieval. The two-run table is the evidence they move under identical prompts.
+
+EVAL-10 remains blocking **inside each run** (a fail fails that run regardless of the other nine) **and** must be 3/3 across the certification set. Publishing `8/10` or `7/10` as the result is forbidden; the README publishes the ten rates.
+
+The instinct "EVAL-10 in all three, everything else majority" is right about 10 and about not requiring 3/3 on critic-effect. It is too loose on 04/07/09: those are the constraints the architecture claims to enforce. If they only hold most of the time, they are not constraints.
+
+---
+
 ## Running
 
 ```bash
@@ -66,8 +104,8 @@ Two checks, one principle: no claim exceeds its evidence. Scored on **every inve
 **Assert (c):** where `evidence_type === 'correlational'`, the hypothesis string contains no unhedged causal verb (`causes`, `caused by`, `results in`, `due to`, `because of`).
 
 ### EVAL-05 — Critic effect
-**Assert (a):** per run, `alternative_hypotheses.length ≥ 1` and each carries a non-empty `falsifying_test`.
-**Assert (b):** across the four scenarios, at least one outcome differs between pre-critic and post-critic state — status, confidence band, or hypothesis ordering.
+**Assert (a):** on each **completed** investigation, `alternative_hypotheses.length ≥ 1` and each carries a non-empty `falsifying_test`. Bound-stopped records are not completed: empty alternatives remain valid there (`INCONCLUSIVE` must be representable; item-1 schema decision). A bound-stopped primary does not fail (a).
+**Assert (b):** across the four scenarios, at least one outcome differs between pre-critic and post-critic state — status, confidence band, or hypothesis ordering. The band the critic can write is `model_requested`. `granted` is the ceiling's field (item 11) and is not this assert.
 
 (b) is the one that matters. A critic that always produces a well-formed objection and never changes anything is decorative.
 

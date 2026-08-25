@@ -5,6 +5,11 @@ export const investigationRecordSchema = z.strictObject({
   candidate_id: z.string(),
   output: investigationOutputSchema,
   pre_critic: investigationOutputSchema.nullable(),
+  /**
+   * True only when investigate() hit the call, wall-clock, or validation bound.
+   * Absent on older artefacts; treated as completed.
+   */
+  bound_stopped: z.boolean().optional(),
   metrics: z.strictObject({
     tool_calls: z.number(),
     tokens: z.number(),

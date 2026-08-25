@@ -148,6 +148,7 @@ describe("investigate", () => {
       userMessage: buildUserMessage(candidate),
     });
     expect(outcome.output.confidence.granted).toBeNull();
+    expect(outcome.bound_stopped).toBe(false);
     expect(outcome.output.confidence.model_requested).toBe("HIGH");
     expect(outcome.output.confidence.ceiling_rule_applied).toBeNull();
     expect(outcome.output.signal_id).toBe(ID);
@@ -194,6 +195,7 @@ describe("investigate", () => {
       userMessage: buildUserMessage(candidate),
     });
     expect(outcome.output.status).toBe("INCONCLUSIVE");
+    expect(outcome.bound_stopped).toBe(true);
     expect(outcome.output.confidence.granted).toBeNull();
     expect(outcome.metrics.tool_calls).toBe(MAX_TOOL_CALLS);
     expect(outcome.output.uncertainty[0]).toMatch(/tool-call bound/);
@@ -292,6 +294,7 @@ describe("investigate", () => {
       userMessage: buildUserMessage(candidate),
     });
     expect(outcome.output.status).toBe("UNCERTAIN");
+    expect(outcome.bound_stopped).toBe(false);
     expect(outcome.output.summary).toContain("{f_1}");
   });
 
@@ -309,6 +312,7 @@ describe("investigate", () => {
       },
     });
     expect(outcome.output.status).toBe("INCONCLUSIVE");
+    expect(outcome.bound_stopped).toBe(true);
     expect(outcome.output.uncertainty[0]).toMatch(/wall-clock bound/);
   });
 

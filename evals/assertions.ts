@@ -238,7 +238,7 @@ export function eval04(ctx: HarnessContext): EvalResult {
 
 export function eval05(ctx: HarnessContext): EvalResult {
   const expected =
-    "each completed investigation has ≥1 alternative with a falsifying_test; ≥1 pre/post-critic change across the four primaries";
+    "each completed investigation has ≥1 alternative with a falsifying_test; ≥1 pre/post-critic change across the four primaries (status, model_requested, or leading statement)";
   const ids = ["SIG-001", "SIG-002", "SIG-003", "SIG-004"] as const;
   const records = ids.map((id) => ({ id, record: recordForPrimary(ctx, id) }));
   const missing = records.filter((row) => row.record === null);
@@ -258,7 +258,8 @@ export function eval05(ctx: HarnessContext): EvalResult {
       missing.map((m) => missingInvestigationReason(ctx, m.id)).join("; "),
     );
   }
-  const withoutAlts = records.filter((row) => {
+  const completed = records.filter((row) => row.record!.bound_stopped !== true);
+  const withoutAlts = completed.filter((row) => {
     const alts = row.record!.output.alternative_hypotheses;
     return (
       alts.length < 1 || alts.some((h) => h.falsifying_test.trim().length === 0)
@@ -278,11 +279,11 @@ export function eval05(ctx: HarnessContext): EvalResult {
     if (!pre) return false;
     return (
       pre.status !== post.status ||
-      pre.confidence.granted !== post.confidence.granted ||
+      pre.confidence.model_requested !== post.confidence.model_requested ||
       pre.leading_hypothesis.statement !== post.leading_hypothesis.statement
     );
   });
-  const actual = `alts_ok=true critic_delta=${changed}`;
+  const actual = `alts_ok=true completed=${completed.length} critic_delta=${changed}`;
   if (!changed) {
     return fail(
       "EVAL-05",

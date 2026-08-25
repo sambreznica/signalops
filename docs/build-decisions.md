@@ -299,3 +299,51 @@ Distinct from the live defect. `ble_disconnects_24h`, `INC-2025-002`, `KI-NW-014
 **Fix.** Bound stop templates synthesis only (status, hypothesis, confidence, actions, bound uncertainty). Findings and knowledge_sources are projected from in-memory `ToolResult` objects the loop already held. Labels come from arguments; values from stamped quantities. Digit-free `result_summary` cannot reconstruct a rate — if we only had the persisted trace we could not do this. `find_similar_incidents` is left out of findings (no incident measurement); retrieval facts come from `search_knowledge` chunks only.
 
 Wall-clock now binds before call count on a cold firmware run (9 calls / 120s). Tool `latency_ms` summed to 267ms; first MiniLM call 245ms, subsequent 10ms and 4ms. ~99.8% of the 120s is API/thinking. Bound not raised until that is the intended constraint rather than a measurement error.
+
+---
+
+## 2026-08-25 — Falsification critic (item 10)
+
+Separate context. Patch, not a second investigator. No full investigator trace; the pack is hypothesis, findings, passages, claims, status, summary. The confidence object is omitted. Bound-stopped investigations skip the critic (`critic_effect: skipped`) rather than inventing an objection to a template. `pre_critic` is a clone taken after `investigate()` returns and before `criticise` / `skipCritic`.
+
+Downgrade-only is epistemic: the critic sees less evidence than the investigator, so it cannot assert more. A proposed status or band that would raise the claim is recorded as `critic_effect` (`status_upgrade_refused` / `band_upgrade_refused`) with the proposed value and that rule — not silently dropped. `granted` stays null until item 11.
+
+The prompt names a falsifying test. It does not instruct the critic to change outcomes. Decorative critic = well-formed alternatives and zero EVAL-05b delta.
+
+**EVAL-05 contract (harness matched to the written decision, not convenience).**
+
+- EVALS.md (b): "status, confidence band, or hypothesis ordering." Item 9 made `granted` the ceiling's field (`null` until item 11). The band the critic can write is `model_requested`. The harness compared `granted`; that made the critic's natural band effect invisible. Fixed: (b) compares `model_requested`.
+- Item 1: "Empty `alternative_hypotheses` is valid. `INCONCLUSIVE` must be representable. EVAL-05a asserts on completed runs only." EVALS.md (a) said "per run" without that exemption; the harness required alts on every primary. Fixed: (a) scores investigations where `bound_stopped` is not true. Artefact gained optional `bound_stopped` so the harness can see the bound without string-matching the template.
+
+EVAL-05 itself was not changed after the two-run diagnostic. `run-critic` failed 05b (well-formed alts, no outcome delta). `run-critic-2` passed 05b (claims-interpretation `CONFIRMED` → `UNCERTAIN`). A hand-constructed probe (`probes/wrong-region-firmware`) showed the critic will downgrade a hypothesis the findings already refute. 05b's first red is variance, not a decorative critic and not an unreachable eval.
+
+---
+
+## 2026-08-25 — A single run does not certify
+
+Two cold four-primary runs, same code, same prompts, sampling unset:
+
+| | `run-critic` | `run-critic-2` |
+|---|---|---|
+| EVAL-03 | PASS | FAIL (firmware bound-stop, no KD-02 1.4.2 chunk) |
+| EVAL-05 | FAIL (05b) | PASS (claims status downgraded) |
+| EVAL-06 | PASS | FAIL (claims-risk flag absent) |
+| EVAL-10 | PASS | PASS |
+| Headline | 8/10 | 7/10 |
+
+That is evidence, not a footnote. `10/10` from one artefact is a claim we cannot support. `n=3` observes this variance.
+
+**Certification rule (Definition of Done).** Not "EVAL-10 in all three and everything else majority." Majority on EVAL-04/07/09 would certify a leaked invariant. Split:
+
+- **3/3:** EVAL-01, 04, 07, 08, 09, 10 — deterministic, structurally gated, or blocking. A 1/3 fail is a constraint that does not hold.
+- **2/3:** EVAL-02, 03, 05, 06 — reasoning and retrieval, where these two runs already moved.
+
+EVAL-10 is still blocking *inside* each run. The README publishes the ten rates, never a suite score.
+
+The probe stays under `probes/`. It is an artefact that the critic can falsify a contradicted claim. It is not a test fixture and never enters a `CertificationRun`.
+
+---
+
+## 2026-08-25 — Open: firmware primary bound-stops (item 12)
+
+`cnd_fw_1_4_2` is the demo hero. Cold runs currently hit the 120s wall with a templated hypothesis and skipped critic. That is an honest artefact and a poor centrepiece. Do not raise the investigator bound or retune effort to chase a complete synthesis. Flag for the UI step: the Incident Investigation screen needs a bound-stop state that is readable as "budget exhausted, evidence kept," not as a finished judgement.

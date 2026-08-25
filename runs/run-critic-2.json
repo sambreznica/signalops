@@ -1,0 +1,2770 @@
+{
+  "run_id": "run-critic-2",
+  "timestamp": "2026-08-25T15:37:06.685Z",
+  "model": "claude-sonnet-5",
+  "effort": "medium",
+  "n": 1,
+  "kind": "agent",
+  "investigations": [
+    {
+      "candidate_id": "cnd_fw_1_4_2",
+      "output": {
+        "investigation_id": "inv_cnd_fw_1_4_2",
+        "signal_id": "cnd_fw_1_4_2",
+        "title": "Investigation did not complete",
+        "status": "INCONCLUSIVE",
+        "severity": {
+          "value": 1,
+          "unit": "index",
+          "source": {
+            "kind": "triage",
+            "signal_id": "cnd_fw_1_4_2"
+          }
+        },
+        "confidence": {
+          "granted": null,
+          "model_requested": "LOW",
+          "ceiling_rule_applied": null
+        },
+        "summary": "The investigation did not reach a terminal finding inside the bound.",
+        "affected_cohort": {
+          "value": 100,
+          "unit": "users",
+          "source": {
+            "kind": "triage",
+            "signal_id": "cnd_fw_1_4_2"
+          }
+        },
+        "leading_hypothesis": {
+          "statement": "No conclusion was reached inside the bound.",
+          "evidence_type": "correlational"
+        },
+        "alternative_hypotheses": [],
+        "deterministic_findings": [
+          {
+            "id": "f_1",
+            "label": "ble_disconnects_24h, firmware 1.4.1, current window",
+            "value": 1.5416666666666667,
+            "unit": "disconnects_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_1"
+            }
+          },
+          {
+            "id": "f_2",
+            "label": "ble_disconnects_24h, firmware 1.4.2, current window",
+            "value": 10.53,
+            "unit": "disconnects_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_1"
+            }
+          },
+          {
+            "id": "f_3",
+            "label": "ble_disconnects_24h, firmware 1.4.1 vs 1.4.2, current window",
+            "value": 0.1464070908515353,
+            "unit": "ratio",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_1"
+            }
+          },
+          {
+            "id": "f_4",
+            "label": "adhesion_flag, firmware 1.4.1, current window",
+            "value": 0.14583333333333334,
+            "unit": "flags_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_2"
+            }
+          },
+          {
+            "id": "f_5",
+            "label": "adhesion_flag, firmware 1.4.2, current window",
+            "value": 0.13666666666666666,
+            "unit": "flags_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_2"
+            }
+          },
+          {
+            "id": "f_6",
+            "label": "adhesion_flag, firmware 1.4.1 vs 1.4.2, current window",
+            "value": 1.0670731707317074,
+            "unit": "ratio",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_2"
+            }
+          },
+          {
+            "id": "f_7",
+            "label": "battery_drain_pct, firmware 1.4.1, current window",
+            "value": 13.941666666666668,
+            "unit": "percent_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_3"
+            }
+          },
+          {
+            "id": "f_8",
+            "label": "battery_drain_pct, firmware 1.4.2, current window",
+            "value": 14.045333333333334,
+            "unit": "percent_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_3"
+            }
+          },
+          {
+            "id": "f_9",
+            "label": "battery_drain_pct, firmware 1.4.1 vs 1.4.2, current window",
+            "value": 0.9926191380292387,
+            "unit": "ratio",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_3"
+            }
+          },
+          {
+            "id": "f_10",
+            "label": "session_gap_minutes, firmware 1.4.1, current window",
+            "value": 47.052083333333336,
+            "unit": "minutes_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_4"
+            }
+          },
+          {
+            "id": "f_11",
+            "label": "session_gap_minutes, firmware 1.4.2, current window",
+            "value": 54.06,
+            "unit": "minutes_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_4"
+            }
+          },
+          {
+            "id": "f_12",
+            "label": "session_gap_minutes, firmware 1.4.1 vs 1.4.2, current window",
+            "value": 0.8703678012085337,
+            "unit": "ratio",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_4"
+            }
+          },
+          {
+            "id": "f_13",
+            "label": "ble_disconnects_24h, prior window, firmware 1.4.2",
+            "value": 0,
+            "unit": "devices",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_5"
+            }
+          },
+          {
+            "id": "f_14",
+            "label": "ble_disconnects_24h, current window, firmware 1.4.2",
+            "value": 10.53,
+            "unit": "disconnects_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_6"
+            }
+          },
+          {
+            "id": "f_15",
+            "label": "connectivity records, current window",
+            "value": 0,
+            "unit": "records",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_7"
+            }
+          },
+          {
+            "id": "f_16",
+            "label": "ble_disconnects_24h, current window, firmware 1.4.2",
+            "value": 10.53,
+            "unit": "disconnects_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_10"
+            }
+          }
+        ],
+        "supporting_evidence": [],
+        "counter_evidence": [],
+        "knowledge_sources": [
+          {
+            "doc_id": "KD-02",
+            "title": "Firmware and Companion Release Notes",
+            "section": "BLE (1.2.0)",
+            "chunk_id": "KD-02#ble-1-2-0#1",
+            "score": 0.6731791679300255
+          },
+          {
+            "doc_id": "KD-02",
+            "title": "Firmware and Companion Release Notes",
+            "section": "BLE (1.4.1)",
+            "chunk_id": "KD-02#ble-1-4-1#1",
+            "score": 0.6077121948174921
+          },
+          {
+            "doc_id": "KD-03",
+            "title": "Support Playbook — Kestrel Loop",
+            "section": "Splits to capture (connectivity)",
+            "chunk_id": "KD-03#splits-to-capture-connectivity#1",
+            "score": 0.5977105424724299
+          },
+          {
+            "doc_id": "KD-06",
+            "title": "Historical Incident Log — Kestrel Loop",
+            "section": "Close",
+            "chunk_id": "KD-06#close#1",
+            "score": 0.5780580602307085
+          },
+          {
+            "doc_id": "KD-01",
+            "title": "Product Specification — Kestrel Loop",
+            "section": "4. Radio and firmware contract",
+            "chunk_id": "KD-01#4-radio-and-firmware-contract#1",
+            "score": 0.5586562469611848
+          }
+        ],
+        "recommended_actions": [],
+        "uncertainty": [
+          "Investigation stopped after the wall-clock bound."
+        ],
+        "trace": [
+          {
+            "kind": "tool_call",
+            "call_id": "tc_1",
+            "actor": "investigator",
+            "tool": "compare_versions",
+            "arguments": {
+              "metric": "ble_disconnects_24h",
+              "window": "current",
+              "axis": "firmware_version",
+              "version_a": "1.4.1",
+              "version_b": "1.4.2"
+            },
+            "result_summary": "interval_excludes_one",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_2",
+            "actor": "investigator",
+            "tool": "compare_versions",
+            "arguments": {
+              "metric": "adhesion_flag",
+              "window": "current",
+              "axis": "firmware_version",
+              "version_a": "1.4.1",
+              "version_b": "1.4.2"
+            },
+            "result_summary": "interval_includes_one",
+            "latency_ms": 0,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_3",
+            "actor": "investigator",
+            "tool": "compare_versions",
+            "arguments": {
+              "metric": "battery_drain_pct",
+              "window": "current",
+              "axis": "firmware_version",
+              "version_a": "1.4.1",
+              "version_b": "1.4.2"
+            },
+            "result_summary": "interval_includes_one",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_4",
+            "actor": "investigator",
+            "tool": "compare_versions",
+            "arguments": {
+              "metric": "session_gap_minutes",
+              "window": "current",
+              "axis": "firmware_version",
+              "version_a": "1.4.1",
+              "version_b": "1.4.2"
+            },
+            "result_summary": "interval_includes_one",
+            "latency_ms": 0,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_5",
+            "actor": "investigator",
+            "tool": "query_telemetry",
+            "arguments": {
+              "metric": "ble_disconnects_24h",
+              "window": "prior",
+              "firmware_version": "1.4.2"
+            },
+            "result_summary": "filter_matched_no_devices",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_6",
+            "actor": "investigator",
+            "tool": "query_telemetry",
+            "arguments": {
+              "metric": "ble_disconnects_24h",
+              "window": "current",
+              "firmware_version": "1.4.2"
+            },
+            "result_summary": "aggregates_returned",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_7",
+            "actor": "investigator",
+            "tool": "search_feedback",
+            "arguments": {
+              "query": "bluetooth disconnect firmware 1.4.2",
+              "window": "current",
+              "tag": "connectivity"
+            },
+            "result_summary": "sample_is_complete",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_8",
+            "actor": "investigator",
+            "tool": "find_similar_incidents",
+            "arguments": {
+              "description": "Firmware update causes increased BLE disconnects per device day"
+            },
+            "result_summary": "incident_list_truncated",
+            "latency_ms": 182,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_9",
+            "actor": "investigator",
+            "tool": "search_knowledge",
+            "arguments": {
+              "query": "1.4.2 BLE disconnect known issue firmware"
+            },
+            "result_summary": "chunks_returned",
+            "latency_ms": 6,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_10",
+            "actor": "investigator",
+            "tool": "query_telemetry",
+            "arguments": {
+              "metric": "ble_disconnects_24h",
+              "window": "current",
+              "firmware_version": "1.4.2",
+              "breakdown": "region"
+            },
+            "result_summary": "aggregates_returned",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "critic_effect",
+            "effect": "skipped",
+            "detail": "no leading hypothesis to falsify; investigation stopped inside a bound"
+          }
+        ]
+      },
+      "pre_critic": {
+        "investigation_id": "inv_cnd_fw_1_4_2",
+        "signal_id": "cnd_fw_1_4_2",
+        "title": "Investigation did not complete",
+        "status": "INCONCLUSIVE",
+        "severity": {
+          "value": 1,
+          "unit": "index",
+          "source": {
+            "kind": "triage",
+            "signal_id": "cnd_fw_1_4_2"
+          }
+        },
+        "confidence": {
+          "granted": null,
+          "model_requested": "LOW",
+          "ceiling_rule_applied": null
+        },
+        "summary": "The investigation did not reach a terminal finding inside the bound.",
+        "affected_cohort": {
+          "value": 100,
+          "unit": "users",
+          "source": {
+            "kind": "triage",
+            "signal_id": "cnd_fw_1_4_2"
+          }
+        },
+        "leading_hypothesis": {
+          "statement": "No conclusion was reached inside the bound.",
+          "evidence_type": "correlational"
+        },
+        "alternative_hypotheses": [],
+        "deterministic_findings": [
+          {
+            "id": "f_1",
+            "label": "ble_disconnects_24h, firmware 1.4.1, current window",
+            "value": 1.5416666666666667,
+            "unit": "disconnects_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_1"
+            }
+          },
+          {
+            "id": "f_2",
+            "label": "ble_disconnects_24h, firmware 1.4.2, current window",
+            "value": 10.53,
+            "unit": "disconnects_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_1"
+            }
+          },
+          {
+            "id": "f_3",
+            "label": "ble_disconnects_24h, firmware 1.4.1 vs 1.4.2, current window",
+            "value": 0.1464070908515353,
+            "unit": "ratio",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_1"
+            }
+          },
+          {
+            "id": "f_4",
+            "label": "adhesion_flag, firmware 1.4.1, current window",
+            "value": 0.14583333333333334,
+            "unit": "flags_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_2"
+            }
+          },
+          {
+            "id": "f_5",
+            "label": "adhesion_flag, firmware 1.4.2, current window",
+            "value": 0.13666666666666666,
+            "unit": "flags_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_2"
+            }
+          },
+          {
+            "id": "f_6",
+            "label": "adhesion_flag, firmware 1.4.1 vs 1.4.2, current window",
+            "value": 1.0670731707317074,
+            "unit": "ratio",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_2"
+            }
+          },
+          {
+            "id": "f_7",
+            "label": "battery_drain_pct, firmware 1.4.1, current window",
+            "value": 13.941666666666668,
+            "unit": "percent_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_3"
+            }
+          },
+          {
+            "id": "f_8",
+            "label": "battery_drain_pct, firmware 1.4.2, current window",
+            "value": 14.045333333333334,
+            "unit": "percent_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_3"
+            }
+          },
+          {
+            "id": "f_9",
+            "label": "battery_drain_pct, firmware 1.4.1 vs 1.4.2, current window",
+            "value": 0.9926191380292387,
+            "unit": "ratio",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_3"
+            }
+          },
+          {
+            "id": "f_10",
+            "label": "session_gap_minutes, firmware 1.4.1, current window",
+            "value": 47.052083333333336,
+            "unit": "minutes_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_4"
+            }
+          },
+          {
+            "id": "f_11",
+            "label": "session_gap_minutes, firmware 1.4.2, current window",
+            "value": 54.06,
+            "unit": "minutes_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_4"
+            }
+          },
+          {
+            "id": "f_12",
+            "label": "session_gap_minutes, firmware 1.4.1 vs 1.4.2, current window",
+            "value": 0.8703678012085337,
+            "unit": "ratio",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_4"
+            }
+          },
+          {
+            "id": "f_13",
+            "label": "ble_disconnects_24h, prior window, firmware 1.4.2",
+            "value": 0,
+            "unit": "devices",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_5"
+            }
+          },
+          {
+            "id": "f_14",
+            "label": "ble_disconnects_24h, current window, firmware 1.4.2",
+            "value": 10.53,
+            "unit": "disconnects_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_6"
+            }
+          },
+          {
+            "id": "f_15",
+            "label": "connectivity records, current window",
+            "value": 0,
+            "unit": "records",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_7"
+            }
+          },
+          {
+            "id": "f_16",
+            "label": "ble_disconnects_24h, current window, firmware 1.4.2",
+            "value": 10.53,
+            "unit": "disconnects_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_10"
+            }
+          }
+        ],
+        "supporting_evidence": [],
+        "counter_evidence": [],
+        "knowledge_sources": [
+          {
+            "doc_id": "KD-02",
+            "title": "Firmware and Companion Release Notes",
+            "section": "BLE (1.2.0)",
+            "chunk_id": "KD-02#ble-1-2-0#1",
+            "score": 0.6731791679300255
+          },
+          {
+            "doc_id": "KD-02",
+            "title": "Firmware and Companion Release Notes",
+            "section": "BLE (1.4.1)",
+            "chunk_id": "KD-02#ble-1-4-1#1",
+            "score": 0.6077121948174921
+          },
+          {
+            "doc_id": "KD-03",
+            "title": "Support Playbook — Kestrel Loop",
+            "section": "Splits to capture (connectivity)",
+            "chunk_id": "KD-03#splits-to-capture-connectivity#1",
+            "score": 0.5977105424724299
+          },
+          {
+            "doc_id": "KD-06",
+            "title": "Historical Incident Log — Kestrel Loop",
+            "section": "Close",
+            "chunk_id": "KD-06#close#1",
+            "score": 0.5780580602307085
+          },
+          {
+            "doc_id": "KD-01",
+            "title": "Product Specification — Kestrel Loop",
+            "section": "4. Radio and firmware contract",
+            "chunk_id": "KD-01#4-radio-and-firmware-contract#1",
+            "score": 0.5586562469611848
+          }
+        ],
+        "recommended_actions": [],
+        "uncertainty": [
+          "Investigation stopped after the wall-clock bound."
+        ],
+        "trace": [
+          {
+            "kind": "tool_call",
+            "call_id": "tc_1",
+            "actor": "investigator",
+            "tool": "compare_versions",
+            "arguments": {
+              "metric": "ble_disconnects_24h",
+              "window": "current",
+              "axis": "firmware_version",
+              "version_a": "1.4.1",
+              "version_b": "1.4.2"
+            },
+            "result_summary": "interval_excludes_one",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_2",
+            "actor": "investigator",
+            "tool": "compare_versions",
+            "arguments": {
+              "metric": "adhesion_flag",
+              "window": "current",
+              "axis": "firmware_version",
+              "version_a": "1.4.1",
+              "version_b": "1.4.2"
+            },
+            "result_summary": "interval_includes_one",
+            "latency_ms": 0,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_3",
+            "actor": "investigator",
+            "tool": "compare_versions",
+            "arguments": {
+              "metric": "battery_drain_pct",
+              "window": "current",
+              "axis": "firmware_version",
+              "version_a": "1.4.1",
+              "version_b": "1.4.2"
+            },
+            "result_summary": "interval_includes_one",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_4",
+            "actor": "investigator",
+            "tool": "compare_versions",
+            "arguments": {
+              "metric": "session_gap_minutes",
+              "window": "current",
+              "axis": "firmware_version",
+              "version_a": "1.4.1",
+              "version_b": "1.4.2"
+            },
+            "result_summary": "interval_includes_one",
+            "latency_ms": 0,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_5",
+            "actor": "investigator",
+            "tool": "query_telemetry",
+            "arguments": {
+              "metric": "ble_disconnects_24h",
+              "window": "prior",
+              "firmware_version": "1.4.2"
+            },
+            "result_summary": "filter_matched_no_devices",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_6",
+            "actor": "investigator",
+            "tool": "query_telemetry",
+            "arguments": {
+              "metric": "ble_disconnects_24h",
+              "window": "current",
+              "firmware_version": "1.4.2"
+            },
+            "result_summary": "aggregates_returned",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_7",
+            "actor": "investigator",
+            "tool": "search_feedback",
+            "arguments": {
+              "query": "bluetooth disconnect firmware 1.4.2",
+              "window": "current",
+              "tag": "connectivity"
+            },
+            "result_summary": "sample_is_complete",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_8",
+            "actor": "investigator",
+            "tool": "find_similar_incidents",
+            "arguments": {
+              "description": "Firmware update causes increased BLE disconnects per device day"
+            },
+            "result_summary": "incident_list_truncated",
+            "latency_ms": 182,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_9",
+            "actor": "investigator",
+            "tool": "search_knowledge",
+            "arguments": {
+              "query": "1.4.2 BLE disconnect known issue firmware"
+            },
+            "result_summary": "chunks_returned",
+            "latency_ms": 6,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_10",
+            "actor": "investigator",
+            "tool": "query_telemetry",
+            "arguments": {
+              "metric": "ble_disconnects_24h",
+              "window": "current",
+              "firmware_version": "1.4.2",
+              "breakdown": "region"
+            },
+            "result_summary": "aggregates_returned",
+            "latency_ms": 1,
+            "tokens": 0
+          }
+        ]
+      },
+      "bound_stopped": true,
+      "metrics": {
+        "tool_calls": 10,
+        "tokens": 44189,
+        "wall_clock_ms": 120007,
+        "cache_hits": 0,
+        "cache_misses": 10
+      }
+    },
+    {
+      "candidate_id": "cnd_tag_skin_irritation",
+      "output": {
+        "investigation_id": "inv_cnd_tag_skin_irritation",
+        "signal_id": "cnd_tag_skin_irritation",
+        "title": "Skin-irritation / adhesion tag cluster — check against known adhesive-lift characterization",
+        "status": "UNCERTAIN",
+        "severity": {
+          "value": 0.2829807692307692,
+          "unit": "index",
+          "source": {
+            "kind": "triage",
+            "signal_id": "cnd_tag_skin_irritation"
+          }
+        },
+        "confidence": {
+          "granted": null,
+          "model_requested": "LOW",
+          "ceiling_rule_applied": null
+        },
+        "summary": "Telemetry for adhesion_flag and skin_temp_delta_c is essentially flat between the prior and current windows, and a firmware comparison (1.4.0 vs 1.4.2) shows no version-driven difference in adhesion_flag rate (ratio CI spans one). Support-feedback volume tagged skin-irritation/adhesion rose modestly (from {f_6} to {f_5} matched records) but the sample text is consistent with the already-documented, open high-motion/high-skin-temperature adhesive lift characterization (KI-AD-007) rather than a new failure mode. The knowledge base explicitly warns against closing such clusters as 'expected' and instead calls for lot-level escalation, so this cannot be waved away, but the current data does not show a new or worsening driver either.",
+        "affected_cohort": {
+          "value": 22,
+          "unit": "users",
+          "source": {
+            "kind": "triage",
+            "signal_id": "cnd_tag_skin_irritation"
+          }
+        },
+        "leading_hypothesis": {
+          "statement": "The skin-irritation/adhesion feedback cluster tracks the pre-existing, open high-motion and elevated-skin-temperature adhesive lift characterization rather than a new firmware-, app-, or region-specific regression; device-level telemetry rates for adhesion_flag and skin_temp_delta_c did not rise materially between windows.",
+          "evidence_type": "correlational"
+        },
+        "alternative_hypotheses": [
+          {
+            "statement": "A new adhesive lot defect (similar in shape to the previously confirmed INC-2025-031 lot recall) is driving the current cluster.",
+            "evidence_type": "correlational",
+            "status": "open",
+            "falsifying_test": "Cross-tabulate the skin-irritation/adhesion feedback records by pouch lot code and device manufacture date; a concentration in one lot would indicate a hardware batch issue rather than the general characterization."
+          },
+          {
+            "statement": "A specific firmware version change increased adhesion_flag rates.",
+            "evidence_type": "correlational",
+            "status": "weakened",
+            "falsifying_test": "Repeat the firmware version-pair comparison across all available firmware versions and windows; ci_excludes_one already returned false for 1.4.0 vs 1.4.2, weakening a firmware-driver story."
+          }
+        ],
+        "deterministic_findings": [
+          {
+            "id": "f_1",
+            "label": "adhesion_flag rate, current window",
+            "value": 0.1358,
+            "unit": "flags_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_1"
+            }
+          },
+          {
+            "id": "f_2",
+            "label": "adhesion_flag rate, prior window",
+            "value": 0.125,
+            "unit": "flags_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_2"
+            }
+          },
+          {
+            "id": "f_3",
+            "label": "skin_temp_delta_c rate, current window",
+            "value": 1.345,
+            "unit": "celsius_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_3"
+            }
+          },
+          {
+            "id": "f_4",
+            "label": "skin_temp_delta_c rate, prior window",
+            "value": 1.4083,
+            "unit": "celsius_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_4"
+            }
+          },
+          {
+            "id": "f_5",
+            "label": "skin-irritation-tagged feedback records, current window",
+            "value": 26,
+            "unit": "records",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_5"
+            }
+          },
+          {
+            "id": "f_6",
+            "label": "skin-irritation-tagged feedback records, prior window",
+            "value": 20,
+            "unit": "records",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_6"
+            }
+          },
+          {
+            "id": "f_7",
+            "label": "adhesion_flag rate ratio, firmware 1.4.0 vs 1.4.2, current window",
+            "value": 0.9075,
+            "unit": "ratio",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_9"
+            }
+          }
+        ],
+        "supporting_evidence": [
+          {
+            "claim": "Feedback record volume tagged skin-irritation and adhesion increased from prior to current window ({f_6} to {f_5} records), which is consistent with a live, ongoing cluster.",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_5"
+            }
+          },
+          {
+            "claim": "Sample feedback text describes lifting during high-intensity sessions with redness/heat under the patch, matching the documented mechanism for high motion intensity plus elevated skin-temperature delta.",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_5"
+            }
+          }
+        ],
+        "counter_evidence": [
+          {
+            "claim": "adhesion_flag telemetry rate is nearly unchanged between prior ({f_2}) and current ({f_1}) windows, showing no material worsening at the device level.",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_1"
+            }
+          },
+          {
+            "claim": "skin_temp_delta_c telemetry rate actually declined slightly from prior ({f_4}) to current ({f_3}), which does not support an environmental-driver escalation.",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_3"
+            }
+          },
+          {
+            "claim": "Comparing adhesion_flag rate across firmware 1.4.0 vs 1.4.2 in the current window gives a ratio of {f_7} with a confidence interval that includes one, indicating no detectable firmware-driven effect.",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_9"
+            }
+          }
+        ],
+        "knowledge_sources": [
+          {
+            "doc_id": "KD-03",
+            "title": "Support Playbook — Kestrel Loop",
+            "section": "What not to close (adhesion)",
+            "chunk_id": "KD-03#what-not-to-close-adhesion#1",
+            "score": 0.5564900043868989
+          },
+          {
+            "doc_id": "KD-03",
+            "title": "Support Playbook — Kestrel Loop",
+            "section": "Intake (adhesion)",
+            "chunk_id": "KD-03#intake-adhesion#1",
+            "score": 0.4422435170514124
+          },
+          {
+            "doc_id": "KD-04",
+            "title": "Known Issues Register — Kestrel Loop",
+            "section": "Mechanism (adhesion)",
+            "chunk_id": "KD-04#mechanism-adhesion#1",
+            "score": 0.4164758168999679
+          },
+          {
+            "doc_id": "KD-01",
+            "title": "Product Specification — Kestrel Loop",
+            "section": "9. Environmental and wear constraints",
+            "chunk_id": "KD-01#9-environmental-and-wear-constraints#1",
+            "score": 0.40189432518606694
+          },
+          {
+            "doc_id": "KD-06",
+            "title": "Historical Incident Log — Kestrel Loop",
+            "section": "Close",
+            "chunk_id": "KD-06#close#2",
+            "score": 0.39859843873503187
+          }
+        ],
+        "recommended_actions": [
+          {
+            "action_id": "act_1",
+            "description": "Escalate the current skin-irritation/adhesion feedback cluster to operations per playbook guidance rather than closing tickets as an accepted characteristic; request lot codes from the sampled tickets to check for a lot-specific concentration akin to the prior confirmed hardware recall.",
+            "risk_class": "INTERNAL"
+          },
+          {
+            "action_id": "act_2",
+            "description": "Continue monitoring adhesion_flag and skin_temp_delta_c telemetry with a breakdown by cohort and region over the next window to detect any emerging divergence from the flat baseline observed here.",
+            "risk_class": "INTERNAL"
+          },
+          {
+            "action_id": "act_3",
+            "description": "Do not issue any external communication or product change based on current evidence; telemetry does not show a new or worsening signal beyond the already-open known-issue characterization.",
+            "risk_class": "INTERNAL"
+          }
+        ],
+        "uncertainty": [
+          "Feedback record counts are small-sample (see {f_5} and {f_6}) and were not tested for statistical significance against expected ticket-volume variance.",
+          "No lot-code or device-batch data was available through these tools, so the possibility of a new hardware lot defect (as in INC-2025-031) could not be ruled in or out.",
+          "The triage candidate's affected-user and prior-event counts do not obviously match the feedback-search record counts returned here ({f_5} current, {f_6} prior); the discrepancy in counting method was not reconciled within this investigation.",
+          "activity_level or motion_intensity breakdowns were not queried, so the specific high-motion/high-delta subgroup characterization was not directly re-verified against current-window data."
+        ],
+        "trace": [
+          {
+            "kind": "tool_call",
+            "call_id": "tc_1",
+            "actor": "investigator",
+            "tool": "query_telemetry",
+            "arguments": {
+              "metric": "adhesion_flag",
+              "window": "current"
+            },
+            "result_summary": "aggregates_returned",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_2",
+            "actor": "investigator",
+            "tool": "query_telemetry",
+            "arguments": {
+              "metric": "adhesion_flag",
+              "window": "prior"
+            },
+            "result_summary": "aggregates_returned",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_3",
+            "actor": "investigator",
+            "tool": "query_telemetry",
+            "arguments": {
+              "metric": "skin_temp_delta_c",
+              "window": "current"
+            },
+            "result_summary": "aggregates_returned",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_4",
+            "actor": "investigator",
+            "tool": "query_telemetry",
+            "arguments": {
+              "metric": "skin_temp_delta_c",
+              "window": "prior"
+            },
+            "result_summary": "aggregates_returned",
+            "latency_ms": 0,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_5",
+            "actor": "investigator",
+            "tool": "search_feedback",
+            "arguments": {
+              "query": "skin irritation",
+              "window": "current",
+              "tag": "skin-irritation"
+            },
+            "result_summary": "sample_is_subset",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_6",
+            "actor": "investigator",
+            "tool": "search_feedback",
+            "arguments": {
+              "query": "skin irritation",
+              "window": "prior",
+              "tag": "skin-irritation"
+            },
+            "result_summary": "sample_is_subset",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_7",
+            "actor": "investigator",
+            "tool": "search_knowledge",
+            "arguments": {
+              "query": "adhesive skin irritation red mark high intensity session"
+            },
+            "result_summary": "chunks_returned",
+            "latency_ms": 197,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_8",
+            "actor": "investigator",
+            "tool": "find_similar_incidents",
+            "arguments": {
+              "description": "Adhesive patch lifting during high-intensity exercise causing skin redness and irritation complaints"
+            },
+            "result_summary": "incident_list_truncated",
+            "latency_ms": 5,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_9",
+            "actor": "investigator",
+            "tool": "compare_versions",
+            "arguments": {
+              "metric": "adhesion_flag",
+              "window": "current",
+              "axis": "firmware_version",
+              "version_a": "1.4.0",
+              "version_b": "1.4.2"
+            },
+            "result_summary": "interval_includes_one",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_10",
+            "actor": "critic",
+            "tool": "query_telemetry",
+            "arguments": {
+              "metric": "adhesion_flag",
+              "window": "current",
+              "breakdown": "activity_level"
+            },
+            "result_summary": "aggregates_returned",
+            "latency_ms": 3,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_11",
+            "actor": "critic",
+            "tool": "search_feedback",
+            "arguments": {
+              "query": "skin irritation adhesion lift low motion rest",
+              "window": "current",
+              "tag": "skin-irritation"
+            },
+            "result_summary": "sample_is_complete",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "critic_effect",
+            "effect": "abandoned",
+            "detail": "critic stopped after the output failed validation"
+          }
+        ]
+      },
+      "pre_critic": {
+        "investigation_id": "inv_cnd_tag_skin_irritation",
+        "signal_id": "cnd_tag_skin_irritation",
+        "title": "Skin-irritation / adhesion tag cluster — check against known adhesive-lift characterization",
+        "status": "UNCERTAIN",
+        "severity": {
+          "value": 0.2829807692307692,
+          "unit": "index",
+          "source": {
+            "kind": "triage",
+            "signal_id": "cnd_tag_skin_irritation"
+          }
+        },
+        "confidence": {
+          "granted": null,
+          "model_requested": "LOW",
+          "ceiling_rule_applied": null
+        },
+        "summary": "Telemetry for adhesion_flag and skin_temp_delta_c is essentially flat between the prior and current windows, and a firmware comparison (1.4.0 vs 1.4.2) shows no version-driven difference in adhesion_flag rate (ratio CI spans one). Support-feedback volume tagged skin-irritation/adhesion rose modestly (from {f_6} to {f_5} matched records) but the sample text is consistent with the already-documented, open high-motion/high-skin-temperature adhesive lift characterization (KI-AD-007) rather than a new failure mode. The knowledge base explicitly warns against closing such clusters as 'expected' and instead calls for lot-level escalation, so this cannot be waved away, but the current data does not show a new or worsening driver either.",
+        "affected_cohort": {
+          "value": 22,
+          "unit": "users",
+          "source": {
+            "kind": "triage",
+            "signal_id": "cnd_tag_skin_irritation"
+          }
+        },
+        "leading_hypothesis": {
+          "statement": "The skin-irritation/adhesion feedback cluster tracks the pre-existing, open high-motion and elevated-skin-temperature adhesive lift characterization rather than a new firmware-, app-, or region-specific regression; device-level telemetry rates for adhesion_flag and skin_temp_delta_c did not rise materially between windows.",
+          "evidence_type": "correlational"
+        },
+        "alternative_hypotheses": [
+          {
+            "statement": "A new adhesive lot defect (similar in shape to the previously confirmed INC-2025-031 lot recall) is driving the current cluster.",
+            "evidence_type": "correlational",
+            "status": "open",
+            "falsifying_test": "Cross-tabulate the skin-irritation/adhesion feedback records by pouch lot code and device manufacture date; a concentration in one lot would indicate a hardware batch issue rather than the general characterization."
+          },
+          {
+            "statement": "A specific firmware version change increased adhesion_flag rates.",
+            "evidence_type": "correlational",
+            "status": "weakened",
+            "falsifying_test": "Repeat the firmware version-pair comparison across all available firmware versions and windows; ci_excludes_one already returned false for 1.4.0 vs 1.4.2, weakening a firmware-driver story."
+          }
+        ],
+        "deterministic_findings": [
+          {
+            "id": "f_1",
+            "label": "adhesion_flag rate, current window",
+            "value": 0.1358,
+            "unit": "flags_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_1"
+            }
+          },
+          {
+            "id": "f_2",
+            "label": "adhesion_flag rate, prior window",
+            "value": 0.125,
+            "unit": "flags_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_2"
+            }
+          },
+          {
+            "id": "f_3",
+            "label": "skin_temp_delta_c rate, current window",
+            "value": 1.345,
+            "unit": "celsius_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_3"
+            }
+          },
+          {
+            "id": "f_4",
+            "label": "skin_temp_delta_c rate, prior window",
+            "value": 1.4083,
+            "unit": "celsius_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_4"
+            }
+          },
+          {
+            "id": "f_5",
+            "label": "skin-irritation-tagged feedback records, current window",
+            "value": 26,
+            "unit": "records",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_5"
+            }
+          },
+          {
+            "id": "f_6",
+            "label": "skin-irritation-tagged feedback records, prior window",
+            "value": 20,
+            "unit": "records",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_6"
+            }
+          },
+          {
+            "id": "f_7",
+            "label": "adhesion_flag rate ratio, firmware 1.4.0 vs 1.4.2, current window",
+            "value": 0.9075,
+            "unit": "ratio",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_9"
+            }
+          }
+        ],
+        "supporting_evidence": [
+          {
+            "claim": "Feedback record volume tagged skin-irritation and adhesion increased from prior to current window ({f_6} to {f_5} records), which is consistent with a live, ongoing cluster.",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_5"
+            }
+          },
+          {
+            "claim": "Sample feedback text describes lifting during high-intensity sessions with redness/heat under the patch, matching the documented mechanism for high motion intensity plus elevated skin-temperature delta.",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_5"
+            }
+          }
+        ],
+        "counter_evidence": [
+          {
+            "claim": "adhesion_flag telemetry rate is nearly unchanged between prior ({f_2}) and current ({f_1}) windows, showing no material worsening at the device level.",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_1"
+            }
+          },
+          {
+            "claim": "skin_temp_delta_c telemetry rate actually declined slightly from prior ({f_4}) to current ({f_3}), which does not support an environmental-driver escalation.",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_3"
+            }
+          },
+          {
+            "claim": "Comparing adhesion_flag rate across firmware 1.4.0 vs 1.4.2 in the current window gives a ratio of {f_7} with a confidence interval that includes one, indicating no detectable firmware-driven effect.",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_9"
+            }
+          }
+        ],
+        "knowledge_sources": [
+          {
+            "doc_id": "KD-03",
+            "title": "Support Playbook — Kestrel Loop",
+            "section": "What not to close (adhesion)",
+            "chunk_id": "KD-03#what-not-to-close-adhesion#1",
+            "score": 0.5564900043868989
+          },
+          {
+            "doc_id": "KD-03",
+            "title": "Support Playbook — Kestrel Loop",
+            "section": "Intake (adhesion)",
+            "chunk_id": "KD-03#intake-adhesion#1",
+            "score": 0.4422435170514124
+          },
+          {
+            "doc_id": "KD-04",
+            "title": "Known Issues Register — Kestrel Loop",
+            "section": "Mechanism (adhesion)",
+            "chunk_id": "KD-04#mechanism-adhesion#1",
+            "score": 0.4164758168999679
+          },
+          {
+            "doc_id": "KD-01",
+            "title": "Product Specification — Kestrel Loop",
+            "section": "9. Environmental and wear constraints",
+            "chunk_id": "KD-01#9-environmental-and-wear-constraints#1",
+            "score": 0.40189432518606694
+          },
+          {
+            "doc_id": "KD-06",
+            "title": "Historical Incident Log — Kestrel Loop",
+            "section": "Close",
+            "chunk_id": "KD-06#close#2",
+            "score": 0.39859843873503187
+          }
+        ],
+        "recommended_actions": [
+          {
+            "action_id": "act_1",
+            "description": "Escalate the current skin-irritation/adhesion feedback cluster to operations per playbook guidance rather than closing tickets as an accepted characteristic; request lot codes from the sampled tickets to check for a lot-specific concentration akin to the prior confirmed hardware recall.",
+            "risk_class": "INTERNAL"
+          },
+          {
+            "action_id": "act_2",
+            "description": "Continue monitoring adhesion_flag and skin_temp_delta_c telemetry with a breakdown by cohort and region over the next window to detect any emerging divergence from the flat baseline observed here.",
+            "risk_class": "INTERNAL"
+          },
+          {
+            "action_id": "act_3",
+            "description": "Do not issue any external communication or product change based on current evidence; telemetry does not show a new or worsening signal beyond the already-open known-issue characterization.",
+            "risk_class": "INTERNAL"
+          }
+        ],
+        "uncertainty": [
+          "Feedback record counts are small-sample (see {f_5} and {f_6}) and were not tested for statistical significance against expected ticket-volume variance.",
+          "No lot-code or device-batch data was available through these tools, so the possibility of a new hardware lot defect (as in INC-2025-031) could not be ruled in or out.",
+          "The triage candidate's affected-user and prior-event counts do not obviously match the feedback-search record counts returned here ({f_5} current, {f_6} prior); the discrepancy in counting method was not reconciled within this investigation.",
+          "activity_level or motion_intensity breakdowns were not queried, so the specific high-motion/high-delta subgroup characterization was not directly re-verified against current-window data."
+        ],
+        "trace": [
+          {
+            "kind": "tool_call",
+            "call_id": "tc_1",
+            "actor": "investigator",
+            "tool": "query_telemetry",
+            "arguments": {
+              "metric": "adhesion_flag",
+              "window": "current"
+            },
+            "result_summary": "aggregates_returned",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_2",
+            "actor": "investigator",
+            "tool": "query_telemetry",
+            "arguments": {
+              "metric": "adhesion_flag",
+              "window": "prior"
+            },
+            "result_summary": "aggregates_returned",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_3",
+            "actor": "investigator",
+            "tool": "query_telemetry",
+            "arguments": {
+              "metric": "skin_temp_delta_c",
+              "window": "current"
+            },
+            "result_summary": "aggregates_returned",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_4",
+            "actor": "investigator",
+            "tool": "query_telemetry",
+            "arguments": {
+              "metric": "skin_temp_delta_c",
+              "window": "prior"
+            },
+            "result_summary": "aggregates_returned",
+            "latency_ms": 0,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_5",
+            "actor": "investigator",
+            "tool": "search_feedback",
+            "arguments": {
+              "query": "skin irritation",
+              "window": "current",
+              "tag": "skin-irritation"
+            },
+            "result_summary": "sample_is_subset",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_6",
+            "actor": "investigator",
+            "tool": "search_feedback",
+            "arguments": {
+              "query": "skin irritation",
+              "window": "prior",
+              "tag": "skin-irritation"
+            },
+            "result_summary": "sample_is_subset",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_7",
+            "actor": "investigator",
+            "tool": "search_knowledge",
+            "arguments": {
+              "query": "adhesive skin irritation red mark high intensity session"
+            },
+            "result_summary": "chunks_returned",
+            "latency_ms": 197,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_8",
+            "actor": "investigator",
+            "tool": "find_similar_incidents",
+            "arguments": {
+              "description": "Adhesive patch lifting during high-intensity exercise causing skin redness and irritation complaints"
+            },
+            "result_summary": "incident_list_truncated",
+            "latency_ms": 5,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_9",
+            "actor": "investigator",
+            "tool": "compare_versions",
+            "arguments": {
+              "metric": "adhesion_flag",
+              "window": "current",
+              "axis": "firmware_version",
+              "version_a": "1.4.0",
+              "version_b": "1.4.2"
+            },
+            "result_summary": "interval_includes_one",
+            "latency_ms": 1,
+            "tokens": 0
+          }
+        ]
+      },
+      "bound_stopped": false,
+      "metrics": {
+        "tool_calls": 9,
+        "tokens": 54592,
+        "wall_clock_ms": 94510,
+        "cache_hits": 0,
+        "cache_misses": 9
+      }
+    },
+    {
+      "candidate_id": "cnd_tag_claims_interpretation",
+      "output": {
+        "investigation_id": "inv_cnd_tag_claims_interpretation",
+        "signal_id": "cnd_tag_claims_interpretation",
+        "title": "Rising claims-interpretation ticket cluster: readiness score read as clinical result",
+        "status": "UNCERTAIN",
+        "severity": {
+          "value": 0.45,
+          "unit": "index",
+          "source": {
+            "kind": "triage",
+            "signal_id": "cnd_tag_claims_interpretation"
+          }
+        },
+        "confidence": {
+          "granted": null,
+          "model_requested": "MEDIUM",
+          "ceiling_rule_applied": null
+        },
+        "summary": "The leading hypothesis attributes the claims-interpretation ticket rise to on-screen misreading of readiness scores, not a device defect. A targeted check of adhesion_flag telemetry (current vs prior window, with regional breakdown) found no material rate increase and no regional concentration, which does not contradict the hypothesis but also does not rule out other sensor-accuracy pathways for the data-accuracy co-tagged tickets. The specific falsifying test is a telemetry-confirmed, ticket-aligned spike in a sensor-accuracy metric; that was not observed for adhesion_flag, so status is downgraded to UNCERTAIN pending checks of additional metrics and device-level linkage.",
+        "affected_cohort": {
+          "value": 20,
+          "unit": "users",
+          "source": {
+            "kind": "triage",
+            "signal_id": "cnd_tag_claims_interpretation"
+          }
+        },
+        "leading_hypothesis": {
+          "statement": "The rise in claims-interpretation tickets is associated with wearers reading the on-screen readiness score or label as a clinical verdict, mirroring the previously documented claims-misread pattern rather than any change in sensor accuracy or hardware behavior.",
+          "evidence_type": "correlational"
+        },
+        "alternative_hypotheses": [
+          {
+            "statement": "A genuine sensor- or scoring-level accuracy problem (e.g., adhesion or motion-sensing anomaly affecting readiness score computation) is producing scores wearers correctly perceive as inconsistent with their felt state, which then get logged as claims-interpretation tickets because they are also tagged data-accuracy, rather than the tickets reflecting pure misreading of a correctly computed score.",
+            "evidence_type": "correlational",
+            "status": "weakened",
+            "falsifying_test": "If adhesion_flag (or another sensor-accuracy) telemetry rate shows a concurrent spike in the current window, concentrated in the same firmware/app/region cells generating the co-tagged tickets, that would support a genuine device-level driver and undercut the pure-misinterpretation account; a same-window adhesion_flag check across regions showed no such spike or regional concentration, which weakens this alternative."
+          }
+        ],
+        "deterministic_findings": [
+          {
+            "id": "f_1",
+            "label": "claims-interpretation tickets, current window",
+            "value": 21,
+            "unit": "records",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_1"
+            }
+          },
+          {
+            "id": "f_2",
+            "label": "claims-interpretation tickets, prior window",
+            "value": 2,
+            "unit": "records",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_2"
+            }
+          },
+          {
+            "id": "f_3",
+            "label": "claims-interpretation tickets also tagged data-accuracy, current window",
+            "value": 18,
+            "unit": "records",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_1"
+            }
+          },
+          {
+            "id": "f_4",
+            "label": "adhesion_flag, current window",
+            "value": 0.13583333333333333,
+            "unit": "flags_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_6"
+            }
+          },
+          {
+            "id": "f_5",
+            "label": "adhesion_flag, prior window",
+            "value": 0.125,
+            "unit": "flags_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_7"
+            }
+          },
+          {
+            "id": "f_6",
+            "label": "adhesion_flag, current window",
+            "value": 0.13583333333333333,
+            "unit": "flags_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_8"
+            }
+          }
+        ],
+        "supporting_evidence": [
+          {
+            "claim": "Sample tickets from the current window explicitly describe treating the readiness score as a clinical or diagnostic result, matching the claims-misread symptom set.",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_1"
+            }
+          },
+          {
+            "claim": "The claims-interpretation ticket cluster spans multiple firmware and app versions across five regions, indicating no single firmware, app, or region concentration.",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_1"
+            }
+          },
+          {
+            "claim": "A closed historical incident with the same symptom shape was resolved as a confirmed communications incident, not a device incident, with copy review and a policy update as the remedy; scoring code was not rolled back.",
+            "source": {
+              "kind": "knowledge",
+              "chunk_id": "KD-06#inc-2025-002-readiness-screenshots-as-clinical-results-comms#1"
+            }
+          },
+          {
+            "claim": "The support playbook explicitly defines a claims-misread intake queue with the same symptoms, tagged claims-interpretation and often data-accuracy.",
+            "source": {
+              "kind": "knowledge",
+              "chunk_id": "KD-03#intake-claims-misread#1"
+            }
+          }
+        ],
+        "counter_evidence": [
+          {
+            "claim": "Most current-window claims-interpretation tickets are also tagged data-accuracy ({f_3} of {f_1}), leaving open the possibility that some fraction of reports involve genuine perceived inaccuracy rather than pure misinterpretation; this was not independently verified against telemetry in this investigation.",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_1"
+            }
+          },
+          {
+            "claim": "adhesion_flag telemetry rate in the current window was essentially unchanged from the prior window and showed no regional concentration, which is consistent with (but does not prove) the absence of a concurrent hardware/sensor-accuracy driver behind the ticket spike; this check only covered one candidate metric (adhesion_flag) and cannot rule out other accuracy pathways feeding the data-accuracy co-tag.",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_8"
+            }
+          }
+        ],
+        "knowledge_sources": [
+          {
+            "doc_id": "KD-03",
+            "title": "Support Playbook — Kestrel Loop",
+            "section": "Intake (claims-misread)",
+            "chunk_id": "KD-03#intake-claims-misread#1",
+            "score": 0.5766971885154303
+          },
+          {
+            "doc_id": "KD-05",
+            "title": "Wellness Claims and Communications Policy",
+            "section": "2. Product classification (policy)",
+            "chunk_id": "KD-05#2-product-classification-policy#1",
+            "score": 0.43220739275548437
+          },
+          {
+            "doc_id": "KD-03",
+            "title": "Support Playbook — Kestrel Loop",
+            "section": "Staff script (claims-misread)",
+            "chunk_id": "KD-03#staff-script-claims-misread#1",
+            "score": 0.5257633865874382
+          },
+          {
+            "doc_id": "KD-06",
+            "title": "Historical Incident Log — Kestrel Loop",
+            "section": "INC-2025-002 — Readiness screenshots as clinical results (comms)",
+            "chunk_id": "KD-06#inc-2025-002-readiness-screenshots-as-clinical-results-comms#1",
+            "score": 0.3929339449123099
+          }
+        ],
+        "recommended_actions": [
+          {
+            "action_id": "a_1",
+            "description": "Route the ticket cluster to Regulatory Communications and Legal per the Wellness Claims policy for copy review of the readiness score display, following the same remediation template used for the prior comms incident.",
+            "risk_class": "INTERNAL"
+          },
+          {
+            "action_id": "a_2",
+            "description": "Brief support staff to use the claims-misread script and confirm agents are not confirming or denying medical states in these tickets.",
+            "risk_class": "INTERNAL"
+          },
+          {
+            "action_id": "a_3",
+            "description": "Pull adhesion, motion, and skin-temperature telemetry for the co-tagged data-accuracy devices to rule out a concurrent genuine scoring defect before closing this as comms-only.",
+            "risk_class": "INTERNAL"
+          }
+        ],
+        "uncertainty": [
+          "No telemetry check was performed to fully rule out a concurrent scoring or data-accuracy defect underlying the co-tagged tickets.",
+          "The specific UI or copy element driving the misread was not identified; only the historical precedent and ticket text were reviewed.",
+          "Cohort and channel breakdown of the current-window tickets was not obtained, so possible concentration in a single beta wave or channel is unconfirmed.",
+          "The falsifying test for the leading hypothesis is: if the tickets co-tagged data-accuracy correspond to a real, telemetry-visible sensor or scoring anomaly (e.g., a spike in adhesion_flag, motion_intensity, or skin_temp_delta_c concentrated in the same devices/time window as the ticket surge), the pure on-screen-misread explanation cannot hold for that subset of tickets.",
+          "Only adhesion_flag was checked; motion_intensity and skin_temp_delta_c, which could also feed a genuine readiness-score miscalculation, were not examined in this pass.",
+          "Ticket-level device identifiers were not cross-referenced against telemetry, so the association between specific claims-interpretation tickets and any telemetry anomaly remains unverified at the individual-device level.",
+          "Cohort and channel concentration of the ticket cluster is still unconfirmed, leaving open a beta-wave- or channel-specific driver distinct from either misinterpretation or a broad sensor defect."
+        ],
+        "trace": [
+          {
+            "kind": "tool_call",
+            "call_id": "tc_1",
+            "actor": "investigator",
+            "tool": "search_feedback",
+            "arguments": {
+              "query": "claims interpretation",
+              "window": "current",
+              "tag": "claims-interpretation"
+            },
+            "result_summary": "sample_is_subset",
+            "latency_ms": 2,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_2",
+            "actor": "investigator",
+            "tool": "search_feedback",
+            "arguments": {
+              "query": "claims interpretation",
+              "window": "prior",
+              "tag": "claims-interpretation"
+            },
+            "result_summary": "sample_is_complete",
+            "latency_ms": 0,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_3",
+            "actor": "investigator",
+            "tool": "search_knowledge",
+            "arguments": {
+              "query": "claims interpretation regulatory labeling wearable"
+            },
+            "result_summary": "chunks_returned",
+            "latency_ms": 185,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_4",
+            "actor": "investigator",
+            "tool": "find_similar_incidents",
+            "arguments": {
+              "description": "users misinterpreting wellness readiness score as medical diagnosis, claims-interpretation tag rising"
+            },
+            "result_summary": "incident_list_truncated",
+            "latency_ms": 7,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_5",
+            "actor": "investigator",
+            "tool": "search_knowledge",
+            "arguments": {
+              "query": "prior communications incident claims misread INC-2025-002",
+              "doc_id": "KD-06"
+            },
+            "result_summary": "chunks_returned",
+            "latency_ms": 4,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_6",
+            "actor": "critic",
+            "tool": "query_telemetry",
+            "arguments": {
+              "metric": "adhesion_flag",
+              "window": "current"
+            },
+            "result_summary": "aggregates_returned",
+            "latency_ms": 3,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_7",
+            "actor": "critic",
+            "tool": "query_telemetry",
+            "arguments": {
+              "metric": "adhesion_flag",
+              "window": "prior"
+            },
+            "result_summary": "aggregates_returned",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_8",
+            "actor": "critic",
+            "tool": "query_telemetry",
+            "arguments": {
+              "metric": "adhesion_flag",
+              "window": "current",
+              "breakdown": "region"
+            },
+            "result_summary": "aggregates_returned",
+            "latency_ms": 2,
+            "tokens": 0
+          },
+          {
+            "kind": "critic_effect",
+            "effect": "status_downgraded",
+            "detail": "CONFIRMED to UNCERTAIN"
+          },
+          {
+            "kind": "critic_effect",
+            "effect": "applied",
+            "detail": "patch applied"
+          }
+        ]
+      },
+      "pre_critic": {
+        "investigation_id": "inv_cnd_tag_claims_interpretation",
+        "signal_id": "cnd_tag_claims_interpretation",
+        "title": "Rising claims-interpretation ticket cluster: readiness score read as clinical result",
+        "status": "CONFIRMED",
+        "severity": {
+          "value": 0.45,
+          "unit": "index",
+          "source": {
+            "kind": "triage",
+            "signal_id": "cnd_tag_claims_interpretation"
+          }
+        },
+        "confidence": {
+          "granted": null,
+          "model_requested": "MEDIUM",
+          "ceiling_rule_applied": null
+        },
+        "summary": "Support tickets tagged claims-interpretation rose from {f_2} in the prior window to {f_1} in the current window, spanning multiple firmware versions (1.2.0-1.4.2), app versions (3.0-3.2), and regions including iberia, nordics, uk, benelux, and dach. Sample tickets show wearers treating the readiness score as a clinical or diagnostic result (cancelling a meeting, showing a screenshot as a clinical finding). This matches a previously closed incident pattern (INC-2025-002) explicitly documented as a communications/claims risk rather than a device or sensor defect, and the internal support playbook (KD-03) and Wellness Claims policy (KD-05) already define this exact symptom set as the claims-misread queue. The broad spread across firmware, app version, and region argues against a hardware or single-batch explanation and points instead to on-screen copy or score presentation as the likely driver, consistent with the documented precedent.",
+        "affected_cohort": {
+          "value": 20,
+          "unit": "users",
+          "source": {
+            "kind": "triage",
+            "signal_id": "cnd_tag_claims_interpretation"
+          }
+        },
+        "leading_hypothesis": {
+          "statement": "The rise in claims-interpretation tickets is associated with wearers reading the on-screen readiness score or label as a clinical verdict, mirroring the previously documented claims-misread pattern rather than any change in sensor accuracy or hardware behavior.",
+          "evidence_type": "correlational"
+        },
+        "alternative_hypotheses": [
+          {
+            "statement": "A genuine data-accuracy defect, such as a scoring algorithm regression, is driving both the claims-interpretation and co-tagged data-accuracy complaints.",
+            "evidence_type": "correlational",
+            "status": "weakened",
+            "falsifying_test": "Compare adhesion_flag, motion_intensity, and skin_temp_delta_c telemetry rates across the same window for the affected devices to check for a genuine sensor or scoring anomaly; if telemetry is unremarkable, the accuracy tag reflects perception, not defect."
+          },
+          {
+            "statement": "The increase is a reporting artifact of a specific beta cohort or channel amplifying a small number of vocal users rather than a broad-based user experience issue.",
+            "evidence_type": "correlational",
+            "status": "open",
+            "falsifying_test": "Break down claims-interpretation ticket counts by cohort and channel to see if the rise concentrates in one beta wave versus organic app-store or support-ticket channels."
+          }
+        ],
+        "deterministic_findings": [
+          {
+            "id": "f_1",
+            "label": "claims-interpretation tickets, current window",
+            "value": 21,
+            "unit": "records",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_1"
+            }
+          },
+          {
+            "id": "f_2",
+            "label": "claims-interpretation tickets, prior window",
+            "value": 2,
+            "unit": "records",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_2"
+            }
+          },
+          {
+            "id": "f_3",
+            "label": "claims-interpretation tickets also tagged data-accuracy, current window",
+            "value": 18,
+            "unit": "records",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_1"
+            }
+          }
+        ],
+        "supporting_evidence": [
+          {
+            "claim": "Sample tickets from the current window explicitly describe treating the readiness score as a clinical or diagnostic result, matching the claims-misread symptom set.",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_1"
+            }
+          },
+          {
+            "claim": "The claims-interpretation ticket cluster spans multiple firmware and app versions across five regions, indicating no single firmware, app, or region concentration.",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_1"
+            }
+          },
+          {
+            "claim": "A closed historical incident with the same symptom shape was resolved as a confirmed communications incident, not a device incident, with copy review and a policy update as the remedy; scoring code was not rolled back.",
+            "source": {
+              "kind": "knowledge",
+              "chunk_id": "KD-06#inc-2025-002-readiness-screenshots-as-clinical-results-comms#1"
+            }
+          },
+          {
+            "claim": "The support playbook explicitly defines a claims-misread intake queue with the same symptoms, tagged claims-interpretation and often data-accuracy.",
+            "source": {
+              "kind": "knowledge",
+              "chunk_id": "KD-03#intake-claims-misread#1"
+            }
+          }
+        ],
+        "counter_evidence": [
+          {
+            "claim": "Most current-window claims-interpretation tickets are also tagged data-accuracy ({f_3} of {f_1}), leaving open the possibility that some fraction of reports involve genuine perceived inaccuracy rather than pure misinterpretation; this was not independently verified against telemetry in this investigation.",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_1"
+            }
+          }
+        ],
+        "knowledge_sources": [
+          {
+            "doc_id": "KD-03",
+            "title": "Support Playbook — Kestrel Loop",
+            "section": "Intake (claims-misread)",
+            "chunk_id": "KD-03#intake-claims-misread#1",
+            "score": 0.5766971885154303
+          },
+          {
+            "doc_id": "KD-05",
+            "title": "Wellness Claims and Communications Policy",
+            "section": "2. Product classification (policy)",
+            "chunk_id": "KD-05#2-product-classification-policy#1",
+            "score": 0.43220739275548437
+          },
+          {
+            "doc_id": "KD-03",
+            "title": "Support Playbook — Kestrel Loop",
+            "section": "Staff script (claims-misread)",
+            "chunk_id": "KD-03#staff-script-claims-misread#1",
+            "score": 0.5257633865874382
+          },
+          {
+            "doc_id": "KD-06",
+            "title": "Historical Incident Log — Kestrel Loop",
+            "section": "INC-2025-002 — Readiness screenshots as clinical results (comms)",
+            "chunk_id": "KD-06#inc-2025-002-readiness-screenshots-as-clinical-results-comms#1",
+            "score": 0.3929339449123099
+          }
+        ],
+        "recommended_actions": [
+          {
+            "action_id": "a_1",
+            "description": "Route the ticket cluster to Regulatory Communications and Legal per the Wellness Claims policy for copy review of the readiness score display, following the same remediation template used for the prior comms incident.",
+            "risk_class": "INTERNAL"
+          },
+          {
+            "action_id": "a_2",
+            "description": "Brief support staff to use the claims-misread script and confirm agents are not confirming or denying medical states in these tickets.",
+            "risk_class": "INTERNAL"
+          },
+          {
+            "action_id": "a_3",
+            "description": "Pull adhesion, motion, and skin-temperature telemetry for the co-tagged data-accuracy devices to rule out a concurrent genuine scoring defect before closing this as comms-only.",
+            "risk_class": "INTERNAL"
+          }
+        ],
+        "uncertainty": [
+          "No telemetry check was performed to fully rule out a concurrent scoring or data-accuracy defect underlying the co-tagged tickets.",
+          "The specific UI or copy element driving the misread was not identified; only the historical precedent and ticket text were reviewed.",
+          "Cohort and channel breakdown of the current-window tickets was not obtained, so possible concentration in a single beta wave or channel is unconfirmed."
+        ],
+        "trace": [
+          {
+            "kind": "tool_call",
+            "call_id": "tc_1",
+            "actor": "investigator",
+            "tool": "search_feedback",
+            "arguments": {
+              "query": "claims interpretation",
+              "window": "current",
+              "tag": "claims-interpretation"
+            },
+            "result_summary": "sample_is_subset",
+            "latency_ms": 2,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_2",
+            "actor": "investigator",
+            "tool": "search_feedback",
+            "arguments": {
+              "query": "claims interpretation",
+              "window": "prior",
+              "tag": "claims-interpretation"
+            },
+            "result_summary": "sample_is_complete",
+            "latency_ms": 0,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_3",
+            "actor": "investigator",
+            "tool": "search_knowledge",
+            "arguments": {
+              "query": "claims interpretation regulatory labeling wearable"
+            },
+            "result_summary": "chunks_returned",
+            "latency_ms": 185,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_4",
+            "actor": "investigator",
+            "tool": "find_similar_incidents",
+            "arguments": {
+              "description": "users misinterpreting wellness readiness score as medical diagnosis, claims-interpretation tag rising"
+            },
+            "result_summary": "incident_list_truncated",
+            "latency_ms": 7,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_5",
+            "actor": "investigator",
+            "tool": "search_knowledge",
+            "arguments": {
+              "query": "prior communications incident claims misread INC-2025-002",
+              "doc_id": "KD-06"
+            },
+            "result_summary": "chunks_returned",
+            "latency_ms": 4,
+            "tokens": 0
+          }
+        ]
+      },
+      "bound_stopped": false,
+      "metrics": {
+        "tool_calls": 5,
+        "tokens": 48324,
+        "wall_clock_ms": 77653,
+        "cache_hits": 0,
+        "cache_misses": 5
+      }
+    },
+    {
+      "candidate_id": "cnd_tag_overheating",
+      "output": {
+        "investigation_id": "inv_cnd_tag_overheating",
+        "signal_id": "cnd_tag_overheating",
+        "title": "Overheating-tagged tickets trace to known Nordics cold-weather battery drain, not thermal safety issue",
+        "status": "NOT_AN_INCIDENT",
+        "severity": {
+          "value": 0.1096875,
+          "unit": "index",
+          "source": {
+            "kind": "triage",
+            "signal_id": "cnd_tag_overheating"
+          }
+        },
+        "confidence": {
+          "granted": null,
+          "model_requested": "HIGH",
+          "ceiling_rule_applied": null
+        },
+        "summary": "The leading hypothesis attributes the overheating tag cluster to mislabeled battery/app-UI reports tied to a known Nordics cold-weather drain characteristic, not a real thermal event. A falsifying test is to check whether any region or firmware subgroup shows a skin_temp_delta_c rate distinctly elevated above others, since a real localized heat effect would still show up in a subgroup breakdown even if diluted in the aggregate; a region/firmware breakdown run in this pass found no standout subgroup, which does not contradict the leading hypothesis, but the same breakdown is the correct ongoing falsifying check, and any future divergence in a subgroup would falsify the claim that there is no real thermal signal underlying the tag.",
+        "affected_cohort": {
+          "value": 23,
+          "unit": "users",
+          "source": {
+            "kind": "triage",
+            "signal_id": "cnd_tag_overheating"
+          }
+        },
+        "leading_hypothesis": {
+          "statement": "The overheating tag is a mislabeling of app-UI battery warning screens and subjective device-feels-warm-when-syncing reports that co-occur with a documented, accepted Nordics cold-weather battery drain characteristic; it is not evidence of an actual thermal or skin-temperature safety event.",
+          "evidence_type": "correlational"
+        },
+        "alternative_hypotheses": [
+          {
+            "statement": "A genuine, localized thermal effect exists in a firmware or regional subset of devices (e.g., a specific firmware build or Nordics-specific usage pattern), but is masked in the aggregate skin_temp_delta_c rate because it only affects a small fraction of devices while the rest behave normally.",
+            "evidence_type": "correlational",
+            "status": "open",
+            "falsifying_test": "Break down skin_temp_delta_c by region and by firmware_version for the current window: if any single region or firmware subgroup (e.g., nordics, or firmware 1.4.1) shows a skin_temp_delta_c rate meaningfully elevated above the other subgroups, that would falsify the claim that the overheating tag reflects no real thermal signal, since a genuine localized heat effect would be diluted rather than absent in the aggregate. A breakdown check performed in this pass shows region- and firmware-level rates clustered closely together with no standout subgroup, which is consistent with (but does not fully prove) the leading hypothesis; a future re-check with the same breakdown remains the falsifying test if a subgroup diverges."
+          }
+        ],
+        "deterministic_findings": [
+          {
+            "id": "f_1",
+            "label": "skin_temp_delta_c rate, current window",
+            "value": 1.345,
+            "unit": "celsius_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_1"
+            }
+          },
+          {
+            "id": "f_2",
+            "label": "skin_temp_delta_c rate, prior window",
+            "value": 1.408,
+            "unit": "celsius_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_2"
+            }
+          },
+          {
+            "id": "f_3",
+            "label": "overheating-tagged feedback records, current window",
+            "value": 26,
+            "unit": "records",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_3"
+            }
+          },
+          {
+            "id": "f_4",
+            "label": "overheating-tagged feedback records, prior window",
+            "value": 25,
+            "unit": "records",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_4"
+            }
+          },
+          {
+            "id": "f_5",
+            "label": "battery_drain_pct rate, Nordics, current window",
+            "value": 17.28,
+            "unit": "percent_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_7"
+            }
+          },
+          {
+            "id": "f_6",
+            "label": "battery_drain_pct rate, UK, current window",
+            "value": 12.965,
+            "unit": "percent_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_7"
+            }
+          },
+          {
+            "id": "f_7",
+            "label": "skin_temp_delta_c, current window",
+            "value": 1.345,
+            "unit": "celsius_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_8"
+            }
+          },
+          {
+            "id": "f_8",
+            "label": "skin_temp_delta_c, current window",
+            "value": 1.345,
+            "unit": "celsius_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_9"
+            }
+          }
+        ],
+        "supporting_evidence": [
+          {
+            "claim": "Overheating-tagged feedback co-occurs almost entirely with battery and app-ui tags, and sampled text describes battery drain in cold weather and an alarming sync screen rather than a hot device.",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_3"
+            }
+          },
+          {
+            "claim": "The pattern is essentially unchanged between the prior and current windows ({f_4} versus {f_3} matched records), consistent with a stable, known characteristic rather than a new emerging defect.",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_4"
+            }
+          },
+          {
+            "claim": "skin_temp_delta_c shows no meaningful increase current versus prior ({f_1} versus {f_2}), arguing against an actual heat event.",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_2"
+            }
+          },
+          {
+            "claim": "Nordics battery_drain_pct ({f_5}) is noticeably higher than UK ({f_6}), matching the magnitude the Known Issues Register records for the accepted regional cold-weather drain characteristic.",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_7"
+            }
+          },
+          {
+            "claim": "A prior incident describing Nordics winter drain tickets was closed as not-an-incident and encoded as a standing known issue with the same regional battery-drain shape.",
+            "source": {
+              "kind": "knowledge",
+              "chunk_id": "KD-06#evidence#2"
+            }
+          }
+        ],
+        "counter_evidence": [
+          {
+            "claim": "The Known Issues Register explicitly forbids using skin_temp_delta_c as proof of cold or ambient temperature, and states its correlation with battery_drain_pct in Nordics is approximately zero, so the regional battery story and any thermal story must be evaluated independently rather than conflated.",
+            "source": {
+              "kind": "knowledge",
+              "chunk_id": "KD-04#what-not-to-use-as-the-explanation#1"
+            }
+          },
+          {
+            "claim": "The Known Issues Register explicitly forbids using skin_temp_delta_c as proof of cold or ambient temperature and states its correlation with battery_drain_pct in Nordics is approximately zero, so the regional battery story and any thermal story must be evaluated independently rather than conflated.",
+            "source": {
+              "kind": "knowledge",
+              "chunk_id": "KD-04#what-not-to-use-as-the-explanation#1"
+            }
+          }
+        ],
+        "knowledge_sources": [
+          {
+            "doc_id": "KD-04",
+            "title": "Known Issues Register — Kestrel Loop",
+            "section": "What not to use as the explanation",
+            "chunk_id": "KD-04#what-not-to-use-as-the-explanation#1",
+            "score": 0.4936
+          },
+          {
+            "doc_id": "KD-01",
+            "title": "Product Specification — Kestrel Loop",
+            "section": "3.2 Skin-temperature delta",
+            "chunk_id": "KD-01#3-2-skin-temperature-delta#1",
+            "score": 0.4362
+          },
+          {
+            "doc_id": "KD-01",
+            "title": "Product Specification — Kestrel Loop",
+            "section": "5.2 What battery telemetry cannot show",
+            "chunk_id": "KD-01#5-2-what-battery-telemetry-cannot-show#1",
+            "score": 0.5098
+          },
+          {
+            "doc_id": "KD-03",
+            "title": "Support Playbook — Kestrel Loop",
+            "section": "Intake (battery)",
+            "chunk_id": "KD-03#intake-battery#1",
+            "score": 0.5058
+          },
+          {
+            "doc_id": "KD-06",
+            "title": "Incident Log Reference",
+            "section": "evidence",
+            "chunk_id": "KD-06#evidence#2",
+            "score": 0.4427
+          }
+        ],
+        "recommended_actions": [
+          {
+            "action_id": "a_1",
+            "description": "Retag the overheating-labeled tickets that describe cold-weather battery drain or app-UI warning screens into the battery and app-ui categories to prevent double-counting against a safety-adjacent tag.",
+            "risk_class": "INTERNAL"
+          },
+          {
+            "action_id": "a_2",
+            "description": "Confirm the standing known issue for Nordics battery drain remains the correct reference and note this ticket cluster against it rather than opening a new investigation.",
+            "risk_class": "INTERNAL"
+          },
+          {
+            "action_id": "a_3",
+            "description": "If ticket volume under the overheating tag grows or shifts region or co-tag pattern, re-run this check isolating tickets that do not also carry battery or app-ui tags.",
+            "risk_class": "INTERNAL"
+          }
+        ],
+        "uncertainty": [
+          "Only a small subsample of the overheating-tagged feedback text was reviewed for each window; it is possible a minority of tickets describe genuine thermal discomfort rather than the battery and UI pattern seen in the sample.",
+          "No device-level or per-user breakdown was available to confirm all affected users noted in triage match the battery and app-ui pattern rather than a distinct subset.",
+          "Version-level drivers were not directly tested with compare_versions in this pass.",
+          "Only a small subsample of overheating-tagged feedback text was reviewed per window; a minority of tickets could still describe genuine thermal discomfort distinct from the battery/app-ui pattern.",
+          "Region- and firmware-level breakdowns of skin_temp_delta_c were checked in aggregate only for the current window; a subgroup-level thermal signal concentrated in a small device population could still be masked by device-day weighted averaging if the affected fraction is small enough.",
+          "No per-device or per-user linkage was available to confirm that users who filed overheating tickets are the same users whose skin_temp_delta_c or battery_drain_pct values were sampled."
+        ],
+        "trace": [
+          {
+            "kind": "tool_call",
+            "call_id": "tc_1",
+            "actor": "investigator",
+            "tool": "query_telemetry",
+            "arguments": {
+              "metric": "skin_temp_delta_c",
+              "window": "current"
+            },
+            "result_summary": "aggregates_returned",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_2",
+            "actor": "investigator",
+            "tool": "query_telemetry",
+            "arguments": {
+              "metric": "skin_temp_delta_c",
+              "window": "prior"
+            },
+            "result_summary": "aggregates_returned",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_3",
+            "actor": "investigator",
+            "tool": "search_feedback",
+            "arguments": {
+              "query": "overheating",
+              "window": "current",
+              "tag": "overheating"
+            },
+            "result_summary": "sample_is_subset",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_4",
+            "actor": "investigator",
+            "tool": "search_feedback",
+            "arguments": {
+              "query": "overheating",
+              "window": "prior",
+              "tag": "overheating"
+            },
+            "result_summary": "sample_is_subset",
+            "latency_ms": 0,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_5",
+            "actor": "investigator",
+            "tool": "search_knowledge",
+            "arguments": {
+              "query": "overheating warning cold weather battery drain false alarm"
+            },
+            "result_summary": "chunks_returned",
+            "latency_ms": 172,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_6",
+            "actor": "investigator",
+            "tool": "find_similar_incidents",
+            "arguments": {
+              "description": "overheating tag feedback actually battery drain in cold weather with app UI warning, not device heat"
+            },
+            "result_summary": "incident_list_truncated",
+            "latency_ms": 2,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_7",
+            "actor": "investigator",
+            "tool": "query_telemetry",
+            "arguments": {
+              "metric": "battery_drain_pct",
+              "window": "current",
+              "breakdown": "region"
+            },
+            "result_summary": "aggregates_returned",
+            "latency_ms": 2,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_8",
+            "actor": "critic",
+            "tool": "query_telemetry",
+            "arguments": {
+              "metric": "skin_temp_delta_c",
+              "window": "current",
+              "breakdown": "region"
+            },
+            "result_summary": "aggregates_returned",
+            "latency_ms": 2,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_9",
+            "actor": "critic",
+            "tool": "query_telemetry",
+            "arguments": {
+              "metric": "skin_temp_delta_c",
+              "window": "current",
+              "breakdown": "firmware_version"
+            },
+            "result_summary": "aggregates_returned",
+            "latency_ms": 2,
+            "tokens": 0
+          },
+          {
+            "kind": "critic_effect",
+            "effect": "applied",
+            "detail": "patch applied"
+          }
+        ]
+      },
+      "pre_critic": {
+        "investigation_id": "inv_cnd_tag_overheating",
+        "signal_id": "cnd_tag_overheating",
+        "title": "Overheating-tagged tickets trace to known Nordics cold-weather battery drain, not thermal safety issue",
+        "status": "NOT_AN_INCIDENT",
+        "severity": {
+          "value": 0.1096875,
+          "unit": "index",
+          "source": {
+            "kind": "triage",
+            "signal_id": "cnd_tag_overheating"
+          }
+        },
+        "confidence": {
+          "granted": null,
+          "model_requested": "HIGH",
+          "ceiling_rule_applied": null
+        },
+        "summary": "The overheating tag cluster noted in triage is dominated by tickets describing cold-weather battery drain and an app UI warning screen (device feels warm when syncing, sync screen looks alarming), not device thermal events. Sampled tickets co-tag battery, overheating, and app-ui together, and are concentrated in Nordics. Skin_temp_delta_c telemetry shows essentially no shift between the current and prior windows ({f_1} versus {f_2}), which argues against an actual heat event. The checkable signal instead is a stable regional battery-drain gap in Nordics versus other regions ({f_5} versus {f_6}), matching a previously closed, accepted regional characteristic documented in the Known Issues Register and referenced by a prior closed incident. The knowledge base explicitly warns against reading skin_temp_delta_c as an ambient-temperature or overheating proxy.",
+        "affected_cohort": {
+          "value": 23,
+          "unit": "users",
+          "source": {
+            "kind": "triage",
+            "signal_id": "cnd_tag_overheating"
+          }
+        },
+        "leading_hypothesis": {
+          "statement": "The overheating tag is a mislabeling of app-UI battery warning screens and subjective device-feels-warm-when-syncing reports that co-occur with a documented, accepted Nordics cold-weather battery drain characteristic; it is not evidence of an actual thermal or skin-temperature safety event.",
+          "evidence_type": "correlational"
+        },
+        "alternative_hypotheses": [
+          {
+            "statement": "A genuine device overheating condition is emerging and is being captured under this tag alongside battery complaints.",
+            "evidence_type": "correlational",
+            "status": "weakened",
+            "falsifying_test": "Check whether skin_temp_delta_c rises above its typical field range concurrently with new overheating tickets, isolated from battery and app-ui co-tags, in a region-matched cohort."
+          },
+          {
+            "statement": "A firmware or app version change is driving the overheating-tagged tickets.",
+            "evidence_type": "correlational",
+            "status": "open",
+            "falsifying_test": "Run compare_versions on skin_temp_delta_c and battery_drain_pct across firmware and app versions to check for a version-specific step rather than a regional offset."
+          }
+        ],
+        "deterministic_findings": [
+          {
+            "id": "f_1",
+            "label": "skin_temp_delta_c rate, current window",
+            "value": 1.345,
+            "unit": "celsius_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_1"
+            }
+          },
+          {
+            "id": "f_2",
+            "label": "skin_temp_delta_c rate, prior window",
+            "value": 1.408,
+            "unit": "celsius_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_2"
+            }
+          },
+          {
+            "id": "f_3",
+            "label": "overheating-tagged feedback records, current window",
+            "value": 26,
+            "unit": "records",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_3"
+            }
+          },
+          {
+            "id": "f_4",
+            "label": "overheating-tagged feedback records, prior window",
+            "value": 25,
+            "unit": "records",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_4"
+            }
+          },
+          {
+            "id": "f_5",
+            "label": "battery_drain_pct rate, Nordics, current window",
+            "value": 17.28,
+            "unit": "percent_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_7"
+            }
+          },
+          {
+            "id": "f_6",
+            "label": "battery_drain_pct rate, UK, current window",
+            "value": 12.965,
+            "unit": "percent_per_device_day",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_7"
+            }
+          }
+        ],
+        "supporting_evidence": [
+          {
+            "claim": "Overheating-tagged feedback co-occurs almost entirely with battery and app-ui tags, and sampled text describes battery drain in cold weather and an alarming sync screen rather than a hot device.",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_3"
+            }
+          },
+          {
+            "claim": "The pattern is essentially unchanged between the prior and current windows ({f_4} versus {f_3} matched records), consistent with a stable, known characteristic rather than a new emerging defect.",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_4"
+            }
+          },
+          {
+            "claim": "skin_temp_delta_c shows no meaningful increase current versus prior ({f_1} versus {f_2}), arguing against an actual heat event.",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_2"
+            }
+          },
+          {
+            "claim": "Nordics battery_drain_pct ({f_5}) is noticeably higher than UK ({f_6}), matching the magnitude the Known Issues Register records for the accepted regional cold-weather drain characteristic.",
+            "source": {
+              "kind": "tool_call",
+              "call_id": "tc_7"
+            }
+          },
+          {
+            "claim": "A prior incident describing Nordics winter drain tickets was closed as not-an-incident and encoded as a standing known issue with the same regional battery-drain shape.",
+            "source": {
+              "kind": "knowledge",
+              "chunk_id": "KD-06#evidence#2"
+            }
+          }
+        ],
+        "counter_evidence": [
+          {
+            "claim": "The Known Issues Register explicitly forbids using skin_temp_delta_c as proof of cold or ambient temperature, and states its correlation with battery_drain_pct in Nordics is approximately zero, so the regional battery story and any thermal story must be evaluated independently rather than conflated.",
+            "source": {
+              "kind": "knowledge",
+              "chunk_id": "KD-04#what-not-to-use-as-the-explanation#1"
+            }
+          }
+        ],
+        "knowledge_sources": [
+          {
+            "doc_id": "KD-04",
+            "title": "Known Issues Register — Kestrel Loop",
+            "section": "What not to use as the explanation",
+            "chunk_id": "KD-04#what-not-to-use-as-the-explanation#1",
+            "score": 0.4936
+          },
+          {
+            "doc_id": "KD-01",
+            "title": "Product Specification — Kestrel Loop",
+            "section": "3.2 Skin-temperature delta",
+            "chunk_id": "KD-01#3-2-skin-temperature-delta#1",
+            "score": 0.4362
+          },
+          {
+            "doc_id": "KD-01",
+            "title": "Product Specification — Kestrel Loop",
+            "section": "5.2 What battery telemetry cannot show",
+            "chunk_id": "KD-01#5-2-what-battery-telemetry-cannot-show#1",
+            "score": 0.5098
+          },
+          {
+            "doc_id": "KD-03",
+            "title": "Support Playbook — Kestrel Loop",
+            "section": "Intake (battery)",
+            "chunk_id": "KD-03#intake-battery#1",
+            "score": 0.5058
+          },
+          {
+            "doc_id": "KD-06",
+            "title": "Incident Log Reference",
+            "section": "evidence",
+            "chunk_id": "KD-06#evidence#2",
+            "score": 0.4427
+          }
+        ],
+        "recommended_actions": [
+          {
+            "action_id": "a_1",
+            "description": "Retag the overheating-labeled tickets that describe cold-weather battery drain or app-UI warning screens into the battery and app-ui categories to prevent double-counting against a safety-adjacent tag.",
+            "risk_class": "INTERNAL"
+          },
+          {
+            "action_id": "a_2",
+            "description": "Confirm the standing known issue for Nordics battery drain remains the correct reference and note this ticket cluster against it rather than opening a new investigation.",
+            "risk_class": "INTERNAL"
+          },
+          {
+            "action_id": "a_3",
+            "description": "If ticket volume under the overheating tag grows or shifts region or co-tag pattern, re-run this check isolating tickets that do not also carry battery or app-ui tags.",
+            "risk_class": "INTERNAL"
+          }
+        ],
+        "uncertainty": [
+          "Only a small subsample of the overheating-tagged feedback text was reviewed for each window; it is possible a minority of tickets describe genuine thermal discomfort rather than the battery and UI pattern seen in the sample.",
+          "No device-level or per-user breakdown was available to confirm all affected users noted in triage match the battery and app-ui pattern rather than a distinct subset.",
+          "Version-level drivers were not directly tested with compare_versions in this pass."
+        ],
+        "trace": [
+          {
+            "kind": "tool_call",
+            "call_id": "tc_1",
+            "actor": "investigator",
+            "tool": "query_telemetry",
+            "arguments": {
+              "metric": "skin_temp_delta_c",
+              "window": "current"
+            },
+            "result_summary": "aggregates_returned",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_2",
+            "actor": "investigator",
+            "tool": "query_telemetry",
+            "arguments": {
+              "metric": "skin_temp_delta_c",
+              "window": "prior"
+            },
+            "result_summary": "aggregates_returned",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_3",
+            "actor": "investigator",
+            "tool": "search_feedback",
+            "arguments": {
+              "query": "overheating",
+              "window": "current",
+              "tag": "overheating"
+            },
+            "result_summary": "sample_is_subset",
+            "latency_ms": 1,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_4",
+            "actor": "investigator",
+            "tool": "search_feedback",
+            "arguments": {
+              "query": "overheating",
+              "window": "prior",
+              "tag": "overheating"
+            },
+            "result_summary": "sample_is_subset",
+            "latency_ms": 0,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_5",
+            "actor": "investigator",
+            "tool": "search_knowledge",
+            "arguments": {
+              "query": "overheating warning cold weather battery drain false alarm"
+            },
+            "result_summary": "chunks_returned",
+            "latency_ms": 172,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_6",
+            "actor": "investigator",
+            "tool": "find_similar_incidents",
+            "arguments": {
+              "description": "overheating tag feedback actually battery drain in cold weather with app UI warning, not device heat"
+            },
+            "result_summary": "incident_list_truncated",
+            "latency_ms": 2,
+            "tokens": 0
+          },
+          {
+            "kind": "tool_call",
+            "call_id": "tc_7",
+            "actor": "investigator",
+            "tool": "query_telemetry",
+            "arguments": {
+              "metric": "battery_drain_pct",
+              "window": "current",
+              "breakdown": "region"
+            },
+            "result_summary": "aggregates_returned",
+            "latency_ms": 2,
+            "tokens": 0
+          }
+        ]
+      },
+      "bound_stopped": false,
+      "metrics": {
+        "tool_calls": 7,
+        "tokens": 63601,
+        "wall_clock_ms": 97854,
+        "cache_hits": 0,
+        "cache_misses": 7
+      }
+    }
+  ],
+  "approvals": [],
+  "execution_log": []
+}

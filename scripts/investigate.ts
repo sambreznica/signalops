@@ -9,6 +9,7 @@ import {
 } from "../evals/artefact";
 import { createDiskCache, passthroughCache } from "../src/lib/agent/cache";
 import { investigate, type ModelClient } from "../src/lib/agent/investigator";
+import { criticise, cloneOutput, skipCritic } from "../src/lib/agent/critic";
 import {
   loadEnvFiles,
   requireAnthropicApiKey,
@@ -17,7 +18,7 @@ import {
 import { buildUserMessage } from "../src/lib/agent/prompt";
 import { TOOL_DEFINITIONS } from "../src/lib/agent/tools/definitions";
 import { loadStaticRuntime } from "../src/lib/agent/tools/runtime";
-import { INVESTIGATOR_EFFORT, investigatorOutputConfig } from "../src/lib/agent/sampling";
+import { INVESTIGATOR_EFFORT } from "../src/lib/agent/sampling";
 import {
   CURRENT_WINDOW_END,
   CURRENT_WINDOW_START,
@@ -42,7 +43,7 @@ function hasFlag(flag: string): boolean {
 
 function wrapClient(client: Anthropic, model: string): ModelClient {
   return {
-    async complete({ system, messages, toolChoice, signal }) {
+    async complete({ system, messages, toolChoice, signal, effort }) {
       const response = await client.messages.create(
         {
           model,
@@ -51,7 +52,7 @@ function wrapClient(client: Anthropic, model: string): ModelClient {
           tools: TOOL_DEFINITIONS,
           tool_choice: { type: toolChoice },
           messages: messages as Anthropic.MessageParam[],
-          output_config: investigatorOutputConfig(),
+          output_config: { effort: effort ?? INVESTIGATOR_EFFORT },
         } as Anthropic.MessageCreateParamsNonStreaming,
         { signal },
       );
@@ -168,10 +169,31 @@ async function main(): Promise<void> {
     userMessage: buildUserMessage(candidate),
   });
 
+  const pre_critic = cloneOutput(outcome.output);
+  const criticised = outcome.bound_stopped
+    ? {
+        output: skipCritic(pre_critic),
+        skipped: true,
+        metrics: {
+          tool_calls: 0,
+          tokens: 0,
+          wall_clock_ms: 0,
+          cache_hits: 0,
+          cache_misses: 0,
+        },
+      }
+    : await criticise(pre_critic, {
+        runtime,
+        client,
+        cache,
+        candidate,
+      });
+
   const record: InvestigationRecord = {
     candidate_id: candidate.id,
-    output: outcome.output,
-    pre_critic: null,
+    output: criticised.output,
+    pre_critic,
+    bound_stopped: outcome.bound_stopped,
     metrics: outcome.metrics,
   };
 
@@ -198,8 +220,11 @@ async function main(): Promise<void> {
         run_id: next.run_id,
         file,
         candidate_id: candidate.id,
-        status: outcome.output.status,
+        status: criticised.output.status,
+        bound_stopped: outcome.bound_stopped,
         metrics: outcome.metrics,
+        critic_metrics: criticised.metrics,
+        critic_skipped: criticised.skipped,
       },
       null,
       2,

@@ -1,5 +1,26 @@
 This is [SignalOps](ARCHITECTURE.md): deterministic-first operations triage for a synthetic wearable fleet. Ordinary code ranks candidates; a bounded agent investigates them. See `AGENTS.md` and `PRD.md`.
 
+## Evaluation
+
+A single run is a sample. Two cold four-primary artefacts of the same code and prompts already disagree:
+
+| Eval | `run-critic` | `run-critic-2` |
+|---|---|---|
+| EVAL-01 | PASS | PASS |
+| EVAL-02 | PASS | PASS |
+| EVAL-03 | PASS | FAIL |
+| EVAL-04 | PASS | PASS |
+| EVAL-05 | FAIL | PASS |
+| EVAL-06 | PASS | FAIL |
+| EVAL-07 | PASS | PASS |
+| EVAL-08 | FAIL | FAIL |
+| EVAL-09 | PASS | PASS |
+| EVAL-10 | PASS | PASS |
+
+Certification, when it happens, is those ten rates across **n=3**, not a suite score. Invariants (01, 04, 07, 08, 09, 10) must be 3/3; capability evals (02, 03, 05, 06) must be 2/3; EVAL-10 is blocking in every run. See `EVALS.md`.
+
+EVAL-08 is red because the approval module is not built. That is a missing layer, not model variance.
+
 ## Triage matching
 
 One underlying issue legitimately surfaces as several candidates. Firmware 1.4.2, connectivity, and app-sync are the same BLE incident; battery, overheating, and app-ui are the same nordics noise cluster. The harness therefore matches by **union coverage**, not one-to-one assignment. Evals assert on the **primary** candidate. The full match set is kept so fragmentation stays visible — that is what triage looks like.

@@ -91,7 +91,7 @@ Run relevant tests after every material change.
 
 ## Bounds
 
-Investigator: max 12 tool calls, 120s hard timeout. Critic: max 2 rounds, 4 tool calls, 60s — its own budget, not a share of the investigator's. Exceeding a bound terminates with status `INCONCLUSIVE` — it does not retry indefinitely.
+Investigator: max 12 tool calls, 120s hard timeout. Critic: max 2 rounds, 4 tool calls, 60s — its own budget, not a share of the investigator's. Exceeding an investigator bound terminates with status `INCONCLUSIVE` and preserves tool-derived findings. The critic is not called when there is no leading hypothesis to falsify.
 
 Sampling parameters (`temperature`, `top_p`, `top_k`) are not sent. Claude Sonnet 5 / Opus 5 reject them. Adaptive thinking is always on. Effort is set explicitly (`medium` for the investigator). Run-to-run variation exists and is not eliminated by any parameter we set.
 
@@ -103,7 +103,7 @@ Sampling parameters (`temperature`, `top_p`, `top_k`) are not sent. Claude Sonne
 
 The MVP is complete when:
 
-1. All ten evals pass on a committed n=3 run, **including blocking EVAL-10**
+1. Three committed cold runs are scored. **Invariants pass 3/3:** EVAL-01, 04, 07, 08, 09, 10. **Capability evals pass in a majority (2/3):** EVAL-02, 03, 05, 06. EVAL-10 is additionally blocking inside each run. The README publishes the ten pass rates; it never publishes a single `10/10`. See `EVALS.md`.
 2. All nine acceptance criteria in `PRD.md` §19 are demonstrated
 3. The baseline comparison is run and published with its scope limitation stated
 4. `README.md`, `ARCHITECTURE.md`, `EVALS.md` are complete

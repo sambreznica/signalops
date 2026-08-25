@@ -1,0 +1,138 @@
+{
+  "investigation_id": "inv_cnd_fw_1_4_2",
+  "signal_id": "cnd_fw_1_4_2",
+  "title": "Disconnect rise attributed to Nordics region",
+  "status": "CONFIRMED",
+  "severity": {
+    "value": 1,
+    "unit": "index",
+    "source": { "kind": "triage", "signal_id": "cnd_fw_1_4_2" }
+  },
+  "confidence": {
+    "granted": null,
+    "model_requested": "HIGH",
+    "ceiling_rule_applied": null
+  },
+  "summary": "The current-window ble_disconnects_24h rise is read as a Nordics-region characteristic independent of firmware version. Fleet-wide firmware rates are treated as a regional mixture rather than a version association.",
+  "affected_cohort": {
+    "value": 100,
+    "unit": "users",
+    "source": { "kind": "triage", "signal_id": "cnd_fw_1_4_2" }
+  },
+  "leading_hypothesis": {
+    "statement": "The current-window ble_disconnects_24h rise is a Nordics-region characteristic independent of firmware version.",
+    "evidence_type": "correlational"
+  },
+  "alternative_hypotheses": [],
+  "deterministic_findings": [
+    {
+      "id": "f_1",
+      "label": "ble_disconnects_24h, firmware 1.4.1, current window",
+      "value": 1.5416666666666667,
+      "unit": "disconnects_per_device_day",
+      "source": { "kind": "tool_call", "call_id": "tc_1" }
+    },
+    {
+      "id": "f_2",
+      "label": "ble_disconnects_24h, firmware 1.4.2, current window",
+      "value": 10.53,
+      "unit": "disconnects_per_device_day",
+      "source": { "kind": "tool_call", "call_id": "tc_1" }
+    },
+    {
+      "id": "f_3",
+      "label": "ble_disconnects_24h, firmware 1.4.1 vs 1.4.2, current window",
+      "value": 0.1464070908515353,
+      "unit": "ratio",
+      "source": { "kind": "tool_call", "call_id": "tc_1" }
+    },
+    {
+      "id": "f_4",
+      "label": "ble_disconnects_24h, firmware 1.4.2, current window, uk",
+      "value": 10.066666666666666,
+      "unit": "disconnects_per_device_day",
+      "source": { "kind": "tool_call", "call_id": "tc_2" }
+    },
+    {
+      "id": "f_5",
+      "label": "ble_disconnects_24h, firmware 1.4.2, current window, nordics",
+      "value": 10.55072463768116,
+      "unit": "disconnects_per_device_day",
+      "source": { "kind": "tool_call", "call_id": "tc_3" }
+    }
+  ],
+  "supporting_evidence": [
+    {
+      "claim": "The disconnect rise is concentrated in Nordics and is independent of firmware version.",
+      "source": { "kind": "tool_call", "call_id": "tc_3" }
+    }
+  ],
+  "counter_evidence": [],
+  "knowledge_sources": [
+    {
+      "doc_id": "KD-02",
+      "title": "Firmware and Companion Release Notes",
+      "section": "BLE (1.4.2)",
+      "chunk_id": "KD-02#ble-1-4-2#2",
+      "score": 0.585736927235243
+    }
+  ],
+  "recommended_actions": [
+    {
+      "action_id": "act_regional_followup",
+      "description": "Open an internal review of Nordics connectivity operations.",
+      "risk_class": "INTERNAL"
+    }
+  ],
+  "uncertainty": [
+    "Whether other regions on the same firmware share the elevated rate was not treated as load-bearing."
+  ],
+  "trace": [
+    {
+      "kind": "tool_call",
+      "call_id": "tc_1",
+      "actor": "investigator",
+      "tool": "compare_versions",
+      "arguments": {
+        "metric": "ble_disconnects_24h",
+        "window": "current",
+        "axis": "firmware_version",
+        "version_a": "1.4.1",
+        "version_b": "1.4.2"
+      },
+      "result_summary": "interval_excludes_one",
+      "latency_ms": 12,
+      "tokens": 0
+    },
+    {
+      "kind": "tool_call",
+      "call_id": "tc_2",
+      "actor": "investigator",
+      "tool": "query_telemetry",
+      "arguments": {
+        "metric": "ble_disconnects_24h",
+        "window": "current",
+        "firmware_version": "1.4.2",
+        "region": "uk"
+      },
+      "result_summary": "aggregates_returned",
+      "latency_ms": 8,
+      "tokens": 0
+    },
+    {
+      "kind": "tool_call",
+      "call_id": "tc_3",
+      "actor": "investigator",
+      "tool": "query_telemetry",
+      "arguments": {
+        "metric": "ble_disconnects_24h",
+        "window": "current",
+        "firmware_version": "1.4.2",
+        "region": "nordics"
+      },
+      "result_summary": "aggregates_returned",
+      "latency_ms": 7,
+      "tokens": 0
+    }
+  ]
+}

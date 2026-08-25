@@ -9,6 +9,7 @@ import type { TriageCandidate } from "../triage/types";
 import { factsFromToolResults, type RecordedToolCall } from "./bound-record";
 import type { ToolCache } from "./cache";
 import { citeableCallIds, INVESTIGATOR_SYSTEM_PROMPT } from "./prompt";
+import { INVESTIGATOR_EFFORT, type EffortLevel } from "./sampling";
 import { invoke, summarise } from "./tools/invoke";
 import type { ToolRuntime } from "./tools/types";
 
@@ -47,6 +48,7 @@ export type ModelClient = {
     messages: ModelMessage[];
     toolChoice: "auto" | "none";
     signal: AbortSignal;
+    effort?: EffortLevel;
   }) => Promise<ModelResponse>;
 };
 
@@ -61,6 +63,7 @@ export type InvestigationMetrics = {
 export type InvestigationOutcome = {
   output: InvestigationOutput;
   metrics: InvestigationMetrics;
+  bound_stopped: boolean;
 };
 
 export type InvestigateDeps = {
@@ -245,8 +248,12 @@ export async function investigate(
 
   const timedOut = () => (deps.now ?? Date.now)() >= deadline;
 
-  const finish = (output: InvestigationOutput): InvestigationOutcome => ({
+  const finish = (
+    output: InvestigationOutput,
+    bound_stopped = false,
+  ): InvestigationOutcome => ({
     output,
+    bound_stopped,
     metrics: {
       tool_calls: trace.length,
       tokens,
@@ -257,7 +264,7 @@ export async function investigate(
   });
 
   const boundInconclusive = (reason: string) =>
-    finish(inconclusive(candidate, trace, recorded, reason));
+    finish(inconclusive(candidate, trace, recorded, reason), true);
 
   try {
     while (true) {
@@ -277,6 +284,7 @@ export async function investigate(
           messages,
           toolChoice,
           signal: controller.signal,
+          effort: INVESTIGATOR_EFFORT,
         });
       } finally {
         clearTimeout(kill);
