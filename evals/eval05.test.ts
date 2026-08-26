@@ -3,6 +3,7 @@ import type { InvestigationOutput } from "../src/lib/schema/investigation";
 import type { TriageCandidate } from "../src/lib/triage/types";
 import { eval05 } from "./assertions";
 import type { CertificationRun, InvestigationRecord } from "./artefact";
+import { recordIsCompleted } from "./artefact";
 import type { HarnessContext } from "./load";
 import { makeInvestigation } from "./make-output";
 
@@ -34,6 +35,7 @@ function record(
     candidate_id,
     output,
     pre_critic: extra.pre_critic ?? null,
+    stop_reason: extra.stop_reason,
     bound_stopped: extra.bound_stopped,
     metrics: {
       tool_calls: 1,
@@ -101,7 +103,7 @@ describe("eval05", () => {
       });
       rows[0] = record("cnd_fw_1_4_2", bound, {
         pre_critic: bound,
-        bound_stopped: true,
+        stop_reason: "wall_clock",
       });
       const post = {
         ...rows[1]!.output,
@@ -113,6 +115,39 @@ describe("eval05", () => {
     });
     const result = eval05(ctx);
     expect(result.pass).toBe(true);
+  });
+
+  it("does not fail (a) when validation_exhausted left empty alternatives", () => {
+    const ctx = fourCompleted((rows) => {
+      const wiped = makeInvestigation({
+        signal_id: "cnd_fw_1_4_2",
+        status: "INCONCLUSIVE",
+        alternative_hypotheses: [],
+      });
+      rows[0] = record("cnd_fw_1_4_2", wiped, {
+        pre_critic: wiped,
+        stop_reason: "validation_exhausted",
+      });
+      const post = {
+        ...rows[1]!.output,
+        status: "UNCERTAIN" as const,
+      };
+      rows[1] = record(rows[1]!.candidate_id, post, {
+        pre_critic: rows[1]!.output,
+      });
+    });
+    expect(eval05(ctx).pass).toBe(true);
+  });
+
+  it("treats a legacy bound_stopped record as incomplete", () => {
+    expect(
+      recordIsCompleted(
+        record("cnd_fw_1_4_2", makeInvestigation(), { bound_stopped: true }),
+      ),
+    ).toBe(false);
+    expect(
+      recordIsCompleted(record("cnd_fw_1_4_2", makeInvestigation(), {})),
+    ).toBe(true);
   });
 
   it("fails (a) when a completed investigation has empty alternatives", () => {

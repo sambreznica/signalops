@@ -29,6 +29,7 @@ import {
   type ModelClient,
   type ModelMessage,
   type ModelResponse,
+  type StopReason,
   type ToolResultBlock,
 } from "./investigator";
 import { CRITIC_EFFORT } from "./sampling";
@@ -243,7 +244,10 @@ function effect(
   return { kind: "critic_effect", effect: kind, detail };
 }
 
-export function skipCritic(investigator: InvestigationOutput): InvestigationOutput {
+export function skipCritic(
+  investigator: InvestigationOutput,
+  stop_reason: Exclude<StopReason, "completed">,
+): InvestigationOutput {
   const cloned = cloneOutput(investigator);
   return investigationOutputSchema.parse({
     ...cloned,
@@ -251,7 +255,7 @@ export function skipCritic(investigator: InvestigationOutput): InvestigationOutp
       ...cloned.trace,
       effect(
         "skipped",
-        "no leading hypothesis to falsify; investigation stopped inside a bound",
+        `no leading hypothesis to falsify; stop_reason ${stop_reason}`,
       ),
     ],
   });

@@ -127,9 +127,12 @@ describe("skipCritic", () => {
       alternative_hypotheses: [],
     });
     const before = JSON.stringify(original);
-    const skipped = skipCritic(original);
+    const skipped = skipCritic(original, "wall_clock");
     expect(JSON.stringify(original)).toBe(before);
     expect(skipped.trace.some((e) => e.kind === "critic_effect" && e.effect === "skipped")).toBe(
+      true,
+    );
+    expect(skipped.trace.some((e) => e.kind === "critic_effect" && e.detail.includes("wall_clock"))).toBe(
       true,
     );
     expect(skipped.alternative_hypotheses).toEqual([]);

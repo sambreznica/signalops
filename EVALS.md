@@ -104,7 +104,7 @@ Two checks, one principle: no claim exceeds its evidence. Scored on **every inve
 **Assert (c):** where `evidence_type === 'correlational'`, the hypothesis string contains no unhedged causal verb (`causes`, `caused by`, `results in`, `due to`, `because of`).
 
 ### EVAL-05 — Critic effect
-**Assert (a):** on each **completed** investigation, `alternative_hypotheses.length ≥ 1` and each carries a non-empty `falsifying_test`. Bound-stopped records are not completed: empty alternatives remain valid there (`INCONCLUSIVE` must be representable; item-1 schema decision). A bound-stopped primary does not fail (a).
+**Assert (a):** on each **completed** investigation, `alternative_hypotheses.length ≥ 1` and each carries a non-empty `falsifying_test`. Completed means `stop_reason === 'completed'` (legacy artefacts: `bound_stopped` is not true). `wall_clock`, `call_cap`, and `validation_exhausted` are not completed: empty alternatives remain valid there (`INCONCLUSIVE` must be representable; item-1 schema decision). An incomplete primary does not fail (a).
 **Assert (b):** across the four scenarios, at least one outcome differs between pre-critic and post-critic state — status, confidence band, or hypothesis ordering. The band the critic can write is `model_requested`. `granted` is the ceiling's field (item 11) and is not this assert.
 
 (b) is the one that matters. A critic that always produces a well-formed objection and never changes anything is decorative.

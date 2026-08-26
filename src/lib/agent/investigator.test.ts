@@ -135,9 +135,9 @@ describe("investigate", () => {
 
   it("gives the critic its own call and wall budget", () => {
     expect(MAX_TOOL_CALLS).toBe(12);
-    expect(TIMEOUT_MS).toBe(120_000);
+    expect(TIMEOUT_MS).toBe(180_000);
     expect(MAX_CRITIC_TOOL_CALLS).toBe(4);
-    expect(CRITIC_TIMEOUT_MS).toBe(60_000);
+    expect(CRITIC_TIMEOUT_MS).toBe(90_000);
   });
 
   it("leaves granted null even when the model writes a band", async () => {
@@ -148,7 +148,7 @@ describe("investigate", () => {
       userMessage: buildUserMessage(candidate),
     });
     expect(outcome.output.confidence.granted).toBeNull();
-    expect(outcome.bound_stopped).toBe(false);
+    expect(outcome.stop_reason).toBe("completed");
     expect(outcome.output.confidence.model_requested).toBe("HIGH");
     expect(outcome.output.confidence.ceiling_rule_applied).toBeNull();
     expect(outcome.output.signal_id).toBe(ID);
@@ -195,7 +195,7 @@ describe("investigate", () => {
       userMessage: buildUserMessage(candidate),
     });
     expect(outcome.output.status).toBe("INCONCLUSIVE");
-    expect(outcome.bound_stopped).toBe(true);
+    expect(outcome.stop_reason).toBe("call_cap");
     expect(outcome.output.confidence.granted).toBeNull();
     expect(outcome.metrics.tool_calls).toBe(MAX_TOOL_CALLS);
     expect(outcome.output.uncertainty[0]).toMatch(/tool-call bound/);
@@ -232,7 +232,10 @@ describe("investigate", () => {
       userMessage: buildUserMessage(candidate),
     });
     expect(outcome.output.status).toBe("INCONCLUSIVE");
+    expect(outcome.stop_reason).toBe("validation_exhausted");
     expect(outcome.output.uncertainty[0]).toMatch(/validation/);
+    expect(outcome.validation_error).toMatch(/orphan tool_call/);
+    expect(outcome.validation_emit).toContain("tc_99");
   });
 
   it("treats an orphan finding reference as a repair-triggering failure", async () => {
@@ -250,7 +253,9 @@ describe("investigate", () => {
       userMessage: buildUserMessage(candidate),
     });
     expect(outcome.output.status).toBe("INCONCLUSIVE");
+    expect(outcome.stop_reason).toBe("validation_exhausted");
     expect(outcome.output.uncertainty[0]).toMatch(/validation/);
+    expect(outcome.validation_error).toMatch(/orphan finding/);
   });
 
   it("treats a bare numeral in prose as a repair-triggering failure", async () => {
@@ -268,7 +273,35 @@ describe("investigate", () => {
       userMessage: buildUserMessage(candidate),
     });
     expect(outcome.output.status).toBe("INCONCLUSIVE");
+    expect(outcome.stop_reason).toBe("validation_exhausted");
     expect(outcome.output.uncertainty[0]).toMatch(/validation/);
+    expect(outcome.validation_error).toMatch(/bare numeral/);
+    expect(outcome.validation_emit).toContain("22");
+  });
+
+  it("keeps tool-projected findings when validation is exhausted", async () => {
+    const bad = JSON.parse(validModelJson()) as Record<string, unknown>;
+    bad.summary = "Twenty two is written as 22 in this sentence.";
+    const turn: ModelResponse = {
+      content: [{ type: "text", text: JSON.stringify(bad) }],
+      usage: { input_tokens: 1, output_tokens: 1 },
+    };
+    const outcome = await investigate(candidate, {
+      runtime: emptyRuntime(),
+      client: scriptedClient([toolTurn, turn, turn]),
+      cache: createMemoryCache(),
+      userMessage: buildUserMessage(candidate),
+    });
+    expect(outcome.stop_reason).toBe("validation_exhausted");
+    expect(outcome.output.deterministic_findings.length).toBeGreaterThan(0);
+    expect(
+      outcome.output.deterministic_findings.every(
+        (f) => f.source.kind === "tool_call",
+      ),
+    ).toBe(true);
+    expect(outcome.output.supporting_evidence).toEqual([]);
+    expect(outcome.output.recommended_actions).toEqual([]);
+    expect(outcome.output.leading_hypothesis.statement).toMatch(/validation/);
   });
 
   it("accepts a resolved finding reference in prose", async () => {
@@ -294,7 +327,7 @@ describe("investigate", () => {
       userMessage: buildUserMessage(candidate),
     });
     expect(outcome.output.status).toBe("UNCERTAIN");
-    expect(outcome.bound_stopped).toBe(false);
+    expect(outcome.stop_reason).toBe("completed");
     expect(outcome.output.summary).toContain("{f_1}");
   });
 
@@ -312,7 +345,7 @@ describe("investigate", () => {
       },
     });
     expect(outcome.output.status).toBe("INCONCLUSIVE");
-    expect(outcome.bound_stopped).toBe(true);
+    expect(outcome.stop_reason).toBe("wall_clock");
     expect(outcome.output.uncertainty[0]).toMatch(/wall-clock bound/);
   });
 

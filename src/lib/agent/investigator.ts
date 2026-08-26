@@ -14,11 +14,24 @@ import { invoke, summarise } from "./tools/invoke";
 import type { ToolRuntime } from "./tools/types";
 
 export const MAX_TOOL_CALLS = 12;
-export const TIMEOUT_MS = 120_000;
+/**
+ * Wall-clock is calibrated to the call budget, not an independent limit.
+ * 12 slots + one synthesis turn at ~12s/slot ≈ 160s; 180s is headroom.
+ */
+export const TIMEOUT_MS = 180_000;
 export const MAX_CRITIC_ROUNDS = 2;
 /** Critic budget is not a share of the investigator's. */
 export const MAX_CRITIC_TOOL_CALLS = 4;
-export const CRITIC_TIMEOUT_MS = 60_000;
+/** 4 slots + synthesis at ~12s/slot = 60s; 90s covers a repair turn. */
+export const CRITIC_TIMEOUT_MS = 90_000;
+
+export const STOP_REASONS = [
+  "completed",
+  "wall_clock",
+  "call_cap",
+  "validation_exhausted",
+] as const;
+export type StopReason = (typeof STOP_REASONS)[number];
 
 export type ContentBlock =
   | { type: "text"; text: string }
@@ -63,7 +76,9 @@ export type InvestigationMetrics = {
 export type InvestigationOutcome = {
   output: InvestigationOutput;
   metrics: InvestigationMetrics;
-  bound_stopped: boolean;
+  stop_reason: StopReason;
+  validation_error: string | null;
+  validation_emit: string | null;
 };
 
 export type InvestigateDeps = {
@@ -182,14 +197,44 @@ function provenanceErrors(
   return errors;
 }
 
+function stopCopy(reason: Exclude<StopReason, "completed">): {
+  uncertainty: string;
+  summary: string;
+  hypothesis: string;
+} {
+  if (reason === "validation_exhausted") {
+    return {
+      uncertainty: "Investigation stopped after the output failed validation.",
+      summary: "The investigation did not produce a parseable synthesis.",
+      hypothesis:
+        "No conclusion was reached because the output failed validation.",
+    };
+  }
+  if (reason === "call_cap") {
+    return {
+      uncertainty: "Investigation stopped after the tool-call bound.",
+      summary:
+        "The investigation did not reach a terminal finding inside the bound.",
+      hypothesis: "No conclusion was reached inside the bound.",
+    };
+  }
+  return {
+    uncertainty: "Investigation stopped after the wall-clock bound.",
+    summary:
+      "The investigation did not reach a terminal finding inside the bound.",
+    hypothesis: "No conclusion was reached inside the bound.",
+  };
+}
+
 function inconclusive(
   candidate: TriageCandidate,
   trace: TraceEvent[],
   recorded: readonly RecordedToolCall[],
-  uncertainty: string,
+  reason: Exclude<StopReason, "completed">,
   requested: ConfidenceBand = "LOW",
 ): InvestigationOutput {
   const facts = factsFromToolResults(recorded);
+  const copy = stopCopy(reason);
   return investigationOutputSchema.parse({
     investigation_id: `inv_${candidate.id}`,
     signal_id: candidate.id,
@@ -201,10 +246,10 @@ function inconclusive(
       model_requested: requested,
       ceiling_rule_applied: null,
     },
-    summary: "The investigation did not reach a terminal finding inside the bound.",
+    summary: copy.summary,
     affected_cohort: candidate.affected_users,
     leading_hypothesis: {
-      statement: "No conclusion was reached inside the bound.",
+      statement: copy.hypothesis,
       evidence_type: "correlational",
     },
     alternative_hypotheses: [],
@@ -213,7 +258,7 @@ function inconclusive(
     counter_evidence: [],
     knowledge_sources: facts.knowledge_sources,
     recommended_actions: [],
-    uncertainty: [uncertainty],
+    uncertainty: [copy.uncertainty],
     trace,
   });
 }
@@ -245,15 +290,21 @@ export async function investigate(
   let tokens = 0;
   let repairUsed = false;
   let stopNudged = false;
+  let validationError: string | null = null;
+  let validationEmit: string | null = null;
 
   const timedOut = () => (deps.now ?? Date.now)() >= deadline;
 
   const finish = (
     output: InvestigationOutput,
-    bound_stopped = false,
+    stop_reason: StopReason = "completed",
   ): InvestigationOutcome => ({
     output,
-    bound_stopped,
+    stop_reason,
+    validation_error:
+      stop_reason === "validation_exhausted" ? validationError : null,
+    validation_emit:
+      stop_reason === "validation_exhausted" ? validationEmit : null,
     metrics: {
       tool_calls: trace.length,
       tokens,
@@ -263,15 +314,20 @@ export async function investigate(
     },
   });
 
-  const boundInconclusive = (reason: string) =>
-    finish(inconclusive(candidate, trace, recorded, reason), true);
+  const rememberValidation = (error: string, emit: string) => {
+    validationEmit = emit;
+    validationError = validationError
+      ? `${validationError}\n--- repair ---\n${error}`
+      : error;
+  };
+
+  const stopIncomplete = (reason: Exclude<StopReason, "completed">) =>
+    finish(inconclusive(candidate, trace, recorded, reason), reason);
 
   try {
     while (true) {
       if (timedOut()) {
-        return boundInconclusive(
-          "Investigation stopped after the wall-clock bound.",
-        );
+        return stopIncomplete("wall_clock");
       }
 
       const toolChoice = trace.length >= MAX_TOOL_CALLS || repairUsed ? "none" : "auto";
@@ -296,9 +352,7 @@ export async function investigate(
 
       if (uses.length > 0 && !canCall) {
         if (stopNudged) {
-          return boundInconclusive(
-            "Investigation stopped after the tool-call bound.",
-          );
+          return stopIncomplete("call_cap");
         }
         stopNudged = true;
         messages.push({ role: "assistant", content: response.content });
@@ -314,9 +368,7 @@ export async function investigate(
         for (const use of uses) {
           if (trace.length >= MAX_TOOL_CALLS) break;
           if (timedOut()) {
-            return boundInconclusive(
-              "Investigation stopped after the wall-clock bound.",
-            );
+            return stopIncomplete("wall_clock");
           }
           const parsedName = toolNameSchema.safeParse(use.name);
           if (!parsedName.success) {
@@ -410,24 +462,24 @@ export async function investigate(
       try {
         raw = extractJsonObject(jsonText);
       } catch (err) {
-        raw = null;
+        const error = err instanceof Error ? err.message : String(err);
+        rememberValidation(error, jsonText);
         if (!repairUsed) {
           repairUsed = true;
           messages.push({ role: "assistant", content: response.content });
           messages.push({
             role: "user",
-            content: `The JSON failed validation. Fix every issue. Reply with only JSON.\n${err instanceof Error ? err.message : String(err)}\n${citeableCallIds(trace)}`,
+            content: `The JSON failed validation. Fix every issue. Reply with only JSON.\n${error}\n${citeableCallIds(trace)}`,
           });
           continue;
         }
-        return boundInconclusive(
-          "Investigation stopped after the output failed validation.",
-        );
+        return stopIncomplete("validation_exhausted");
       }
 
       const first = attempt(raw);
       if (first.ok) return finish(first.output);
 
+      rememberValidation(first.error, jsonText);
       if (!repairUsed) {
         repairUsed = true;
         messages.push({ role: "assistant", content: response.content });
@@ -438,15 +490,11 @@ export async function investigate(
         continue;
       }
 
-      return boundInconclusive(
-        "Investigation stopped after the output failed validation.",
-      );
+      return stopIncomplete("validation_exhausted");
     }
   } catch (err) {
     if (timedOut() || (err instanceof Error && err.name === "AbortError")) {
-      return boundInconclusive(
-        "Investigation stopped after the wall-clock bound.",
-      );
+      return stopIncomplete("wall_clock");
     }
     throw err;
   }

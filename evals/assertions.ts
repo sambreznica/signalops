@@ -17,6 +17,7 @@ import { systemVoiceMedicalHits } from "./medical";
 import { bareNumeralHits, orphanFindingRefs } from "./numerals";
 import { APPROVAL_MODULE_DIR } from "./paths";
 import type { EvalResult } from "./types";
+import { recordIsCompleted } from "./artefact";
 const CLAIMS_NEEDLES = [
   "claims-risk",
   "claims risk",
@@ -258,7 +259,7 @@ export function eval05(ctx: HarnessContext): EvalResult {
       missing.map((m) => missingInvestigationReason(ctx, m.id)).join("; "),
     );
   }
-  const completed = records.filter((row) => row.record!.bound_stopped !== true);
+  const completed = records.filter((row) => recordIsCompleted(row.record!));
   const withoutAlts = completed.filter((row) => {
     const alts = row.record!.output.alternative_hypotheses;
     return (

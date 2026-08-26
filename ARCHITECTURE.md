@@ -183,9 +183,11 @@ In replay mode no embedding runs at request time — retrieval results are read 
 
 ## 7. Investigator
 
-A bounded tool-calling loop over the five tools. Investigator bounds: 12 tool calls, 120s. Critic bounds are separate (see §8). Exceeding a bound terminates with `INCONCLUSIVE` — it does not retry indefinitely, and a bounded failure is a legitimate answer.
+A bounded tool-calling loop over the five tools. Investigator bounds: 12 tool calls. Wall-clock is 180s, calibrated to that call budget at measured API latency (~12s/slot × 12 slots plus a synthesis turn), not an independent cap. Critic bounds are separate (see §8). Exceeding a bound terminates with `INCONCLUSIVE` — it does not retry indefinitely, and a bounded failure is a legitimate answer.
 
-`INCONCLUSIVE` means no conclusion inside the budget, not that no evidence was gathered. A bound stop templates the interpretive fields (status, leading hypothesis, confidence, recommended actions, an uncertainty entry naming the bound) and **keeps** `deterministic_findings` and `knowledge_sources` projected from in-memory tool JSON: labels from arguments (metric, window, versions), values from quantities the tool already stamped. Digit-free `result_summary` cannot reconstruct a rate; the model is not asked to label findings on this path. Empty supporting/counter-evidence and an empty hypothesis are honest about missing synthesis.
+The artefact records `stop_reason`: `completed | wall_clock | call_cap | validation_exhausted`. `bound_stopped` conflated the last three; it is no longer written. Validation exhaustion is not a budget event. On any incomplete stop, code templates the interpretive fields (status, leading hypothesis, recommended actions, an uncertainty entry naming the reason) and **keeps** `deterministic_findings` and `knowledge_sources` projected from in-memory tool JSON. A repair failure means we could not get a parseable synthesis, not that no evidence exists. The validation error text and last failed emit live on the record, not in output free-text (EVAL-04).
+
+`INCONCLUSIVE` means no conclusion inside the budget or no parseable synthesis, not that no evidence was gathered. Empty supporting/counter-evidence and a templated hypothesis are honest about missing synthesis. Digit-free `result_summary` cannot reconstruct a rate; the model is not asked to label findings on this path.
 
 Adaptivity is only real if a different result produces a different next call. The seeded data contains a genuine branch point: firmware 1.4.2 and app 3.2 shipped in the same window, so isolating firmware requires noticing the confound and testing it. Devices on firmware 1.4.1 with app 3.2 show baseline disconnect rates — the confound resolves against evidence, not assertion. A trace that runs the same sequence regardless of results has failed FR-012 whether or not the evals pass.
 
@@ -199,11 +201,11 @@ Separate context. Does not receive the investigator's proposed confidence band �
 
 **What it receives.** Leading hypothesis, typed findings, retrieved passages, supporting and counter claims, residual uncertainty, stated status, summary/title, candidate identity (tag or firmware slice key), windows, and citeable `call_id`s (ids only). It does not receive `confidence` (`model_requested`, `granted`, `ceiling_rule_applied`), the investigator's `alternative_hypotheses`, or the full investigator trace (arguments / `result_summary`). Seeing the trace would reveal unchecked branches; it would also replay the investigator's search path. Gaps remain visible in the evidence table; the critic can still call tools.
 
-Its objective is falsification, never review. Its prompt contains no evaluative framing. It must produce at least one alternative hypothesis and at least one **named falsifying test**: a specific observation that would disprove the leading hypothesis. It may call tools to run that test, under its own budget: 4 tool calls and 60s, not a share of the investigator's 12 / 120s. A shared ceiling lets a slow investigator starve the critic, which is how a falsification pass degrades into a rubber stamp.
+Its objective is falsification, never review. Its prompt contains no evaluative framing. It must produce at least one alternative hypothesis and at least one **named falsifying test**: a specific observation that would disprove the leading hypothesis. It may call tools to run that test, under its own budget: 4 tool calls and 90s, not a share of the investigator's 12 / 180s. A shared ceiling lets a slow investigator starve the critic, which is how a falsification pass degrades into a rubber stamp.
 
 It returns a **patch**, not a second investigation record. Code applies it: it may lower status, lower `model_requested`, or replace the leading hypothesis. It cannot raise either. The critic sees less evidence than the investigator, so it must not be able to assert more. A proposed upgrade is not dropped silently — the trace records `critic_effect` with the proposed value and the rule that blocked it, the same visibility pattern as a refused confidence band.
 
-A bound-stopped investigation has no hypothesis to falsify (templated interpretive fields, empty alternatives). The critic is not called. The trace records `critic_effect: skipped`. Manufacturing an objection to a bound template would be theatre.
+An investigation whose `stop_reason` is not `completed` has no hypothesis to falsify (templated interpretive fields, empty alternatives). The critic is not called. The trace records `critic_effect: skipped` with the stop reason. Manufacturing an objection to a template would be theatre.
 
 The honest test of whether this works is behavioural, not architectural: across the four scenarios, the critic must change at least one outcome. A critic that never changes anything is decorative regardless of how it is wired. The prompt does not instruct it to change outcomes.
 
@@ -211,7 +213,7 @@ The honest test of whether this works is behavioural, not architectural: across 
 
 ## 9. Confidence ceiling
 
-The model proposes a band with justification. Code then applies the ceiling:
+The model proposes a band. Code then applies the ceiling, after the critic, to the post-critic `model_requested`. An incomplete investigation still goes through the ceiling; the critic skip does not skip this function.
 
 ```
 HIGH is unavailable when ANY of:
@@ -220,9 +222,15 @@ HIGH is unavailable when ANY of:
   - affected cohort < 25 users
 ```
 
-Where the ceiling overrides the request, the output records `model_requested`, `granted`, and `ceiling_rule_applied`, and the UI shows the override.
+The cap is MEDIUM, not LOW. Where the request is already at or below the cap, `granted` equals `model_requested` and `ceiling_rule_applied` is null — there is no override to show.
 
-The override being *visible* is the point. A system that quietly behaves well is indistinguishable from one that got lucky; a system that shows its request being refused demonstrates the constraint exists.
+**Unrebutted critic counter-evidence** is crude and named as such: a `counter_evidence` claim that was not in the investigator record. Nothing marks a claim as rebutted; inventing a model-filled rebuttal flag would put enforcement back in the model's hands. Investigator-listed counter-evidence does not fire this rule — listing caveats is good practice, not an unanswered objection.
+
+Rules are checked in FR-042 order. A correlational investigation with cohort < 25 records `correlational_evidence`. The other two rules are unit-tested on the pure function; they will not appear in live artefacts while every primary is correlational.
+
+Status is not an exemption. `NOT_AN_INCIDENT` requested at HIGH on correlational evidence is capped. Confidence is how strongly the evidence supports the conclusion, not how loudly a ticket is closed. EVAL-10 asserts status, not band.
+
+Where the ceiling overrides, the artefact carries `model_requested`, `granted`, `ceiling_rule_applied`, and a `ceiling_applied` trace event `{requested, granted, rule}`. That is what item 12 renders. A missing ceiling leaves `granted` null.
 
 Numeric confidence is prohibited anywhere in the codebase. A model emitting `0.89` is performing an unjustifiable calculation — the same failure the architecture is built to prevent, wearing a decimal point.
 
@@ -249,7 +257,7 @@ Enforced at the execution boundary, not in the UI layer, so the gate cannot be b
 | Model calls | none | real |
 | Embeddings | none | real |
 | Source | persisted `runs/*.json` | executed at request time |
-| Latency | <2s | up to 120s |
+| Latency | <2s | up to 180s |
 
 Replayed runs are **real executions, recorded** — not simulated tool use. Each is labelled in the UI with its run timestamp and model, and links to the raw trace JSON.
 
@@ -285,6 +293,6 @@ Stated plainly, because a prototype that claims no limitations is not credible.
 - **Four scenarios is a small eval set.** Enough to catch gross failure, not enough for calibration.
 - **`n=3` observes variance; it does not prove determinism.** Sampling is not controllable on this model and adaptive thinking is always on. Two cold runs of the same critic already flipped EVAL-05 and EVAL-03 (`run-critic` 8/10 with 05 red; `run-critic-2` with 05 green and 03 red). A single run does not certify. Three committed runs show how much the structural assertions move; the README reports per-eval pass rates, never a headline `10/10`. See `EVALS.md`.
 - **The severity formula is a defensible guess.** It has not been validated against outcomes, because there are no outcomes. It is documented so it can be argued with.
-- **The investigator's call bound is binding, not merely protective.** The first live run of `cnd_fw_1_4_2` exhausted 12 calls with a measurement-definition alternative still open, so the bound shaped the conclusion. That is honest and stays; a real operations tool has a budget too. About 8–9 of the 12 were load-bearing (ratio, hold-filters, empty-window findings, confound check, retrieval); the rest were slack, not unused slots. Raising the investigator cap would only postpone the same trade-off. The critic therefore has its own 4 calls / 60s rather than competing for leftovers.
+- **The investigator's call bound is binding, not merely protective.** The first live run of `cnd_fw_1_4_2` exhausted 12 calls with a measurement-definition alternative still open, so the bound shaped the conclusion. That is honest and stays; a real operations tool has a budget too. About 8–9 of the 12 were load-bearing (ratio, hold-filters, empty-window findings, confound check, retrieval); the rest were slack, not unused slots. Raising the investigator cap would only postpone the same trade-off. The critic therefore has its own 4 calls / 90s rather than competing for leftovers. Wall-clock is calibrated to that call budget (see build-decisions, 2026-08-26).
 - **The critic can weaken a finding and cannot strengthen one.** Downgrade-only is epistemic: the critic sees less evidence than the investigator, so it must not assert more. The cost is real. If the investigator dismisses a cluster as benign and the critic falsifies that dismissal, the honest revision is "it may not be benign" — and that revision is unrepresentable. A wrongly-dismissed signal stays dismissed. Refused upgrades are visible in the trace; they are not applied.
 - **Retrieval quality is untested in isolation.** EVAL-03 and EVAL-09 test whether the right passage reached the conclusion, not precision and recall across the corpus.

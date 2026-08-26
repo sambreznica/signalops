@@ -344,6 +344,48 @@ The probe stays under `probes/`. It is an artefact that the critic can falsify a
 
 ---
 
+## 2026-08-26 — Stop reasons (wall-clock / call cap / validation)
+
+`bound_stopped` conflated three stops. Replaced on new writes by `stop_reason`: `completed | wall_clock | call_cap | validation_exhausted`. Legacy artefacts still parse; `recordIsCompleted` falls back to `bound_stopped`.
+
+Validation exhaustion was the bound-wipe defect still live: claims on `run-ceiling` made five calls, then JSON failed twice, and synthesis was templated. Findings projection already ran through `inconclusive()`; the interpretive wipe (status, hypothesis, supporting/counter, actions) was the same as wall-clock, which is correct — a failed parse is not a conclusion. The defect was (1) calling that a bound, (2) not persisting the validator's reasons or the emit. `validation_error` and `validation_emit` live on the record, not in output free-text (EVAL-04).
+
+The critic skips any `stop_reason` other than `completed`. EVAL-05a uses `recordIsCompleted`.
+
+---
+
+## 2026-08-26 — Wall-clock calibrated to the call budget
+
+120s was "enough time for 12 medium turns plus synthesis" at ~8s/slot. Per-slot API+thinking on the three cold runs:
+
+| Run | Completed ms/slot | Firmware |
+|---|---|---|
+| `run-critic` | 12.3s (22 slots) | 9.0s, 12 calls, then **validation** at 107.8s |
+| `run-critic-2` | 12.8s (21 slots) | **12.0s**, 10 calls, **120s wall-clock** |
+| `run-ceiling` | 10.8s (16 slots) | **12.0s**, 10 calls, **120s wall-clock** |
+
+At ~12s/slot the clock silently capped the agent at ~10 calls. That is the clock overriding a bound we chose (12). Call cap stays 12. Wall-clock is 180s (12 slots + synthesis ≈ 160s, plus headroom). Critic stays 4 calls; 4 slots + synthesis at ~12s is 60s with no repair headroom, so 90s.
+
+This is a measurement finding, not a looser agent. FR-013 / NFR-02 updated to match. Effort stays `medium`.
+
+The 12-call bound has not been the recorded stop on any of the three runs. Firmware died on the clock twice after latency moved from ~9s to ~12s/slot.
+
+---
+
 ## 2026-08-25 — Open: firmware primary bound-stops (item 12)
 
-`cnd_fw_1_4_2` is the demo hero. Cold runs currently hit the 120s wall with a templated hypothesis and skipped critic. That is an honest artefact and a poor centrepiece. Do not raise the investigator bound or retune effort to chase a complete synthesis. Flag for the UI step: the Incident Investigation screen needs a bound-stop state that is readable as "budget exhausted, evidence kept," not as a finished judgement.
+`cnd_fw_1_4_2` is the demo hero. Cold runs hit the (then 120s) wall with a templated hypothesis and skipped critic. Clock recalibrated to 180s to match the 12-call budget; the call cap is unchanged. Flag for the UI step: Incident Investigation needs distinct stop states — `wall_clock`, `call_cap`, `validation_exhausted` — each readable as "budget exhausted / repair exhausted, evidence kept," not as a finished judgement.
+
+---
+
+## 2026-08-25 — Confidence ceiling (item 11)
+
+Pure function `ceilingDecision` / `applyCeiling`. Sole writer of `granted`. Runs after the critic on post-critic `model_requested`. Incomplete stops still run it.
+
+**Unrebutted** = a `counter_evidence` claim absent from the investigator record. Cruder than the words: no rebuttal marker exists, and we will not add a model-filled one. Investigator-listed caveats do not fire the rule.
+
+**Rule order** is FR-042: correlational, then critic CE, then cohort < 25. Live primaries are all correlational and three of four are also < 25 users, so artefacts will show `correlational_evidence` when HIGH is requested. The other two rules are unit-tested; faking an investigation to make them fire in a run would not be evidence.
+
+**NOT_AN_INCIDENT at HIGH** is capped. The rule is about evidence type, not accusation vs dismissal. EVAL-10 is status.
+
+Override visibility: `granted`, `ceiling_rule_applied`, `trace[].kind === ceiling_applied` with `{requested, granted, rule}`. Item 12 does not need another field.

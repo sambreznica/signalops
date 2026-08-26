@@ -10,6 +10,7 @@ import {
 import { createDiskCache, passthroughCache } from "../src/lib/agent/cache";
 import { investigate, type ModelClient } from "../src/lib/agent/investigator";
 import { criticise, cloneOutput, skipCritic } from "../src/lib/agent/critic";
+import { applyCeiling } from "../src/lib/agent/ceiling";
 import {
   loadEnvFiles,
   requireAnthropicApiKey,
@@ -170,30 +171,35 @@ async function main(): Promise<void> {
   });
 
   const pre_critic = cloneOutput(outcome.output);
-  const criticised = outcome.bound_stopped
-    ? {
-        output: skipCritic(pre_critic),
-        skipped: true,
-        metrics: {
-          tool_calls: 0,
-          tokens: 0,
-          wall_clock_ms: 0,
-          cache_hits: 0,
-          cache_misses: 0,
-        },
-      }
-    : await criticise(pre_critic, {
-        runtime,
-        client,
-        cache,
-        candidate,
-      });
+  const criticised =
+    outcome.stop_reason !== "completed"
+      ? {
+          output: skipCritic(pre_critic, outcome.stop_reason),
+          skipped: true,
+          metrics: {
+            tool_calls: 0,
+            tokens: 0,
+            wall_clock_ms: 0,
+            cache_hits: 0,
+            cache_misses: 0,
+          },
+        }
+      : await criticise(pre_critic, {
+          runtime,
+          client,
+          cache,
+          candidate,
+        });
+
+  const capped = applyCeiling(criticised.output, pre_critic);
 
   const record: InvestigationRecord = {
     candidate_id: candidate.id,
-    output: criticised.output,
+    output: capped,
     pre_critic,
-    bound_stopped: outcome.bound_stopped,
+    stop_reason: outcome.stop_reason,
+    validation_error: outcome.validation_error,
+    validation_emit: outcome.validation_emit,
     metrics: outcome.metrics,
   };
 
@@ -220,8 +226,12 @@ async function main(): Promise<void> {
         run_id: next.run_id,
         file,
         candidate_id: candidate.id,
-        status: criticised.output.status,
-        bound_stopped: outcome.bound_stopped,
+        status: capped.status,
+        stop_reason: outcome.stop_reason,
+        validation_error: outcome.validation_error,
+        model_requested: capped.confidence.model_requested,
+        granted: capped.confidence.granted,
+        ceiling_rule_applied: capped.confidence.ceiling_rule_applied,
         metrics: outcome.metrics,
         critic_metrics: criticised.metrics,
         critic_skipped: criticised.skipped,

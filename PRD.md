@@ -130,7 +130,7 @@ No further personas in MVP.
 | FR-010 | The orchestrator SHALL use native SDK tool-calling. No agent framework. | P0 |
 | FR-011 | Tool selection SHALL be model-driven. No predetermined sequence may be hard-coded. | P0 |
 | FR-012 | At least one branch point SHALL be genuine: a differing tool result must produce a differing subsequent call. | P0 |
-| FR-013 | The orchestrator SHALL be bounded: investigator max 12 tool calls / 120s; critic max 2 rounds of 4 tool calls / 60s. The critic budget is not a share of the investigator's. Exceeding a bound terminates with status `INCONCLUSIVE`. | P0 |
+| FR-013 | The orchestrator SHALL be bounded: investigator max 12 tool calls / 180s; critic max 2 rounds of 4 tool calls / 90s. Wall-clock is calibrated to the call budget at measured API latency, not an independent cap. The critic budget is not a share of the investigator's. Exceeding a bound terminates with status `INCONCLUSIVE`. | P0 |
 | FR-014 | Every tool call SHALL be persisted with id, name, arguments, result summary, latency and token count. | P0 |
 | FR-015 | The agent SHALL NOT receive ground-truth labels, incident names, or expected conclusions in any prompt or fixture field it can read. | P0 |
 | FR-016 | Sampling parameters (`temperature`, `top_p`, `top_k`) SHALL NOT be sent. Effort SHALL be set explicitly. Adaptive thinking cannot be disabled on the current model class. | P0 |
@@ -323,7 +323,7 @@ Four screens. Modern AI-infrastructure restraint — Linear/Vercel register. Inf
 | ID | Requirement |
 |---|---|
 | NFR-01 | Deployed replay renders an investigation in <2s; no runtime model or embedding calls |
-| NFR-02 | Live local investigator completes within 120s; critic within its own 60s |
+| NFR-02 | Live local investigator completes within 180s; critic within its own 90s |
 | NFR-03 | Replay mode labelled in UI with run timestamp, model and link to raw trace JSON |
 | NFR-04 | Eval suite runs in <5s (pure assertions over committed artefacts) |
 | NFR-05 | Repository comprehensible without access to Cursor, Claude, or the author |

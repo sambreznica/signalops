@@ -91,7 +91,7 @@ Run relevant tests after every material change.
 
 ## Bounds
 
-Investigator: max 12 tool calls, 120s hard timeout. Critic: max 2 rounds, 4 tool calls, 60s — its own budget, not a share of the investigator's. Exceeding an investigator bound terminates with status `INCONCLUSIVE` and preserves tool-derived findings. The critic is not called when there is no leading hypothesis to falsify.
+Investigator: max 12 tool calls. Wall-clock is calibrated to that call budget at measured API latency (180s), not an independent cap. Critic: max 2 rounds, 4 tool calls, 90s — its own budget, not a share of the investigator's. Exceeding an investigator bound terminates with status `INCONCLUSIVE` and preserves tool-derived findings. The critic is not called when there is no leading hypothesis to falsify (`stop_reason` other than `completed`).
 
 Sampling parameters (`temperature`, `top_p`, `top_k`) are not sent. Claude Sonnet 5 / Opus 5 reject them. Adaptive thinking is always on. Effort is set explicitly (`medium` for the investigator). Run-to-run variation exists and is not eliminated by any parameter we set.
 
