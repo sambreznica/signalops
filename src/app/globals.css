@@ -1,26 +1,265 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ink: #0a0a0a;
+  --graphite: #4a4a4a;
+  --mute: #8a8a8a;
+  --rule: #e4e4e4;
+  --paper: #f7f7f5;
+  --card: #ffffff;
+  --critical: #b4232a;
+  --elevated: #c2701c;
+  --settled: #2d6a4f;
+  --inert: #9a9a9a;
+  --critical-tint: #fbeeee;
+  --elevated-tint: #fdf4ea;
+  --settled-tint: #edf5f0;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-ink: var(--ink);
+  --color-graphite: var(--graphite);
+  --color-mute: var(--mute);
+  --color-rule: var(--rule);
+  --color-paper: var(--paper);
+  --color-card: var(--card);
+  --color-critical: var(--critical);
+  --color-elevated: var(--elevated);
+  --color-settled: var(--settled);
+  --color-inert: var(--inert);
+  --color-critical-tint: var(--critical-tint);
+  --color-elevated-tint: var(--elevated-tint);
+  --color-settled-tint: var(--settled-tint);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  color-scheme: light;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.display {
+  font-size: 28px;
+  line-height: 32px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.verdict-status {
+  font-size: 36px;
+  line-height: 40px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.panel-challenge {
+  border-color: var(--ink);
+  padding: 20px;
+}
+
+.figure {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 22px;
+  line-height: 26px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.body {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.dense {
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.label {
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+.mono {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.panel {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 16px;
+}
+
+.panel-flush {
+  padding: 0;
+}
+
+.panel-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.panel-refuse {
+  border-color: var(--critical);
+}
+
+.panel-bound {
+  border-color: var(--graphite);
+}
+
+.chip {
+  display: inline-block;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 12px;
+  line-height: 16px;
+  padding: 1px 6px;
+  border-radius: 2px;
+  border: 1px solid var(--rule);
+}
+
+.chip-critical {
+  color: var(--critical);
+  background: var(--critical-tint);
+  border-color: transparent;
+}
+
+.chip-elevated {
+  color: var(--elevated);
+  background: var(--elevated-tint);
+  border-color: transparent;
+}
+
+.chip-settled {
+  color: var(--settled);
+  background: var(--settled-tint);
+  border-color: transparent;
+}
+
+.chip-inert {
+  color: var(--graphite);
+  background: transparent;
+  border-color: var(--rule);
+}
+
+.chip-on {
+  background: var(--ink);
+  color: var(--card);
+  border-color: var(--ink);
+}
+
+.cell-critical {
+  background: var(--critical-tint);
+}
+
+.cell-elevated {
+  background: var(--elevated-tint);
+}
+
+.cell-settled {
+  background: var(--settled-tint);
+}
+
+.mag {
+  position: relative;
+  display: block;
+  min-width: 5.5rem;
+  height: 18px;
+}
+
+.mag-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  pointer-events: none;
+}
+
+.mag-critical {
+  background: var(--critical-tint);
+}
+
+.mag-elevated {
+  background: var(--elevated-tint);
+}
+
+.mag-settled {
+  background: var(--settled-tint);
+}
+
+.mag-inert {
+  background: var(--rule);
+}
+
+.chip-broken {
+  display: inline;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 12px;
+  padding: 0 0.25rem;
+  border: 1px dashed var(--graphite);
+}
+
+.chip-finding {
+  display: inline;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 12px;
+  padding: 0 0.2rem;
+  border-bottom: 1px solid var(--ink);
+}
+
+.chip-finding.is-hot {
+  background: var(--elevated-tint);
+}
+
+.trace-row.is-hot,
+.chunk-row.is-hot:target,
+.chunk-row:target {
+  outline: 1px solid var(--ink);
+  background: var(--elevated-tint);
+}
+
+.expand-in {
+  transition: grid-template-rows 150ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .expand-in {
+    transition: none;
+  }
 }

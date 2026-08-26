@@ -49,14 +49,18 @@ function stubCandidate(): TriageCandidate {
       unit: "percent_per_device_day",
       source: { kind: "triage", signal_id: "cnd_tag_overheating" },
     },
+    delta_ratio: null,
     prior_events: {
       value: 12,
       unit: "events",
       source: { kind: "triage", signal_id: "cnd_tag_overheating" },
     },
+    ratio_ci_low: null,
+    ratio_ci_high: null,
     band: "LOW",
     trend: "flat",
     ci_excludes_one: false,
+    delta_factor_floored: false,
     severity_index: {
       value: 1,
       unit: "index",

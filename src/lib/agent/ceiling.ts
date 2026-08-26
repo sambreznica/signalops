@@ -3,6 +3,7 @@ import type {
   ConfidenceBand,
   EvidenceType,
   InvestigationOutput,
+  TraceEvent,
 } from "../schema";
 import { investigationOutputSchema } from "../schema";
 
@@ -77,7 +78,9 @@ export function applyCeiling(
     ),
   });
 
-  const trace = output.trace.filter((event) => event.kind !== "ceiling_applied");
+  const trace: TraceEvent[] = output.trace.filter(
+    (event) => event.kind !== "ceiling_applied",
+  );
   if (decision.rule !== null) {
     trace.push({
       kind: "ceiling_applied",
