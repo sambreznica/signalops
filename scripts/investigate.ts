@@ -200,6 +200,7 @@ async function main(): Promise<void> {
     stop_reason: outcome.stop_reason,
     validation_error: outcome.validation_error,
     validation_emit: outcome.validation_emit,
+    validation_attempts: outcome.validation_attempts,
     metrics: outcome.metrics,
   };
 
@@ -229,6 +230,7 @@ async function main(): Promise<void> {
         status: capped.status,
         stop_reason: outcome.stop_reason,
         validation_error: outcome.validation_error,
+        validation_attempts: outcome.validation_attempts,
         model_requested: capped.confidence.model_requested,
         granted: capped.confidence.granted,
         ceiling_rule_applied: capped.confidence.ceiling_rule_applied,

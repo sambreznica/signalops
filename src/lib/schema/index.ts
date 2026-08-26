@@ -9,6 +9,7 @@ export {
   bareNumeralHits,
   claimDisciplineErrors,
   FINDING_REF_RE,
+  freeTextEntries,
   freeTextFields,
   hasBareNumeral,
   orphanFindingRefs,

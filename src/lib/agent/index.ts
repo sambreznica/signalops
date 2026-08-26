@@ -6,7 +6,7 @@ export {
   type InvokeOutcome,
   type ToolRuntime,
 } from "./tools";
-export { investigate, type StopReason } from "./investigator";
+export { investigate, type StopReason, type ValidationAttempt } from "./investigator";
 export {
   applyCriticPatch,
   cloneOutput,

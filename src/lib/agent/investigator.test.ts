@@ -275,8 +275,12 @@ describe("investigate", () => {
     expect(outcome.output.status).toBe("INCONCLUSIVE");
     expect(outcome.stop_reason).toBe("validation_exhausted");
     expect(outcome.output.uncertainty[0]).toMatch(/validation/);
-    expect(outcome.validation_error).toMatch(/bare numeral/);
+    expect(outcome.validation_error).toMatch(/summary: bare numeral 22/);
     expect(outcome.validation_emit).toContain("22");
+    expect(outcome.validation_attempts.map((a) => a.class)).toEqual([
+      "bare_numeral",
+      "bare_numeral",
+    ]);
   });
 
   it("keeps tool-projected findings when validation is exhausted", async () => {
@@ -304,6 +308,36 @@ describe("investigate", () => {
     expect(outcome.output.leading_hypothesis.statement).toMatch(/validation/);
   });
 
+  it("records every failed attempt class when no_json is followed by a numeral", async () => {
+    const bad = JSON.parse(validModelJson()) as Record<string, unknown>;
+    bad.summary = "Twenty two is written as 22 in this sentence.";
+    const numeralTurn: ModelResponse = {
+      content: [{ type: "text", text: JSON.stringify(bad) }],
+      usage: { input_tokens: 1, output_tokens: 1 },
+    };
+    const noJsonTurn: ModelResponse = {
+      content: [{ type: "text", text: "still assembling the record" }],
+      usage: { input_tokens: 1, output_tokens: 1 },
+    };
+    const outcome = await investigate(candidate, {
+      runtime: emptyRuntime(),
+      client: scriptedClient([noJsonTurn, numeralTurn]),
+      cache: createMemoryCache(),
+      userMessage: buildUserMessage(candidate),
+    });
+    expect(outcome.stop_reason).toBe("validation_exhausted");
+    expect(outcome.validation_attempts).toEqual([
+      {
+        class: "no_json",
+        error: "no JSON object in model response",
+      },
+      {
+        class: "bare_numeral",
+        error: "summary: bare numeral 22",
+      },
+    ]);
+  });
+
   it("accepts a resolved finding reference in prose", async () => {
     const good = JSON.parse(validModelJson()) as Record<string, unknown>;
     good.summary = "Rate rose to {f_1} against the prior window.";
@@ -328,6 +362,7 @@ describe("investigate", () => {
     });
     expect(outcome.output.status).toBe("UNCERTAIN");
     expect(outcome.stop_reason).toBe("completed");
+    expect(outcome.validation_attempts).toEqual([]);
     expect(outcome.output.summary).toContain("{f_1}");
   });
 

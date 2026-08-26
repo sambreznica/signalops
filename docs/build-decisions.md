@@ -389,3 +389,11 @@ Pure function `ceilingDecision` / `applyCeiling`. Sole writer of `granted`. Runs
 **NOT_AN_INCIDENT at HIGH** is capped. The rule is about evidence type, not accusation vs dismissal. EVAL-10 is status.
 
 Override visibility: `granted`, `ceiling_rule_applied`, `trace[].kind === ceiling_applied` with `{requested, granted, rule}`. Item 12 does not need another field.
+
+---
+
+## 2026-08-26 — Repair names field and token; one slot remains
+
+The numeral repair was `bare numeral in free text`. It now names path and leftover token (`counter_evidence[0].claim: bare numeral 100`). `freeTextFields` is derived from `freeTextEntries`, so generation and EVAL-04 cannot scan different sets.
+
+One repair remains. A two-class sequence (`no_json` then `bare_numeral`) still exhausts; that is ARCHITECTURE §13, not a budget raise. The artefact records `validation_attempts` so the sequence is a list of classes, not one concatenated string.

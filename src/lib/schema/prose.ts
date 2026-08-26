@@ -13,6 +13,8 @@ export const METRIC_NAMES = [
   "activity_level",
 ] as const;
 
+export type FreeTextEntry = { path: string; text: string };
+
 /**
  * Names, not quantities. Widened after EVAL-04b treated metric names and
  * incident/issue ids as bare numerals (eval over-tightness, distinct from
@@ -42,28 +44,66 @@ export function findingRefsIn(text: string): string[] {
   return [...text.matchAll(/\{(f_[1-9]\d*)\}/g)].map((m) => m[1]!);
 }
 
-function traceFreeText(event: TraceEvent): string[] {
-  if (event.kind === "tool_call") return [event.result_summary];
+function bareNumeralTokens(text: string): string[] {
+  return stripIdentifiers(text).match(/\d+(?:\.\d+)?/g) ?? [];
+}
+
+function traceEntries(event: TraceEvent, index: number): FreeTextEntry[] {
+  if (event.kind === "tool_call") {
+    return [{ path: `trace[${index}].result_summary`, text: event.result_summary }];
+  }
   if (event.kind === "ceiling_applied") return [];
-  return [event.effect, event.detail];
+  return [
+    { path: `trace[${index}].effect`, text: event.effect },
+    { path: `trace[${index}].detail`, text: event.detail },
+  ];
+}
+
+/**
+ * Path-shaped free-text scan. `freeTextFields` is derived from this so
+ * generation repair and EVAL-04 cannot diverge on which fields are scored.
+ */
+export function freeTextEntries(output: InvestigationOutput): FreeTextEntry[] {
+  return [
+    { path: "title", text: output.title },
+    { path: "summary", text: output.summary },
+    {
+      path: "leading_hypothesis.statement",
+      text: output.leading_hypothesis.statement,
+    },
+    ...output.alternative_hypotheses.flatMap((h, i) => [
+      { path: `alternative_hypotheses[${i}].statement`, text: h.statement },
+      {
+        path: `alternative_hypotheses[${i}].falsifying_test`,
+        text: h.falsifying_test,
+      },
+    ]),
+    ...output.deterministic_findings.map((f, i) => ({
+      path: `deterministic_findings[${i}].label`,
+      text: f.label,
+    })),
+    ...output.supporting_evidence.map((e, i) => ({
+      path: `supporting_evidence[${i}].claim`,
+      text: e.claim,
+    })),
+    ...output.counter_evidence.map((e, i) => ({
+      path: `counter_evidence[${i}].claim`,
+      text: e.claim,
+    })),
+    ...output.recommended_actions.map((a, i) => ({
+      path: `recommended_actions[${i}].description`,
+      text: a.description,
+    })),
+    ...output.uncertainty.map((text, i) => ({
+      path: `uncertainty[${i}]`,
+      text,
+    })),
+    ...output.trace.flatMap((event, i) => traceEntries(event, i)),
+  ];
 }
 
 export function freeTextFields(output: InvestigationOutput): string[] {
-  return [
-    output.title,
-    output.summary,
-    output.leading_hypothesis.statement,
-    ...output.alternative_hypotheses.flatMap((h) => [
-      h.statement,
-      h.falsifying_test,
-    ]),
-    ...output.deterministic_findings.map((f) => f.label),
-    ...output.supporting_evidence.map((e) => e.claim),
-    ...output.counter_evidence.map((e) => e.claim),
-    ...output.recommended_actions.map((a) => a.description),
-    ...output.uncertainty,
-    ...output.trace.flatMap(traceFreeText),
-  ];
+  return freeTextEntries(output).map((entry) => entry.text);
 }
 
 export function bareNumeralHits(output: InvestigationOutput): string[] {
@@ -99,8 +139,11 @@ export function claimDisciplineErrors(output: InvestigationOutput): string[] {
   for (const id of orphanFindingRefs(output)) {
     errors.push(`orphan finding {${id}}`);
   }
-  if (bareNumeralHits(output).length > 0) {
-    errors.push("bare numeral in free text");
+  for (const entry of freeTextEntries(output)) {
+    if (!hasBareNumeral(entry.text)) continue;
+    for (const token of bareNumeralTokens(entry.text)) {
+      errors.push(`${entry.path}: bare numeral ${token}`);
+    }
   }
   return errors;
 }

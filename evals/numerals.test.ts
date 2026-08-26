@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest";
 import {
+  claimDisciplineErrors,
+  freeTextEntries,
+  freeTextFields,
   hasBareNumeral,
   orphanFindingRefs,
   renderFindingRefs,
@@ -64,5 +67,38 @@ describe("finding references", () => {
         { id: "f_1", value: 6.8, unit: "ratio" },
       ]),
     ).toBe("rate rose to 6.8 ratio");
+  });
+});
+
+describe("claimDisciplineErrors", () => {
+  it("names the field and leftover token, not a generic line", () => {
+    const output = makeInvestigation({
+      counter_evidence: [
+        {
+          claim:
+            "All 100 firmware-1.4.2 devices in the current window are on app 3.2.",
+          source: { kind: "tool_call", call_id: "call-1" },
+        },
+      ],
+    });
+    const errors = claimDisciplineErrors(output);
+    expect(errors).toEqual(["counter_evidence[0].claim: bare numeral 100"]);
+  });
+
+  it("derives freeTextFields from freeTextEntries so the scored set cannot drift", () => {
+    const output = makeInvestigation({
+      counter_evidence: [
+        {
+          claim: "A documented mechanism in KD-06 matches the ticket text.",
+          source: { kind: "tool_call", call_id: "call-1" },
+        },
+      ],
+    });
+    expect(freeTextFields(output)).toEqual(
+      freeTextEntries(output).map((entry) => entry.text),
+    );
+    expect(freeTextEntries(output).some((e) => e.path === "counter_evidence[0].claim")).toBe(
+      true,
+    );
   });
 });

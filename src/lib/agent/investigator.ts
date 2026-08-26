@@ -33,6 +33,21 @@ export const STOP_REASONS = [
 ] as const;
 export type StopReason = (typeof STOP_REASONS)[number];
 
+export const VALIDATION_CLASSES = [
+  "no_json",
+  "schema",
+  "provenance",
+  "bare_numeral",
+  "orphan_finding",
+  "duplicate_finding",
+] as const;
+export type ValidationClass = (typeof VALIDATION_CLASSES)[number];
+
+export type ValidationAttempt = {
+  class: ValidationClass;
+  error: string;
+};
+
 export type ContentBlock =
   | { type: "text"; text: string }
   | { type: "tool_use"; id: string; name: string; input: unknown }
@@ -79,6 +94,7 @@ export type InvestigationOutcome = {
   stop_reason: StopReason;
   validation_error: string | null;
   validation_emit: string | null;
+  validation_attempts: ValidationAttempt[];
 };
 
 export type InvestigateDeps = {
@@ -265,7 +281,15 @@ function inconclusive(
 
 type ParseAttempt =
   | { ok: true; output: InvestigationOutput }
-  | { ok: false; error: string };
+  | { ok: false; error: string; class: ValidationClass };
+
+function classifyDiscipline(errors: string[]): ValidationClass {
+  const first = errors[0] ?? "";
+  if (first.startsWith("duplicate finding")) return "duplicate_finding";
+  if (first.startsWith("orphan finding")) return "orphan_finding";
+  if (first.includes("bare numeral")) return "bare_numeral";
+  return "schema";
+}
 
 function asArgRecord(raw: unknown): Record<string, unknown> {
   if (raw !== null && typeof raw === "object" && !Array.isArray(raw)) {
@@ -292,6 +316,7 @@ export async function investigate(
   let stopNudged = false;
   let validationError: string | null = null;
   let validationEmit: string | null = null;
+  const validationAttempts: ValidationAttempt[] = [];
 
   const timedOut = () => (deps.now ?? Date.now)() >= deadline;
 
@@ -305,6 +330,7 @@ export async function investigate(
       stop_reason === "validation_exhausted" ? validationError : null,
     validation_emit:
       stop_reason === "validation_exhausted" ? validationEmit : null,
+    validation_attempts: [...validationAttempts],
     metrics: {
       tool_calls: trace.length,
       tokens,
@@ -314,8 +340,13 @@ export async function investigate(
     },
   });
 
-  const rememberValidation = (error: string, emit: string) => {
+  const rememberValidation = (
+    cls: ValidationClass,
+    error: string,
+    emit: string,
+  ) => {
     validationEmit = emit;
+    validationAttempts.push({ class: cls, error });
     validationError = validationError
       ? `${validationError}\n--- repair ---\n${error}`
       : error;
@@ -444,16 +475,24 @@ export async function investigate(
       const attempt = (raw: unknown): ParseAttempt => {
         const parsed = investigationOutputSchema.safeParse(raw);
         if (!parsed.success) {
-          return { ok: false, error: formatIssues(parsed.error.issues) };
+          return {
+            ok: false,
+            class: "schema",
+            error: formatIssues(parsed.error.issues),
+          };
         }
         const stamped = stamp(parsed.data, candidate, trace);
         const orphans = provenanceErrors(stamped, candidate, chunkIds);
         if (orphans.length > 0) {
-          return { ok: false, error: orphans.join("\n") };
+          return { ok: false, class: "provenance", error: orphans.join("\n") };
         }
         const discipline = claimDisciplineErrors(stamped);
         if (discipline.length > 0) {
-          return { ok: false, error: discipline.join("\n") };
+          return {
+            ok: false,
+            class: classifyDiscipline(discipline),
+            error: discipline.join("\n"),
+          };
         }
         return { ok: true, output: stamped };
       };
@@ -463,7 +502,7 @@ export async function investigate(
         raw = extractJsonObject(jsonText);
       } catch (err) {
         const error = err instanceof Error ? err.message : String(err);
-        rememberValidation(error, jsonText);
+        rememberValidation("no_json", error, jsonText);
         if (!repairUsed) {
           repairUsed = true;
           messages.push({ role: "assistant", content: response.content });
@@ -479,7 +518,7 @@ export async function investigate(
       const first = attempt(raw);
       if (first.ok) return finish(first.output);
 
-      rememberValidation(first.error, jsonText);
+      rememberValidation(first.class, first.error, jsonText);
       if (!repairUsed) {
         repairUsed = true;
         messages.push({ role: "assistant", content: response.content });

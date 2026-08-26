@@ -8,6 +8,20 @@ export const stopReasonSchema = z.enum([
   "validation_exhausted",
 ]);
 
+export const validationClassSchema = z.enum([
+  "no_json",
+  "schema",
+  "provenance",
+  "bare_numeral",
+  "orphan_finding",
+  "duplicate_finding",
+]);
+
+export const validationAttemptSchema = z.strictObject({
+  class: validationClassSchema,
+  error: z.string(),
+});
+
 export const investigationRecordSchema = z.strictObject({
   candidate_id: z.string(),
   output: investigationOutputSchema,
@@ -21,6 +35,11 @@ export const investigationRecordSchema = z.strictObject({
   validation_error: z.string().nullable().optional(),
   /** Last failed model text when validation_exhausted. Artefact metadata, not scored prose. */
   validation_emit: z.string().nullable().optional(),
+  /**
+   * One row per failed validation attempt, in order. A two-class sequence
+   * is two rows. Absent on older artefacts.
+   */
+  validation_attempts: z.array(validationAttemptSchema).optional(),
   /**
    * Legacy. True meant any of wall-clock / call cap / validation.
    * New writes omit this field. Readers use `recordIsCompleted`.
@@ -58,6 +77,8 @@ export const certificationRunSchema = z.strictObject({
 });
 
 export type StopReason = z.infer<typeof stopReasonSchema>;
+export type ValidationClass = z.infer<typeof validationClassSchema>;
+export type ValidationAttempt = z.infer<typeof validationAttemptSchema>;
 export type InvestigationRecord = z.infer<typeof investigationRecordSchema>;
 export type CertificationRun = z.infer<typeof certificationRunSchema>;
 

@@ -1,5 +1,5 @@
 # Eval suite (agent)
-run: run-ceiling-2
+run: run-ceiling-3
 artefact: loaded or not required for EVAL-01
 
 EVAL-01  PASS
@@ -14,7 +14,7 @@ EVAL-02  PASS
 
 EVAL-03  PASS
   expected: knowledge_sources contains KD-02 with section matching 1.4.2
-  actual:   KD-02#ble-1-4-2#2 § BLE (1.4.2)
+  actual:   KD-02#ble-1-4-2#1 § BLE (1.4.2)
   reason:   release-note chunk retrieved
 
 EVAL-04  PASS
@@ -28,13 +28,13 @@ EVAL-04  PASS
 
 EVAL-05  PASS
   expected: each completed investigation has ≥1 alternative with a falsifying_test; ≥1 pre/post-critic change across the four primaries (status, model_requested, or leading statement)
-  actual:   alts_ok=true completed=3 critic_delta=true
+  actual:   alts_ok=true completed=2 critic_delta=true
   reason:   critic changed at least one outcome
 
-EVAL-06  PASS
+EVAL-06  FAIL
   expected: SIG-003 primary has a claims-risk flag in uncertainty or recommended_actions, and a KD-05 knowledge_sources chunk
-  actual:   flag=true kd05=true
-  reason:   claims risk identified
+  actual:   flag=false kd05=true
+  reason:   claims-risk flag or KD-05 chunk missing
 
 EVAL-07  PASS
   expected: no directed medical phrases in system voice; schema has no diagnosis/prognosis/treatment field
@@ -57,5 +57,5 @@ EVAL-10 [BLOCKING]  PASS
   actual:   matched primary=cnd_tag_overheating status=NOT_AN_INCIDENT
   reason:   noise rejected
 
-9/10 passed
+8/10 passed
 overall: FAIL
