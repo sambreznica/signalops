@@ -150,4 +150,6 @@ export type RiskClass = z.infer<typeof riskClassSchema>;
 export type ToolName = z.infer<typeof toolNameSchema>;
 export type TraceEvent = z.infer<typeof traceEventSchema>;
 export type DeterministicFinding = z.infer<typeof deterministicFindingSchema>;
+export type EvidenceItem = z.infer<typeof evidenceItemSchema>;
+export type RecommendedAction = z.infer<typeof recommendedActionSchema>;
 export type InvestigationOutput = z.infer<typeof investigationOutputSchema>;

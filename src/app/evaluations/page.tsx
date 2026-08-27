@@ -19,19 +19,8 @@ const EVAL_LABEL: Record<EvalId, string> = {
   "EVAL-10": "SIG-004 terminal status NOT_AN_INCIDENT",
 };
 
-function eval08Unbuilt(result: EvalResult | undefined): boolean {
-  return Boolean(result?.reason.includes("not implemented"));
-}
-
-function Cell({
-  result,
-  unbuilt,
-}: {
-  result: EvalResult | undefined;
-  unbuilt: boolean;
-}) {
+function Cell({ result }: { result: EvalResult | undefined }) {
   if (!result) return <span className="mono text-mute">—</span>;
-  if (unbuilt) return <span className="chip chip-inert">UNBUILT</span>;
   return (
     <span className={`mono font-medium ${result.pass ? "text-ink" : "text-mute"}`}>
       {result.pass ? "pass" : "fail"}
@@ -45,17 +34,12 @@ export default function EvaluationsPage() {
 
   const rows = EVAL_IDS.map((id) => {
     const cells = scored.map((s) => s.results.find((r) => r.id === id));
-    const unbuilt = cells.some((c) => c && eval08Unbuilt(c));
-    const countable = cells.filter(
-      (c) => c && !(id === "EVAL-08" && eval08Unbuilt(c)),
-    );
-    const passed = countable.filter((c) => c?.pass).length;
+    const passed = cells.filter((c) => c?.pass).length;
     return {
       id,
       cells,
-      unbuilt: id === "EVAL-08" && unbuilt,
       passed,
-      n: countable.length,
+      n: cells.length,
     };
   });
 
@@ -102,27 +86,23 @@ export default function EvaluationsPage() {
                   <p className="dense text-mute">{EVAL_LABEL[row.id]}</p>
                 </td>
                 <td className="px-3 py-2">
-                  {row.unbuilt ? (
-                    <span className="chip chip-inert">UNBUILT</span>
-                  ) : (
-                    <div className="flex items-center gap-2">
-                      <span className="mono font-medium tabular-nums">
-                        {row.passed}/{row.n}
-                      </span>
-                      <span className="mag w-16">
-                        <span
-                          className="mag-fill mag-settled"
-                          style={{
-                            width: `${row.n === 0 ? 0 : (row.passed / row.n) * 100}%`,
-                          }}
-                        />
-                      </span>
-                    </div>
-                  )}
+                  <div className="flex items-center gap-2">
+                    <span className="mono font-medium tabular-nums">
+                      {row.passed}/{row.n}
+                    </span>
+                    <span className="mag w-16">
+                      <span
+                        className="mag-fill mag-settled"
+                        style={{
+                          width: `${row.n === 0 ? 0 : (row.passed / row.n) * 100}%`,
+                        }}
+                      />
+                    </span>
+                  </div>
                 </td>
                 {row.cells.map((cell, i) => (
                   <td key={scored[i]!.run.run_id} className="px-3 py-2">
-                    <Cell result={cell} unbuilt={row.unbuilt} />
+                    <Cell result={cell} />
                   </td>
                 ))}
               </tr>
@@ -133,8 +113,7 @@ export default function EvaluationsPage() {
 
       {replay ? (
         <p className="mt-3 dense text-mute max-w-[40rem]">
-          Current replay {replay.run.run_id} is {replayPassed}/10. EVAL-08 is
-          UNBUILT (approval module absent), not a flaky miss.
+          Current replay {replay.run.run_id} is {replayPassed}/10.
           {replayEval06 && !replayEval06.pass
             ? " EVAL-06 failed on this run because claims terminated validation_exhausted."
             : ""}{" "}

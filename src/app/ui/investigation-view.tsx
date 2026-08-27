@@ -5,23 +5,33 @@ import type { InvestigationRecord } from "../../../evals/artefact";
 import type { Chunk } from "@/lib/retrieval/types";
 import type {
   DeterministicFinding,
+  EvidenceItem,
   InvestigationOutput,
+  RecommendedAction,
 } from "@/lib/schema/investigation";
 import type { Provenance } from "@/lib/schema/quantity";
 import type { TriageCandidate } from "@/lib/triage/types";
 import {
-  altOutcomeCopy,
+  execute,
+  requiresApproval,
+  type ApprovalRecord,
+  type ExecutionRecord,
+} from "@/lib/approval";
+import {
   carryFindings,
   ceilingCopy,
+  challengeResolution,
   evidenceTypeCopy,
+  firstLine,
   formatMultiplier,
   headlineComparison,
-  needsSignOff,
+  leadPoint,
   riskClassCopy,
+  splitFirstSentence,
   statusToneClass,
   stopReasonCopy,
 } from "@/lib/replay/copy";
-import { formatNumber, formatQuantity, slugId } from "@/lib/replay/format";
+import { formatNumber, formatQuantity, formatTimestamp, slugId } from "@/lib/replay/format";
 import { FindingText } from "./finding-text";
 import { Panel } from "./panel";
 import { BandMark, AltStatusMark, StatusMark } from "./status-mark";
@@ -68,7 +78,7 @@ function Prose({
   onCall?: (id: string) => void;
 }) {
   return (
-    <p className={`body ${quiet ? "text-mute" : ""}`}>
+    <p className={`body prose-measure ${quiet ? "text-mute" : ""}`}>
       <FindingText
         text={text}
         findings={findings}
@@ -76,6 +86,89 @@ function Prose({
         onCall={onCall}
       />
     </p>
+  );
+}
+
+function ClaimBody({
+  lead,
+  rest,
+  findings,
+  hotCall,
+  onCall,
+}: {
+  lead: string;
+  rest: string;
+  findings: readonly DeterministicFinding[];
+  hotCall: string | null;
+  onCall: (id: string) => void;
+}) {
+  const leadNode = (
+    <FindingText
+      text={lead}
+      findings={findings}
+      hotCall={hotCall}
+      onCall={onCall}
+    />
+  );
+  if (!rest) {
+    return <p className="body prose-measure m-0">{leadNode}</p>;
+  }
+  return (
+    <details className="prose-measure">
+      <summary className="body cursor-pointer">{leadNode}</summary>
+      <p className="body text-graphite mt-2">
+        <FindingText
+          text={rest}
+          findings={findings}
+          hotCall={hotCall}
+          onCall={onCall}
+        />
+      </p>
+    </details>
+  );
+}
+
+function NumberedClaims({
+  items,
+  findings,
+  hotCall,
+  onCall,
+}: {
+  items: readonly EvidenceItem[];
+  findings: readonly DeterministicFinding[];
+  hotCall: string | null;
+  onCall: (id: string) => void;
+}) {
+  return (
+    <ol className="list-none p-0 m-0">
+      {items.map((e, i) => {
+        const hot =
+          e.source.kind === "tool_call" && e.source.call_id === hotCall;
+        const { lead, rest } = splitFirstSentence(e.claim);
+        return (
+          <li
+            key={i}
+            className="flex gap-3 border-t border-rule py-3 first:border-0 first:pt-0"
+          >
+            <span className="mono text-mute w-4 shrink-0 pt-0.5">{i + 1}</span>
+            <div className="min-w-0 flex-1 flex items-start gap-3">
+              <div className="min-w-0 flex-1">
+                <ClaimBody
+                  lead={lead}
+                  rest={rest}
+                  findings={findings}
+                  hotCall={hotCall}
+                  onCall={onCall}
+                />
+              </div>
+              <div className="shrink-0 ml-auto">
+                {sourceChip(e.source, hot, onCall)}
+              </div>
+            </div>
+          </li>
+        );
+      })}
+    </ol>
   );
 }
 
@@ -87,7 +180,13 @@ function subjectOf(c: TriageCandidate): string {
 function supportingPassage(
   output: InvestigationOutput,
   byChunk: Map<string, Chunk>,
-): { chunkId: string; text: string } | null {
+): {
+  chunkId: string;
+  docId: string;
+  section: string;
+  lead: string;
+  rest: string;
+} | null {
   const fromSupport = output.supporting_evidence.find(
     (e) => e.source.kind === "knowledge",
   );
@@ -97,13 +196,21 @@ function supportingPassage(
       : output.knowledge_sources[0]?.chunk_id;
   if (!chunkId) return null;
   const chunk = byChunk.get(chunkId);
+  const meta = output.knowledge_sources.find((k) => k.chunk_id === chunkId);
   const fallbackClaim =
     fromSupport && fromSupport.source.kind === "knowledge"
       ? fromSupport.claim
       : null;
   const text = chunk?.text ?? fallbackClaim;
   if (!text) return null;
-  return { chunkId, text };
+  const { lead, rest } = firstLine(text);
+  return {
+    chunkId,
+    docId: meta?.doc_id ?? chunk?.doc_id ?? "",
+    section: meta?.section ?? chunk?.section ?? "",
+    lead,
+    rest,
+  };
 }
 
 function criticSkipWhy(record: InvestigationRecord): string {
@@ -124,6 +231,9 @@ export function InvestigationView({
   runId: string;
 }) {
   const [selectedCallId, setSelectedCallId] = useState<string | null>(null);
+  const [approvals, setApprovals] = useState<ApprovalRecord[]>([]);
+  const [executions, setExecutions] = useState<ExecutionRecord[]>([]);
+  const [showAllUnresolved, setShowAllUnresolved] = useState(false);
   const output: InvestigationOutput = record.output;
   const findings = output.deterministic_findings;
   const byChunk = new Map(chunks.map((c) => [c.chunk_id, c]));
@@ -142,22 +252,37 @@ export function InvestigationView({
   const criticEffects = output.trace.filter((e) => e.kind === "critic_effect");
   const skipped = criticEffects.find((e) => e.effect === "skipped");
   const abandoned = criticEffects.find((e) => e.effect === "abandoned");
+  const resolution = challengeResolution(output.alternative_hypotheses);
   const howItEnded = synthesized
     ? `Completed · ${toolCalls} calls · ${Math.round(record.metrics.wall_clock_ms / 1000)}s`
     : `${stopReasonCopy(record.stop_reason)} · ${toolCalls} calls · ${Math.round(record.metrics.wall_clock_ms / 1000)}s`;
   const verdictLine = synthesized
     ? output.title
     : stopReasonCopy(record.stop_reason);
+  const unresolved = output.uncertainty.map(leadPoint);
+  const unresolvedVisible = showAllUnresolved
+    ? unresolved
+    : unresolved.slice(0, 3);
 
   function selectCall(id: string) {
     setSelectedCallId(id);
     document.getElementById(id)?.scrollIntoView({ block: "nearest" });
   }
 
+  function approve(action: RecommendedAction) {
+    if (executions.some((e) => e.action_id === action.action_id)) return;
+    const at = new Date().toISOString();
+    const nextApprovals = [...approvals, { action_id: action.action_id, at }];
+    const result = execute(action, { approvals: nextApprovals, at });
+    if (!result.ok) return;
+    setApprovals(nextApprovals);
+    setExecutions((rows) => [...rows, result.record]);
+  }
+
   return (
     <article>
-      <section className="panel mb-3 px-5 py-5">
-        <p className="label mb-2">Verdict</p>
+      <section className="panel mb-6 px-5 py-5">
+        <p className="label mb-2">What we concluded</p>
         <div className="flex flex-wrap items-baseline gap-3">
           <h1 className={`verdict-status m-0 ${statusToneClass(output.status)}`}>
             {output.status}
@@ -169,11 +294,11 @@ export function InvestigationView({
             </>
           ) : null}
         </div>
-        <p className={`mt-3 ${synthesized ? "body" : "body text-mute"}`}>
+        <p className={`mt-3 prose-measure ${synthesized ? "body" : "body text-mute"}`}>
           {verdictLine}
         </p>
         {pair ? (
-          <div className="mt-4 flex flex-wrap items-end gap-x-8 gap-y-3">
+          <div className="mt-3 flex flex-wrap items-end gap-x-8 gap-y-3">
             <div>
               <p className="figure">{formatNumber(pair.left.value)}</p>
               <p className="dense text-graphite mt-1">{pair.left.label}</p>
@@ -183,13 +308,11 @@ export function InvestigationView({
               <p className="figure">{formatNumber(pair.right.value)}</p>
               <p className="dense text-graphite mt-1">{pair.right.label}</p>
             </div>
-            <p className="figure pb-0.5">
-              {formatMultiplier(pair.ratio)}
-            </p>
+            <p className="figure pb-0.5">{formatMultiplier(pair.ratio)}</p>
             <p className="mono text-mute pb-1">{pair.left.unit}</p>
           </div>
         ) : null}
-        <dl className="mt-4 pt-3 border-t border-rule flex flex-wrap gap-x-6 gap-y-2 dense">
+        <dl className="mt-3 pt-3 border-t border-rule flex flex-wrap gap-x-6 gap-y-2 dense">
           <div>
             <dt className="label">Candidate</dt>
             <dd className="mono m-0">{candidate.id}</dd>
@@ -209,10 +332,10 @@ export function InvestigationView({
         </dl>
       </section>
 
-      <div className="lg:grid lg:grid-cols-[minmax(0,1.63fr)_minmax(0,1fr)] lg:items-start lg:gap-3">
-        <div className="stack">
-          <Panel title="The case">
-            <p className="mb-2">
+      <div className="min-[1280px]:grid min-[1280px]:grid-cols-[minmax(0,1.63fr)_minmax(0,1fr)] min-[1280px]:items-start min-[1280px]:gap-6">
+        <div className="stack-sections">
+          <Panel title="Why we think so">
+            <p className="mb-3">
               <span className="chip chip-inert">
                 {evidenceTypeCopy(output.leading_hypothesis.evidence_type)}
               </span>
@@ -228,7 +351,7 @@ export function InvestigationView({
               onCall={selectCall}
             />
             {promoted.length > 0 ? (
-              <ul className="mt-4 grid gap-3 sm:grid-cols-3">
+              <ul className="mt-3 grid gap-3 sm:grid-cols-3">
                 {promoted.map((f) => {
                   const hot =
                     f.source.kind === "tool_call" &&
@@ -250,102 +373,113 @@ export function InvestigationView({
                 })}
               </ul>
             ) : null}
+            {output.supporting_evidence.length > 0 ? (
+              <div className="mt-3">
+                <NumberedClaims
+                  items={output.supporting_evidence}
+                  findings={findings}
+                  hotCall={selectedCallId}
+                  onCall={selectCall}
+                />
+              </div>
+            ) : null}
             {passage ? (
-              <blockquote className="mt-4 border-l-2 border-ink bg-paper px-3 py-2 m-0">
-                <p className="dense whitespace-pre-wrap">{passage.text}</p>
-                <p className="mt-2">
-                  <a
-                    href={`/knowledge#${slugId(passage.chunkId)}`}
-                    className="mono"
-                  >
-                    {passage.chunkId}
+              <blockquote className="mt-3 border-l-2 border-ink bg-paper px-3 py-2 m-0 prose-measure">
+                <p className="mono text-mute">
+                  <a href={`/knowledge#${slugId(passage.chunkId)}`}>
+                    {passage.docId}
                   </a>
+                  {passage.section ? (
+                    <span className="dense text-graphite ml-2">
+                      {passage.section}
+                    </span>
+                  ) : null}
                 </p>
+                {passage.rest ? (
+                  <details className="mt-1">
+                    <summary className="cursor-pointer dense">
+                      {passage.lead}
+                    </summary>
+                    <pre className="mt-2 whitespace-pre-wrap body">
+                      {passage.rest}
+                    </pre>
+                  </details>
+                ) : (
+                  <p className="dense mt-1">{passage.lead}</p>
+                )}
               </blockquote>
             ) : null}
           </Panel>
 
-          <Panel title="The challenge" className="panel-challenge">
+          <Panel title="What argues against it" className="panel-challenge">
             {skipped ? (
-              <p className="body">
+              <p className="body prose-measure">
                 The critic was not called. {criticSkipWhy(record)}
               </p>
             ) : abandoned ? (
-              <p className="body">
+              <p className="body prose-measure">
                 The critic was started but did not finish. {abandoned.detail}.
               </p>
             ) : output.alternative_hypotheses.length === 0 ? (
-              <p className="body text-mute">
+              <p className="body text-mute prose-measure">
                 No alternative was proposed.
               </p>
             ) : (
-              <ul className="stack">
-                {output.alternative_hypotheses.map((h, i) => (
-                  <li
-                    key={i}
-                    className="border-t border-rule pt-3 first:border-0 first:pt-0"
-                  >
-                    <p className="mb-2">
-                      <AltStatusMark status={h.status} />
-                      <span className="dense text-graphite ml-2">
-                        {altOutcomeCopy(h.status)}
-                      </span>
-                    </p>
-                    <Prose
-                      text={h.statement}
-                      findings={findings}
-                      hotCall={selectedCallId}
-                      onCall={selectCall}
-                    />
-                    <div className="mt-3 border border-rule rounded p-3">
-                      <p className="label mb-1">Falsifying test</p>
-                      <p className="dense">
-                        <FindingText
-                          text={h.falsifying_test}
-                          findings={findings}
-                          hotCall={selectedCallId}
-                          onCall={selectCall}
-                        />
-                      </p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            )}
-            {output.counter_evidence.length > 0 ? (
-              <ul className="mt-4 stack" style={{ gap: 8 }}>
-                {output.counter_evidence.map((e, i) => {
-                  const hot =
-                    e.source.kind === "tool_call" &&
-                    e.source.call_id === selectedCallId;
-                  return (
+              <>
+                {resolution ? (
+                  <p className="body prose-measure font-medium mb-3">
+                    {resolution}
+                  </p>
+                ) : null}
+                <ul className="stack">
+                  {output.alternative_hypotheses.map((h, i) => (
                     <li
                       key={i}
-                      className="border-t border-rule pt-2 first:border-0 first:pt-0"
+                      className="border-t border-rule pt-3 first:border-0 first:pt-0"
                     >
+                      <p className="mb-2">
+                        <AltStatusMark status={h.status} />
+                      </p>
                       <Prose
-                        text={e.claim}
+                        text={h.statement}
                         findings={findings}
                         hotCall={selectedCallId}
                         onCall={selectCall}
                       />
-                      <div className="mt-1">
-                        {sourceChip(e.source, hot, selectCall)}
+                      <div className="mt-3 border border-rule rounded p-3">
+                        <p className="label mb-1">How we tested it</p>
+                        <p className="dense prose-measure">
+                          <FindingText
+                            text={h.falsifying_test}
+                            findings={findings}
+                            hotCall={selectedCallId}
+                            onCall={selectCall}
+                          />
+                        </p>
                       </div>
                     </li>
-                  );
-                })}
-              </ul>
+                  ))}
+                </ul>
+              </>
+            )}
+            {output.counter_evidence.length > 0 ? (
+              <div className="mt-3">
+                <NumberedClaims
+                  items={output.counter_evidence}
+                  findings={findings}
+                  hotCall={selectedCallId}
+                  onCall={selectCall}
+                />
+              </div>
             ) : skipped || abandoned ? null : (
               <p className="dense text-mute mt-3">No counter-evidence recorded.</p>
             )}
           </Panel>
 
-          <Panel title="Limits">
-            <p className="label mb-2">How much to trust this</p>
+          <Panel title="How far to trust this">
             {ceiling ? (
               <>
-                <p className="body">
+                <p className="body prose-measure">
                   {output.confidence.model_requested} was refused:{" "}
                   {ceilingCopy(ceiling)}. Code granted {granted ?? "—"}.
                 </p>
@@ -372,7 +506,7 @@ export function InvestigationView({
                 </div>
               </>
             ) : (
-              <p className="body">
+              <p className="body prose-measure">
                 {granted ? (
                   <>
                     Granted {granted}.{" "}
@@ -384,18 +518,22 @@ export function InvestigationView({
               </p>
             )}
             {!synthesized ? (
-              <p className="body mt-3">
+              <p className="body prose-measure mt-3">
                 {stopReasonCopy(record.stop_reason)}.
               </p>
             ) : null}
-            {output.uncertainty.length > 0 ? (
+            {unresolved.length > 0 ? (
               <>
-                <p className="label mt-4 mb-2">Still unresolved</p>
-                <ul className="list-disc pl-5 dense space-y-1">
-                  {output.uncertainty.map((u, i) => (
-                    <li key={i}>
-                      <FindingText
-                        text={u}
+                <p className="label mt-3 mb-2">Still unresolved</p>
+                <ul className="list-none p-0 m-0">
+                  {unresolvedVisible.map((u, i) => (
+                    <li
+                      key={i}
+                      className="border-t border-rule py-3 first:border-0 first:pt-0"
+                    >
+                      <ClaimBody
+                        lead={u.lead}
+                        rest={u.rest}
                         findings={findings}
                         hotCall={selectedCallId}
                         onCall={selectCall}
@@ -403,51 +541,75 @@ export function InvestigationView({
                     </li>
                   ))}
                 </ul>
+                {unresolved.length > 3 && !showAllUnresolved ? (
+                  <button
+                    type="button"
+                    className="dense mt-1 underline"
+                    onClick={() => setShowAllUnresolved(true)}
+                  >
+                    show all {unresolved.length}
+                  </button>
+                ) : null}
               </>
             ) : null}
           </Panel>
 
-          <Panel
-            title="Next"
-            meta={
-              output.recommended_actions.length > 0
-                ? String(output.recommended_actions.length)
-                : undefined
-            }
-          >
+          <Panel title="What to do" meta="replay · read-only">
             {output.recommended_actions.length === 0 ? (
               <p className="dense text-mute">No next steps were recorded.</p>
             ) : (
               <ul>
-                {output.recommended_actions.map((a) => (
-                  <li
-                    key={a.action_id}
-                    className="border-t border-rule py-3 first:border-0 first:pt-0"
-                  >
-                    <div className="flex flex-wrap items-baseline gap-2 mb-1">
-                      <span className="mono text-mute">{a.action_id}</span>
-                      <span className="dense">{riskClassCopy(a.risk_class)}</span>
-                      {needsSignOff(a.risk_class) ? (
-                        <span className="chip chip-critical">needs sign-off</span>
-                      ) : null}
-                    </div>
-                    <p className="body">
-                      <FindingText
-                        text={a.description}
-                        findings={findings}
-                        hotCall={selectedCallId}
-                        onCall={selectCall}
-                      />
-                    </p>
-                  </li>
-                ))}
+                {output.recommended_actions.map((a) => {
+                  const done = executions.find((e) => e.action_id === a.action_id);
+                  const gated = requiresApproval(a.risk_class);
+                  return (
+                    <li
+                      key={a.action_id}
+                      className="border-t border-rule py-3 first:border-0 first:pt-0"
+                    >
+                      <div className="flex flex-wrap items-baseline gap-2 mb-1">
+                        <span className="mono text-mute">{a.action_id}</span>
+                        <span className="dense">{riskClassCopy(a.risk_class)}</span>
+                        {gated && !done ? (
+                          <span className="chip chip-critical">needs sign-off</span>
+                        ) : null}
+                      </div>
+                      <p className="body prose-measure">
+                        <FindingText
+                          text={a.description}
+                          findings={findings}
+                          hotCall={selectedCallId}
+                          onCall={selectCall}
+                        />
+                      </p>
+                      {done ? (
+                        <p className="dense text-settled mt-2">
+                          {done.outcome}
+                          <span className="mono text-mute ml-2">
+                            {formatTimestamp(done.at)}
+                          </span>
+                        </p>
+                      ) : (
+                        <p className="mt-2">
+                          <button
+                            type="button"
+                            className="btn-approve"
+                            onClick={() => approve(a)}
+                          >
+                            Approve
+                          </button>
+                        </p>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             )}
           </Panel>
 
           <details className="panel">
             <summary className="cursor-pointer">
-              <span className="label">Receipts</span>
+              <span className="label">Full record</span>
               <span className="mono text-mute ml-3">
                 {findings.length} findings · {output.knowledge_sources.length}{" "}
                 chunks
@@ -498,6 +660,7 @@ export function InvestigationView({
                 <ul>
                   {output.knowledge_sources.map((k) => {
                     const chunk = byChunk.get(k.chunk_id);
+                    const lines = chunk ? firstLine(chunk.text) : null;
                     return (
                       <li
                         key={k.chunk_id}
@@ -521,15 +684,19 @@ export function InvestigationView({
                             />
                           </span>
                         </div>
-                        {chunk ? (
-                          <details className="mt-1">
-                            <summary className="cursor-pointer mono text-mute">
-                              {k.chunk_id}
-                            </summary>
-                            <pre className="mt-2 whitespace-pre-wrap body">
-                              {chunk.text}
-                            </pre>
-                          </details>
+                        {lines ? (
+                          lines.rest ? (
+                            <details className="mt-1">
+                              <summary className="cursor-pointer dense">
+                                {lines.lead}
+                              </summary>
+                              <pre className="mt-2 whitespace-pre-wrap body">
+                                {lines.rest}
+                              </pre>
+                            </details>
+                          ) : (
+                            <p className="dense mt-1">{lines.lead}</p>
+                          )
                         ) : (
                           <p className="mono text-mute">{k.chunk_id}</p>
                         )}
@@ -549,7 +716,7 @@ export function InvestigationView({
           </details>
         </div>
 
-        <aside className="mt-3 lg:mt-0 lg:sticky lg:top-[3rem] lg:h-[calc(100vh-3.75rem)] lg:overflow-y-auto">
+        <aside className="mt-6 min-[1280px]:mt-0 min-[1280px]:sticky min-[1280px]:top-[3rem] min-[1280px]:h-[calc(100vh-3.75rem)] min-[1280px]:overflow-y-auto">
           <Panel title="What was checked" meta={`${toolCalls} calls`}>
             <Trace
               events={output.trace}

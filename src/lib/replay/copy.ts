@@ -109,12 +109,9 @@ export function formatMultiplier(ratio: number): string {
 export function altOutcomeCopy(
   status: "weakened" | "open" | "rejected",
 ): string {
-  if (status === "open") return "left open";
-  return status;
-}
-
-export function needsSignOff(riskClass: "INTERNAL" | "EXTERNAL" | "PRODUCTION"): boolean {
-  return riskClass === "EXTERNAL" || riskClass === "PRODUCTION";
+  if (status === "open") return "not ruled out";
+  if (status === "weakened") return "weakened by evidence";
+  return "ruled out";
 }
 
 export function riskClassCopy(
@@ -123,4 +120,84 @@ export function riskClassCopy(
   if (riskClass === "INTERNAL") return "Internal";
   if (riskClass === "EXTERNAL") return "External";
   return "Production";
+}
+
+/** First sentence is the claim; the rest is qualification. Does not split 1.4.2. */
+export function splitFirstSentence(text: string): { lead: string; rest: string } {
+  const trimmed = text.trim();
+  for (let i = 0; i < trimmed.length; i += 1) {
+    const ch = trimmed[i];
+    if (ch !== "." && ch !== "!" && ch !== "?") continue;
+    const prev = trimmed[i - 1] ?? "";
+    const next = trimmed[i + 1] ?? "";
+    if (/\d/.test(prev) || /\d/.test(next)) continue;
+    const after = trimmed.slice(i + 1);
+    const end = after.trim() === "";
+    const newSentence = /^\s+[A-Z]/.test(after);
+    if (end || newSentence) {
+      return { lead: trimmed.slice(0, i + 1).trim(), rest: after.trim() };
+    }
+  }
+  return { lead: trimmed, rest: "" };
+}
+
+/** Prefer the implication after ", so" so the row leads with the point. */
+export function leadPoint(text: string): { lead: string; rest: string } {
+  const split = splitFirstSentence(text);
+  const so = split.lead.match(/^(.*?),\s+so\s+([a-z])([\s\S]*)$/);
+  if (!so) return split;
+  const point = `${so[2]!.toUpperCase()}${so[3]}`;
+  const caveat = so[1]!.trim();
+  return {
+    lead: /[.!?]$/.test(point) ? point : `${point}.`,
+    rest: [/[.!?]$/.test(caveat) ? caveat : `${caveat}.`, split.rest]
+      .filter(Boolean)
+      .join(" "),
+  };
+}
+
+export function firstLine(text: string): { lead: string; rest: string } {
+  const lines = text.split(/\r?\n/);
+  const idx = lines.findIndex((line) => line.trim().length > 0);
+  if (idx < 0) return { lead: "", rest: "" };
+  const lead = lines[idx]!.trim();
+  const rest = lines.slice(idx + 1).join("\n").trim();
+  return { lead, rest };
+}
+
+function alternativeTopic(statement: string): string {
+  const s = statement.toLowerCase();
+  if (
+    s.includes("phone-os") ||
+    s.includes("phone os") ||
+    s.includes("bluetooth")
+  ) {
+    return "a phone-OS explanation";
+  }
+  if (s.includes("app version") || s.includes("app-version")) {
+    return "an app-version explanation";
+  }
+  if (s.includes("thermal") || s.includes("overheat")) {
+    return "a thermal explanation";
+  }
+  return "an alternative explanation";
+}
+
+export function challengeResolution(
+  alternatives: readonly {
+    statement: string;
+    status: "weakened" | "open" | "rejected";
+  }[],
+): string | null {
+  const open = alternatives.find((h) => h.status === "open");
+  const h = open ?? alternatives[0];
+  if (!h) return null;
+  const topic = alternativeTopic(h.statement);
+  if (h.status === "open") {
+    return `The critic proposed ${topic}. It was tested and could not be ruled out.`;
+  }
+  if (h.status === "weakened") {
+    return `The critic proposed ${topic}. It was tested and weakened by evidence.`;
+  }
+  return `The critic proposed ${topic}. It was tested and ruled out.`;
 }

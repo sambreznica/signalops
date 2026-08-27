@@ -38,7 +38,11 @@ export function AltStatusMark({
 }: {
   status: "weakened" | "open" | "rejected";
 }) {
-  if (status === "rejected") return <span className="chip chip-inert">{status}</span>;
-  if (status === "weakened") return <span className="chip chip-elevated">{status}</span>;
-  return <span className="chip chip-inert">{status}</span>;
+  if (status === "rejected") {
+    return <span className="chip chip-inert">RULED OUT</span>;
+  }
+  if (status === "weakened") {
+    return <span className="chip chip-elevated">WEAKENED BY EVIDENCE</span>;
+  }
+  return <span className="chip chip-inert">NOT RULED OUT</span>;
 }

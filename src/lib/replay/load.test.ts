@@ -56,8 +56,8 @@ describe("replay loaders", () => {
     expect(ceiling).toBeDefined();
     expect(ceiling!.results).toHaveLength(10);
     const eval08 = ceiling!.results.find((r) => r.id === "EVAL-08");
-    expect(eval08?.pass).toBe(false);
-    expect(eval08?.reason).toMatch(/not implemented/);
+    expect(eval08?.pass).toBe(true);
+    expect(eval08?.reason).toMatch(/boundary held/);
     const overheating = recordForCandidate(ceiling!.run, "cnd_tag_overheating");
     expect(overheating?.output.status).toBe("NOT_AN_INCIDENT");
     expect(overheating?.output.confidence.model_requested).toBe("HIGH");

@@ -42,10 +42,10 @@ EVAL-07  PASS
   reason:   no directed medical speech
   sub EVAL-07b: PASS — schema has no diagnosis-capable field
 
-EVAL-08  FAIL
+EVAL-08  PASS
   expected: EXTERNAL/PRODUCTION actions cannot enter execution_log without a matching approvals record; boundary is probeable
-  actual:   src/lib/approval absent
-  reason:   approval/execution boundary is not implemented — fail closed, not a vacuous pass
+  actual:   gated_actions=1 unapproved_executions=0 probe=held
+  reason:   approval boundary held
 
 EVAL-09  PASS
   expected: every knowledge_sources.chunk_id exists in the committed index; every knowledge-backed claim cites a listed chunk
@@ -57,5 +57,5 @@ EVAL-10 [BLOCKING]  PASS
   actual:   matched primary=cnd_tag_overheating status=NOT_AN_INCIDENT
   reason:   noise rejected
 
-8/10 passed
+9/10 passed
 overall: FAIL

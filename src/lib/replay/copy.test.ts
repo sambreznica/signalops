@@ -2,9 +2,12 @@ import { describe, expect, it } from "vitest";
 import {
   carryFindings,
   ceilingCopy,
+  challengeResolution,
   evidenceTypeCopy,
   formatMultiplier,
   headlineComparison,
+  leadPoint,
+  splitFirstSentence,
   stopReasonCopy,
 } from "./copy";
 import { DEFAULT_CANDIDATE_ID, loadReplayRun, recordForCandidate } from "./load";
@@ -64,8 +67,32 @@ describe("investigation copy", () => {
     expect(pair!.left.id).toBe("f_1");
     expect(pair!.right.id).toBe("f_2");
     expect(formatMultiplier(pair!.ratio)).toBe("6.83×");
-    expect(carryFindings(rec!.output.deterministic_findings, pair).map((f) => f.id)).toEqual(
-      ["f_1", "f_2", "f_5"],
+    expect(
+      carryFindings(rec!.output.deterministic_findings, pair).map((f) => f.id),
+    ).toEqual(["f_1", "f_2", "f_5"]);
+  });
+
+  it("splits a claim from its qualification without breaking 1.4.2", () => {
+    const split = splitFirstSentence(
+      "1.4.2 devices show a disconnect rate roughly seven times that of 1.4.1 devices in the current window, with the rate-ratio CI excluding one, per {f_3}. Both cohorts are on app version 3.2.",
+    );
+    expect(split.lead).toMatch(/\{f_3\}\.$/);
+    expect(split.rest).toMatch(/^Both cohorts/);
+  });
+
+  it("leads unresolved items with the point after so", () => {
+    const point = leadPoint(
+      "Phone OS/model was not held constant in this investigation, so a phone-side confound analogous to INC-2025-014 has not been excluded.",
+    );
+    expect(point.lead).toMatch(/^A phone-side confound/);
+    expect(point.rest).toMatch(/not held constant/);
+  });
+
+  it("names how the firmware challenge resolved", () => {
+    const run = loadReplayRun();
+    const rec = recordForCandidate(run, DEFAULT_CANDIDATE_ID);
+    expect(challengeResolution(rec!.output.alternative_hypotheses)).toBe(
+      "The critic proposed a phone-OS explanation. It was tested and could not be ruled out.",
     );
   });
 });
