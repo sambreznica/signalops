@@ -27,10 +27,17 @@ export const INVESTIGATOR_EFFORT: EffortLevel = "medium";
 /** Same effort as the investigator. Not tuned to chase a bound. */
 export const CRITIC_EFFORT: EffortLevel = "medium";
 
+/** One structured emit, no tools. Not a share of either budget. */
+export const ASSESSOR_EFFORT: EffortLevel = "low";
+
 export function investigatorOutputConfig(): { effort: EffortLevel } {
   return { effort: INVESTIGATOR_EFFORT };
 }
 
 export function criticOutputConfig(): { effort: EffortLevel } {
   return { effort: CRITIC_EFFORT };
+}
+
+export function assessorOutputConfig(): { effort: EffortLevel } {
+  return { effort: ASSESSOR_EFFORT };
 }

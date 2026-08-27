@@ -18,6 +18,32 @@ export {
 } from "./prose";
 
 export {
+  QUEUE_IDS,
+  QUEUE_TIE_BREAK,
+  SKILL_IDS,
+  ENGINEER_ID_RE,
+  TICKET_ID_RE,
+  skillIdSchema,
+  ticketActivitySchema,
+  ticketHasBareNumeral,
+  ticketHasFindingRef,
+  ticketPrioritySchema,
+  ticketQueueSchema,
+  ticketSchema,
+  ticketSourceSchema,
+  ticketStatusSchema,
+  ticketStripIdentifiers,
+  ticketsArtefactSchema,
+  type SkillId,
+  type Ticket,
+  type TicketPriority,
+  type TicketQueue,
+  type TicketSource,
+  type TicketStatus,
+  type TicketsArtefact,
+} from "./ticket";
+
+export {
   actorSchema,
   alternativeHypothesisSchema,
   alternativeHypothesisStatusSchema,

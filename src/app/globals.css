@@ -146,6 +146,16 @@ a:hover {
   color: var(--card);
 }
 
+.btn-approve:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+.ticket-inline {
+  border-left: 2px solid var(--ink);
+  padding-left: 10px;
+}
+
 .panel {
   background: var(--card);
   border: 1px solid var(--rule);

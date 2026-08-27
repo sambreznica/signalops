@@ -1,0 +1,106 @@
+{
+  "run_id": "run-ceiling-3",
+  "timestamp": "2026-08-26T10:13:39.028Z",
+  "model": "claude-sonnet-5",
+  "effort": "low",
+  "tickets": [
+    {
+      "ticket_id": "TCK-0001",
+      "title": "Approved action act_1",
+      "body": "Work from this investigation. Figures stay on the investigation record.",
+      "queue": "firmware",
+      "assignee": "eng_priya_nair",
+      "priority": "P3",
+      "status": "ASSIGNED",
+      "source": {
+        "investigation_id": "inv_cnd_fw_1_4_2",
+        "action_id": "act_1",
+        "candidate_id": "cnd_fw_1_4_2"
+      },
+      "skills_required": [
+        "ble-radio",
+        "firmware-build",
+        "rtos"
+      ],
+      "routing_rationale": "This test requires designing and executing controlled RF characterization comparing firmware versions, which needs expertise in BLE radio link behavior (supervision timeout, connection retry/backoff dynamics) under real-world RF conditions, plus firmware build knowledge to reproduce and instrument the exact 1.4.2 vs 1.4.1 timing behavior, and RTOS-level understanding of how connection supervision and retry scheduling are implemented on-device. Priya Nair selected: overlap firmware-build, ble-radio, rtos; under capacity; roster order as remaining tie.",
+      "created_at": "2026-08-26T10:13:39.028Z",
+      "due_at": "2026-08-29T10:13:39.028Z",
+      "updated_at": "2026-08-26T10:13:39.028Z",
+      "notes": [],
+      "activity": [
+        {
+          "kind": "created",
+          "from": null,
+          "to": "ASSIGNED",
+          "actor": "routing",
+          "at": "2026-08-26T10:13:39.028Z"
+        }
+      ]
+    },
+    {
+      "ticket_id": "TCK-0002",
+      "title": "Approved action act_3",
+      "body": "Work from this investigation. Figures stay on the investigation record.",
+      "queue": "firmware",
+      "assignee": "eng_priya_nair",
+      "priority": "P2",
+      "status": "ASSIGNED",
+      "source": {
+        "investigation_id": "inv_cnd_fw_1_4_2",
+        "action_id": "act_3",
+        "candidate_id": "cnd_fw_1_4_2"
+      },
+      "skills_required": [
+        "ble-radio",
+        "firmware-build",
+        "rtos"
+      ],
+      "routing_rationale": "Assessing a candidate rollback/hotfix for a BLE supervisor-timeout and retry-backoff change requires expertise in BLE connection/radio behavior under varying RF conditions, firmware build and versioning practices to prepare and validate a rollback or hotfix, and RTOS/timing knowledge to evaluate the supervisor-timeout and backoff logic implicated in the disconnect pattern. Priya Nair selected: overlap firmware-build, ble-radio, rtos; under capacity; roster order as remaining tie.",
+      "created_at": "2026-08-26T10:13:39.028Z",
+      "due_at": "2026-08-27T10:13:39.028Z",
+      "updated_at": "2026-08-26T10:13:39.028Z",
+      "notes": [],
+      "activity": [
+        {
+          "kind": "created",
+          "from": null,
+          "to": "ASSIGNED",
+          "actor": "routing",
+          "at": "2026-08-26T10:13:39.028Z"
+        }
+      ]
+    },
+    {
+      "ticket_id": "TCK-0003",
+      "title": "Approved action a_1",
+      "body": "Work from this investigation. Figures stay on the investigation record.",
+      "queue": "data_telemetry",
+      "assignee": "eng_samira_elsayed",
+      "priority": "P3",
+      "status": "ASSIGNED",
+      "source": {
+        "investigation_id": "inv_cnd_tag_overheating",
+        "action_id": "a_1",
+        "candidate_id": "cnd_tag_overheating"
+      },
+      "skills_required": [
+        "mobile-app",
+        "data-quality"
+      ],
+      "routing_rationale": "Tagging this ticket cluster as a known cosmetic UI duplicate requires someone versed in the app's UI/UX behavior (to confirm the red battery-chrome misread pattern maps to KI-UI-011) and in support-ticket data quality/classification practices (to verify tagging conventions, co-tag logic, and ensure the routing rule won't misclassify a residual thermal subpopulation still under review). Samira El-Sayed selected: overlap data-quality; under capacity; roster order as remaining tie.",
+      "created_at": "2026-08-26T10:13:39.028Z",
+      "due_at": "2026-08-29T10:13:39.028Z",
+      "updated_at": "2026-08-26T10:13:39.028Z",
+      "notes": [],
+      "activity": [
+        {
+          "kind": "created",
+          "from": null,
+          "to": "ASSIGNED",
+          "actor": "routing",
+          "at": "2026-08-26T10:13:39.028Z"
+        }
+      ]
+    }
+  ]
+}

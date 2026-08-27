@@ -78,7 +78,12 @@ function loadNewestRun(): { run: CertificationRun | null; error: string | null }
     return { run: null, error: "runs/ directory is absent" };
   }
   const files = readdirSync(RUNS_DIR)
-    .filter((name) => name.endsWith(".json"))
+    .filter(
+      (name) =>
+        name.endsWith(".json") &&
+        name !== "tool-cache.json" &&
+        !name.endsWith(".tickets.json"),
+    )
     .map((name) => path.join(RUNS_DIR, name))
     .filter((file) => statSync(file).isFile())
     .sort((a, b) => statSync(b).mtimeMs - statSync(a).mtimeMs);

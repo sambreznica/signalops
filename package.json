@@ -13,7 +13,8 @@
     "gen:embeddings": "tsx scripts/build-embeddings.ts",
     "eval": "tsx evals/run.ts",
     "baseline": "tsx evals/baseline.ts",
-    "investigate": "tsx scripts/investigate.ts"
+    "investigate": "tsx scripts/investigate.ts",
+    "route-ticket": "tsx scripts/route-ticket.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.120.0",

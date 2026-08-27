@@ -1,0 +1,82 @@
+[
+  {
+    "id": "eng_priya_nair",
+    "name": "Priya Nair",
+    "queue": "firmware",
+    "skills": ["firmware-build", "ble-radio", "rtos"],
+    "wip_limit": 2,
+    "timezone": "Europe/London"
+  },
+  {
+    "id": "eng_tomasz_kowalski",
+    "name": "Tomasz Kowalski",
+    "queue": "firmware",
+    "skills": ["ble-radio", "firmware-build", "power-management"],
+    "wip_limit": 2,
+    "timezone": "Europe/Warsaw"
+  },
+  {
+    "id": "eng_elena_varga",
+    "name": "Elena Varga",
+    "queue": "firmware",
+    "skills": ["firmware-build", "rtos", "power-management"],
+    "wip_limit": 1,
+    "timezone": "Europe/Berlin"
+  },
+  {
+    "id": "eng_mei_chen",
+    "name": "Mei Chen",
+    "queue": "hardware",
+    "skills": ["adhesive-materials", "sensor-hardware", "wear-mechanics"],
+    "wip_limit": 2,
+    "timezone": "Europe/London"
+  },
+  {
+    "id": "eng_jonah_adeyemi",
+    "name": "Jonah Adeyemi",
+    "queue": "hardware",
+    "skills": ["sensor-hardware", "wear-mechanics", "field-ops"],
+    "wip_limit": 2,
+    "timezone": "Africa/Lagos"
+  },
+  {
+    "id": "eng_hannah_briggs",
+    "name": "Hannah Briggs",
+    "queue": "product_comms",
+    "skills": ["regulatory-comms", "claims-review", "copy-ops"],
+    "wip_limit": 2,
+    "timezone": "Europe/London"
+  },
+  {
+    "id": "eng_luca_ferrara",
+    "name": "Luca Ferrara",
+    "queue": "product_comms",
+    "skills": ["claims-review", "regulatory-comms"],
+    "wip_limit": 1,
+    "timezone": "Europe/Rome"
+  },
+  {
+    "id": "eng_samira_elsayed",
+    "name": "Samira El-Sayed",
+    "queue": "data_telemetry",
+    "skills": ["telemetry-pipeline", "data-quality", "session-accounting"],
+    "wip_limit": 2,
+    "timezone": "Europe/London"
+  },
+  {
+    "id": "eng_owen_walsh",
+    "name": "Owen Walsh",
+    "queue": "data_telemetry",
+    "skills": ["mobile-app", "telemetry-pipeline", "session-accounting"],
+    "wip_limit": 2,
+    "timezone": "Europe/Dublin"
+  },
+  {
+    "id": "eng_yuki_tanaka",
+    "name": "Yuki Tanaka",
+    "queue": "data_telemetry",
+    "skills": ["telemetry-pipeline", "field-ops", "data-quality"],
+    "wip_limit": 3,
+    "timezone": "Asia/Tokyo"
+  }
+]

@@ -5,6 +5,7 @@ import {
   loadAgentRuns,
   loadKnowledgeDocs,
   loadReplayRun,
+  loadTicketsArtefact,
   loadTriageCandidates,
   recordForCandidate,
   scoreAgentRuns,
@@ -47,6 +48,20 @@ describe("replay loaders", () => {
     expect(docs.every((d) => d.chunks.every((c) => !("embedding" in c)))).toBe(
       true,
     );
+  });
+
+  it("does not treat a sibling tickets artefact as an agent run", () => {
+    const runs = loadAgentRuns();
+    expect(runs.every((r) => r.kind === "agent")).toBe(true);
+    const artefact = loadTicketsArtefact(DEFAULT_RUN_ID);
+    expect(artefact).not.toBeNull();
+    expect(artefact!.tickets.length).toBeGreaterThanOrEqual(3);
+    const candidates = new Set(
+      artefact!.tickets.flatMap((t) =>
+        t.source === "manual" ? [] : [t.source.candidate_id],
+      ),
+    );
+    expect(candidates.size).toBeGreaterThanOrEqual(2);
   });
 
   it("scores agent runs without a suite headline helper", () => {

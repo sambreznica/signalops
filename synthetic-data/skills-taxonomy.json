@@ -1,0 +1,92 @@
+[
+  {
+    "id": "ble-radio",
+    "home_queue": "firmware",
+    "label": "BLE link, supervisor timing, 2.4 GHz coexistence.",
+    "non_seeded_use": "Office 2.4 GHz chatter (KI-RF-003); PHY / advertising investigations on any train."
+  },
+  {
+    "id": "firmware-build",
+    "home_queue": "firmware",
+    "label": "Cutting, shipping, and bisecting a firmware train.",
+    "non_seeded_use": "Cutting 1.4.3; bisecting a build that is not 1.4.2."
+  },
+  {
+    "id": "rtos",
+    "home_queue": "firmware",
+    "label": "On-device scheduler, idle, retry.",
+    "non_seeded_use": "Idle-skip characterisation on 1.4.1; scheduler bugs unrelated to BLE counts."
+  },
+  {
+    "id": "power-management",
+    "home_queue": "firmware",
+    "label": "Charge, drain policy, on-device power.",
+    "non_seeded_use": "Charge-puck complaints; indoor drain step-changes outside Nordics."
+  },
+  {
+    "id": "adhesive-materials",
+    "home_queue": "hardware",
+    "label": "Ring chemistry, lot, peel, wear-cycle adhesive.",
+    "non_seeded_use": "Lot peel, pouch print, scheduled ring-replacement quality."
+  },
+  {
+    "id": "sensor-hardware",
+    "home_queue": "hardware",
+    "label": "Accelerometer, thermistor, physical sensing path.",
+    "non_seeded_use": "Accelerometer scale error; thermistor as a sensor defect, not a climate story."
+  },
+  {
+    "id": "wear-mechanics",
+    "home_queue": "hardware",
+    "label": "Magnetic seat, enclosure, fit, reseat.",
+    "non_seeded_use": "Loose magnetic seat that looks like radio loss (KD-01 §2.1)."
+  },
+  {
+    "id": "regulatory-comms",
+    "home_queue": "product_comms",
+    "label": "Policy, banned phrases, outward claims, regulator-facing language.",
+    "non_seeded_use": "Policy 3.1 tabletop; partner one-pager review; investor FAQ."
+  },
+  {
+    "id": "claims-review",
+    "home_queue": "product_comms",
+    "label": "Whether a piece of copy (app, support, partner, press) is a claims event.",
+    "non_seeded_use": "A single press screenshot; a support-macro rewrite; not only a cluster."
+  },
+  {
+    "id": "copy-ops",
+    "home_queue": "product_comms",
+    "label": "Writing and shipping in-product and support language.",
+    "non_seeded_use": "In-app chrome colour copy (KI-UI-011); charging-puck leaflet."
+  },
+  {
+    "id": "telemetry-pipeline",
+    "home_queue": "data_telemetry",
+    "label": "Export, ingest, device-day accounting.",
+    "non_seeded_use": "A missing export field; a denominator bug in device-days."
+  },
+  {
+    "id": "mobile-app",
+    "home_queue": "data_telemetry",
+    "label": "Companion app, background workers, OEM behaviour.",
+    "non_seeded_use": "OEM background kill (KI-AP-019); iOS permission copy."
+  },
+  {
+    "id": "session-accounting",
+    "home_queue": "data_telemetry",
+    "label": "session_gap_minutes, authenticated session lifecycle.",
+    "non_seeded_use": "Iberia session-gap (KI-IB-022); authenticated-session definition."
+  },
+  {
+    "id": "data-quality",
+    "home_queue": "data_telemetry",
+    "label": "Missing fields, mis-instrumentation, denominator bugs.",
+    "non_seeded_use": "A tag applied inconsistently; a null region; a duplicate device-day."
+  },
+  {
+    "id": "field-ops",
+    "home_queue": "data_telemetry",
+    "label": "Device recovery, wear-study protocol, in-region checks.",
+    "non_seeded_use": "Wear-study protocol; recovering a core from a beta household."
+  }
+]

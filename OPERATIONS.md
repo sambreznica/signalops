@@ -219,9 +219,11 @@ It receives: the approved action's `description` and `risk_class`; the investiga
 It emits:
 
 - `skills_required[]` — a subset of the taxonomy. Empty is legal; it means "I cannot name the expertise," not "assign to anyone."
-- `expertise_rationale` — why those skills, in prose, without naming a person or a queue.
+- `expertise_rationale` — why those skills, in prose. Name the kind of work, not its measurements — the investigation holds the figures and the ticket links to it. Do not name a person or a team.
 
 Unknown skill ids are rejected by code. If none remain, the ticket is created `ON_DECK` with empty `skills_required` and a `routing_rationale` that says the assessor produced no usable skill. The ticket still exists. Routing does not invent skills to keep the board pretty.
+
+The assessor has no `{f_n}` sink. A numeral or finding-ref in `expertise_rationale` is a prompt finding, not a repair loop: reject the emit and take the same empty-skills path (`fallback: "bare_numeral"`). One structured call. No second turn.
 
 The assessor is the third model role because *what expertise this action needs* is semantic. "This is a claims event, not a radio event" is not arithmetic. Everything after that is.
 

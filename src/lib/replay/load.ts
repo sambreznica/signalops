@@ -34,6 +34,10 @@ import {
 import type { EvalResult } from "../../../evals/types";
 import type { HarnessContext } from "../../../evals/load";
 import { DEFAULT_RUN_ID } from "./constants";
+import {
+  ticketsArtefactSchema,
+  type TicketsArtefact,
+} from "../schema/ticket";
 
 export { DEFAULT_CANDIDATE_ID, DEFAULT_RUN_ID } from "./constants";
 
@@ -55,6 +59,21 @@ export function runFilePath(runId: string): string {
   return path.join(RUNS_DIR, `${base}.json`);
 }
 
+export function ticketsArtefactPath(runId: string): string {
+  const base = path.basename(runId);
+  if (base !== runId || base.includes("..")) {
+    throw new Error(`invalid run id: ${runId}`);
+  }
+  return path.join(RUNS_DIR, `${base}.tickets.json`);
+}
+
+export function loadTicketsArtefact(runId: string): TicketsArtefact | null {
+  const file = ticketsArtefactPath(runId);
+  if (!existsSync(file)) return null;
+  const parsed = ticketsArtefactSchema.safeParse(readJson(file));
+  return parsed.success ? parsed.data : null;
+}
+
 export function loadReplayRun(runId: string = replayRunId()): CertificationRun {
   const file = runFilePath(runId);
   if (!existsSync(file)) {
@@ -71,7 +90,12 @@ export function loadReplayRun(runId: string = replayRunId()): CertificationRun {
 export function loadAgentRuns(): CertificationRun[] {
   if (!existsSync(RUNS_DIR)) return [];
   const files = readdirSync(RUNS_DIR)
-    .filter((name) => name.endsWith(".json") && !SKIP_RUN_FILES.has(name))
+    .filter(
+      (name) =>
+        name.endsWith(".json") &&
+        !SKIP_RUN_FILES.has(name) &&
+        !name.endsWith(".tickets.json"),
+    )
     .map((name) => path.join(RUNS_DIR, name))
     .filter((file) => statSync(file).isFile());
 

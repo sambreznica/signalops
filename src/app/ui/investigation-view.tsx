@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { InvestigationRecord } from "../../../evals/artefact";
 import type { Chunk } from "@/lib/retrieval/types";
 import type {
@@ -9,6 +9,7 @@ import type {
   InvestigationOutput,
   RecommendedAction,
 } from "@/lib/schema/investigation";
+import type { Ticket } from "@/lib/schema/ticket";
 import type { Provenance } from "@/lib/schema/quantity";
 import type { TriageCandidate } from "@/lib/triage/types";
 import {
@@ -17,6 +18,9 @@ import {
   type ApprovalRecord,
   type ExecutionRecord,
 } from "@/lib/approval";
+import { createTicketAfterApproval } from "@/lib/routing/create";
+import { existingForAction, mergeTickets } from "@/lib/routing/route";
+import { loadTickets, upsertTicket } from "@/lib/tickets/storage";
 import {
   carryFindings,
   ceilingCopy,
@@ -35,6 +39,7 @@ import { formatNumber, formatQuantity, formatTimestamp, slugId } from "@/lib/rep
 import { FindingText } from "./finding-text";
 import { Panel } from "./panel";
 import { BandMark, AltStatusMark, StatusMark } from "./status-mark";
+import { TicketInline } from "./ticket-inline";
 import { Trace } from "./trace";
 import { MagBar } from "./bars";
 
@@ -224,15 +229,21 @@ export function InvestigationView({
   candidate,
   chunks,
   runId,
+  runTimestamp,
+  committedTickets,
 }: {
   record: InvestigationRecord;
   candidate: TriageCandidate;
   chunks: Chunk[];
   runId: string;
+  runTimestamp: string;
+  committedTickets: Ticket[];
 }) {
   const [selectedCallId, setSelectedCallId] = useState<string | null>(null);
   const [approvals, setApprovals] = useState<ApprovalRecord[]>([]);
   const [executions, setExecutions] = useState<ExecutionRecord[]>([]);
+  const [tickets, setTickets] = useState<Ticket[]>([]);
+  const [pendingAction, setPendingAction] = useState<string | null>(null);
   const [showAllUnresolved, setShowAllUnresolved] = useState(false);
   const output: InvestigationOutput = record.output;
   const findings = output.deterministic_findings;
@@ -269,14 +280,42 @@ export function InvestigationView({
     document.getElementById(id)?.scrollIntoView({ block: "nearest" });
   }
 
-  function approve(action: RecommendedAction) {
+  useEffect(() => {
+    setTickets(mergeTickets(loadTickets(runId), committedTickets));
+  }, [runId, committedTickets]);
+
+  async function approve(action: RecommendedAction) {
     if (executions.some((e) => e.action_id === action.action_id)) return;
-    const at = new Date().toISOString();
+    const current = mergeTickets(loadTickets(runId), committedTickets);
+    if (
+      existingForAction(current, output.investigation_id, action.action_id)
+    ) {
+      setTickets(current);
+      return;
+    }
+    const at = runTimestamp;
     const nextApprovals = [...approvals, { action_id: action.action_id, at }];
     const result = execute(action, { approvals: nextApprovals, at });
     if (!result.ok) return;
-    setApprovals(nextApprovals);
-    setExecutions((rows) => [...rows, result.record]);
+    setPendingAction(action.action_id);
+    try {
+      const ticket = await createTicketAfterApproval({
+        action,
+        output,
+        candidateId: candidate.id,
+        runId,
+        runTimestamp,
+        mode: "replay",
+        existing: current,
+        committed: committedTickets,
+      });
+      const nextTickets = mergeTickets(upsertTicket(runId, ticket), committedTickets);
+      setApprovals(nextApprovals);
+      setExecutions((rows) => [...rows, result.record]);
+      setTickets(nextTickets);
+    } finally {
+      setPendingAction(null);
+    }
   }
 
   return (
@@ -554,14 +593,20 @@ export function InvestigationView({
             ) : null}
           </Panel>
 
-          <Panel title="What to do" meta="replay · read-only">
+          <Panel title="What to do" meta="replay · ticket clock is the run timestamp">
             {output.recommended_actions.length === 0 ? (
               <p className="dense text-mute">No next steps were recorded.</p>
             ) : (
               <ul>
                 {output.recommended_actions.map((a) => {
                   const done = executions.find((e) => e.action_id === a.action_id);
+                  const ticket = existingForAction(
+                    tickets,
+                    output.investigation_id,
+                    a.action_id,
+                  );
                   const gated = requiresApproval(a.risk_class);
+                  const pending = pendingAction === a.action_id;
                   return (
                     <li
                       key={a.action_id}
@@ -570,7 +615,7 @@ export function InvestigationView({
                       <div className="flex flex-wrap items-baseline gap-2 mb-1">
                         <span className="mono text-mute">{a.action_id}</span>
                         <span className="dense">{riskClassCopy(a.risk_class)}</span>
-                        {gated && !done ? (
+                        {gated && !done && !ticket ? (
                           <span className="chip chip-critical">needs sign-off</span>
                         ) : null}
                       </div>
@@ -582,7 +627,9 @@ export function InvestigationView({
                           onCall={selectCall}
                         />
                       </p>
-                      {done ? (
+                      {ticket ? (
+                        <TicketInline ticket={ticket} />
+                      ) : done ? (
                         <p className="dense text-settled mt-2">
                           {done.outcome}
                           <span className="mono text-mute ml-2">
@@ -594,9 +641,10 @@ export function InvestigationView({
                           <button
                             type="button"
                             className="btn-approve"
-                            onClick={() => approve(a)}
+                            disabled={pending}
+                            onClick={() => void approve(a)}
                           >
-                            Approve
+                            {pending ? "Routing…" : "Approve"}
                           </button>
                         </p>
                       )}

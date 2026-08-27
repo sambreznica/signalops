@@ -3,6 +3,7 @@ import { InvestigationView } from "@/app/ui/investigation-view";
 import {
   loadChunkTextById,
   loadReplayRun,
+  loadTicketsArtefact,
   loadTriageCandidates,
   recordForCandidate,
 } from "@/lib/replay/load";
@@ -18,6 +19,7 @@ export default async function InvestigationPage({
   const candidate = candidates.find((c) => c.id === candidateId);
   const record = recordForCandidate(run, candidateId);
   const chunks = loadChunkTextById();
+  const committed = loadTicketsArtefact(run.run_id);
 
   if (!candidate) {
     return (
@@ -51,6 +53,8 @@ export default async function InvestigationPage({
       candidate={candidate}
       chunks={[...chunks.values()]}
       runId={run.run_id}
+      runTimestamp={run.timestamp}
+      committedTickets={committed?.tickets ?? []}
     />
   );
 }
