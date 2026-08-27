@@ -10,15 +10,15 @@
 | Field | Value |
 |---|---|
 | Document | `PRD.md` |
-| Version | 1.0 — **FROZEN** |
+| Version | 1.1 — CR-001 (ticketing). Manifest counts in this document supersede v1.0 where they conflict. Change record: `docs/build-decisions.md` |
 | Status | Approved for implementation |
 | Owner | Sam |
 | Purpose | Independent synthetic prototype built as an inspectable technical working sample |
 | Build budget | ~5 hours implementation + ~3 hours documentation, evidence curation, deploy |
-| Sessions | Two, with a checkpoint at the session boundary |
+| Sessions | Two, with a checkpoint at the session boundary; CR-001 is a documented third sequence (routing, then board) |
 | Change policy | Any addition requires a removal of equal scope, recorded in `docs/build-decisions.md` |
 
-**Frozen manifest.** These are counts, not guidelines: **5 tools · 4 screens · 10 evaluations · 6 knowledge documents · 3 seeded incidents + 1 noise cluster · 8 P0 capabilities.**
+**Frozen manifest.** These are counts, not guidelines: **5 tools · 4 screens · 10 evaluations · 6 knowledge documents · 3 seeded incidents + 1 noise cluster · 3 model roles · 8 P0 capabilities.** CR-001 swapped Knowledge for Board and added the skills assessor; it did not raise the screen or tool counts.
 
 ---
 
@@ -26,7 +26,7 @@
 
 Wearable-health companies receive fragmented signals about their product: support tickets and beta feedback on one side, device telemetry and version data on the other, and internal knowledge (specifications, release notes, known issues, policies, past incidents) scattered across documents. Dashboards show *what changed*. Retrieval systems show *what documents say*. Neither answers the question a product lead actually has: **is this real, why is it happening, what contradicts that explanation, and what should we do next?**
 
-SignalOps is a prototype investigation system for that question. A deterministic triage layer computes candidate signals from structured data with no model involvement. An orchestrator then investigates a selected signal by choosing tools adaptively — what it calls second depends on what the first call returned. Retrieval grounds every knowledge-backed claim in a specific document passage. A separate critic then attempts to **falsify** the leading hypothesis rather than review it. Confidence is banded and capped by code, not asserted by the model. Consequential actions are blocked behind per-action human approval.
+SignalOps is a prototype investigation system for that question. A deterministic triage layer computes candidate signals from structured data with no model involvement. An orchestrator then investigates a selected signal by choosing tools adaptively — what it calls second depends on what the first call returned. Retrieval grounds every knowledge-backed claim in a specific document passage. A separate critic then attempts to **falsify** the leading hypothesis rather than review it. Confidence is banded and capped by code, not asserted by the model. Consequential actions are blocked behind per-action human approval. Approval creates a ticket; the Board is where that work is operated.
 
 The system is measured against four seeded scenarios with known ground truth — three genuine incidents and one plausible-looking cluster that is not an incident — and against a single-call baseline, so that the architecture's contribution is measured rather than assumed.
 
@@ -75,9 +75,9 @@ Both halves are testable. The first is tested by the seeded-incident evals; the 
 
 ## 6. Non-Goals
 
-**Explicitly out of scope.** Authentication, user accounts, billing, permissions, production infrastructure, real wearable integration, any real company's data, Jira/Slack/email integration, mobile app, production observability, autonomous remediation, fine-tuning, custom embedding models, knowledge graphs, multi-agent frameworks, streaming telemetry, background workers, clinical functionality, medical diagnosis, treatment recommendation, scalability engineering.
+**Explicitly out of scope.** Authentication, user accounts, billing, permissions, production infrastructure, real wearable integration, any real company's data, Jira/Slack/email integration, mobile app, production observability, autonomous remediation, fine-tuning, custom embedding models, knowledge graphs, multi-agent frameworks, streaming telemetry, background workers, clinical functionality, medical diagnosis, treatment recommendation, scalability engineering. Multi-user, notifications, email, time tracking, client portal, real-time ticket sync, saved views, custom fields, and automation rules are out of the ticketing layer — see `OPERATIONS.md` §12.
 
-**Additionally excluded by this PRD.** Float confidence scores; any vector database; any database at all; a chat interface; user-triggered data regeneration; a fifth screen; a sixth tool; an LLM-as-judge in the eval suite; multi-run comparison views; incident types beyond the four specified; search UI on the Knowledge screen.
+**Additionally excluded by this PRD.** Float confidence scores; any vector database; any database at all; a chat interface; user-triggered data regeneration; a fifth screen; a sixth tool; an LLM-as-judge in the eval suite; multi-run comparison views; incident types beyond the four specified; a standalone Knowledge route (chunk inspection lives on the Investigation Full Record); a ticket-detail route (drawer on the Board).
 
 **Not a medical device.** SignalOps is an internal operations tool. It does not diagnose, advise on treatment, or make clinical claims, and the output schema contains no field capable of expressing one.
 
@@ -105,8 +105,9 @@ No further personas in MVP.
 8. The confidence ceiling is applied by code. If the model requested a band the rules disallow, the refusal is visible in the trace.
 9. Supporting evidence, counter-evidence and residual uncertainty are shown side by side.
 10. Recommended actions appear with risk classes. Internal-only actions can be simulated; external actions are blocked until approved.
-11. Approve one action. Simulated execution is logged.
-12. **Evaluations** screen: 10 assertions, plus the baseline comparison on the neutral subset.
+11. Approve one action. A ticket is created. The investigation page shows id, queue, assignee, priority, and a link to the Board. Simulated execution is logged for `INTERNAL`.
+12. **Board:** the ticket sits on deck or in a queue swimlane. Detail is a drawer, not a route.
+13. **Evaluations** screen: 10 assertions, plus the baseline comparison on the neutral subset.
 
 ---
 
@@ -189,11 +190,29 @@ No further personas in MVP.
 | FR-061 | The baseline SHALL be scored on the **six architecture-neutral evals only** (EVAL-01, 02, 03, 06, 07, 10). It cannot pass EVAL-04, 05, 08 or 09 by construction, and scoring it on those would be a rigged comparison. | P0 |
 | FR-062 | The baseline result SHALL be published in the README **whatever it shows**, including if the gap is small. | P0 |
 
+### 9.8 Ticketing layer (CR-001)
+
+`OPERATIONS.md` is authoritative for queues, roster, skills, priority, SLA, status, and routing. These FRs bind the product to that model.
+
+| ID | Requirement | Priority |
+|---|---|---|
+| FR-080 | A ticket SHALL be created only on explicit per-action approval. An unapproved action SHALL NOT produce a ticket. EVAL-08 SHALL continue to pass. | P0 |
+| FR-081 | A ticket SHALL carry: `ticket_id`, `title`, `body`, `queue`, `assignee`, `priority`, `status`, `source` (`{investigation_id, action_id, candidate_id}` or `"manual"`), `skills_required[]`, `routing_rationale`, `created_at`, `due_at`, `updated_at`, `notes[]` `{author, body, at}`, `activity[]` `{kind, from, to, actor, at}`. Shape is defined in `OPERATIONS.md` §8. | P0 |
+| FR-082 | Tickets SHALL persist in `localStorage` keyed by run id. Persistence SHALL survive refresh and session in that browser. There SHALL be no server store and no multi-browser sync. The bound SHALL be stated in the UI and the README. | P0 |
+| FR-083 | Priority SHALL be derived in code from `risk_class ×` granted severity band per `OPERATIONS.md` §4. The model SHALL NOT set priority. Manual tickets default to P3, operator-overridable. | P0 |
+| FR-084 | `due_at` SHALL be `created_at` plus the SLA for that priority: P1 4 hours, P2 24 hours, P3 72 hours, P4 168 hours. Elapsed time, not business hours. | P0 |
+| FR-085 | Routing SHALL split as in `OPERATIONS.md` §7: the skills assessor emits `skills_required[]` and an expertise rationale; code validates skills, assigns queue, computes priority and `due_at`, ranks engineers by skill overlap, and checks WIP. The assessor SHALL NOT receive the roster, WIP, priority table, SLA, queue id, or engineer names. | P0 |
+| FR-086 | Skills SHALL be the closed fifteen-item taxonomy in `OPERATIONS.md` §3. No skill SHALL map one-to-one onto a seeded incident. The constraint SHALL be unit-tested as specified in that section. | P0 |
+| FR-087 | The Board SHALL be the fourth screen: columns by status, collapsible swimlanes by queue, on-deck rail for unrouted tickets, drag-and-drop across status and queue, filters (queue, assignee, priority, source, status), per-swimlane capacity against WIP, bulk select, manual creation, keyboard navigation. Cards SHALL show id, title, priority, assignee, source link, SLA-tinted age, and skills. | P0 |
+| FR-088 | Ticket detail SHALL be a slide-over drawer, not a route. It SHALL show full body, source investigation (candidate and status), routing rationale (skills matched and why this engineer), timestamped notes, and a complete activity log. | P0 |
+| FR-089 | After approval, the Investigation page SHALL show the created ticket inline: id, queue, assignee, priority, link to the Board. | P0 |
+| FR-090 | Status SHALL be the closed set `ON_DECK \| ASSIGNED \| IN_PROGRESS \| BLOCKED \| DONE`. Transitions SHALL obey `OPERATIONS.md` §6. Every transition, reassignment and note SHALL append `activity[]`. | P0 |
+
 ---
 
 ## 10. Agentic System Requirements
 
-The agentic property claimed is **adaptive evidence selection**, and nothing more. The system is not multi-agent for its own sake; there are exactly two model roles (investigator, critic) because falsification requires an independent context, not because more agents are better.
+The agentic property claimed is **adaptive evidence selection**, and nothing more. There are three model roles (investigator, critic, skills assessor). Falsification requires an independent context. Skills assessment is a third role because *what expertise an action needs* is semantic; ranking engineers and checking WIP is arithmetic (ARCHITECTURE §1, `OPERATIONS.md` §7). It is not a third agent for its own sake.
 
 The genuine branch point in the seeded data: `compare_versions` on firmware isolates 1.4.2, but app version 3.2 shipped in the same window. Whether the agent next investigates app version, region, or release notes depends on the ratio and cohort overlap returned. A run that always calls the same tools in the same order fails FR-012 review.
 
@@ -300,19 +319,19 @@ No field is capable of expressing a diagnosis, prognosis or treatment recommenda
 
 ## 15. Human-in-the-Loop Requirements
 
-Covered by FR-050–054. The design point: the distinction between "open an engineering ticket" and "email affected users" is visible in the interface and enforced in code, rather than collapsed into a single boolean on the investigation.
+Covered by FR-050–054 and FR-080–090. The design point: the distinction between "open an engineering ticket" and "email affected users" is visible in the interface and enforced in code, rather than collapsed into a single boolean on the investigation. Approval of an action creates a real ticket (`OPERATIONS.md`); it does not send email and it does not touch production.
 
 ---
 
 ## 16. UX / Screens
 
-Four screens. Modern AI-infrastructure restraint — Linear/Vercel register. Information-dense, clear hierarchy, minimal animation. No chatbot surface. The hero is the investigation.
+Four screens. Modern AI-infrastructure restraint — Linear/Vercel register. Information-dense, clear hierarchy, minimal animation. No chatbot surface. The hero is the investigation. The Board is where approved work is operated. Ticket detail is a drawer, not a fifth screen.
 
 **1 — Command Centre.** Product health summary; candidate signals as a list ranked by computed severity (count is whatever discovery emits, not a fixed four); affected users, rate delta, trend, status; investigate CTA.
 
-**2 — Incident Investigation (hero).** Live trace of tool calls with arguments and results; deterministic findings as typed claims linked to their source call; retrieved passages, expandable; leading hypothesis with evidence type; critic's alternative and falsifying test; supporting evidence and counter-evidence side by side; residual uncertainty; confidence with ceiling rule shown where applied; recommended actions with risk classes and per-action approval.
+**2 — Incident Investigation (hero).** Live trace of tool calls with arguments and results; deterministic findings as typed claims linked to their source call; retrieved passages, expandable on this page (the Full Record — there is no standalone Knowledge route); leading hypothesis with evidence type; critic's alternative and falsifying test; supporting evidence and counter-evidence side by side; residual uncertainty; confidence with ceiling rule shown where applied; recommended actions with risk classes and per-action approval. On approval, the created ticket is shown inline: id, queue, assignee, priority, link to the Board.
 
-**3 — Knowledge.** Table of six indexed documents with chunk counts and metadata; chunk viewer. No search UI — retrieval is exercised through investigation, not browsed.
+**3 — Board.** Columns by status; collapsible swimlanes by queue; on-deck rail for unrouted tickets; drag-and-drop across status and queue (`@dnd-kit/core`); cards with id, title, priority, assignee, source link, SLA-tinted age, skills chips; filters by queue, assignee, priority, source, status; per-swimlane capacity against WIP; bulk select; manual ticket creation; keyboard navigation. Ticket detail is a slide-over drawer: body, source investigation, routing rationale, notes, activity log. Persistence is single-browser and labelled as such.
 
 **4 — Evaluations.** Ten assertions with expected vs actual and pass/fail; EVAL-10 marked blocking; baseline comparison on the neutral subset; link to committed run artefacts.
 
@@ -373,16 +392,19 @@ Ten assertions. **No LLM judge** — every check is structural and runs in secon
 *Given* SIG-004, *when* investigation completes, *then* status is `NOT_AN_INCIDENT`.
 
 **AC-06 — Approval gate**
-*Given* an `EXTERNAL` action, *when* approval has not been given, *then* no simulated execution is logged.
+*Given* an `EXTERNAL` action, *when* approval has not been given, *then* no simulated execution is logged and no ticket is created.
 
 **AC-07 — Traceable grounding**
-*Given* any knowledge-backed claim, *when* its chunk id is followed, *then* the passage supports the claim.
+*Given* any knowledge-backed claim, *when* its chunk id is followed, *then* the passage supports the claim. Inspection happens on the Investigation Full Record.
 
 **AC-08 — Baseline published**
 *Given* the README, *when* read, *then* the baseline score on the six neutral evals is stated with its scope limitation.
 
 **AC-09 — Demo**
 *Given* the deployed app, *when* the demo script is followed, *then* it completes in ~3 minutes with no failed load.
+
+**AC-10 — Ticket on approval (CR-001)**
+*Given* an approved action, *when* the investigation page is read, *then* a ticket exists with source `{investigation_id, action_id, candidate_id}`, the page shows id, queue, assignee, priority and a link to the Board, and the Board is the fourth screen (ticket detail is a drawer, not a route). Persistence is `localStorage` keyed by run id and labelled as single-browser.
 
 ---
 
@@ -394,7 +416,7 @@ Ten assertions. **No LLM judge** — every check is structural and runs in secon
 
 Watched deliberately; regression on any is a failure even if evals pass:
 
-Tool count > 5 · screens > 4 · dependencies added without a removal · any numeric confidence appearing anywhere · any hard-coded conclusion · any run with zero critic effect across all scenarios · eval suite runtime > 5s · README length exceeding what an interviewer will read.
+Tool count > 5 · screens > 4 · a ticket-detail route · dependencies added without a recorded decision · any numeric confidence appearing anywhere · any hard-coded conclusion · any run with zero critic effect across all scenarios · eval suite runtime > 5s · README length exceeding what an interviewer will read.
 
 ---
 
@@ -420,7 +442,7 @@ None blocking. Deferred to `docs/build-decisions.md` as they arise during implem
 
 ## 25. Dependencies
 
-Next.js · TypeScript · Tailwind · Anthropic SDK · Zod · `@huggingface/transformers` · Vitest. **No dependency may be added without removing one, recorded with a reason.**
+Next.js · TypeScript · Tailwind · Anthropic SDK · Zod · `@huggingface/transformers` · Vitest · `@dnd-kit/core` (CR-001, Board). **No further dependency may be added without removing one, recorded with a reason.**
 
 ---
 
@@ -429,11 +451,12 @@ Next.js · TypeScript · Tailwind · Anthropic SDK · Zod · `@huggingface/trans
 Binary. The MVP is complete when:
 
 1. All ten evals pass, EVAL-10 included, on a committed n=3 certification run.
-2. All nine acceptance criteria are demonstrated.
+2. All ten acceptance criteria are demonstrated.
 3. The baseline comparison is run and published with its scope limitation stated.
-4. `README.md`, `ARCHITECTURE.md`, `AGENTS.md`, `EVALS.md` are complete.
+4. `README.md`, `ARCHITECTURE.md`, `AGENTS.md`, `EVALS.md`, `OPERATIONS.md` are complete. README states the single-browser ticket persistence bound.
 5. `evidence/selected-ai-interactions.md` contains ~8 curated genuine exchanges.
 6. The demo script executes end to end in ~3 minutes on the deployed app.
+7. Approval creates a real ticket that conforms to `OPERATIONS.md`. The Board is the fourth screen. EVAL-08 still passes.
 
 **At that point feature work stops.** Not "stops soon" — stops. Remaining time goes to reliability, documentation, evidence curation, demo rehearsal and deploy. The checklist is committed so the line is visible rather than remembered.
 
@@ -441,9 +464,9 @@ Binary. The MVP is complete when:
 
 ## 27. Post-MVP (not built)
 
-Multi-signal correlation across incidents · investigation replay diffing · richer cohort segmentation · real ticketing integration · confidence calibration against outcomes · additional seeded scenarios · retrieval reranking · streaming trace over websockets.
+Multi-signal correlation across incidents · investigation replay diffing · richer cohort segmentation · Jira/Linear export · confidence calibration against outcomes · additional seeded scenarios · retrieval reranking · streaming trace over websockets.
 
-Listed so that good ideas have somewhere to go that is not the MVP.
+Listed so that good ideas have somewhere to go that is not the MVP. In-app ticketing is P0 as of CR-001; "real ticketing integration" in v1.0 meant an external tracker and remains post-MVP.
 
 ---
 
@@ -459,9 +482,9 @@ Listed so that good ideas have somewhere to go that is not the MVP.
 | 1:20 | Leading hypothesis, `evidence_type: documented` |
 | 1:35 | Critic proposes app 3.2 as the alternative, names its falsifying test, calls `compare_versions` again — 1.4.1 devices on app 3.2 show baseline. Alternative weakened |
 | 1:55 | Supporting evidence, counter-evidence, residual uncertainty |
-| 2:10 | Actions with risk classes. Approve the internal one; the external one stays blocked |
+| 2:10 | Actions with risk classes. Approve the internal one; a ticket appears on the investigation (id, queue, assignee, priority). The external one stays blocked; no ticket. |
 | 2:25 | Jump to SIG-003 — claims risk, KD-05 retrieved, no medical language, comms action recommended |
-| 2:45 | Evaluations — 10/10, EVAL-10 blocking and green, baseline delta on the neutral subset |
+| 2:45 | Evaluations — per-eval rates, EVAL-10 blocking and green, baseline delta on the neutral subset |
 
 Opens on technical credibility, closes on commercial judgement.
 
@@ -479,11 +502,12 @@ Opens on technical credibility, closes on commercial judgement.
 | FR-050–054 | G-6 | EVAL-08 | AC-06 |
 | FR-060–062 | G-7 | — | AC-08 |
 | FR-070–077 | G-4 | EVAL-03, 06, 09 | AC-07 |
+| FR-080–090 | G-6 | EVAL-08 | AC-06, AC-10 |
 | §13 data spec | G-1, G-2 | EVAL-01, 06, 10 | AC-05 |
 | §14 schema | G-3, G-6 | EVAL-04, 07 | AC-01 |
-| §16 screens | G-8, G-9 | — | AC-09 |
+| §16 screens | G-8, G-9 | — | AC-09, AC-10 |
 | §18 eval plan | G-1, G-2, G-5 | all | all |
 
 ---
 
-**End of PRD v1.0 — FROZEN.**
+**End of PRD v1.1 — CR-001.**

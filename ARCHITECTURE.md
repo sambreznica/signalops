@@ -2,7 +2,7 @@
 
 How SignalOps is put together, and why it is put together this way.
 
-`PRD.md` is authoritative on requirements. `AGENTS.md` is authoritative on scope. This document explains the design.
+`PRD.md` is authoritative on requirements. `AGENTS.md` is authoritative on scope. `OPERATIONS.md` is authoritative for the ticketing domain. This document explains the design.
 
 ---
 
@@ -19,6 +19,9 @@ Everything in this system sits on one side of a line.
                     │  confidence ceiling              │
                     │  approval gates                  │
                     │  eval assertions                 │
+                    │  ticket priority, SLA, WIP,      │
+                    │   overlap rank, queue from       │
+                    │   skill homes                    │
                     └──────────────────────────────────┘
                                     │
                             tool interface
@@ -27,9 +30,10 @@ Everything in this system sits on one side of a line.
    PROBABILISTIC    │  investigator (tool selection,   │
    (model calls,    │   hypothesis generation)         │
     sampling not    │  critic (falsification)          │
-    controllable,   │  semantic clustering             │
-    never trusted   │  document interpretation         │
-    with numbers)   │                                  │
+    controllable,   │  skills assessor (expertise      │
+    never trusted   │   required — not who, not queue) │
+    with numbers)   │  semantic clustering             │
+                    │  document interpretation         │
                     └──────────────────────────────────┘
 ```
 
@@ -47,21 +51,33 @@ src/
                    Rates, ratios, cohort breakdowns, correlation, trend.
     triage/        Signal discovery + severity. Zero model calls.
     retrieval/     Chunking, embedding lookup, cosine similarity.
+    approval/      Per-action gate. Tickets are created only after this.
+    tickets/       Model, routing arithmetic (queue, overlap, WIP,
+                   priority, SLA), localStorage persistence keyed by
+                   run id. Conforms to OPERATIONS.md.
     agent/
       tools/       The five tool implementations. Thin wrappers over
                    analytics + retrieval. No business logic of their own.
       investigator Orchestration loop, bounded.
       critic       Falsification pass, separate context.
       ceiling      Confidence rules. Pure function. Unit-tested.
-  app/             Four routes. Presentation only — no computation.
+      skills-assessor
+                   Third model role. Emits skills_required[] and an
+                   expertise rationale. Does not see the roster, WIP,
+                   priority, SLA, or engineer names.
+  app/             Four routes. Command Centre, Investigation, Board,
+                   Evaluations. Presentation only — no computation.
+                   Ticket detail is a drawer on Board, not a route.
+                   Chunk inspection lives on the Investigation Full
+                   Record. Knowledge is not a route.
 
 synthetic-data/    Committed fixtures. Generated once, never at runtime.
 knowledge/         Six documents + committed chunk embeddings.
 evals/             Ten assertions + baseline control.
-runs/             Persisted investigation traces (replay source).
+runs/              Persisted investigation traces (replay source).
 ```
 
-Dependency direction is strictly downward. `analytics` does not know `agent` exists. `app` computes nothing.
+Dependency direction is strictly downward. `analytics` does not know `agent` exists. `tickets` does not call a model; the skills assessor does not import the roster. `app` computes nothing.
 
 ---
 
@@ -96,6 +112,14 @@ fixtures ──► analytics ──► Signal Triage ──► candidate signals
                                                     │
                                                     ▼
                                           approval gate (per action)
+                                                    │
+                                                    ▼
+                                          ticket (OPERATIONS.md)
+                                          ├─ skills assessor (expertise)
+                                          ├─ code: queue, overlap, WIP,
+                                          │        priority, due_at
+                                          └─ visible on Investigation;
+                                             operated on the Board
 ```
 
 ---
@@ -175,7 +199,7 @@ Six documents, chunked by section, roughly 150 chunks. Embeddings from `all-Mini
 
 **Why no vector database.** At 150 chunks, exhaustive cosine is exact, sub-millisecond, and has no operational surface. An ANN index would trade exactness for a speed gain that does not exist at this scale, and add a service to run. The corpus is small because a wearable company's internal knowledge base *is* small; the design is right-sized, not compromised.
 
-Every chunk carries `doc_id`, `title`, `section`, `chunk_id` and `score`. Claims reference `chunk_id`. The Knowledge screen resolves them back to full passages, so grounding is inspectable rather than asserted.
+Every chunk carries `doc_id`, `title`, `section`, `chunk_id` and `score`. Claims reference `chunk_id`. The Investigation Full Record resolves them back to full passages, so grounding is inspectable rather than asserted. There is no standalone Knowledge route (CR-001).
 
 In replay mode no embedding runs at request time — retrieval results are read from the persisted trace.
 
@@ -248,6 +272,8 @@ Every recommended action carries `risk_class`:
 
 Enforced at the execution boundary, not in the UI layer, so the gate cannot be bypassed by calling the function directly. Approval is per action — collapsing "open a ticket" and "email customers" into one boolean would erase the distinction that matters.
 
+On approval, a ticket is created (`OPERATIONS.md`). Ticket creation is on the far side of this gate, not a bypass around it. EVAL-08 continues to assert that `EXTERNAL` and `PRODUCTION` never reach the execution path without approval.
+
 ---
 
 ## 11. Replay and live modes
@@ -258,10 +284,16 @@ Enforced at the execution boundary, not in the UI layer, so the gate cannot be b
 | Embeddings | none | real |
 | Source | persisted `runs/*.json` | executed at request time |
 | Latency | <2s | up to 180s |
+| Tickets | `localStorage` keyed by run id | `localStorage` keyed by run id |
+| Ticket clock | artefact `timestamp` | wall-clock |
 
 Replayed runs are **real executions, recorded** — not simulated tool use. Each is labelled in the UI with its run timestamp and model, and links to the raw trace JSON.
 
-The reason is practical: an interviewer opening a cold serverless function and waiting ninety seconds for a live investigation is a worse demonstration than an instant, honest replay of a real one.
+Tickets are not in `runs/*.json`. They live in the browser, keyed by the run being viewed, and survive refresh in that browser. Replay and live share that store for a given run id. Another origin, another machine, or a cleared store is a different board. The bound is labelled in the UI and the README.
+
+Ticket `now` is a single clock (`OPERATIONS.md` §5). Live: wall-clock. Replay: the artefact `timestamp` already shown in the chrome, not the interviewer's laptop. `created_at` is written from that clock so a replay session ages against the run's frame. Labelled as replay is labelled. SLA durations are not shortened to force a red card.
+
+The reason replay exists is practical: an interviewer opening a cold serverless function and waiting ninety seconds for a live investigation is a worse demonstration than an instant, honest replay of a real one. The ticket layer does not change that. It does mean a deployed demo's board is the interviewer's browser, not a shared queue.
 
 ---
 
@@ -271,9 +303,9 @@ Recorded because the reasoning matters more than the choice.
 
 **Vector database.** 150 chunks. Exhaustive cosine is exact and instant; an index would add operational surface for no accuracy gain.
 
-**Agent framework (LangGraph, CrewAI, etc.).** Two model roles and five tools. A framework would abstract away the exact mechanism the project exists to demonstrate, and its control flow would become the thing a reader has to trust rather than inspect.
+**Agent framework (LangGraph, CrewAI, etc.).** Three model roles and five tools. A framework would abstract away the exact mechanism the project exists to demonstrate, and its control flow would become the thing a reader has to trust rather than inspect.
 
-**More agents.** Each additional agent needs a justification beyond sounding sophisticated. Falsification genuinely requires context separation — a critic that shares the investigator's context inherits its anchoring. Nothing else in this system required it.
+**More agents.** Each additional agent needs a justification beyond sounding sophisticated. Falsification genuinely requires context separation — a critic that shares the investigator's context inherits its anchoring. CR-001 adds a third model role, the skills assessor, for the same reason the ceiling is code: *what expertise this action needs* is semantic; *who has capacity* is arithmetic. The assessor does not see the roster. It is not a third investigator.
 
 **LLM-as-judge in the eval suite.** Non-determinism in the measurement layer means a failing eval is ambiguous between a real regression and judge variance. All ten assertions are structural; the suite runs in seconds and cannot be argued with.
 
@@ -282,6 +314,10 @@ Recorded because the reasoning matters more than the choice.
 **Streaming telemetry / websockets.** Replay covers the deployed case; live local mode covers development. Neither needs streaming infrastructure.
 
 **A sixth tool (`get_release_notes`).** Release notes are KD-02, reachable via `search_knowledge` with a document filter. A filter argument presented as a tool inflates the apparent tool count without adding a decision point — the opposite of the argument this project makes.
+
+**A fifth screen.** Ticket detail is a drawer. Knowledge as a route was the weakest of the original four (CR-001) and folded into the Investigation Full Record.
+
+**Native HTML5 drag-and-drop for the Board.** Poor on touch, unusable drag ghosts, not keyboard-accessible. `@dnd-kit/core` is the recorded CR-001 dependency for the one surface that is the product.
 
 ---
 
@@ -297,3 +333,4 @@ Stated plainly, because a prototype that claims no limitations is not credible.
 - **The critic can weaken a finding and cannot strengthen one.** Downgrade-only is epistemic: the critic sees less evidence than the investigator, so it must not assert more. The cost is real. If the investigator dismisses a cluster as benign and the critic falsifies that dismissal, the honest revision is "it may not be benign" — and that revision is unrepresentable. A wrongly-dismissed signal stays dismissed. Refused upgrades are visible in the trace; they are not applied.
 - **The repair budget is one.** An investigation that fails on two different error classes in sequence terminates `validation_exhausted` even when the second failure is a single token the model was never shown. Evidence is preserved; synthesis is lost. Firmware exhibited exactly this on `run-ceiling-2` (`no_json`, then a bare `100` in counter-evidence). The artefact records `validation_attempts` so that sequence is visible. The budget is not raised to hide it.
 - **Retrieval quality is untested in isolation.** EVAL-03 and EVAL-09 test whether the right passage reached the conclusion, not precision and recall across the corpus.
+- **Ticket persistence is single-browser.** `localStorage` keyed by run id. Real across refresh and session in that origin; not a server, not multi-operator, not synced. A deployed interviewer and a local operator do not share a board. This is a product bound, stated in the UI and the README, not a missing backend.

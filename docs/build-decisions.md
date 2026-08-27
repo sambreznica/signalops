@@ -397,3 +397,61 @@ Override visibility: `granted`, `ceiling_rule_applied`, `trace[].kind === ceilin
 The numeral repair was `bare numeral in free text`. It now names path and leftover token (`counter_evidence[0].claim: bare numeral 100`). `freeTextFields` is derived from `freeTextEntries`, so generation and EVAL-04 cannot scan different sets.
 
 One repair remains. A two-class sequence (`no_json` then `bare_numeral`) still exhausts; that is ARCHITECTURE §13, not a budget raise. The artefact records `validation_attempts` so the sequence is a list of classes, not one concatenated string.
+
+---
+
+## 2026-08-27 — CR-001: SignalOps becomes a ticketing system
+
+This is the first formal manifest change of the build. Recorded here before any other document is amended.
+
+**Reason.** The system produced conclusions and recommendations and then ended. An operations tool that never creates work is not an operations tool. The ticketing layer is where the pipeline terminates in something a person operates.
+
+No code, no dependency install, and no new route in this step. `OPERATIONS.md` is the domain model. Downstream implementation conforms to it.
+
+### Manifest changes
+
+| Item | Before | After |
+|---|---|---|
+| Screens | 4 | **4** (swap, not an addition) |
+| Model roles | 2 (investigator, critic) | **3** (investigator, critic, skills assessor) |
+| Dependencies | closed set in AGENTS.md | closed set **plus `@dnd-kit/core`** |
+| Tools | 5 | 5, unchanged |
+| Evaluations | 10 | 10, unchanged |
+| Knowledge documents | 6 | 6, unchanged (the corpus stays; the route goes) |
+
+**Screens: 4 → 4.**
+
+- **Removed:** Knowledge as a standalone route. Chunk inspection already happens on the Investigation Full Record. v1.0 §16 already kept Knowledge thin ("no search UI — retrieval is exercised through investigation, not browsed"); a browser for six documents was the weakest of the four surfaces.
+- **Added:** Board.
+- **Final four:** Command Centre · Investigation · Board · Evaluations.
+- Ticket detail is a slide-over drawer, not a route, so the screen count holds.
+
+**Model roles: 2 → 3.** Added: skills assessor. The routing decision splits into a semantic part (what expertise does this action need) and arithmetic parts (rank engineers by skill overlap, check capacity against WIP limits). Only the first needs a model. This is the deterministic-first principle applied in a third place, not a new agent for its own sake. The assessor does not see the roster, WIP, priority table, or SLA. It does not name an engineer.
+
+**Dependencies: +1, `@dnd-kit/core`.** Native HTML5 drag-and-drop is poor on touch, produces unusable drag ghosts, and is not keyboard-accessible. The board is the product surface and this is the one place a library earns its place. Recorded as a deliberate addition under the swap protocol rather than a silent one.
+
+The comparable-scope removal is the Knowledge route (a screen for a screen). No package was removed. The closed-set rule in AGENTS.md is amended to include `@dnd-kit/core`; a further dependency still requires a removal, recorded here. Sortable/utilities packages are not in this CR. If they are required to make `@dnd-kit/core` usable, that is a later recorded decision, not a silent companion install.
+
+### Scope this CR adds (documented, not built)
+
+Ticket model, localStorage persistence keyed by run id, Board, ticket-detail drawer, investigation-page inline ticket after approval, skills taxonomy and roster in `OPERATIONS.md`. Tickets are created only on approval. The approval gate is unchanged; EVAL-08 must continue to pass.
+
+**Explicitly out:** multi-user, notifications, email, time tracking, billing, client portal, real-time sync, saved views, custom fields, automation rules. Each needs a real business and real users; adding them would be theatre rather than product.
+
+**Persistence bound.** Single browser, single operator, no sync. Stated in the UI and the README when the layer ships, rather than glossed. ARCHITECTURE §13 records it as a known limitation.
+
+### Build order — routing first, board second
+
+The board is a container. Built first, its cards would be designed against placeholder tickets and redesigned once routing revealed the real shape. Routing first also front-loads the risk: a poor queue assignment is worth finding at hour two, not at hour nine with a board already built around it.
+
+Step 1 is not complete until routing produces a **visible ticket** — a committed artefact plus the ticket shown on the investigation page — even before the board exists.
+
+### Documents amended in this step
+
+`OPERATIONS.md` (new) · `AGENTS.md` · `PRD.md` · `ARCHITECTURE.md`. `EVALS.md` is unchanged (ten assertions; EVAL-08 still the approval gate). README persistence copy waits for the layer to exist.
+
+### Corrections before commit (still documentation)
+
+1. **Queue nullability.** `queue` may be null only while status is `ON_DECK`. `ON_DECK` → `ASSIGNED` is refused when queue is null. Not "unset only long enough."
+2. **Replay clock for SLA.** Board `now` in replay is the artefact `timestamp`, not wall-clock. SLA durations are not shortened to force a red card.
+3. **Ticket claim discipline.** Code-composed `routing_rationale` / generated title and body use the investigator's no-bare-numeral helper. Operator-typed notes are exempt.
