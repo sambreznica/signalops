@@ -64,7 +64,7 @@ function sourceChip(
     return <span className="chip chip-inert">{source.signal_id}</span>;
   }
   return (
-    <a href={`/knowledge#${slugId(source.chunk_id)}`} className="chip chip-inert">
+    <a href={`#${slugId(source.chunk_id)}`} className="chip chip-inert">
       {source.chunk_id}
     </a>
   );
@@ -285,6 +285,26 @@ export function InvestigationView({
     setTickets(mergeTickets(loadTickets(runId), committedTickets));
   }, [runId, committedTickets]);
 
+  useEffect(() => {
+    const reveal = () => {
+      const hash = window.location.hash.replace(/^#/, "");
+      if (!hash) return;
+      const el = document.getElementById(hash);
+      if (!el) return;
+      let node: HTMLElement | null = el;
+      while (node) {
+        if (node.tagName === "DETAILS") {
+          (node as HTMLDetailsElement).open = true;
+        }
+        node = node.parentElement;
+      }
+      el.scrollIntoView({ block: "center" });
+    };
+    reveal();
+    window.addEventListener("hashchange", reveal);
+    return () => window.removeEventListener("hashchange", reveal);
+  }, []);
+
   async function approve(action: RecommendedAction) {
     if (executions.some((e) => e.action_id === action.action_id)) return;
     const current = mergeTickets(loadTickets(runId), committedTickets);
@@ -425,7 +445,7 @@ export function InvestigationView({
             {passage ? (
               <blockquote className="mt-3 border-l-2 border-ink bg-paper px-3 py-2 m-0 prose-measure">
                 <p className="mono text-mute">
-                  <a href={`/knowledge#${slugId(passage.chunkId)}`}>
+                  <a href={`#${slugId(passage.chunkId)}`}>
                     {passage.docId}
                   </a>
                   {passage.section ? (
@@ -717,7 +737,7 @@ export function InvestigationView({
                       >
                         <div className="flex items-center gap-2">
                           <a
-                            href={`/knowledge#${slugId(k.chunk_id)}`}
+                            href={`#${slugId(k.chunk_id)}`}
                             className="mono"
                           >
                             {k.doc_id}

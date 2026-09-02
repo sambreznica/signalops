@@ -153,7 +153,7 @@ The SLA durations are not shortened to make a demo turn red. That would be the s
 
 **Clock.** The board reads `now` from a single source. In live mode that source is wall-clock. In replay mode it is the run artefact's `timestamp` — the same stamp already shown in the chrome — not the interviewer's laptop. `created_at` is written from that clock. Tickets created during a replay session therefore age against the run's own frame of reference. The UI labels this the way replay is already labelled.
 
-If implementation finds that create and `now` sharing a frozen stamp still never tints a card, overdue must be demonstrated some other honest way. Do not discover that at step 2. Do not shrink P1 to minutes.
+Replay at T0 is not overdue by construction: `created_at` equals the frozen stamp, so `now > due_at` is false. That is correct. Do not backdate `created_at` and do not shrink P1 to minutes to paint a card red. Live mode uses wall-clock against the same `due_at`; tickets written at a run timestamp that is already days in the past are overdue, and that is how the tint is real. `src/lib/tickets/overdue.test.ts` pins both clocks.
 
 ---
 

@@ -455,3 +455,16 @@ Step 1 is not complete until routing produces a **visible ticket** — a committ
 1. **Queue nullability.** `queue` may be null only while status is `ON_DECK`. `ON_DECK` → `ASSIGNED` is refused when queue is null. Not "unset only long enough."
 2. **Replay clock for SLA.** Board `now` in replay is the artefact `timestamp`, not wall-clock. SLA durations are not shortened to force a red card.
 3. **Ticket claim discipline.** Code-composed `routing_rationale` / generated title and body use the investigator's no-bare-numeral helper. Operator-typed notes are exempt.
+
+---
+
+## 2026-09-02 — CR-001 step 2: Board ships on `@dnd-kit/core` alone
+
+Installed `@dnd-kit/core` as recorded in CR-001. `@dnd-kit/sortable` and `@dnd-kit/utilities` were not added to `package.json`. Cards are `useDraggable`; columns, cells, the rail and people are `useDroppable`. Sort within a cell is priority then `due_at` in code, not a sortable list — so the companion packages were not required. Transform is applied as `translate3d` from core's `transform` object; we do not import `@dnd-kit/utilities` in application code. Transitive copies of utilities/accessibility remain in the lockfile because core depends on them.
+
+The Knowledge route is removed. Chunk inspection is the Investigation Full Record, in-page. Ticket detail is a drawer on `/board`.
+
+Every ticket mutation goes through `applyTicketChange` (`src/lib/tickets/transition.ts`), including drag (`applyDrop`), bulk, drawer edits and notes. Create of a manual ticket is a sibling in the same module and always writes `activity[].kind = created`.
+
+SLA tint: replay `now` is the artefact timestamp, so T0 cards are not overdue by construction. Live wall-clock against that `due_at` is how overdue is real. Proven in `overdue.test.ts`. OPERATIONS §5 records the mechanism.
+

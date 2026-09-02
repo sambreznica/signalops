@@ -39,7 +39,7 @@ export function skillHome(id: SkillId, taxonomy = loadSkillsTaxonomy()): TicketQ
 
 export function engineerById(
   id: string,
-  roster = loadRoster(),
+  roster: readonly EngineerRecord[] = loadRoster(),
 ): EngineerRecord | undefined {
   return roster.find((e) => e.id === id);
 }

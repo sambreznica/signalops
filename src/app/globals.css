@@ -295,6 +295,86 @@ a:hover {
   transition: grid-template-rows 150ms ease;
 }
 
+.ticket-card {
+  border: 1px solid var(--rule);
+  background: var(--card);
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.ticket-card.is-overdue {
+  border-color: var(--critical);
+  background: var(--critical-tint);
+}
+
+.board-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  align-items: start;
+}
+
+.board-column {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 10px;
+  min-height: 12rem;
+}
+
+.board-rail {
+  background: var(--card);
+  border: 1px dashed var(--graphite);
+  border-radius: 4px;
+  padding: 10px;
+  min-height: 4.5rem;
+}
+
+.board-cell-slot {
+  min-height: 4.5rem;
+}
+
+.drop-disabled {
+  opacity: 0.45;
+}
+
+.drop-over {
+  outline: 1px solid var(--ink);
+  background: var(--elevated-tint);
+}
+
+.ticket-drawer-root {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+}
+
+.ticket-drawer-mask {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgb(10 10 10 / 0.28);
+  cursor: pointer;
+}
+
+.ticket-drawer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(28rem, 100%);
+  overflow: auto;
+  background: var(--card);
+  border-left: 1px solid var(--rule);
+  padding: 16px;
+}
+
+@media (max-width: 900px) {
+  .board-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .expand-in {
     transition: none;

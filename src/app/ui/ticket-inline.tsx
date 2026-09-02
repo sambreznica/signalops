@@ -26,6 +26,9 @@ export function TicketInline({ ticket }: { ticket: Ticket }) {
       <p className="dense mt-1">
         {queue} · {who}
       </p>
+      <p className="dense mt-1">
+        <a href={`/board?ticket=${ticket.ticket_id}`}>Board</a>
+      </p>
       <p className="dense text-mute mt-1 prose-measure">{ticket.routing_rationale}</p>
     </div>
   );

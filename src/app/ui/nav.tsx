@@ -12,9 +12,9 @@ const LINKS = [
     match: (p: string) => p.startsWith("/investigate"),
   },
   {
-    href: "/knowledge",
-    label: "Knowledge",
-    match: (p: string) => p.startsWith("/knowledge"),
+    href: "/board",
+    label: "Board",
+    match: (p: string) => p.startsWith("/board"),
   },
   {
     href: "/evaluations",
