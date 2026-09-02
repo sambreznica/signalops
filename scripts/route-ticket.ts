@@ -27,12 +27,6 @@ import {
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
-const JOBS = [
-  { candidateId: "cnd_fw_1_4_2", actionId: "act_1" },
-  { candidateId: "cnd_fw_1_4_2", actionId: "act_3" },
-  { candidateId: "cnd_tag_overheating", actionId: "a_1" },
-] as const;
-
 function wrapClient(client: Anthropic, model: string): ModelClient {
   return {
     async complete({ system, messages, signal, effort }) {
@@ -81,7 +75,7 @@ async function main(): Promise<void> {
   loadEnvFiles(ROOT);
   const model = requireAnthropicModel();
   const apiKey = requireAnthropicApiKey();
-  const runId = argValue("--run-id") ?? "run-ceiling-3";
+  const runId = argValue("--run-id") ?? "run-board-1";
   const runFile = path.join(ROOT, "runs", `${runId}.json`);
   if (!existsSync(runFile)) {
     throw new Error(`missing run artefact ${runFile}`);
@@ -96,40 +90,40 @@ async function main(): Promise<void> {
   const now = boardNow({ mode: "replay", runTimestamp: run.timestamp });
   const tickets: Ticket[] = [];
 
-  for (const job of JOBS) {
-    const row = run.investigations.find((r) => r.candidate_id === job.candidateId);
-    if (!row) throw new Error(`no investigation ${job.candidateId}`);
-    const action = row.output.recommended_actions.find(
-      (a) => a.action_id === job.actionId,
-    );
-    if (!action) {
-      throw new Error(
-        `no action ${job.actionId} on ${job.candidateId}; actions=${row.output.recommended_actions.map((a) => a.action_id).join(",")}`,
-      );
-    }
+  const jobs = run.investigations.flatMap((row) =>
+    row.output.recommended_actions.map((action) => ({
+      candidateId: row.candidate_id,
+      action,
+      investigationId: row.output.investigation_id,
+      granted: row.output.confidence.granted,
+      output: row.output,
+    })),
+  );
+
+  for (const job of jobs) {
     const at = now.toISOString();
-    const executed = execute(action, {
-      approvals: [{ action_id: action.action_id, at }],
+    const executed = execute(job.action, {
+      approvals: [{ action_id: job.action.action_id, at }],
       at,
     });
     if (!executed.ok) {
-      throw new Error(`execute refused ${job.actionId}`);
+      throw new Error(`execute refused ${job.action.action_id}`);
     }
     const already = existingForAction(
       tickets,
-      row.output.investigation_id,
-      action.action_id,
+      job.investigationId,
+      job.action.action_id,
     );
     if (already) continue;
     const emit = await assessSkills(
-      packFromInvestigation(action, row.output),
+      packFromInvestigation(job.action, job.output),
       client,
     );
     const ticket = route({
-      action,
-      investigation_id: row.output.investigation_id,
+      action: job.action,
+      investigation_id: job.investigationId,
       candidate_id: job.candidateId,
-      granted: row.output.confidence.granted,
+      granted: job.granted,
       existing: tickets,
       now,
       roster,

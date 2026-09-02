@@ -1,0 +1,370 @@
+{
+  "run_id": "run-board-1",
+  "timestamp": "2026-08-27T13:44:59.881Z",
+  "model": "claude-sonnet-5",
+  "effort": "low",
+  "tickets": [
+    {
+      "ticket_id": "TCK-0001",
+      "title": "Approved action a_1",
+      "body": "Work from this investigation. Figures stay on the investigation record.",
+      "queue": "firmware",
+      "assignee": "eng_priya_nair",
+      "priority": "P3",
+      "status": "ASSIGNED",
+      "source": {
+        "investigation_id": "inv_cnd_fw_1_4_2",
+        "action_id": "a_1",
+        "candidate_id": "cnd_fw_1_4_2"
+      },
+      "skills_required": [
+        "ble-radio",
+        "firmware-build",
+        "rtos"
+      ],
+      "routing_rationale": "The action requires designing and running an outdoor/body-block/commuting RF soak characterization for the revised BLE supervisor timing in firmware 1.4.2, which needs expertise in BLE radio link behavior under varying RF environments and body attenuation, plus firmware/RTOS-level knowledge of the connection-supervisor timing implementation to correctly instrument and interpret disconnect/reconnect events during the soak test. Priya Nair selected: overlap firmware-build, ble-radio, rtos; under capacity; roster order as remaining tie.",
+      "created_at": "2026-08-27T13:44:59.881Z",
+      "due_at": "2026-08-30T13:44:59.881Z",
+      "updated_at": "2026-08-27T13:44:59.881Z",
+      "notes": [],
+      "activity": [
+        {
+          "kind": "created",
+          "from": null,
+          "to": "ASSIGNED",
+          "actor": "routing",
+          "at": "2026-08-27T13:44:59.881Z"
+        }
+      ]
+    },
+    {
+      "ticket_id": "TCK-0002",
+      "title": "Approved action a_2",
+      "body": "Work from this investigation. Figures stay on the investigation record.",
+      "queue": "firmware",
+      "assignee": "eng_tomasz_kowalski",
+      "priority": "P3",
+      "status": "ASSIGNED",
+      "source": {
+        "investigation_id": "inv_cnd_fw_1_4_2",
+        "action_id": "a_2",
+        "candidate_id": "cnd_fw_1_4_2"
+      },
+      "skills_required": [
+        "ble-radio",
+        "firmware-build",
+        "telemetry-pipeline",
+        "data-quality"
+      ],
+      "routing_rationale": "This requires re-analyzing disconnect and session-gap telemetry with proper statistical treatment (clustered per-device confidence intervals), which is a data-quality/telemetry-pipeline analysis task, combined with knowledge of BLE connection-supervisor timing behavior and firmware build differences between 1.4.1 and 1.4.2 to correctly interpret whether phone-OS/model stratification reveals a device-side confound versus a genuine firmware-driven change in disconnect detection sensitivity. Tomasz Kowalski selected: overlap ble-radio, firmware-build; under capacity; roster order as remaining tie.",
+      "created_at": "2026-08-27T13:44:59.881Z",
+      "due_at": "2026-08-30T13:44:59.881Z",
+      "updated_at": "2026-08-27T13:44:59.881Z",
+      "notes": [],
+      "activity": [
+        {
+          "kind": "created",
+          "from": null,
+          "to": "ASSIGNED",
+          "actor": "routing",
+          "at": "2026-08-27T13:44:59.881Z"
+        }
+      ]
+    },
+    {
+      "ticket_id": "TCK-0003",
+      "title": "Approved action a_3",
+      "body": "Work from this investigation. Figures stay on the investigation record.",
+      "queue": "firmware",
+      "assignee": "eng_priya_nair",
+      "priority": "P3",
+      "status": "ASSIGNED",
+      "source": {
+        "investigation_id": "inv_cnd_fw_1_4_2",
+        "action_id": "a_3",
+        "candidate_id": "cnd_fw_1_4_2"
+      },
+      "skills_required": [
+        "telemetry-pipeline",
+        "ble-radio",
+        "firmware-build"
+      ],
+      "routing_rationale": "Building a diagnostic that pairs counted disconnect events with connected-time/session-gap metrics requires telemetry pipeline design to instrument and export the new comparison, plus BLE radio/connection-supervisor expertise to correctly interpret what timing changes affect detection sensitivity, and firmware build familiarity to hook the diagnostic into the supervisor-timing logic across versions. Priya Nair selected: overlap firmware-build, ble-radio; under capacity; roster order as remaining tie.",
+      "created_at": "2026-08-27T13:44:59.881Z",
+      "due_at": "2026-08-30T13:44:59.881Z",
+      "updated_at": "2026-08-27T13:44:59.881Z",
+      "notes": [],
+      "activity": [
+        {
+          "kind": "created",
+          "from": null,
+          "to": "ASSIGNED",
+          "actor": "routing",
+          "at": "2026-08-27T13:44:59.881Z"
+        }
+      ]
+    },
+    {
+      "ticket_id": "TCK-0004",
+      "title": "Approved action a_1",
+      "body": "Work from this investigation. Figures stay on the investigation record.",
+      "queue": "hardware",
+      "assignee": "eng_mei_chen",
+      "priority": "P3",
+      "status": "ASSIGNED",
+      "source": {
+        "investigation_id": "inv_cnd_tag_skin_irritation",
+        "action_id": "a_1",
+        "candidate_id": "cnd_tag_skin_irritation"
+      },
+      "skills_required": [
+        "adhesive-materials",
+        "wear-mechanics",
+        "data-quality"
+      ],
+      "routing_rationale": "Ongoing monitoring requires someone who can interpret adhesion_flag and skin-irritation feedback trends against motion-intensity and thermal factors, understanding adhesive material behavior and wear/lift mechanics under mechanical stress. Data-quality expertise is needed to track week-over-week rate changes reliably and detect any emerging firmware, region, or lot-specific concentration that would warrant re-opening the severity review. Mei Chen selected: overlap adhesive-materials, wear-mechanics; under capacity; roster order as remaining tie.",
+      "created_at": "2026-08-27T13:44:59.881Z",
+      "due_at": "2026-08-30T13:44:59.881Z",
+      "updated_at": "2026-08-27T13:44:59.881Z",
+      "notes": [],
+      "activity": [
+        {
+          "kind": "created",
+          "from": null,
+          "to": "ASSIGNED",
+          "actor": "routing",
+          "at": "2026-08-27T13:44:59.881Z"
+        }
+      ]
+    },
+    {
+      "ticket_id": "TCK-0005",
+      "title": "Approved action a_2",
+      "body": "Work from this investigation. Figures stay on the investigation record.",
+      "queue": "hardware",
+      "assignee": "eng_mei_chen",
+      "priority": "P3",
+      "status": "ASSIGNED",
+      "source": {
+        "investigation_id": "inv_cnd_tag_skin_irritation",
+        "action_id": "a_2",
+        "candidate_id": "cnd_tag_skin_irritation"
+      },
+      "skills_required": [
+        "adhesive-materials",
+        "wear-mechanics",
+        "data-quality"
+      ],
+      "routing_rationale": "The action requires pulling and analyzing lot/serial-level manufacturing metadata against adhesion/skin-irritation tickets to test for concentration in a single production lot. This needs adhesive-materials expertise to reason about lot-based defect mechanisms, wear-mechanics expertise to interpret how mechanical/adhesive failure could surface under high motion independent of thermal factors, and data-quality expertise to correctly join ticket records with lot/serial metadata and validate the resulting breakdown. Mei Chen selected: overlap adhesive-materials, wear-mechanics; under capacity; roster order as remaining tie.",
+      "created_at": "2026-08-27T13:44:59.881Z",
+      "due_at": "2026-08-30T13:44:59.881Z",
+      "updated_at": "2026-08-27T13:44:59.881Z",
+      "notes": [],
+      "activity": [
+        {
+          "kind": "created",
+          "from": null,
+          "to": "ASSIGNED",
+          "actor": "routing",
+          "at": "2026-08-27T13:44:59.881Z"
+        }
+      ]
+    },
+    {
+      "ticket_id": "TCK-0006",
+      "title": "Approved action a_3",
+      "body": "Work from this investigation. Figures stay on the investigation record.",
+      "queue": "hardware",
+      "assignee": "eng_jonah_adeyemi",
+      "priority": "P3",
+      "status": "ASSIGNED",
+      "source": {
+        "investigation_id": "inv_cnd_tag_skin_irritation",
+        "action_id": "a_3",
+        "candidate_id": "cnd_tag_skin_irritation"
+      },
+      "skills_required": [
+        "adhesive-materials",
+        "wear-mechanics",
+        "copy-ops"
+      ],
+      "routing_rationale": "The action updates a support playbook message about skin-irritation/adhesion tickets, so it requires copy-ops skill to word agent guidance accurately without overstating conclusions. The underlying subject matter concerns adhesive-lift and skin-contact wear behavior under motion, so adhesive-materials and wear-mechanics expertise is needed to ensure the reminder reflects an accurate, defensible characterization of the mechanism and its uncertainty, given the open question about motion-only versus thermal-driven irritation. Jonah Adeyemi selected: overlap wear-mechanics; under capacity; roster order as remaining tie.",
+      "created_at": "2026-08-27T13:44:59.881Z",
+      "due_at": "2026-08-30T13:44:59.881Z",
+      "updated_at": "2026-08-27T13:44:59.881Z",
+      "notes": [],
+      "activity": [
+        {
+          "kind": "created",
+          "from": null,
+          "to": "ASSIGNED",
+          "actor": "routing",
+          "at": "2026-08-27T13:44:59.881Z"
+        }
+      ]
+    },
+    {
+      "ticket_id": "TCK-0007",
+      "title": "Approved action a_1",
+      "body": "Work from this investigation. Figures stay on the investigation record.",
+      "queue": "product_comms",
+      "assignee": "eng_hannah_briggs",
+      "priority": "P3",
+      "status": "ASSIGNED",
+      "source": {
+        "investigation_id": "inv_cnd_tag_claims_interpretation",
+        "action_id": "a_1",
+        "candidate_id": "cnd_tag_claims_interpretation"
+      },
+      "skills_required": [
+        "regulatory-comms",
+        "copy-ops"
+      ],
+      "routing_rationale": "The action requires review and revision of on-screen wording that risks being misread as a clinical claim, which calls for expertise in regulatory-sensitive communications review and copy-editing/content operations for user-facing display text, consistent with prior comms-labeled incidents of this pattern. Hannah Briggs selected: overlap regulatory-comms, copy-ops; under capacity; roster order as remaining tie.",
+      "created_at": "2026-08-27T13:44:59.881Z",
+      "due_at": "2026-08-30T13:44:59.881Z",
+      "updated_at": "2026-08-27T13:44:59.881Z",
+      "notes": [],
+      "activity": [
+        {
+          "kind": "created",
+          "from": null,
+          "to": "ASSIGNED",
+          "actor": "routing",
+          "at": "2026-08-27T13:44:59.881Z"
+        }
+      ]
+    },
+    {
+      "ticket_id": "TCK-0008",
+      "title": "Approved action a_2",
+      "body": "Work from this investigation. Figures stay on the investigation record.",
+      "queue": "product_comms",
+      "assignee": "eng_hannah_briggs",
+      "priority": "P3",
+      "status": "ASSIGNED",
+      "source": {
+        "investigation_id": "inv_cnd_tag_claims_interpretation",
+        "action_id": "a_2",
+        "candidate_id": "cnd_tag_claims_interpretation"
+      },
+      "skills_required": [
+        "claims-review",
+        "copy-ops",
+        "data-quality"
+      ],
+      "routing_rationale": "This action requires breaking down ticket volumes by firmware and app version to check for concentration tied to a specific UI copy/wording change. That calls for expertise in interpreting claims-interpretation ticket content (claims-review), understanding how on-screen copy and wording changes are versioned and rolled out (copy-ops), and rigorous cross-tabulation and data-quality analysis to correctly segment tickets by version and window without conflating unrelated cohorts. Hannah Briggs selected: overlap claims-review, copy-ops; under capacity; roster order as remaining tie.",
+      "created_at": "2026-08-27T13:44:59.881Z",
+      "due_at": "2026-08-30T13:44:59.881Z",
+      "updated_at": "2026-08-27T13:44:59.881Z",
+      "notes": [],
+      "activity": [
+        {
+          "kind": "created",
+          "from": null,
+          "to": "ASSIGNED",
+          "actor": "routing",
+          "at": "2026-08-27T13:44:59.881Z"
+        }
+      ]
+    },
+    {
+      "ticket_id": "TCK-0009",
+      "title": "Approved action a_3",
+      "body": "Work from this investigation. Figures stay on the investigation record.",
+      "queue": "product_comms",
+      "assignee": "eng_luca_ferrara",
+      "priority": "P2",
+      "status": "ASSIGNED",
+      "source": {
+        "investigation_id": "inv_cnd_tag_claims_interpretation",
+        "action_id": "a_3",
+        "candidate_id": "cnd_tag_claims_interpretation"
+      },
+      "skills_required": [
+        "copy-ops",
+        "claims-review"
+      ],
+      "routing_rationale": "Preparing a clarification for in-app or help-article content requires copy/UX writing expertise to revise wording so it cannot be misread as a clinical claim, plus claims-review expertise to ensure the revised language conforms to prior guidance (KD-03) on avoiding medical/diagnostic implications and aligns with regulatory-safe messaging standards. Luca Ferrara selected: overlap claims-review; under capacity; roster order as remaining tie.",
+      "created_at": "2026-08-27T13:44:59.881Z",
+      "due_at": "2026-08-28T13:44:59.881Z",
+      "updated_at": "2026-08-27T13:44:59.881Z",
+      "notes": [],
+      "activity": [
+        {
+          "kind": "created",
+          "from": null,
+          "to": "ASSIGNED",
+          "actor": "routing",
+          "at": "2026-08-27T13:44:59.881Z"
+        }
+      ]
+    },
+    {
+      "ticket_id": "TCK-0010",
+      "title": "Approved action a_1",
+      "body": "Work from this investigation. Figures stay on the investigation record.",
+      "queue": "data_telemetry",
+      "assignee": "eng_samira_elsayed",
+      "priority": "P3",
+      "status": "ASSIGNED",
+      "source": {
+        "investigation_id": "inv_cnd_tag_overheating",
+        "action_id": "a_1",
+        "candidate_id": "cnd_tag_overheating"
+      },
+      "skills_required": [
+        "mobile-app",
+        "data-quality",
+        "copy-ops"
+      ],
+      "routing_rationale": "This is a triage-routing and tagging fix: work involves updating intake playbook routing logic and ticket-tag classification rules, which needs familiarity with the mobile app's battery-UI chrome/rendering behavior (to confirm the cosmetic warning pathway), and data-quality/taxonomy skill to redefine tagging criteria so future tickets describing UI chrome or cold-weather drain are correctly classified as battery/app-ui rather than overheating, reducing noise without suppressing genuine thermal signals. Samira El-Sayed selected: overlap data-quality; under capacity; roster order as remaining tie.",
+      "created_at": "2026-08-27T13:44:59.881Z",
+      "due_at": "2026-08-30T13:44:59.881Z",
+      "updated_at": "2026-08-27T13:44:59.881Z",
+      "notes": [],
+      "activity": [
+        {
+          "kind": "created",
+          "from": null,
+          "to": "ASSIGNED",
+          "actor": "routing",
+          "at": "2026-08-27T13:44:59.881Z"
+        }
+      ]
+    },
+    {
+      "ticket_id": "TCK-0011",
+      "title": "Approved action a_2",
+      "body": "Work from this investigation. Figures stay on the investigation record.",
+      "queue": "data_telemetry",
+      "assignee": "eng_owen_walsh",
+      "priority": "P3",
+      "status": "ASSIGNED",
+      "source": {
+        "investigation_id": "inv_cnd_tag_overheating",
+        "action_id": "a_2",
+        "candidate_id": "cnd_tag_overheating"
+      },
+      "skills_required": [
+        "telemetry-pipeline",
+        "data-quality",
+        "mobile-app"
+      ],
+      "routing_rationale": "Ongoing monitoring requires watching telemetry (skin_temp_delta_c) and ticket-tag patterns for a shape change, which needs skill in telemetry pipeline analysis and data-quality review to distinguish real signal shifts from noise or masked subgroups. Since the current cluster traces to UI/battery-display mislabeling rather than hardware, familiarity with the mobile app's battery/UI rendering behavior is relevant to correctly interpreting any future step change. Owen Walsh selected: overlap mobile-app, telemetry-pipeline; under capacity; roster order as remaining tie.",
+      "created_at": "2026-08-27T13:44:59.881Z",
+      "due_at": "2026-08-30T13:44:59.881Z",
+      "updated_at": "2026-08-27T13:44:59.881Z",
+      "notes": [],
+      "activity": [
+        {
+          "kind": "created",
+          "from": null,
+          "to": "ASSIGNED",
+          "actor": "routing",
+          "at": "2026-08-27T13:44:59.881Z"
+        }
+      ]
+    }
+  ]
+}
