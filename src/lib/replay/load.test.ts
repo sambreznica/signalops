@@ -12,9 +12,9 @@ import {
 } from "./load";
 
 describe("replay loaders", () => {
-  it("loads the default ceiling artefact with four investigations", () => {
+  it("loads the default board artefact with four investigations", () => {
     const run = loadReplayRun(DEFAULT_RUN_ID);
-    expect(run.run_id).toBe("run-ceiling-3");
+    expect(run.run_id).toBe("run-board-1");
     expect(run.kind).toBe("agent");
     expect(run.investigations.map((row) => row.candidate_id)).toEqual([
       "cnd_fw_1_4_2",
@@ -55,13 +55,13 @@ describe("replay loaders", () => {
     expect(runs.every((r) => r.kind === "agent")).toBe(true);
     const artefact = loadTicketsArtefact(DEFAULT_RUN_ID);
     expect(artefact).not.toBeNull();
-    expect(artefact!.tickets.length).toBeGreaterThanOrEqual(3);
+    expect(artefact!.tickets.length).toBe(11);
     const candidates = new Set(
       artefact!.tickets.flatMap((t) =>
         t.source === "manual" ? [] : [t.source.candidate_id],
       ),
     );
-    expect(candidates.size).toBeGreaterThanOrEqual(2);
+    expect(candidates.size).toBe(4);
   });
 
   it("scores agent runs without a suite headline helper", () => {

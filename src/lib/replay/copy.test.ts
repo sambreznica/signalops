@@ -63,12 +63,18 @@ describe("investigation copy", () => {
   it("reads the firmware artefact the same way", () => {
     const run = loadReplayRun();
     const rec = recordForCandidate(run, DEFAULT_CANDIDATE_ID);
-    const pair = headlineComparison(rec!.output.deterministic_findings);
+    const findings = rec!.output.deterministic_findings;
+    const f1 = findings.find((f) => f.id === "f_1");
+    const f2 = findings.find((f) => f.id === "f_2");
+    expect(f1).toBeDefined();
+    expect(f2).toBeDefined();
+    expect(f1!.unit).toBe(f2!.unit);
+    expect(formatMultiplier(f1!.value / f2!.value)).toBe("6.83×");
+    const pair = headlineComparison([f1!, f2!]);
     expect(pair!.left.id).toBe("f_1");
     expect(pair!.right.id).toBe("f_2");
-    expect(formatMultiplier(pair!.ratio)).toBe("6.83×");
     expect(
-      carryFindings(rec!.output.deterministic_findings, pair).map((f) => f.id),
+      carryFindings(findings, pair).map((f) => f.id),
     ).toEqual(["f_1", "f_2", "f_5"]);
   });
 
