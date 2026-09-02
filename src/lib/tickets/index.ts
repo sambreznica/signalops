@@ -22,6 +22,7 @@ export {
   sourceCandidateId,
   sourceInvestigationId,
   sourceActionId,
+  confidenceSentence,
 } from "./provenance";
 export { migrateTicketRecord, migrateTicketIds, migrateStatus, migratePriority } from "./migrate";
 export { loadTickets, saveTickets, upsertTicket, ticketsStorageKey } from "./storage";

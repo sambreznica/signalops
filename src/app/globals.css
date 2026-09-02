@@ -465,6 +465,18 @@ a:hover {
   transition: transform 220ms ease-out;
 }
 
+.ticket-drawer-resize {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 8px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: ew-resize;
+}
+
 .ticket-status-icon,
 .ticket-priority-glyph {
   display: inline-block;

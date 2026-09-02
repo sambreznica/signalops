@@ -17,7 +17,11 @@ import {
   sourceActionId,
   sourceCandidateId,
   splitRoutingRationale,
+  confidenceSentence,
 } from "@/lib/tickets/provenance";
+
+export const DRAWER_WIDTH_KEY = "signalops.drawer-width-px";
+export const DRAWER_WIDTH_DEFAULT = 448;
 
 export function TicketDrawer({
   ticket,
@@ -48,9 +52,17 @@ export function TicketDrawer({
   const action = output?.recommended_actions.find((a) => a.action_id === actionId);
   const candidateId = sourceCandidateId(ticket);
   const grounding = inheritedKnowledge(ticket, output, chunks);
-  const ceiling = output?.confidence.ceiling_rule_applied ?? null;
   const [note, setNote] = useState("");
   const [patchError, setPatchError] = useState<string | null>(null);
+  const [width, setWidth] = useState(DRAWER_WIDTH_DEFAULT);
+
+  useEffect(() => {
+    if (typeof localStorage === "undefined") return;
+    const raw = Number(localStorage.getItem(DRAWER_WIDTH_KEY));
+    if (Number.isFinite(raw)) {
+      setWidth(Math.min(640, Math.max(320, raw)));
+    }
+  }, []);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -60,6 +72,27 @@ export function TicketDrawer({
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
 
+  function onResizePointerDown(e: React.PointerEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    const startX = e.clientX;
+    const startW = width;
+    function move(ev: PointerEvent) {
+      const next = Math.min(640, Math.max(320, startW + (startX - ev.clientX)));
+      setWidth(next);
+    }
+    function up(ev: PointerEvent) {
+      const next = Math.min(640, Math.max(320, startW + (startX - ev.clientX)));
+      setWidth(next);
+      if (typeof localStorage !== "undefined") {
+        localStorage.setItem(DRAWER_WIDTH_KEY, String(next));
+      }
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", up);
+    }
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", up);
+  }
+
   return (
     <div className="ticket-drawer-root">
       <button
@@ -68,7 +101,18 @@ export function TicketDrawer({
         aria-label="Close ticket"
         onClick={onClose}
       />
-      <aside className="ticket-drawer" role="dialog" aria-labelledby="drawer-title">
+      <aside
+        className="ticket-drawer"
+        role="dialog"
+        aria-labelledby="drawer-title"
+        style={{ width: `min(${width}px, 100%)` }}
+      >
+        <button
+          type="button"
+          className="ticket-drawer-resize"
+          aria-label="Resize drawer"
+          onPointerDown={onResizePointerDown}
+        />
         <div className="flex items-start justify-between gap-3">
           <div>
             <p className="mono text-tertiary flex items-center gap-1">
@@ -259,17 +303,7 @@ export function TicketDrawer({
                   </span>
                 ) : null}
               </p>
-              {ceiling ? (
-                <p className="dense mt-2">
-                  Asked {output.confidence.model_requested}; code granted{" "}
-                  {output.confidence.granted ?? "—"}. Ceiling: {ceiling}.
-                </p>
-              ) : (
-                <p className="dense mt-2">
-                  Granted {output.confidence.granted ?? "—"}. No ceiling
-                  override.
-                </p>
-              )}
+              <p className="dense mt-2">{confidenceSentence(output)}</p>
               <p className="body mt-2 prose-measure">
                 {output.leading_hypothesis.statement}
               </p>

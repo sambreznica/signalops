@@ -115,3 +115,14 @@ export function sourceActionId(ticket: Ticket): string | null {
   if (ticket.source === "manual") return null;
   return ticket.source.action_id;
 }
+
+export function confidenceSentence(output: InvestigationOutput): string {
+  const granted = output.confidence.granted ?? "none";
+  const requested = output.confidence.model_requested;
+  const ceiling = output.confidence.ceiling_rule_applied;
+  const status = output.status;
+  if (ceiling) {
+    return `Status ${status}. Asked ${requested}; code granted ${granted}. Ceiling: ${ceiling}.`;
+  }
+  return `Status ${status}. Granted ${granted}, requested ${requested}. No ceiling override.`;
+}
