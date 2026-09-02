@@ -7,7 +7,7 @@ import {
 
 function validTicket(overrides: Partial<Ticket> = {}): Ticket {
   const base = {
-    ticket_id: "TCK-0001",
+    ticket_id: "FW-1",
     title: "Approved action act_1",
     body: "Work from this investigation. Figures stay on the investigation record.",
     queue: "firmware" as const,
@@ -93,6 +93,7 @@ describe("ticket schema freeze", () => {
   it("treats TCK ids and action ids as names", () => {
     expect(ticketHasBareNumeral("Approved action act_1")).toBe(false);
     expect(ticketHasBareNumeral("Approved action a_1")).toBe(false);
+    expect(ticketHasBareNumeral("FW-3 is late")).toBe(false);
     expect(ticketHasBareNumeral("TCK-0003 is late")).toBe(false);
     expect(ticketHasBareNumeral("fourteen devices")).toBe(false);
     expect(ticketHasBareNumeral("rate rose 12")).toBe(true);

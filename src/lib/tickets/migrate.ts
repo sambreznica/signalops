@@ -1,7 +1,9 @@
 import {
   QUEUE_IDS,
+  QUEUE_PREFIX,
   TICKET_PRIORITIES,
   TICKET_STATUSES,
+  TRIAGE_PREFIX,
   type TicketPriority,
   type TicketQueue,
   type TicketStatus,
@@ -84,4 +86,28 @@ export function migrateTicketRecord(row: unknown): unknown {
     });
   }
   return ticket;
+}
+
+function idPrefix(queue: TicketQueue | null): string {
+  return queue === null ? TRIAGE_PREFIX : QUEUE_PREFIX[queue];
+}
+
+/**
+ * TCK-n → queue-prefixed ids, allocated in artefact order per prefix.
+ * A later queue change does not rewrite an already-prefixed id.
+ */
+export function migrateTicketIds(rows: unknown[]): unknown[] {
+  const nextByPrefix = new Map<string, number>();
+  return rows.map((row) => {
+    if (!row || typeof row !== "object") return row;
+    const ticket = { ...(row as Record<string, unknown>) };
+    if (typeof ticket.ticket_id !== "string") return ticket;
+    if (!/^TCK-\d+$/.test(ticket.ticket_id)) return ticket;
+    const queue = isQueue(ticket.queue) ? ticket.queue : null;
+    const prefix = idPrefix(queue);
+    const n = (nextByPrefix.get(prefix) ?? 0) + 1;
+    nextByPrefix.set(prefix, n);
+    ticket.ticket_id = `${prefix}-${n}`;
+    return ticket;
+  });
 }

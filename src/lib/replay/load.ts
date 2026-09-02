@@ -34,7 +34,7 @@ import {
 import type { EvalResult } from "../../../evals/types";
 import type { HarnessContext } from "../../../evals/load";
 import { DEFAULT_RUN_ID } from "./constants";
-import { migrateTicketRecord } from "../tickets/migrate";
+import { migrateTicketIds, migrateTicketRecord } from "../tickets/migrate";
 import {
   ticketsArtefactSchema,
   type TicketsArtefact,
@@ -75,7 +75,7 @@ export function loadTicketsArtefact(runId: string): TicketsArtefact | null {
   const parsed = ticketsArtefactSchema.safeParse({
     ...raw,
     tickets: Array.isArray(raw.tickets)
-      ? raw.tickets.map((row) => migrateTicketRecord(row))
+      ? migrateTicketIds(raw.tickets.map((row) => migrateTicketRecord(row)))
       : raw.tickets,
   });
   return parsed.success ? parsed.data : null;

@@ -43,13 +43,13 @@ describe("ticket storage", () => {
         data.set(k, v);
       },
     };
-    saveTickets("run-ceiling-3", [ticket("TCK-0001")], store);
-    expect(loadTickets("run-ceiling-3", store)[0]?.ticket_id).toBe("TCK-0001");
+    saveTickets("run-ceiling-3", [ticket("FW-1")], store);
+    expect(loadTickets("run-ceiling-3", store)[0]?.ticket_id).toBe("FW-1");
     expect(loadTickets("other", store)).toEqual([]);
-    upsertTicket("run-ceiling-3", ticket("TCK-0002"), store);
+    upsertTicket("run-ceiling-3", ticket("FW-2"), store);
     expect(loadTickets("run-ceiling-3", store).map((t) => t.ticket_id)).toEqual([
-      "TCK-0001",
-      "TCK-0002",
+      "FW-1",
+      "FW-2",
     ]);
   });
 
@@ -61,13 +61,14 @@ describe("ticket storage", () => {
         data.set(k, v);
       },
     };
-    const stale = ticket("TCK-0001") as unknown as Record<string, unknown>;
+    const stale = ticket("FW-1") as unknown as Record<string, unknown>;
     store.setItem(
       "signalops.tickets.run-x",
       JSON.stringify({
         tickets: [
           {
             ...stale,
+            ticket_id: "TCK-0001",
             status: "ASSIGNED",
             priority: "P3",
             activity: [
@@ -85,6 +86,7 @@ describe("ticket storage", () => {
     );
     const loaded = loadTickets("run-x", store);
     expect(loaded).toHaveLength(1);
+    expect(loaded[0]!.ticket_id).toBe("FW-1");
     expect(loaded[0]!.status).toBe("TODO");
     expect(loaded[0]!.priority).toBe("MEDIUM");
     expect(loaded[0]!.activity).toHaveLength(1);

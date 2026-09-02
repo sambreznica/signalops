@@ -37,7 +37,7 @@ function apply(
 
 describe("operator loop — applyTicketChange", () => {
   it("TODO → IN_PROGRESS → IN_REVIEW → DONE, one activity entry per step", () => {
-    let ticket = committed("TCK-0001");
+    let ticket = committed("FW-1");
     const steps: Array<{ to: TicketStatus; from: TicketStatus }> = [
       { from: "TODO", to: "IN_PROGRESS" },
       { from: "IN_PROGRESS", to: "IN_REVIEW" },
@@ -61,7 +61,7 @@ describe("operator loop — applyTicketChange", () => {
   });
 
   it("IN_PROGRESS → BLOCKED frees WIP; BLOCKED → DONE is illegal", () => {
-    const started = apply(committed("TCK-0001"), { status: "IN_PROGRESS" });
+    const started = apply(committed("FW-1"), { status: "IN_PROGRESS" });
     expect(started.ok).toBe(true);
     if (!started.ok) return;
     const blocked = apply(started.ticket, { status: "BLOCKED" });
@@ -76,7 +76,7 @@ describe("operator loop — applyTicketChange", () => {
   });
 
   it("CANCELLED → TODO is operator-only, logged, and refuses if occupancy is missing", () => {
-    const cancelled = apply(committed("TCK-0001"), { status: "CANCELLED" });
+    const cancelled = apply(committed("FW-1"), { status: "CANCELLED" });
     expect(cancelled.ok).toBe(true);
     if (!cancelled.ok) return;
     expect(cancelled.ticket.queue).toBe("firmware");
@@ -102,7 +102,7 @@ describe("operator loop — applyTicketChange", () => {
   });
 
   it("reassignment across engineers is one entry; status change in the same gesture is two", () => {
-    const ticket = committed("TCK-0002");
+    const ticket = committed("FW-2");
     expect(ticket.assignee).toBe("eng_tomasz_kowalski");
     const reassigned = apply(ticket, { assignee: "eng_elena_varga" });
     expect(reassigned.ok).toBe(true);
@@ -135,7 +135,7 @@ describe("operator loop — applyTicketChange", () => {
   });
 
   it("records a queue change", () => {
-    const ticket = committed("TCK-0006");
+    const ticket = committed("HW-3");
     expect(ticket.queue).toBe("hardware");
     const result = apply(ticket, { queue: "firmware" });
     expect(result.ok).toBe(true);
@@ -150,7 +150,7 @@ describe("operator loop — applyTicketChange", () => {
   });
 
   it("reopens DONE → IN_PROGRESS", () => {
-    const started = apply(committed("TCK-0001"), { status: "IN_PROGRESS" });
+    const started = apply(committed("FW-1"), { status: "IN_PROGRESS" });
     expect(started.ok).toBe(true);
     if (!started.ok) return;
     const done = apply(started.ticket, { status: "DONE" });
@@ -169,7 +169,7 @@ describe("operator loop — applyTicketChange", () => {
   });
 
   it("refuses every illegal OPERATIONS §6 edge and does not mutate", () => {
-    const assigned = committed("TCK-0001");
+    const assigned = committed("FW-1");
     const inProgress = apply(assigned, { status: "IN_PROGRESS" });
     expect(inProgress.ok).toBe(true);
     if (!inProgress.ok) return;
@@ -266,7 +266,7 @@ describe("operator loop — applyTicketChange", () => {
   });
 
   it("appends a note and an activity entry together", () => {
-    const ticket = committed("TCK-0007");
+    const ticket = committed("PC-1");
     const result = apply(ticket, { note: "Checked the copy against KD-05." });
     expect(result.ok).toBe(true);
     if (!result.ok) return;
@@ -286,7 +286,7 @@ describe("operator loop — applyTicketChange", () => {
 
   it("bulk status over three ids writes three entries and skips an illegal id", () => {
     const tickets = artefact.tickets.map((t) => structuredClone(t));
-    const ids = ["TCK-0004", "TCK-0005", "TCK-0006", "TCK-9999"];
+    const ids = ["HW-1", "HW-2", "HW-3", "FW-9999"];
     const result = bulkApply({
       tickets,
       ids,
@@ -296,7 +296,7 @@ describe("operator loop — applyTicketChange", () => {
     });
     expect(result.applied).toBe(3);
     expect(result.skipped).toBe(1);
-    for (const id of ["TCK-0004", "TCK-0005", "TCK-0006"]) {
+    for (const id of ["HW-1", "HW-2", "HW-3"]) {
       const row = result.tickets.find((t) => t.ticket_id === id)!;
       expect(row.status).toBe("IN_PROGRESS");
       expect(row.activity.at(-1)).toMatchObject({
@@ -306,7 +306,7 @@ describe("operator loop — applyTicketChange", () => {
         actor: "operator",
       });
     }
-    expect(result.tickets.find((t) => t.ticket_id === "TCK-9999")).toBeUndefined();
+    expect(result.tickets.find((t) => t.ticket_id === "FW-9999")).toBeUndefined();
   });
 
   it("a third ticket onto an engineer at cap succeeds and capacity reports over rather than blocking", () => {
@@ -316,7 +316,7 @@ describe("operator loop — applyTicketChange", () => {
     expect(priya.used).toBe(priya.limit);
     expect(priya.over).toBe(false);
 
-    const extra = tickets.find((t) => t.ticket_id === "TCK-0002")!;
+    const extra = tickets.find((t) => t.ticket_id === "FW-2")!;
     const result = apply(extra, { assignee: "eng_priya_nair" });
     expect(result.ok).toBe(true);
     if (!result.ok) return;
@@ -329,7 +329,7 @@ describe("operator loop — applyTicketChange", () => {
 
     const hannah = engineerCapacity("eng_hannah_briggs", next, roster);
     expect(hannah.used).toBe(hannah.limit);
-    const overflow = next.find((t) => t.ticket_id === "TCK-0006")!;
+    const overflow = next.find((t) => t.ticket_id === "HW-3")!;
     const moved = apply(overflow, {
       queue: "product_comms",
       assignee: "eng_hannah_briggs",
@@ -361,7 +361,7 @@ describe("board fixture — every column and the rail reachable", () => {
     replace(t1.ticket);
 
     const t2a = apply(
-      tickets.find((t) => t.ticket_id === "TCK-0002")!,
+      tickets.find((t) => t.ticket_id === "FW-2")!,
       { status: "IN_PROGRESS" },
     );
     expect(t2a.ok).toBe(true);
@@ -372,7 +372,7 @@ describe("board fixture — every column and the rail reachable", () => {
     replace(t2b.ticket);
 
     const t3a = apply(
-      tickets.find((t) => t.ticket_id === "TCK-0003")!,
+      tickets.find((t) => t.ticket_id === "FW-3")!,
       { status: "IN_PROGRESS" },
     );
     expect(t3a.ok).toBe(true);
@@ -383,7 +383,7 @@ describe("board fixture — every column and the rail reachable", () => {
     replace(t3b.ticket);
 
     const t4a = apply(
-      tickets.find((t) => t.ticket_id === "TCK-0004")!,
+      tickets.find((t) => t.ticket_id === "HW-1")!,
       { status: "IN_PROGRESS" },
     );
     expect(t4a.ok).toBe(true);
@@ -394,7 +394,7 @@ describe("board fixture — every column and the rail reachable", () => {
     replace(t4b.ticket);
 
     const t5 = apply(
-      tickets.find((t) => t.ticket_id === "TCK-0005")!,
+      tickets.find((t) => t.ticket_id === "HW-2")!,
       { status: "CANCELLED" },
     );
     expect(t5.ok).toBe(true);
@@ -402,7 +402,7 @@ describe("board fixture — every column and the rail reachable", () => {
     replace(t5.ticket);
 
     const t6 = apply(
-      tickets.find((t) => t.ticket_id === "TCK-0006")!,
+      tickets.find((t) => t.ticket_id === "HW-3")!,
       { status: "BACKLOG" },
     );
     expect(t6.ok).toBe(true);

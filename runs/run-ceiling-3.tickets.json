@@ -5,9 +5,9 @@
   "effort": "low",
   "tickets": [
     {
-      "ticket_id": "TCK-0001",
-      "title": "Approved action act_1",
-      "body": "Work from this investigation. Figures stay on the investigation record.",
+      "ticket_id": "FW-1",
+      "title": "Run a controlled RF characterization for firmware 1.4.2 (outdoor",
+      "body": "Run a controlled RF characterization for firmware 1.4.2 (outdoor, body-block, commuting conditions) to test whether the shortened supervision timeout and retry backoff reproduce the field-scale disconnect increase seen in telemetry.",
       "queue": "firmware",
       "assignee": "eng_priya_nair",
       "priority": "MEDIUM",
@@ -38,9 +38,9 @@
       ]
     },
     {
-      "ticket_id": "TCK-0002",
-      "title": "Approved action act_3",
-      "body": "Work from this investigation. Figures stay on the investigation record.",
+      "ticket_id": "FW-2",
+      "title": "Flag firmware 1.4.2's BLE supervisor-timing change as a candidate",
+      "body": "Flag firmware 1.4.2's BLE supervisor-timing change as a candidate rollback/hotfix target pending the RF characterization results.",
       "queue": "firmware",
       "assignee": "eng_priya_nair",
       "priority": "HIGH",
@@ -71,9 +71,9 @@
       ]
     },
     {
-      "ticket_id": "TCK-0003",
-      "title": "Approved action a_1",
-      "body": "Work from this investigation. Figures stay on the investigation record.",
+      "ticket_id": "DT-1",
+      "title": "Tag this ticket cluster as a duplicate of KI-UI-011 in the support",
+      "body": "Tag this ticket cluster as a duplicate of KI-UI-011 in the support queue so agents route it as a known cosmetic UI issue rather than escalating as a thermal safety concern.",
       "queue": "data_telemetry",
       "assignee": "eng_samira_elsayed",
       "priority": "MEDIUM",

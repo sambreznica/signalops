@@ -23,5 +23,5 @@ export {
   sourceInvestigationId,
   sourceActionId,
 } from "./provenance";
-export { migrateTicketRecord, migrateStatus, migratePriority } from "./migrate";
+export { migrateTicketRecord, migrateTicketIds, migrateStatus, migratePriority } from "./migrate";
 export { loadTickets, saveTickets, upsertTicket, ticketsStorageKey } from "./storage";

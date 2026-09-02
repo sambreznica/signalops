@@ -5,9 +5,9 @@
   "effort": "low",
   "tickets": [
     {
-      "ticket_id": "TCK-0001",
-      "title": "Approved action a_1",
-      "body": "Work from this investigation. Figures stay on the investigation record.",
+      "ticket_id": "FW-1",
+      "title": "RF characterisation for the 1.4.2 supervisor-timing change",
+      "body": "Request an outdoor/body-block/commuting RF soak re-characterisation for firmware 1.4.2's revised BLE supervisor timing, since lab validation only covered indoor office RF.",
       "queue": "firmware",
       "assignee": "eng_priya_nair",
       "priority": "MEDIUM",
@@ -38,9 +38,9 @@
       ]
     },
     {
-      "ticket_id": "TCK-0002",
-      "title": "Approved action a_2",
-      "body": "Work from this investigation. Figures stay on the investigation record.",
+      "ticket_id": "FW-2",
+      "title": "Phone confound check on 1.4.2 disconnects",
+      "body": "Re-run the firmware 1.4.1 vs 1.4.2 disconnect comparison with a clustered per-device confidence interval and a phone-OS/model stratification to rule out a phone-side confound analogous to the prior firmware train incident before attributing the rise to the firmware patch.",
       "queue": "firmware",
       "assignee": "eng_tomasz_kowalski",
       "priority": "MEDIUM",
@@ -72,9 +72,9 @@
       ]
     },
     {
-      "ticket_id": "TCK-0003",
-      "title": "Approved action a_3",
-      "body": "Work from this investigation. Figures stay on the investigation record.",
+      "ticket_id": "FW-3",
+      "title": "Counted-events vs connected-time diagnostic",
+      "body": "Add a paired counted-events-vs-connected-time diagnostic to the telemetry export so future supervisor-timing changes can be distinguished from real connectivity degradation without ad hoc analysis.",
       "queue": "firmware",
       "assignee": "eng_priya_nair",
       "priority": "MEDIUM",
@@ -105,9 +105,9 @@
       ]
     },
     {
-      "ticket_id": "TCK-0004",
-      "title": "Approved action a_1",
-      "body": "Work from this investigation. Figures stay on the investigation record.",
+      "ticket_id": "HW-1",
+      "title": "Continue monitoring skin-irritation volume",
+      "body": "Continue routine monitoring of adhesion_flag rate and skin-irritation feedback tag volume week over week; re-open severity review if a firmware, region, or lot-specific concentration emerges.",
       "queue": "hardware",
       "assignee": "eng_mei_chen",
       "priority": "MEDIUM",
@@ -138,9 +138,9 @@
       ]
     },
     {
-      "ticket_id": "TCK-0005",
-      "title": "Approved action a_2",
-      "body": "Work from this investigation. Figures stay on the investigation record.",
+      "ticket_id": "HW-2",
+      "title": "Lot split for skin-irritation tickets",
+      "body": "Request lot/serial-level metadata for skin-irritation and adhesion tickets to test for concentration in a single production lot, per playbook guidance that a new cluster needs a lot split rather than a wave-away via the existing open characterization.",
       "queue": "hardware",
       "assignee": "eng_mei_chen",
       "priority": "MEDIUM",
@@ -171,9 +171,9 @@
       ]
     },
     {
-      "ticket_id": "TCK-0006",
-      "title": "Approved action a_3",
-      "body": "Work from this investigation. Figures stay on the investigation record.",
+      "ticket_id": "HW-3",
+      "title": "Do not close skin-irritation as expected",
+      "body": "Remind support agents via the existing playbook not to close skin-irritation/adhesion tickets as expected behavior; continue offering replacement rings and logging tags as appropriate.",
       "queue": "hardware",
       "assignee": "eng_jonah_adeyemi",
       "priority": "MEDIUM",
@@ -204,9 +204,9 @@
       ]
     },
     {
-      "ticket_id": "TCK-0007",
-      "title": "Approved action a_1",
-      "body": "Work from this investigation. Figures stay on the investigation record.",
+      "ticket_id": "PC-1",
+      "title": "Copy review of on-screen readiness",
+      "body": "Route the ticket cluster to Communications/Regulatory per the support intersection section of KD-05 for a copy review of the on-screen readiness display, since prior on-screen wording has caused misreads (KD-03).",
       "queue": "product_comms",
       "assignee": "eng_hannah_briggs",
       "priority": "MEDIUM",
@@ -236,9 +236,9 @@
       ]
     },
     {
-      "ticket_id": "TCK-0008",
-      "title": "Approved action a_2",
-      "body": "Work from this investigation. Figures stay on the investigation record.",
+      "ticket_id": "PC-2",
+      "title": "Claims tickets by firmware and app version",
+      "body": "Break down current-window claims-interpretation tickets by firmware_version and app_version to check for concentration around any specific UI copy change before concluding no release is implicated.",
       "queue": "product_comms",
       "assignee": "eng_hannah_briggs",
       "priority": "MEDIUM",
@@ -269,9 +269,9 @@
       ]
     },
     {
-      "ticket_id": "TCK-0009",
-      "title": "Approved action a_3",
-      "body": "Work from this investigation. Figures stay on the investigation record.",
+      "ticket_id": "PC-3",
+      "title": "Wellness-score clarification copy",
+      "body": "If copy review confirms confusing wording, prepare an in-app or help-article clarification (not user-targeted medical messaging) reiterating the score is a wellness indication, consistent with the KD-03 staff script.",
       "queue": "product_comms",
       "assignee": "eng_luca_ferrara",
       "priority": "HIGH",
@@ -301,9 +301,9 @@
       ]
     },
     {
-      "ticket_id": "TCK-0010",
-      "title": "Approved action a_1",
-      "body": "Work from this investigation. Figures stay on the investigation record.",
+      "ticket_id": "DT-1",
+      "title": "Confirm overheating tag is a known cosmetic UI issue",
+      "body": "Route 'overheating' tagged tickets through the existing battery/app-ui intake playbook (KI-UI-011 / KD-03) rather than a thermal-safety path, and consider re-tagging future tickets that clearly describe UI chrome or cold-weather drain as 'battery'/'app-ui' to reduce noise in the overheating tag.",
       "queue": "data_telemetry",
       "assignee": "eng_samira_elsayed",
       "priority": "MEDIUM",
@@ -334,9 +334,9 @@
       ]
     },
     {
-      "ticket_id": "TCK-0011",
-      "title": "Approved action a_2",
-      "body": "Work from this investigation. Figures stay on the investigation record.",
+      "ticket_id": "DT-2",
+      "title": "Watch overheating tags for a step change",
+      "body": "No production or user-facing change recommended; monitor skin_temp_delta_c and overheating-tag volume for a future step change that would look different in shape from this flat, UI-driven pattern.",
       "queue": "data_telemetry",
       "assignee": "eng_owen_walsh",
       "priority": "MEDIUM",

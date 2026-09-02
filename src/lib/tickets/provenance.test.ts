@@ -9,7 +9,7 @@ describe("ticket provenance", () => {
   const roster = loadRoster();
 
   it("splits assessor words from code ranking on a routed ticket", () => {
-    const ticket = artefact!.tickets.find((t) => t.ticket_id === "TCK-0001")!;
+    const ticket = artefact!.tickets.find((t) => t.ticket_id === "FW-1")!;
     const split = splitRoutingRationale(ticket, roster);
     expect(split.assessor.skills).toContain("ble-radio");
     expect(split.assessor.words.length).toBeGreaterThan(20);

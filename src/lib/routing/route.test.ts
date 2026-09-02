@@ -60,7 +60,7 @@ describe("route", () => {
         fallback: "none",
       },
     });
-    expect(ticket.ticket_id).toBe("TCK-0001");
+    expect(ticket.ticket_id).toBe("FW-1");
     expect(ticket.queue).toBe("firmware");
     expect(ticket.status).toBe("TODO");
     expect(ticket.assignee).toBe("eng_priya_nair");
@@ -183,9 +183,9 @@ describe("route", () => {
         fallback: "none",
       },
     });
-    expect(nextTicketId([first])).toBe("TCK-0002");
+    expect(nextTicketId([first], first.queue)).toBe("PC-2");
     expect(existingForAction([first], "inv_a", "act_1")?.ticket_id).toBe(
-      "TCK-0001",
+      "PC-1",
     );
   });
 
@@ -221,7 +221,7 @@ describe("route", () => {
       },
     });
     expect(mergeTickets([first], [first, second]).map((t) => t.ticket_id)).toEqual(
-      ["TCK-0001", "TCK-0002"],
+      ["PC-1", "FW-1"],
     );
   });
 });

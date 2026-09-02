@@ -1,5 +1,5 @@
 import { ticketSchema, type Ticket } from "../schema/ticket";
-import { migrateTicketRecord } from "./migrate";
+import { migrateTicketIds, migrateTicketRecord } from "./migrate";
 
 export const TICKETS_KEY_PREFIX = "signalops.tickets.";
 
@@ -35,7 +35,7 @@ export function loadTickets(runId: string, store: Store = browserStore()): Ticke
   try {
     const parsed = JSON.parse(raw) as TicketBucket;
     if (!Array.isArray(parsed.tickets)) return [];
-    return parsed.tickets.flatMap((row) => {
+    return migrateTicketIds(parsed.tickets).flatMap((row) => {
       const result = ticketSchema.safeParse(migrateTicketRecord(row));
       return result.success ? [result.data] : [];
     });

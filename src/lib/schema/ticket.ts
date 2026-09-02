@@ -2,7 +2,6 @@ import { z } from "zod";
 import { stripIdentifiers } from "./prose";
 import { confidenceBandSchema, riskClassSchema } from "./investigation";
 
-export const TICKET_ID_RE = /^TCK-\d{4}$/;
 export const ENGINEER_ID_RE = /^eng_[a-z_]+$/;
 
 export const SKILL_IDS = [
@@ -29,6 +28,15 @@ export const QUEUE_IDS = [
   "product_comms",
   "data_telemetry",
 ] as const;
+
+export const QUEUE_PREFIX = {
+  firmware: "FW",
+  hardware: "HW",
+  product_comms: "PC",
+  data_telemetry: "DT",
+} as const;
+export const TRIAGE_PREFIX = "TR" as const;
+export const TICKET_ID_RE = /^(?:FW|HW|PC|DT|TR)-[1-9]\d*$/;
 
 /** Mode of skill homes; this order breaks ties. */
 export const QUEUE_TIE_BREAK = QUEUE_IDS;
@@ -124,6 +132,7 @@ const ticketShapeSchema = z.strictObject({
  */
 export function ticketStripIdentifiers(text: string): string {
   let stripped = stripIdentifiers(text);
+  stripped = stripped.replace(/\b(?:FW|HW|PC|DT|TR)-\d+\b/g, " ");
   stripped = stripped.replace(/\bTCK-\d+\b/g, " ");
   stripped = stripped.replace(/\beng_[a-z_]+\b/g, " ");
   stripped = stripped.replace(/\bcnd_[a-z0-9_]+\b/g, " ");

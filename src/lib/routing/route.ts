@@ -1,9 +1,12 @@
 import type { ConfidenceBand, RecommendedAction } from "../schema/investigation";
 import {
+  QUEUE_PREFIX,
+  TRIAGE_PREFIX,
   skillIdSchema,
   ticketSchema,
   type SkillId,
   type Ticket,
+  type TicketQueue,
 } from "../schema/ticket";
 import { composeBody, composeRationale, composeTitle } from "./compose";
 import { eligibleEngineers } from "./eligibility";
@@ -33,13 +36,25 @@ export type RouteInput = {
   assessor: AssessorEmit;
 };
 
-export function nextTicketId(existing: readonly Ticket[]): string {
+export function ticketIdPrefix(queue: TicketQueue | null): string {
+  return queue === null ? TRIAGE_PREFIX : QUEUE_PREFIX[queue];
+}
+
+export function nextTicketId(
+  existing: readonly Ticket[],
+  queue: TicketQueue | null,
+): string {
+  const prefix = ticketIdPrefix(queue);
   let max = 0;
   for (const ticket of existing) {
-    const n = Number(ticket.ticket_id.slice(4));
+    const match = ticket.ticket_id.match(
+      new RegExp(`^${prefix}-([1-9]\\d*)$`),
+    );
+    if (!match) continue;
+    const n = Number(match[1]);
     if (Number.isFinite(n) && n > max) max = n;
   }
-  return `TCK-${String(max + 1).padStart(4, "0")}`;
+  return `${prefix}-${max + 1}`;
 }
 
 export function existingForAction(
@@ -140,9 +155,12 @@ export function route(input: RouteInput): Ticket {
   });
 
   return ticketSchema.parse({
-    ticket_id: nextTicketId(input.existing),
-    title: composeTitle(input.action.action_id),
-    body: composeBody(),
+    ticket_id: nextTicketId(input.existing, queue),
+    title: composeTitle({
+      candidateId: input.candidate_id,
+      action: input.action,
+    }),
+    body: composeBody(input.action),
     queue,
     assignee,
     priority,

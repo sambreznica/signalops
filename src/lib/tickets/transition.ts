@@ -239,7 +239,7 @@ export function createManualTicket(args: {
       ? "TRIAGE"
       : "BACKLOG";
   const parsed = ticketSchema.safeParse({
-    ticket_id: nextTicketId(args.existing),
+    ticket_id: nextTicketId(args.existing, queue),
     title,
     body: body.length > 0 ? body : "Operator-created ticket.",
     queue,
