@@ -509,6 +509,7 @@ a:hover {
   font-weight: var(--font-weight-ui);
   letter-spacing: 0.02em;
 }
+@media (max-width: 1280px) {
   .board-grid {
     grid-template-columns: 1fr 1fr;
   }
