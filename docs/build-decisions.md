@@ -494,7 +494,7 @@ This is the second formal manifest change. Recorded here before the token layer,
 |---|---|---|
 | Screens | 4 | **4**, unchanged |
 | Model roles | 3 | **3**, unchanged — intake (later) reuses the skills assessor and is not a fourth agent |
-| Dependencies | closed set including `@dnd-kit/core` | **unchanged**. Inter is loaded through `next/font`, already in the set. If OpenType features `cv01` / `ss03` / `zero` cannot be supplied without a new package, STOP and record rather than install. |
+| Dependencies | closed set including `@dnd-kit/core` | **unchanged**. Inter is loaded through `next/font`, already in the set. OpenType features `cv01` / `ss03` / `zero` are supplied with CSS `font-feature-settings` on the Inter variable face — no extra package. |
 | Tools | 5 | 5 |
 | Evaluations | 10 | 10 |
 

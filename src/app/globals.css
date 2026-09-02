@@ -1,28 +1,73 @@
 @import "tailwindcss";
 
+/*
+ * Token layer. Hex lives here and only here.
+ * Application code uses var() / Tailwind theme names.
+ */
 :root {
-  --ink: #0a0a0a;
-  --graphite: #4a4a4a;
-  --mute: #8a8a8a;
-  --rule: #e4e4e4;
-  --paper: #f7f7f5;
-  --card: #ffffff;
-  --critical: #b4232a;
-  --elevated: #c2701c;
-  --settled: #2d6a4f;
-  --inert: #9a9a9a;
-  --critical-tint: #fbeeee;
-  --elevated-tint: #fdf4ea;
-  --settled-tint: #edf5f0;
+  --bg-canvas: #ffffff;
+  --bg-subtle: #f4f5f8;
+  --bg-card: #ffffff;
+  --border-default: #e5e5e6;
+  --border-strong: #d0d3d9;
+  --text-primary: #282a30;
+  --text-secondary: #3c4149;
+  --text-tertiary: #6b6f76;
+  --text-muted: #8a8f98;
+  --accent: #5e6ad2;
+  --accent-hover: #6e7ae2;
+  --accent-active: #4e5ac2;
+  --success: #27a644;
+  --warning: #f2c94c;
+  --danger: #eb5757;
+  --info: #02b8cc;
+  --shadow-drawer: 0 4px 24px rgba(0, 0, 0, 0.1);
+
+  /* Aliases so existing screens keep compiling until they restyle. */
+  --ink: var(--text-primary);
+  --graphite: var(--text-secondary);
+  --mute: var(--text-muted);
+  --rule: var(--border-default);
+  --paper: var(--bg-canvas);
+  --card: var(--bg-card);
+  --critical: var(--danger);
+  --elevated: var(--warning);
+  --settled: var(--success);
+  --inert: var(--text-tertiary);
+  --critical-tint: var(--bg-subtle);
+  --elevated-tint: var(--bg-subtle);
+  --settled-tint: var(--bg-subtle);
+
+  --font-sans: var(--font-inter), "Inter Variable", ui-sans-serif, system-ui,
+    -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-weight-reading: 400;
+  --font-weight-ui: 510;
+  --font-weight-strong: 590;
 }
 
 @theme inline {
+  --color-canvas: var(--bg-canvas);
+  --color-subtle: var(--bg-subtle);
+  --color-card: var(--bg-card);
+  --color-border: var(--border-default);
+  --color-border-strong: var(--border-strong);
+  --color-primary: var(--text-primary);
+  --color-secondary: var(--text-secondary);
+  --color-tertiary: var(--text-tertiary);
+  --color-muted: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-active: var(--accent-active);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-info: var(--info);
   --color-ink: var(--ink);
   --color-graphite: var(--graphite);
   --color-mute: var(--mute);
   --color-rule: var(--rule);
   --color-paper: var(--paper);
-  --color-card: var(--card);
   --color-critical: var(--critical);
   --color-elevated: var(--elevated);
   --color-settled: var(--settled);
@@ -30,8 +75,8 @@
   --color-critical-tint: var(--critical-tint);
   --color-elevated-tint: var(--elevated-tint);
   --color-settled-tint: var(--settled-tint);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
 }
 
 html {
@@ -39,15 +84,17 @@ html {
 }
 
 body {
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  background: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
   font-size: 14px;
-  line-height: 20px;
+  line-height: 1.5;
+  font-weight: var(--font-weight-reading);
+  font-feature-settings: "cv01" 1, "ss03" 1, "zero" 1;
 }
 
 :focus-visible {
-  outline: 2px solid var(--ink);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
@@ -63,54 +110,89 @@ a:hover {
 
 .display {
   font-size: 28px;
-  line-height: 32px;
-  font-weight: 600;
-  letter-spacing: -0.03em;
+  line-height: 1.2;
+  font-weight: var(--font-weight-strong);
+  letter-spacing: -0.011em;
 }
 
 .verdict-status {
-  font-size: 36px;
-  line-height: 40px;
-  font-weight: 600;
-  letter-spacing: -0.04em;
+  font-size: 28px;
+  line-height: 1.2;
+  font-weight: var(--font-weight-strong);
+  letter-spacing: -0.011em;
 }
 
 .panel-challenge {
-  border-color: var(--ink);
+  border-color: var(--text-primary);
   padding: 20px;
 }
 
 .figure {
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-size: 22px;
   line-height: 26px;
-  font-weight: 500;
+  font-weight: var(--font-weight-ui);
   font-variant-numeric: tabular-nums;
+  font-feature-settings: "cv01" 1, "ss03" 1, "zero" 1;
 }
 
 .body {
   font-size: 14px;
-  line-height: 20px;
+  line-height: 1.5;
 }
 
+.body-small,
 .dense {
   font-size: 13px;
-  line-height: 18px;
+  line-height: 1.5;
+}
+
+.caption {
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.h1 {
+  font-size: 24px;
+  font-weight: var(--font-weight-strong);
+  letter-spacing: -0.011em;
+}
+
+.h2 {
+  font-size: 20px;
+  font-weight: var(--font-weight-strong);
+  letter-spacing: -0.011em;
+}
+
+.h3 {
+  font-size: 16px;
+  font-weight: var(--font-weight-ui);
+  letter-spacing: -0.011em;
 }
 
 .label {
-  font-size: 11px;
-  line-height: 14px;
-  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: var(--font-weight-ui);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--mute);
+  color: var(--text-tertiary);
 }
 
-.mono {
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
+.mono,
+.id {
+  font-family: var(--font-mono);
   font-size: 12px;
-  line-height: 16px;
+  line-height: 1.4;
+  font-feature-settings: "cv01" 1, "ss03" 1, "zero" 1;
+}
+
+.font-ui {
+  font-weight: var(--font-weight-ui);
+}
+
+.font-strong {
+  font-weight: var(--font-weight-strong);
 }
 
 .stack {
@@ -132,18 +214,20 @@ a:hover {
 .btn-approve {
   font-family: inherit;
   font-size: 13px;
-  line-height: 18px;
-  padding: 2px 10px;
-  border: 1px solid var(--ink);
-  background: var(--card);
-  color: var(--ink);
-  border-radius: 2px;
+  line-height: 1.5;
+  font-weight: var(--font-weight-ui);
+  padding: 4px 12px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border-radius: 6px;
   cursor: pointer;
+  transition: background 160ms ease-out, border-color 160ms ease-out;
 }
 
 .btn-approve:hover {
-  background: var(--ink);
-  color: var(--card);
+  background: var(--bg-subtle);
+  border-color: var(--accent);
 }
 
 .btn-approve:disabled {
@@ -152,14 +236,14 @@ a:hover {
 }
 
 .ticket-inline {
-  border-left: 2px solid var(--ink);
-  padding-left: 10px;
+  border-left: 2px solid var(--accent);
+  padding-left: 12px;
 }
 
 .panel {
-  background: var(--card);
-  border: 1px solid var(--rule);
-  border-radius: 4px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: 12px;
   padding: 16px;
 }
 
@@ -176,63 +260,62 @@ a:hover {
 }
 
 .panel-refuse {
-  border-color: var(--critical);
+  border-color: var(--danger);
 }
 
 .panel-bound {
-  border-color: var(--graphite);
+  border-color: var(--border-strong);
 }
 
 .chip {
   display: inline-block;
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-size: 12px;
-  line-height: 16px;
+  line-height: 1.4;
   padding: 1px 6px;
-  border-radius: 2px;
-  border: 1px solid var(--rule);
+  border-radius: 4px;
+  border: 1px solid var(--border-default);
 }
 
 .chip-critical {
-  color: var(--critical);
-  background: var(--critical-tint);
+  color: var(--danger);
+  background: var(--bg-subtle);
   border-color: transparent;
 }
 
 .chip-elevated {
-  color: var(--elevated);
-  background: var(--elevated-tint);
+  color: var(--text-secondary);
+  background: var(--bg-subtle);
   border-color: transparent;
 }
 
 .chip-settled {
-  color: var(--settled);
-  background: var(--settled-tint);
+  color: var(--success);
+  background: var(--bg-subtle);
   border-color: transparent;
 }
 
 .chip-inert {
-  color: var(--graphite);
+  color: var(--text-tertiary);
   background: transparent;
-  border-color: var(--rule);
+  border-color: var(--border-default);
 }
 
 .chip-on {
-  background: var(--ink);
-  color: var(--card);
-  border-color: var(--ink);
+  background: var(--accent);
+  color: var(--bg-canvas);
+  border-color: var(--accent);
 }
 
 .cell-critical {
-  background: var(--critical-tint);
+  background: var(--bg-subtle);
 }
 
 .cell-elevated {
-  background: var(--elevated-tint);
+  background: var(--bg-subtle);
 }
 
 .cell-settled {
-  background: var(--settled-tint);
+  background: var(--bg-subtle);
 }
 
 .mag {
@@ -249,62 +332,71 @@ a:hover {
 }
 
 .mag-critical {
-  background: var(--critical-tint);
+  background: var(--danger);
+  opacity: 0.2;
 }
 
 .mag-elevated {
-  background: var(--elevated-tint);
+  background: var(--warning);
+  opacity: 0.35;
 }
 
 .mag-settled {
-  background: var(--settled-tint);
+  background: var(--success);
+  opacity: 0.2;
 }
 
 .mag-inert {
-  background: var(--rule);
+  background: var(--border-default);
 }
 
 .chip-broken {
   display: inline;
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-size: 12px;
   padding: 0 0.25rem;
-  border: 1px dashed var(--graphite);
+  border: 1px dashed var(--text-tertiary);
+  border-radius: 2px;
 }
 
 .chip-finding {
   display: inline;
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-size: 12px;
   padding: 0 0.2rem;
-  border-bottom: 1px solid var(--ink);
+  border-bottom: 1px solid var(--text-primary);
 }
 
 .chip-finding.is-hot {
-  background: var(--elevated-tint);
+  background: var(--bg-subtle);
 }
 
 .trace-row.is-hot,
 .chunk-row.is-hot:target,
 .chunk-row:target {
-  outline: 1px solid var(--ink);
-  background: var(--elevated-tint);
+  outline: 1px solid var(--border-strong);
+  background: var(--bg-subtle);
 }
 
 .expand-in {
-  transition: grid-template-rows 150ms ease;
+  transition: grid-template-rows 160ms ease-out;
 }
 
 .ticket-card {
-  border: 1px solid var(--rule);
-  background: var(--card);
-  padding: 8px;
-  border-radius: 4px;
+  border: 1px solid var(--border-default);
+  background: var(--bg-card);
+  padding: 12px;
+  border-radius: 12px;
+  transition: transform 160ms ease-out, border-color 160ms ease-out;
+}
+
+.ticket-card:hover {
+  transform: translateY(-1px);
+  border-color: var(--border-strong);
 }
 
 .ticket-card.is-overdue {
-  border-color: var(--critical);
-  background: var(--critical-tint);
+  border-color: var(--danger);
 }
 
 .board-grid {
@@ -315,18 +407,18 @@ a:hover {
 }
 
 .board-column {
-  background: var(--card);
-  border: 1px solid var(--rule);
-  border-radius: 4px;
-  padding: 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: 12px;
+  padding: 12px;
   min-height: 12rem;
 }
 
 .board-rail {
-  background: var(--card);
-  border: 1px dashed var(--graphite);
-  border-radius: 4px;
-  padding: 10px;
+  background: var(--bg-subtle);
+  border: 1px dashed var(--border-strong);
+  border-radius: 12px;
+  padding: 12px;
   min-height: 4.5rem;
 }
 
@@ -336,11 +428,12 @@ a:hover {
 
 .drop-disabled {
   opacity: 0.45;
+  border-color: var(--border-default);
 }
 
 .drop-over {
-  outline: 1px solid var(--ink);
-  background: var(--elevated-tint);
+  outline: 1px solid var(--accent);
+  background: var(--bg-subtle);
 }
 
 .ticket-drawer-root {
@@ -353,7 +446,7 @@ a:hover {
   position: absolute;
   inset: 0;
   border: 0;
-  background: rgb(10 10 10 / 0.28);
+  background: rgb(40 42 48 / 0.28);
   cursor: pointer;
 }
 
@@ -364,9 +457,12 @@ a:hover {
   bottom: 0;
   width: min(28rem, 100%);
   overflow: auto;
-  background: var(--card);
-  border-left: 1px solid var(--rule);
+  background: var(--bg-card);
+  border-left: 1px solid var(--border-default);
+  border-radius: 12px 0 0 12px;
   padding: 16px;
+  box-shadow: var(--shadow-drawer);
+  transition: transform 220ms ease-out;
 }
 
 @media (max-width: 900px) {
@@ -376,7 +472,10 @@ a:hover {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .expand-in {
+  .expand-in,
+  .ticket-card,
+  .btn-approve,
+  .ticket-drawer {
     transition: none;
   }
 }

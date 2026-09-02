@@ -1,18 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import { Chrome } from "./ui/chrome";
 import { Nav } from "./ui/nav";
 import { loadReplayRun } from "@/lib/replay/load";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+  axes: ["opsz"],
 });
 
 export const metadata: Metadata = {
@@ -27,11 +24,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-paper text-ink font-sans">
+      <body className="min-h-full bg-canvas text-primary font-sans">
         <div className="mx-auto max-w-[1280px] px-4 py-2">
-          <header className="sticky top-0 z-30 bg-paper flex flex-wrap items-center justify-between gap-x-6 gap-y-1 border-b border-rule py-2">
+          <header className="sticky top-0 z-30 bg-canvas flex flex-wrap items-center justify-between gap-x-6 gap-y-1 border-b border-border py-2">
             <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
               <p className="label">SignalOps</p>
               <Nav />
