@@ -40,46 +40,25 @@ export type HeadlinePair = {
   ratio: number;
 };
 
-function isRateFinding(f: DeterministicFinding): boolean {
-  const u = f.unit.toLowerCase();
-  if (u === "ratio" || u === "records" || u === "events" || u === "devices" || u === "users") {
-    return false;
-  }
-  return u.includes("per_") || u.includes("rate") || u.includes("day");
-}
-
-/** Largest same-call rate pair — the comparison the verdict should lead with. */
+/**
+ * First two findings when they share a unit. Status is not an input —
+ * a dismissal has a comparison too. Order is the artefact's order.
+ */
 export function headlineComparison(
   findings: readonly DeterministicFinding[],
 ): HeadlinePair | null {
-  const rates = findings.filter(isRateFinding);
-  let best: HeadlinePair | null = null;
-  for (let i = 0; i < rates.length; i += 1) {
-    for (let j = i + 1; j < rates.length; j += 1) {
-      const a = rates[i]!;
-      const b = rates[j]!;
-      if (a.source.kind !== "tool_call" || b.source.kind !== "tool_call") continue;
-      if (a.source.call_id !== b.source.call_id) continue;
-      if (a.unit !== b.unit) continue;
-      if (a.value <= 0 || b.value <= 0) continue;
-      const high = a.value >= b.value ? a : b;
-      const low = a.value >= b.value ? b : a;
-      const ratio = high.value / low.value;
-      const candidate = { left: high, right: low, ratio };
-      if (!best) {
-        best = candidate;
-        continue;
-      }
-      if (high.value > best.left.value) {
-        best = candidate;
-        continue;
-      }
-      if (high.value === best.left.value && ratio > best.ratio) {
-        best = candidate;
-      }
-    }
-  }
-  return best;
+  const left = findings[0];
+  const right = findings[1];
+  if (!left || !right) return null;
+  if (left.unit !== right.unit) return null;
+  if (right.value === 0) return null;
+  return { left, right, ratio: left.value / right.value };
+}
+
+/** Plain-English aside for the verdict row. The display status is the heading; do not also chip it. */
+export function dismissalNote(status: Status): string | null {
+  if (status === "NOT_AN_INCIDENT") return "no action needed";
+  return null;
 }
 
 export function carryFindings(

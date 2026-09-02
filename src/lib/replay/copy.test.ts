@@ -1,8 +1,11 @@
+import { readFileSync } from "node:fs";
+import path from "node:path";
 import { describe, expect, it } from "vitest";
 import {
   carryFindings,
   ceilingCopy,
   challengeResolution,
+  dismissalNote,
   evidenceTypeCopy,
   formatMultiplier,
   headlineComparison,
@@ -63,19 +66,59 @@ describe("investigation copy", () => {
   it("reads the firmware artefact the same way", () => {
     const run = loadReplayRun();
     const rec = recordForCandidate(run, DEFAULT_CANDIDATE_ID);
-    const findings = rec!.output.deterministic_findings;
-    const f1 = findings.find((f) => f.id === "f_1");
-    const f2 = findings.find((f) => f.id === "f_2");
-    expect(f1).toBeDefined();
-    expect(f2).toBeDefined();
-    expect(f1!.unit).toBe(f2!.unit);
-    expect(formatMultiplier(f1!.value / f2!.value)).toBe("6.83×");
-    const pair = headlineComparison([f1!, f2!]);
+    const recFindings = rec!.output.deterministic_findings;
+    const pair = headlineComparison(recFindings);
     expect(pair!.left.id).toBe("f_1");
     expect(pair!.right.id).toBe("f_2");
-    expect(
-      carryFindings(findings, pair).map((f) => f.id),
-    ).toEqual(["f_1", "f_2", "f_5"]);
+    expect(formatMultiplier(pair!.ratio)).toBe("6.83×");
+    expect(carryFindings(recFindings, pair).map((f) => f.id)).toEqual([
+      "f_1",
+      "f_2",
+      "f_5",
+    ]);
+  });
+
+  it("renders a pair on a dismissal when the first two findings share a unit", () => {
+    const run = loadReplayRun();
+    const rec = recordForCandidate(run, "cnd_tag_overheating");
+    expect(rec!.output.status).toBe("NOT_AN_INCIDENT");
+    const pair = headlineComparison(rec!.output.deterministic_findings);
+    expect(pair).not.toBeNull();
+    expect(pair!.left.id).toBe("f_1");
+    expect(pair!.right.id).toBe("f_2");
+    expect(pair!.left.unit).toBe(pair!.right.unit);
+  });
+
+  it("renders a pair on a confirmed investigation the same way, not by status", () => {
+    const run = loadReplayRun();
+    const rec = recordForCandidate(run, "cnd_tag_claims_interpretation");
+    expect(rec!.output.status).toBe("CONFIRMED");
+    const pair = headlineComparison(rec!.output.deterministic_findings);
+    expect(pair).not.toBeNull();
+    expect(pair!.left.unit).toBe(pair!.right.unit);
+    expect(pair!.left.unit).toBe("records");
+  });
+
+  it("returns null when the first two findings do not share a unit", () => {
+    const mixed: DeterministicFinding[] = [
+      findings[0]!,
+      { ...findings[2]!, id: "f_2" },
+    ];
+    expect(headlineComparison(mixed)).toBeNull();
+  });
+
+  it("keeps the dismissal note and does not chip the display status", () => {
+    expect(dismissalNote("NOT_AN_INCIDENT")).toBe("no action needed");
+    expect(dismissalNote("CONFIRMED")).toBeNull();
+    const src = readFileSync(
+      path.resolve(import.meta.dirname, "../../app/ui/investigation-view.tsx"),
+      "utf8",
+    );
+    const start = src.indexOf("What we concluded");
+    const end = src.indexOf("Why we think so");
+    const verdict = src.slice(start, end);
+    expect(verdict).toContain("dismissalNote");
+    expect(verdict).not.toContain("StatusMark");
   });
 
   it("splits a claim from its qualification without breaking 1.4.2", () => {

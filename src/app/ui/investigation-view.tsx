@@ -25,6 +25,7 @@ import {
   carryFindings,
   ceilingCopy,
   challengeResolution,
+  dismissalNote,
   evidenceTypeCopy,
   firstLine,
   formatMultiplier,
@@ -38,7 +39,7 @@ import {
 import { formatNumber, formatQuantity, formatTimestamp, slugId } from "@/lib/replay/format";
 import { FindingText } from "./finding-text";
 import { Panel } from "./panel";
-import { BandMark, AltStatusMark, StatusMark } from "./status-mark";
+import { BandMark, AltStatusMark } from "./status-mark";
 import { TicketInline } from "./ticket-inline";
 import { Trace } from "./trace";
 import { MagBar } from "./bars";
@@ -326,11 +327,10 @@ export function InvestigationView({
           <h1 className={`verdict-status m-0 ${statusToneClass(output.status)}`}>
             {output.status}
           </h1>
-          {output.status === "NOT_AN_INCIDENT" ? (
-            <>
-              <StatusMark status={output.status} />
-              <span className="dense text-settled">no action needed</span>
-            </>
+          {dismissalNote(output.status) ? (
+            <span className="dense text-settled">
+              {dismissalNote(output.status)}
+            </span>
           ) : null}
         </div>
         <p className={`mt-3 prose-measure ${synthesized ? "body" : "body text-mute"}`}>
