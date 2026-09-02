@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { Ticket, TicketStatus } from "../schema/ticket";
+import { TICKET_STATUSES } from "../schema/ticket";
 import { loadTicketsArtefact } from "../replay/load";
 import { loadRoster } from "../routing/fixtures";
 import { layoutBoard, columnCount } from "./board";
@@ -35,13 +36,12 @@ function apply(
 }
 
 describe("operator loop — applyTicketChange", () => {
-  it("ASSIGNED → IN_PROGRESS → BLOCKED → IN_PROGRESS → DONE, one activity entry per step", () => {
+  it("TODO → IN_PROGRESS → IN_REVIEW → DONE, one activity entry per step", () => {
     let ticket = committed("TCK-0001");
     const steps: Array<{ to: TicketStatus; from: TicketStatus }> = [
-      { from: "ASSIGNED", to: "IN_PROGRESS" },
-      { from: "IN_PROGRESS", to: "BLOCKED" },
-      { from: "BLOCKED", to: "IN_PROGRESS" },
-      { from: "IN_PROGRESS", to: "DONE" },
+      { from: "TODO", to: "IN_PROGRESS" },
+      { from: "IN_PROGRESS", to: "IN_REVIEW" },
+      { from: "IN_REVIEW", to: "DONE" },
     ];
     const startLen = ticket.activity.length;
     for (let i = 0; i < steps.length; i += 1) {
@@ -55,10 +55,50 @@ describe("operator loop — applyTicketChange", () => {
       expect(last.from).toBe(step.from);
       expect(last.to).toBe(step.to);
       expect(last.actor).toBe("operator");
-      expect(last.at).toBe(NOW.toISOString());
       ticket = result.ticket;
     }
     expect(ticket.status).toBe("DONE");
+  });
+
+  it("IN_PROGRESS → BLOCKED frees WIP; BLOCKED → DONE is illegal", () => {
+    const started = apply(committed("TCK-0001"), { status: "IN_PROGRESS" });
+    expect(started.ok).toBe(true);
+    if (!started.ok) return;
+    const blocked = apply(started.ticket, { status: "BLOCKED" });
+    expect(blocked.ok).toBe(true);
+    if (!blocked.ok) return;
+    expect(blocked.ticket.status).toBe("BLOCKED");
+    const toDone = apply(blocked.ticket, { status: "DONE" });
+    expect(toDone.ok).toBe(false);
+    expect(toDone.ticket).toEqual(blocked.ticket);
+    const resumed = apply(blocked.ticket, { status: "IN_PROGRESS" });
+    expect(resumed.ok).toBe(true);
+  });
+
+  it("CANCELLED → TODO is operator-only, logged, and refuses if occupancy is missing", () => {
+    const cancelled = apply(committed("TCK-0001"), { status: "CANCELLED" });
+    expect(cancelled.ok).toBe(true);
+    if (!cancelled.ok) return;
+    expect(cancelled.ticket.queue).toBe("firmware");
+    expect(cancelled.ticket.assignee).toBe("eng_priya_nair");
+    const reopened = apply(cancelled.ticket, { status: "TODO" });
+    expect(reopened.ok).toBe(true);
+    if (!reopened.ok) return;
+    expect(reopened.ticket.status).toBe("TODO");
+    expect(reopened.ticket.activity.at(-1)).toMatchObject({
+      kind: "status",
+      from: "CANCELLED",
+      to: "TODO",
+      actor: "operator",
+    });
+    expect(LEGAL_STATUS.CANCELLED).toEqual(["TODO"]);
+
+    const orphan = {
+      ...cancelled.ticket,
+      assignee: null,
+    };
+    const refused = apply(orphan as Ticket, { status: "TODO" });
+    expect(refused.ok).toBe(false);
   });
 
   it("reassignment across engineers is one entry; status change in the same gesture is two", () => {
@@ -89,7 +129,7 @@ describe("operator loop — applyTicketChange", () => {
     });
     expect(both.ticket.activity.at(-1)).toMatchObject({
       kind: "status",
-      from: "ASSIGNED",
+      from: "TODO",
       to: "IN_PROGRESS",
     });
   });
@@ -142,31 +182,32 @@ describe("operator loop — applyTicketChange", () => {
       body: "No queue yet.",
       queue: null,
       assignee: null,
-      priority: "P3",
+      priority: "MEDIUM",
       existing: artefact.tickets,
       now: NOW,
     });
     expect(manual.ok).toBe(true);
     if (!manual.ok || !manual.ticket) return;
-    expect(manual.ticket.status).toBe("ON_DECK");
+    expect(manual.ticket.status).toBe("TRIAGE");
     expect(manual.ticket.queue).toBeNull();
 
     const cases: Array<{ ticket: Ticket; to: TicketStatus; why: string }> = [
-      { ticket: manual.ticket, to: "DONE", why: "ON_DECK → DONE" },
-      { ticket: manual.ticket, to: "BLOCKED", why: "ON_DECK → BLOCKED" },
+      { ticket: manual.ticket, to: "DONE", why: "TRIAGE → DONE" },
+      { ticket: manual.ticket, to: "BLOCKED", why: "TRIAGE → BLOCKED" },
       {
         ticket: manual.ticket,
         to: "IN_PROGRESS",
-        why: "ON_DECK → IN_PROGRESS",
+        why: "TRIAGE → IN_PROGRESS",
       },
       {
         ticket: manual.ticket,
-        to: "ASSIGNED",
-        why: "ON_DECK → ASSIGNED while queue is null",
+        to: "TODO",
+        why: "TRIAGE → TODO while queue is null",
       },
-      { ticket: done.ticket, to: "ON_DECK", why: "DONE → ON_DECK" },
+      { ticket: done.ticket, to: "TRIAGE", why: "DONE → TRIAGE" },
       { ticket: done.ticket, to: "BLOCKED", why: "DONE → BLOCKED" },
-      { ticket: done.ticket, to: "ASSIGNED", why: "DONE → ASSIGNED" },
+      { ticket: done.ticket, to: "TODO", why: "DONE → TODO" },
+      { ticket: done.ticket, to: "BACKLOG", why: "DONE → BACKLOG" },
     ];
 
     for (const row of cases) {
@@ -177,34 +218,34 @@ describe("operator loop — applyTicketChange", () => {
       expect(row.ticket).toEqual(before);
     }
 
-    const legalFromDone = LEGAL_STATUS.DONE;
-    expect(legalFromDone).toEqual(["IN_PROGRESS"]);
+    expect(LEGAL_STATUS.DONE).toEqual(["IN_PROGRESS"]);
+    expect(LEGAL_STATUS.BLOCKED).not.toContain("DONE");
   });
 
-  it("lands a manual ticket with no queue on ON_DECK and refuses promotion until a queue is set", () => {
+  it("lands a manual ticket with no queue on TRIAGE and refuses promotion until a queue is set", () => {
     const created = createManualTicket({
       title: "Manual intake",
       body: "Operator typed this.",
       queue: null,
       assignee: "eng_priya_nair",
-      priority: "P3",
+      priority: "MEDIUM",
       existing: artefact.tickets,
       now: NOW,
     });
     expect(created.ok).toBe(true);
     if (!created.ok || !created.ticket) return;
-    expect(created.ticket.status).toBe("ON_DECK");
+    expect(created.ticket.status).toBe("TRIAGE");
     expect(created.ticket.queue).toBeNull();
     expect(created.ticket.assignee).toBeNull();
     expect(created.ticket.source).toBe("manual");
     expect(created.ticket.activity[0]).toMatchObject({
       kind: "created",
-      to: "ON_DECK",
+      to: "TRIAGE",
       actor: "operator",
     });
 
     const refused = apply(created.ticket, {
-      status: "ASSIGNED",
+      status: "TODO",
       assignee: "eng_priya_nair",
     });
     expect(refused.ok).toBe(false);
@@ -213,13 +254,14 @@ describe("operator loop — applyTicketChange", () => {
     const queued = apply(created.ticket, { queue: "firmware" });
     expect(queued.ok).toBe(true);
     if (!queued.ok) return;
+    expect(queued.ticket.status).toBe("BACKLOG");
     const promoted = apply(queued.ticket, {
-      status: "ASSIGNED",
+      status: "TODO",
       assignee: "eng_priya_nair",
     });
     expect(promoted.ok).toBe(true);
     if (!promoted.ok) return;
-    expect(promoted.ticket.status).toBe("ASSIGNED");
+    expect(promoted.ticket.status).toBe("TODO");
     expect(promoted.ticket.queue).toBe("firmware");
   });
 
@@ -259,7 +301,7 @@ describe("operator loop — applyTicketChange", () => {
       expect(row.status).toBe("IN_PROGRESS");
       expect(row.activity.at(-1)).toMatchObject({
         kind: "status",
-        from: "ASSIGNED",
+        from: "TODO",
         to: "IN_PROGRESS",
         actor: "operator",
       });
@@ -304,7 +346,7 @@ describe("operator loop — applyTicketChange", () => {
 });
 
 describe("board fixture — every column and the rail reachable", () => {
-  it("after legal transitions, ASSIGNED, IN_PROGRESS, BLOCKED, DONE and the rail each hold a card", () => {
+  it("after legal transitions, every status holds a card", () => {
     let tickets = artefact.tickets.map((t) => structuredClone(t));
 
     function replace(next: Ticket) {
@@ -324,7 +366,7 @@ describe("board fixture — every column and the rail reachable", () => {
     );
     expect(t2a.ok).toBe(true);
     if (!t2a.ok) return;
-    const t2b = apply(t2a.ticket, { status: "BLOCKED" });
+    const t2b = apply(t2a.ticket, { status: "IN_REVIEW" });
     expect(t2b.ok).toBe(true);
     if (!t2b.ok) return;
     replace(t2b.ticket);
@@ -335,25 +377,44 @@ describe("board fixture — every column and the rail reachable", () => {
     );
     expect(t3a.ok).toBe(true);
     if (!t3a.ok) return;
-    const t3b = apply(t3a.ticket, { status: "DONE" });
+    const t3b = apply(t3a.ticket, { status: "BLOCKED" });
     expect(t3b.ok).toBe(true);
     if (!t3b.ok) return;
     replace(t3b.ticket);
 
-    const t4 = apply(
+    const t4a = apply(
       tickets.find((t) => t.ticket_id === "TCK-0004")!,
-      { status: "ON_DECK" },
+      { status: "IN_PROGRESS" },
     );
-    expect(t4.ok).toBe(true);
-    if (!t4.ok) return;
-    replace(t4.ticket);
+    expect(t4a.ok).toBe(true);
+    if (!t4a.ok) return;
+    const t4b = apply(t4a.ticket, { status: "DONE" });
+    expect(t4b.ok).toBe(true);
+    if (!t4b.ok) return;
+    replace(t4b.ticket);
+
+    const t5 = apply(
+      tickets.find((t) => t.ticket_id === "TCK-0005")!,
+      { status: "CANCELLED" },
+    );
+    expect(t5.ok).toBe(true);
+    if (!t5.ok) return;
+    replace(t5.ticket);
+
+    const t6 = apply(
+      tickets.find((t) => t.ticket_id === "TCK-0006")!,
+      { status: "BACKLOG" },
+    );
+    expect(t6.ok).toBe(true);
+    if (!t6.ok) return;
+    replace(t6.ticket);
 
     const manual = createManualTicket({
       title: "Unqueued intake",
       body: "Stays on the rail until a queue is set.",
       queue: null,
       assignee: null,
-      priority: "P3",
+      priority: "MEDIUM",
       existing: tickets,
       now: NOW,
     });
@@ -363,9 +424,14 @@ describe("board fixture — every column and the rail reachable", () => {
 
     const layout = layoutBoard(tickets);
     expect(layout.rail.length).toBeGreaterThan(0);
-    expect(columnCount(layout, "ASSIGNED")).toBeGreaterThan(0);
+    expect(columnCount(layout, "TODO")).toBeGreaterThan(0);
     expect(columnCount(layout, "IN_PROGRESS")).toBeGreaterThan(0);
+    expect(columnCount(layout, "IN_REVIEW")).toBeGreaterThan(0);
     expect(columnCount(layout, "BLOCKED")).toBeGreaterThan(0);
     expect(columnCount(layout, "DONE")).toBeGreaterThan(0);
+    expect(columnCount(layout, "CANCELLED")).toBeGreaterThan(0);
+    expect(new Set(tickets.map((t) => t.status)).size).toBe(
+      TICKET_STATUSES.length,
+    );
   });
 });

@@ -12,15 +12,15 @@ export function derivePriority(
   const band: ConfidenceBand = granted ?? "LOW";
   const granted_missing = granted === null;
   if (riskClass === "PRODUCTION") {
-    if (band === "HIGH") return { priority: "P1", granted_missing };
-    return { priority: "P2", granted_missing };
+    if (band === "HIGH") return { priority: "URGENT", granted_missing };
+    return { priority: "HIGH", granted_missing };
   }
   if (riskClass === "EXTERNAL") {
-    if (band === "HIGH") return { priority: "P1", granted_missing };
-    if (band === "MEDIUM") return { priority: "P2", granted_missing };
-    return { priority: "P3", granted_missing };
+    if (band === "HIGH") return { priority: "URGENT", granted_missing };
+    if (band === "MEDIUM") return { priority: "HIGH", granted_missing };
+    return { priority: "MEDIUM", granted_missing };
   }
-  if (band === "HIGH") return { priority: "P2", granted_missing };
-  if (band === "MEDIUM") return { priority: "P3", granted_missing };
-  return { priority: "P4", granted_missing };
+  if (band === "HIGH") return { priority: "HIGH", granted_missing };
+  if (band === "MEDIUM") return { priority: "MEDIUM", granted_missing };
+  return { priority: "LOW", granted_missing };
 }

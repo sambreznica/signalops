@@ -2,7 +2,7 @@ import type { SkillId, Ticket } from "../schema/ticket";
 import type { EngineerRecord } from "./fixtures";
 
 export function countsAgainstWip(status: Ticket["status"]): boolean {
-  return status === "ASSIGNED" || status === "IN_PROGRESS";
+  return status === "TODO" || status === "IN_PROGRESS" || status === "IN_REVIEW";
 }
 
 export function currentWip(

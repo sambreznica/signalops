@@ -21,5 +21,7 @@ describe("SLA clock", () => {
     expect(isOverdue(ticket, liveNow)).toBe(true);
     const done = { ...ticket, status: "DONE" as const };
     expect(isOverdue(done, liveNow)).toBe(false);
+    const cancelled = { ...ticket, status: "CANCELLED" as const };
+    expect(isOverdue(cancelled, liveNow)).toBe(false);
   });
 });

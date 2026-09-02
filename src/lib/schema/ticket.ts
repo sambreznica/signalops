@@ -35,14 +35,34 @@ export const QUEUE_TIE_BREAK = QUEUE_IDS;
 
 export const ticketQueueSchema = z.enum(QUEUE_IDS);
 export const skillIdSchema = z.enum(SKILL_IDS);
-export const ticketPrioritySchema = z.enum(["P1", "P2", "P3", "P4"]);
-export const ticketStatusSchema = z.enum([
-  "ON_DECK",
-  "ASSIGNED",
+export const TICKET_PRIORITIES = [
+  "URGENT",
+  "HIGH",
+  "MEDIUM",
+  "LOW",
+] as const;
+export const TICKET_STATUSES = [
+  "TRIAGE",
+  "BACKLOG",
+  "TODO",
   "IN_PROGRESS",
+  "IN_REVIEW",
   "BLOCKED",
   "DONE",
-]);
+  "CANCELLED",
+] as const;
+export const WIP_STATUSES = ["TODO", "IN_PROGRESS", "IN_REVIEW"] as const;
+export const RAIL_STATUSES = ["TRIAGE", "BACKLOG"] as const;
+export const OWNED_STATUSES = [
+  "TODO",
+  "IN_PROGRESS",
+  "IN_REVIEW",
+  "BLOCKED",
+  "DONE",
+] as const;
+
+export const ticketPrioritySchema = z.enum(TICKET_PRIORITIES);
+export const ticketStatusSchema = z.enum(TICKET_STATUSES);
 export const ticketActivityKindSchema = z.enum([
   "created",
   "status",
@@ -134,13 +154,60 @@ function codeComposedErrors(path: string, text: string): string[] {
   return errors;
 }
 
-export const ticketSchema = ticketShapeSchema.superRefine((ticket, ctx) => {
-  if (ticket.queue === null && ticket.status !== "ON_DECK") {
-    ctx.addIssue({
-      code: "custom",
-      message: "queue may be null only while status is ON_DECK",
+function occupancyIssues(ticket: {
+  status: z.infer<typeof ticketStatusSchema>;
+  queue: z.infer<typeof ticketQueueSchema> | null;
+  assignee: string | null;
+}): Array<{ message: string; path: (string | number)[] }> {
+  const issues: Array<{ message: string; path: (string | number)[] }> = [];
+  if (ticket.queue === null && ticket.status !== "TRIAGE") {
+    issues.push({
+      message: "queue may be null only while status is TRIAGE",
       path: ["queue"],
     });
+  }
+  if (ticket.status === "TRIAGE") {
+    if (ticket.queue !== null) {
+      issues.push({ message: "TRIAGE must have a null queue", path: ["queue"] });
+    }
+    if (ticket.assignee !== null) {
+      issues.push({
+        message: "TRIAGE cannot have an assignee",
+        path: ["assignee"],
+      });
+    }
+  }
+  if (ticket.status === "BACKLOG") {
+    if (ticket.queue === null) {
+      issues.push({ message: "BACKLOG requires a queue", path: ["queue"] });
+    }
+    if (ticket.assignee !== null) {
+      issues.push({
+        message: "BACKLOG cannot have an assignee",
+        path: ["assignee"],
+      });
+    }
+  }
+  if ((OWNED_STATUSES as readonly string[]).includes(ticket.status)) {
+    if (ticket.queue === null) {
+      issues.push({
+        message: `${ticket.status} requires a queue`,
+        path: ["queue"],
+      });
+    }
+    if (ticket.assignee === null) {
+      issues.push({
+        message: `${ticket.status} requires an assignee`,
+        path: ["assignee"],
+      });
+    }
+  }
+  return issues;
+}
+
+export const ticketSchema = ticketShapeSchema.superRefine((ticket, ctx) => {
+  for (const issue of occupancyIssues(ticket)) {
+    ctx.addIssue({ code: "custom", message: issue.message, path: issue.path });
   }
   for (const [path, text] of [
     ["title", ticket.title],

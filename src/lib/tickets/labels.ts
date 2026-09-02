@@ -9,21 +9,26 @@ export const QUEUE_LABEL: Record<TicketQueue, string> = {
 };
 
 export const STATUS_LABEL: Record<TicketStatus, string> = {
-  ON_DECK: "On deck",
-  ASSIGNED: "Assigned",
+  TRIAGE: "Triage",
+  BACKLOG: "Backlog",
+  TODO: "Todo",
   IN_PROGRESS: "In progress",
+  IN_REVIEW: "In review",
   BLOCKED: "Blocked",
   DONE: "Done",
+  CANCELLED: "Cancelled",
 };
 
 export const COLUMN_EMPTY: Record<BoardColumn, string> = {
-  ASSIGNED: "Owned work that has not started belongs here.",
+  TODO: "Owned work that has not started belongs here.",
   IN_PROGRESS: "Work underway belongs here.",
+  IN_REVIEW: "Work awaiting verification belongs here.",
   BLOCKED: "Work that cannot proceed belongs here. The due date does not pause.",
   DONE: "Finished work belongs here.",
+  CANCELLED: "Dropped work belongs here. Grey, never red.",
 };
 
 export const RAIL_EMPTY =
   "Unowned work sits here. A ticket without a queue cannot leave the rail.";
 
-export const RAIL_LABEL = "On deck";
+export const RAIL_LABEL = "Triage & backlog";

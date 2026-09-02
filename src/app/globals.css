@@ -465,7 +465,38 @@ a:hover {
   transition: transform 220ms ease-out;
 }
 
-@media (max-width: 900px) {
+.ticket-status-icon,
+.ticket-priority-glyph {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+  vertical-align: -2px;
+}
+
+.ticket-status-icon.is-muted {
+  color: var(--text-muted);
+}
+
+.ticket-priority-glyph.is-urgent {
+  color: var(--danger);
+}
+
+.assignee-initials {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 9999px;
+  background: var(--bg-subtle);
+  color: var(--text-secondary);
+  font-size: 10px;
+  line-height: 1;
+  font-weight: var(--font-weight-ui);
+  letter-spacing: 0.02em;
+}
   .board-grid {
     grid-template-columns: 1fr 1fr;
   }

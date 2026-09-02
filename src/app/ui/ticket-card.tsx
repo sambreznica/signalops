@@ -5,12 +5,11 @@ import type { Ticket } from "@/lib/schema/ticket";
 import { engineerById } from "@/lib/routing/fixtures";
 import { ageLabel, isOverdue } from "@/lib/tickets/overdue";
 import { sourceCandidateId } from "@/lib/tickets/provenance";
-
-function priorityChip(priority: Ticket["priority"]): string {
-  if (priority === "P1") return "chip chip-critical";
-  if (priority === "P2") return "chip chip-elevated";
-  return "chip chip-inert";
-}
+import {
+  PriorityGlyph,
+  StatusIcon,
+  assigneeInitials,
+} from "./ticket-marks";
 
 export function TicketCardFace({
   ticket,
@@ -18,16 +17,21 @@ export function TicketCardFace({
   selected,
   onToggleSelect,
   onOpen,
+  showStatusIcon,
 }: {
   ticket: Ticket;
   now: Date;
   selected?: boolean;
   onToggleSelect?: () => void;
   onOpen?: () => void;
+  showStatusIcon?: boolean;
 }) {
   const engineer = ticket.assignee ? engineerById(ticket.assignee) : null;
   const overdue = isOverdue(ticket, now);
   const sourceId = sourceCandidateId(ticket);
+  const skills = ticket.skills_required;
+  const shownSkills = skills.slice(0, 2);
+  const extraSkills = skills.length - shownSkills.length;
   return (
     <article
       className={`ticket-card ${overdue ? "is-overdue" : ""}`}
@@ -45,41 +49,52 @@ export function TicketCardFace({
           />
         ) : null}
         <div className="min-w-0 flex-1">
-          <p className="mono text-mute">
-            {ticket.ticket_id}
-            <span className={`ml-2 ${priorityChip(ticket.priority)}`}>
-              {ticket.priority}
-            </span>
-          </p>
+          <div className="flex items-center justify-between gap-2">
+            <p className="mono text-tertiary flex items-center gap-1">
+              {showStatusIcon ? <StatusIcon status={ticket.status} /> : null}
+              {ticket.ticket_id}
+            </p>
+            <PriorityGlyph priority={ticket.priority} />
+          </div>
           <button
             type="button"
             id={`${ticket.ticket_id}-title`}
-            className="dense mt-1 text-left"
+            className="body font-ui mt-1 text-left text-primary"
             onClick={onOpen}
           >
             {ticket.title}
           </button>
-          <p className="dense text-graphite mt-1">
-            {engineer ? engineer.name : "unassigned"}
-          </p>
-          {ticket.skills_required.length > 0 ? (
-            <p className="mt-1 flex flex-wrap gap-1">
-              {ticket.skills_required.map((s) => (
-                <span key={s} className="chip chip-inert">
-                  {s}
+          <div className="mt-1 flex flex-wrap items-center gap-1">
+            {shownSkills.map((s) => (
+              <span key={s} className="chip chip-inert">
+                {s}
+              </span>
+            ))}
+            {extraSkills > 0 ? (
+              <span className="chip chip-inert">+{extraSkills}</span>
+            ) : null}
+            {sourceId ? (
+              <span className="chip chip-inert">{sourceId}</span>
+            ) : (
+              <span className="chip chip-inert">manual</span>
+            )}
+            <span className="ml-auto flex items-center gap-1">
+              {engineer ? (
+                <span
+                  className="assignee-initials"
+                  title={engineer.name}
+                  aria-label={engineer.name}
+                >
+                  {assigneeInitials(engineer.name)}
                 </span>
-              ))}
-            </p>
-          ) : null}
-          <p className={`dense mt-1 ticket-age ${overdue ? "text-critical" : "text-mute"}`}>
-            {ageLabel(ticket, now)}
-            {overdue ? " · past due" : ""}
-          </p>
-          {sourceId ? (
-            <span className="chip chip-inert mt-1">{sourceId}</span>
-          ) : (
-            <span className="chip chip-inert mt-1">manual</span>
-          )}
+              ) : null}
+              <span
+                className={`caption ${overdue ? "text-danger" : "text-muted"}`}
+              >
+                {ageLabel(ticket, now)}
+              </span>
+            </span>
+          </div>
         </div>
       </div>
     </article>
@@ -92,12 +107,14 @@ export function TicketCard({
   selected,
   onToggleSelect,
   onOpen,
+  showStatusIcon,
 }: {
   ticket: Ticket;
   now: Date;
   selected: boolean;
   onToggleSelect: () => void;
   onOpen: () => void;
+  showStatusIcon?: boolean;
 }) {
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({
@@ -121,6 +138,7 @@ export function TicketCard({
         selected={selected}
         onToggleSelect={onToggleSelect}
         onOpen={onOpen}
+        showStatusIcon={showStatusIcon}
       />
     </div>
   );

@@ -11,6 +11,7 @@ import { formatTimestamp } from "@/lib/replay/format";
 import { firstLine } from "@/lib/replay/copy";
 import { BandMark, StatusMark } from "./status-mark";
 import { QUEUE_LABEL, STATUS_LABEL } from "@/lib/tickets/labels";
+import { PriorityGlyph, StatusIcon } from "./ticket-marks";
 import {
   inheritedKnowledge,
   sourceActionId,
@@ -70,8 +71,11 @@ export function TicketDrawer({
       <aside className="ticket-drawer" role="dialog" aria-labelledby="drawer-title">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <p className="mono text-mute">{ticket.ticket_id}</p>
-            <h2 id="drawer-title" className="body font-medium mt-1">
+            <p className="mono text-tertiary flex items-center gap-1">
+              <StatusIcon status={ticket.status} />
+              {ticket.ticket_id}
+            </p>
+            <h2 id="drawer-title" className="body font-ui mt-1">
               {ticket.title}
             </h2>
           </div>
@@ -99,7 +103,10 @@ export function TicketDrawer({
             </div>
             <div>
               <dt className="label">Priority</dt>
-              <dd className="m-0">{ticket.priority}</dd>
+              <dd className="m-0 flex items-center gap-1">
+                <PriorityGlyph priority={ticket.priority} />
+                <span>{ticket.priority}</span>
+              </dd>
             </div>
             <div>
               <dt className="label">Due</dt>
@@ -121,11 +128,14 @@ export function TicketDrawer({
                   )
                 }
               >
-                <option value="ON_DECK">{STATUS_LABEL.ON_DECK}</option>
-                <option value="ASSIGNED">{STATUS_LABEL.ASSIGNED}</option>
+                <option value="TRIAGE">{STATUS_LABEL.TRIAGE}</option>
+                <option value="BACKLOG">{STATUS_LABEL.BACKLOG}</option>
+                <option value="TODO">{STATUS_LABEL.TODO}</option>
                 <option value="IN_PROGRESS">{STATUS_LABEL.IN_PROGRESS}</option>
+                <option value="IN_REVIEW">{STATUS_LABEL.IN_REVIEW}</option>
                 <option value="BLOCKED">{STATUS_LABEL.BLOCKED}</option>
                 <option value="DONE">{STATUS_LABEL.DONE}</option>
+                <option value="CANCELLED">{STATUS_LABEL.CANCELLED}</option>
               </select>
             </label>
             <label>

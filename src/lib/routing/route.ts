@@ -123,7 +123,7 @@ export function route(input: RouteInput): Ticket {
   );
   const winner = ranked[0] ?? null;
   const canAssign = winner !== null && queue !== null;
-  const status = canAssign ? "ASSIGNED" : "ON_DECK";
+  const status = canAssign ? "TODO" : queue !== null ? "BACKLOG" : "TRIAGE";
   const assignee = canAssign ? winner.id : null;
   const at = input.now.toISOString();
 

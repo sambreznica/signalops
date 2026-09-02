@@ -9,7 +9,7 @@ export type Capacity = {
   over: boolean;
 };
 
-/** ASSIGNED + IN_PROGRESS in the queue vs sum of home-queue WIP limits. */
+/** TODO + IN_PROGRESS + IN_REVIEW in the queue vs sum of home-queue WIP limits. */
 export function swimlaneCapacity(
   queue: TicketQueue,
   tickets: readonly Ticket[],

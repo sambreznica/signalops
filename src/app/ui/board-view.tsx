@@ -104,7 +104,7 @@ export function BoardView({
   const [manualBody, setManualBody] = useState("");
   const [manualQueue, setManualQueue] = useState<TicketQueue | "">("");
   const [manualAssignee, setManualAssignee] = useState("");
-  const [manualPriority, setManualPriority] = useState<TicketPriority>("P3");
+  const [manualPriority, setManualPriority] = useState<TicketPriority>("MEDIUM");
   const [manualError, setManualError] = useState<string | null>(null);
 
   const router = useRouter();
@@ -237,10 +237,10 @@ export function BoardView({
     const nextPatch = { ...patch };
     if (
       nextPatch.assignee &&
-      openTicket.status === "ON_DECK" &&
+      (openTicket.status === "TRIAGE" || openTicket.status === "BACKLOG") &&
       nextPatch.status === undefined
     ) {
-      nextPatch.status = "ASSIGNED";
+      nextPatch.status = "TODO";
     }
     const result = applyTicketChange({
       ticket: openTicket,
@@ -271,7 +271,7 @@ export function BoardView({
         run
       </p>
       <dl className="mt-3 flex flex-wrap gap-x-6 gap-y-2 dense">
-        {(["ON_DECK", "ASSIGNED", "IN_PROGRESS", "BLOCKED", "DONE"] as TicketStatus[]).map(
+        {(["TRIAGE", "BACKLOG", "TODO", "IN_PROGRESS", "IN_REVIEW", "BLOCKED", "DONE", "CANCELLED"] as TicketStatus[]).map(
           (s) => (
             <div key={s}>
               <dt className="label">{STATUS_LABEL[s]}</dt>
@@ -337,10 +337,10 @@ export function BoardView({
             }
           >
             <option value="all">all</option>
-            <option value="P1">P1</option>
-            <option value="P2">P2</option>
-            <option value="P3">P3</option>
-            <option value="P4">P4</option>
+            <option value="URGENT">Urgent</option>
+            <option value="HIGH">High</option>
+            <option value="MEDIUM">Medium</option>
+            <option value="LOW">Low</option>
           </select>
         </label>
         <label>
@@ -371,7 +371,8 @@ export function BoardView({
             }
           >
             <option value="all">all</option>
-            <option value="ON_DECK">On deck</option>
+            <option value="TRIAGE">Triage</option>
+            <option value="BACKLOG">Backlog</option>
             {BOARD_COLUMNS.map((s) => (
               <option key={s} value={s}>
                 {STATUS_LABEL[s]}
@@ -425,7 +426,7 @@ export function BoardView({
                 setManualQueue(e.target.value as TicketQueue | "")
               }
             >
-              <option value="">unset (on deck)</option>
+              <option value="">unset (triage)</option>
               {QUEUE_IDS.map((q) => (
                 <option key={q} value={q}>
                   {QUEUE_LABEL[q]}
@@ -455,10 +456,10 @@ export function BoardView({
                 setManualPriority(e.target.value as TicketPriority)
               }
             >
-              <option value="P1">P1</option>
-              <option value="P2">P2</option>
-              <option value="P3">P3</option>
-              <option value="P4">P4</option>
+              <option value="URGENT">Urgent</option>
+              <option value="HIGH">High</option>
+              <option value="MEDIUM">Medium</option>
+              <option value="LOW">Low</option>
             </select>
           </label>
           {manualError ? (
@@ -498,6 +499,7 @@ export function BoardView({
                     selected={selected.has(t.ticket_id)}
                     onToggleSelect={() => toggleSelect(t.ticket_id)}
                     onOpen={() => openDrawer(t.ticket_id)}
+                    showStatusIcon
                   />
                 </li>
               ))}
@@ -547,16 +549,22 @@ export function BoardView({
                         </span>
                         <span className="mono text-mute">
                           {cell.length}
-                          {status === "ASSIGNED" || status === "IN_PROGRESS"
+                          {status === "TODO" ||
+                          status === "IN_PROGRESS" ||
+                          status === "IN_REVIEW"
                             ? ` · ${cap.used}/${cap.limit}`
                             : ""}
                           {cap.over &&
-                          (status === "ASSIGNED" || status === "IN_PROGRESS")
+                          (status === "TODO" ||
+                            status === "IN_PROGRESS" ||
+                            status === "IN_REVIEW")
                             ? " over"
                             : ""}
                         </span>
                       </button>
-                      {status === "ASSIGNED" || status === "IN_PROGRESS" ? (
+                      {status === "TODO" ||
+                      status === "IN_PROGRESS" ||
+                      status === "IN_REVIEW" ? (
                         <div className="mt-1">
                           <MagBar
                             value={cap.used}
@@ -572,13 +580,14 @@ export function BoardView({
                             {engineers.map((eng) => (
                               <DropZone
                                 key={eng.id}
-                                id={`person:${eng.id}:${status}`}
+                                id={`person:${eng.id}:${status}:${queue}`}
                                 disabled={
                                   activeTicket
                                     ? !dropEnabled({
                                         kind: "person",
                                         engineerId: eng.id,
                                         status,
+                                        queue,
                                       })
                                     : false
                                 }

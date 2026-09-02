@@ -63,14 +63,6 @@ export function applyTicketChange(args: {
   const next: Ticket = structuredClone(original);
 
   if (patch.queue !== undefined && patch.queue !== next.queue) {
-    const resultingStatus = patch.status ?? next.status;
-    if (patch.queue === null && resultingStatus !== "ON_DECK") {
-      return {
-        ok: false,
-        reason: "queue may be null only while ON_DECK",
-        ticket: original,
-      };
-    }
     stamp(next, "queue", next.queue, patch.queue, actor, at);
     next.queue = patch.queue;
   }
@@ -83,47 +75,66 @@ export function applyTicketChange(args: {
     next.assignee = patch.assignee;
   }
 
-  if (patch.status !== undefined && patch.status !== next.status) {
-    if (!isLegalStatusChange(original.status, patch.status, next.queue)) {
-      return {
-        ok: false,
-        reason: `illegal ${original.status} → ${patch.status}`,
-        ticket: original,
-      };
+  let nextStatus = patch.status ?? next.status;
+  if (
+    patch.status === undefined &&
+    next.status === "TRIAGE" &&
+    next.assignee !== null &&
+    next.queue === null
+  ) {
+    return {
+      ok: false,
+      reason: "TRIAGE → TODO is refused while queue is null",
+      ticket: original,
+    };
+  }
+  if (patch.status === undefined) {
+    if (next.status === "TRIAGE" && next.queue !== null && next.assignee === null) {
+      nextStatus = "BACKLOG";
+    } else if (next.status === "TRIAGE" && next.queue !== null && next.assignee !== null) {
+      nextStatus = "TODO";
+    } else if (next.status === "BACKLOG" && next.assignee !== null) {
+      nextStatus = "TODO";
+    } else if (next.status === "BACKLOG" && next.queue === null) {
+      nextStatus = "TRIAGE";
+    } else if (next.status === "TODO" && next.assignee === null && next.queue !== null) {
+      nextStatus = "BACKLOG";
+    } else if (
+      (next.status === "TODO" ||
+        next.status === "BACKLOG") &&
+      next.queue === null
+    ) {
+      nextStatus = "TRIAGE";
     }
-    if (patch.status === "ON_DECK" && next.assignee !== null) {
+  }
+
+  if (nextStatus === "TRIAGE") {
+    if (next.queue !== null) {
+      stamp(next, "queue", next.queue, null, actor, at);
+      next.queue = null;
+    }
+    if (next.assignee !== null) {
       stamp(next, "reassigned", next.assignee, null, actor, at);
       next.assignee = null;
     }
+  }
+  if (nextStatus === "BACKLOG" && next.assignee !== null) {
+    stamp(next, "reassigned", next.assignee, null, actor, at);
+    next.assignee = null;
+  }
+
+  if (nextStatus !== next.status) {
     if (
-      (patch.status === "ASSIGNED" ||
-        patch.status === "IN_PROGRESS" ||
-        patch.status === "BLOCKED") &&
-      next.assignee === null
+      !isLegalStatusChange(original.status, nextStatus, next.queue, next.assignee)
     ) {
       return {
         ok: false,
-        reason: "owned statuses require an assignee",
+        reason: `illegal ${original.status} → ${nextStatus}`,
         ticket: original,
       };
     }
-    stamp(next, "status", original.status, patch.status, actor, at);
-    next.status = patch.status;
-  }
-
-  if (next.status !== "ON_DECK" && next.queue === null) {
-    return {
-      ok: false,
-      reason: "queue may be null only while ON_DECK",
-      ticket: original,
-    };
-  }
-  if (next.status === "ON_DECK" && next.assignee !== null) {
-    return {
-      ok: false,
-      reason: "ON_DECK cannot have an assignee",
-      ticket: original,
-    };
+    stamp(next, "status", original.status, nextStatus, actor, at);
+    next.status = nextStatus;
   }
 
   if (patch.priority !== undefined && patch.priority !== next.priority) {
@@ -222,7 +233,11 @@ export function createManualTicket(args: {
   const at = args.now.toISOString();
   const queue = args.queue;
   const assignee = queue === null ? null : args.assignee;
-  const status: TicketStatus = assignee ? "ASSIGNED" : "ON_DECK";
+  const status: TicketStatus = assignee
+    ? "TODO"
+    : queue === null
+      ? "TRIAGE"
+      : "BACKLOG";
   const parsed = ticketSchema.safeParse({
     ticket_id: nextTicketId(args.existing),
     title,

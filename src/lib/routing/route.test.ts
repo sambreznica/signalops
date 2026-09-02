@@ -21,20 +21,20 @@ function action(
 }
 
 describe("priority table", () => {
-  it("INTERNAL x MEDIUM is P3", () => {
+  it("INTERNAL x MEDIUM is MEDIUM", () => {
     expect(derivePriority("INTERNAL", "MEDIUM")).toEqual({
-      priority: "P3",
+      priority: "MEDIUM",
       granted_missing: false,
     });
   });
 
-  it("PRODUCTION x MEDIUM is P2 (risk-class floor)", () => {
+  it("PRODUCTION x MEDIUM is HIGH (risk-class floor)", () => {
     expect(derivePriority("PRODUCTION", "MEDIUM")).toEqual({
-      priority: "P2",
+      priority: "HIGH",
       granted_missing: false,
     });
     expect(derivePriority("PRODUCTION", "LOW")).toEqual({
-      priority: "P2",
+      priority: "HIGH",
       granted_missing: false,
     });
   });
@@ -62,14 +62,14 @@ describe("route", () => {
     });
     expect(ticket.ticket_id).toBe("TCK-0001");
     expect(ticket.queue).toBe("firmware");
-    expect(ticket.status).toBe("ASSIGNED");
+    expect(ticket.status).toBe("TODO");
     expect(ticket.assignee).toBe("eng_priya_nair");
-    expect(ticket.priority).toBe("P3");
-    expect(ticket.due_at).toBe(dueAt(now, "P3").toISOString());
+    expect(ticket.priority).toBe("MEDIUM");
+    expect(ticket.due_at).toBe(dueAt(now, "MEDIUM").toISOString());
     expect(ticket.routing_rationale).toContain("Priya Nair");
   });
 
-  it("PRODUCTION x MEDIUM is P2 on a routed ticket", () => {
+  it("PRODUCTION x MEDIUM is HIGH on a routed ticket", () => {
     const ticket = route({
       action: action("act_3", "PRODUCTION"),
       investigation_id: "inv_cnd_fw_1_4_2",
@@ -85,11 +85,11 @@ describe("route", () => {
         fallback: "none",
       },
     });
-    expect(ticket.priority).toBe("P2");
-    expect(ticket.due_at).toBe(dueAt(now, "P2").toISOString());
+    expect(ticket.priority).toBe("HIGH");
+    expect(ticket.due_at).toBe(dueAt(now, "HIGH").toISOString());
   });
 
-  it("empty skills land ON_DECK with null queue", () => {
+  it("empty skills land TRIAGE with null queue", () => {
     const ticket = route({
       action: action("a_1", "INTERNAL"),
       investigation_id: "inv_cnd_tag_overheating",
@@ -105,7 +105,7 @@ describe("route", () => {
         fallback: "empty",
       },
     });
-    expect(ticket.status).toBe("ON_DECK");
+    expect(ticket.status).toBe("TRIAGE");
     expect(ticket.queue).toBeNull();
     expect(ticket.assignee).toBeNull();
     expect(ticket.routing_rationale).toContain("no usable skill");
@@ -128,7 +128,7 @@ describe("route", () => {
       },
     });
     expect(ticket.skills_required).toEqual([]);
-    expect(ticket.status).toBe("ON_DECK");
+    expect(ticket.status).toBe("TRIAGE");
     expect(ticket.routing_rationale).toContain("contained a figure");
   });
 

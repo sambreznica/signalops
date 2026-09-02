@@ -12,8 +12,8 @@ function validTicket(overrides: Partial<Ticket> = {}): Ticket {
     body: "Work from this investigation. Figures stay on the investigation record.",
     queue: "firmware" as const,
     assignee: "eng_priya_nair",
-    priority: "P3" as const,
-    status: "ASSIGNED" as const,
+    priority: "MEDIUM" as const,
+    status: "TODO" as const,
     source: {
       investigation_id: "inv_cnd_fw_1_4_2",
       action_id: "act_1",
@@ -30,7 +30,7 @@ function validTicket(overrides: Partial<Ticket> = {}): Ticket {
       {
         kind: "created" as const,
         from: null,
-        to: "ASSIGNED",
+        to: "TODO",
         actor: "routing" as const,
         at: "2026-08-26T10:13:39.028Z",
       },
@@ -40,24 +40,25 @@ function validTicket(overrides: Partial<Ticket> = {}): Ticket {
 }
 
 describe("ticket schema freeze", () => {
-  it("parses a routed assigned ticket", () => {
+  it("parses a routed TODO ticket", () => {
     const parsed = validTicket();
-    expect(parsed.status).toBe("ASSIGNED");
+    expect(parsed.status).toBe("TODO");
     expect(parsed.queue).toBe("firmware");
+    expect(parsed.priority).toBe("MEDIUM");
   });
 
-  it("allows null queue only on ON_DECK", () => {
+  it("allows null queue only on TRIAGE", () => {
     const deck = validTicket({
       queue: null,
       assignee: null,
-      status: "ON_DECK",
+      status: "TRIAGE",
       skills_required: [],
       routing_rationale: "Assessor produced no usable skill.",
       activity: [
         {
           kind: "created",
           from: null,
-          to: "ON_DECK",
+          to: "TRIAGE",
           actor: "routing",
           at: "2026-08-26T10:13:39.028Z",
         },
@@ -67,9 +68,15 @@ describe("ticket schema freeze", () => {
     expect(() =>
       ticketSchema.parse({
         ...deck,
-        status: "ASSIGNED",
+        status: "TODO",
         assignee: "eng_priya_nair",
       }),
+    ).toThrow();
+  });
+
+  it("rejects NONE as a priority", () => {
+    expect(() =>
+      ticketSchema.parse({ ...validTicket(), priority: "NONE" }),
     ).toThrow();
   });
 

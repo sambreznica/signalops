@@ -1,8 +1,8 @@
 import type { Ticket } from "../schema/ticket";
 
-/** OPERATIONS §5. DONE is still late if it finished after due_at; the tint is for open work. */
+/** OPERATIONS §5. DONE and CANCELLED are still late if they finished after due_at; the tint is for open work. */
 export function isOverdue(ticket: Ticket, now: Date): boolean {
-  if (ticket.status === "DONE") return false;
+  if (ticket.status === "DONE" || ticket.status === "CANCELLED") return false;
   return now.getTime() > new Date(ticket.due_at).getTime();
 }
 

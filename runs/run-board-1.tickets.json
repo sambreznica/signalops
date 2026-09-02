@@ -10,8 +10,8 @@
       "body": "Work from this investigation. Figures stay on the investigation record.",
       "queue": "firmware",
       "assignee": "eng_priya_nair",
-      "priority": "P3",
-      "status": "ASSIGNED",
+      "priority": "MEDIUM",
+      "status": "TODO",
       "source": {
         "investigation_id": "inv_cnd_fw_1_4_2",
         "action_id": "a_1",
@@ -31,7 +31,7 @@
         {
           "kind": "created",
           "from": null,
-          "to": "ASSIGNED",
+          "to": "TODO",
           "actor": "routing",
           "at": "2026-08-27T13:44:59.881Z"
         }
@@ -43,8 +43,8 @@
       "body": "Work from this investigation. Figures stay on the investigation record.",
       "queue": "firmware",
       "assignee": "eng_tomasz_kowalski",
-      "priority": "P3",
-      "status": "ASSIGNED",
+      "priority": "MEDIUM",
+      "status": "TODO",
       "source": {
         "investigation_id": "inv_cnd_fw_1_4_2",
         "action_id": "a_2",
@@ -65,7 +65,7 @@
         {
           "kind": "created",
           "from": null,
-          "to": "ASSIGNED",
+          "to": "TODO",
           "actor": "routing",
           "at": "2026-08-27T13:44:59.881Z"
         }
@@ -77,8 +77,8 @@
       "body": "Work from this investigation. Figures stay on the investigation record.",
       "queue": "firmware",
       "assignee": "eng_priya_nair",
-      "priority": "P3",
-      "status": "ASSIGNED",
+      "priority": "MEDIUM",
+      "status": "TODO",
       "source": {
         "investigation_id": "inv_cnd_fw_1_4_2",
         "action_id": "a_3",
@@ -98,7 +98,7 @@
         {
           "kind": "created",
           "from": null,
-          "to": "ASSIGNED",
+          "to": "TODO",
           "actor": "routing",
           "at": "2026-08-27T13:44:59.881Z"
         }
@@ -110,8 +110,8 @@
       "body": "Work from this investigation. Figures stay on the investigation record.",
       "queue": "hardware",
       "assignee": "eng_mei_chen",
-      "priority": "P3",
-      "status": "ASSIGNED",
+      "priority": "MEDIUM",
+      "status": "TODO",
       "source": {
         "investigation_id": "inv_cnd_tag_skin_irritation",
         "action_id": "a_1",
@@ -131,7 +131,7 @@
         {
           "kind": "created",
           "from": null,
-          "to": "ASSIGNED",
+          "to": "TODO",
           "actor": "routing",
           "at": "2026-08-27T13:44:59.881Z"
         }
@@ -143,8 +143,8 @@
       "body": "Work from this investigation. Figures stay on the investigation record.",
       "queue": "hardware",
       "assignee": "eng_mei_chen",
-      "priority": "P3",
-      "status": "ASSIGNED",
+      "priority": "MEDIUM",
+      "status": "TODO",
       "source": {
         "investigation_id": "inv_cnd_tag_skin_irritation",
         "action_id": "a_2",
@@ -164,7 +164,7 @@
         {
           "kind": "created",
           "from": null,
-          "to": "ASSIGNED",
+          "to": "TODO",
           "actor": "routing",
           "at": "2026-08-27T13:44:59.881Z"
         }
@@ -176,8 +176,8 @@
       "body": "Work from this investigation. Figures stay on the investigation record.",
       "queue": "hardware",
       "assignee": "eng_jonah_adeyemi",
-      "priority": "P3",
-      "status": "ASSIGNED",
+      "priority": "MEDIUM",
+      "status": "TODO",
       "source": {
         "investigation_id": "inv_cnd_tag_skin_irritation",
         "action_id": "a_3",
@@ -197,7 +197,7 @@
         {
           "kind": "created",
           "from": null,
-          "to": "ASSIGNED",
+          "to": "TODO",
           "actor": "routing",
           "at": "2026-08-27T13:44:59.881Z"
         }
@@ -209,8 +209,8 @@
       "body": "Work from this investigation. Figures stay on the investigation record.",
       "queue": "product_comms",
       "assignee": "eng_hannah_briggs",
-      "priority": "P3",
-      "status": "ASSIGNED",
+      "priority": "MEDIUM",
+      "status": "TODO",
       "source": {
         "investigation_id": "inv_cnd_tag_claims_interpretation",
         "action_id": "a_1",
@@ -229,7 +229,7 @@
         {
           "kind": "created",
           "from": null,
-          "to": "ASSIGNED",
+          "to": "TODO",
           "actor": "routing",
           "at": "2026-08-27T13:44:59.881Z"
         }
@@ -241,8 +241,8 @@
       "body": "Work from this investigation. Figures stay on the investigation record.",
       "queue": "product_comms",
       "assignee": "eng_hannah_briggs",
-      "priority": "P3",
-      "status": "ASSIGNED",
+      "priority": "MEDIUM",
+      "status": "TODO",
       "source": {
         "investigation_id": "inv_cnd_tag_claims_interpretation",
         "action_id": "a_2",
@@ -262,7 +262,7 @@
         {
           "kind": "created",
           "from": null,
-          "to": "ASSIGNED",
+          "to": "TODO",
           "actor": "routing",
           "at": "2026-08-27T13:44:59.881Z"
         }
@@ -274,8 +274,8 @@
       "body": "Work from this investigation. Figures stay on the investigation record.",
       "queue": "product_comms",
       "assignee": "eng_luca_ferrara",
-      "priority": "P2",
-      "status": "ASSIGNED",
+      "priority": "HIGH",
+      "status": "TODO",
       "source": {
         "investigation_id": "inv_cnd_tag_claims_interpretation",
         "action_id": "a_3",
@@ -294,7 +294,7 @@
         {
           "kind": "created",
           "from": null,
-          "to": "ASSIGNED",
+          "to": "TODO",
           "actor": "routing",
           "at": "2026-08-27T13:44:59.881Z"
         }
@@ -306,8 +306,8 @@
       "body": "Work from this investigation. Figures stay on the investigation record.",
       "queue": "data_telemetry",
       "assignee": "eng_samira_elsayed",
-      "priority": "P3",
-      "status": "ASSIGNED",
+      "priority": "MEDIUM",
+      "status": "TODO",
       "source": {
         "investigation_id": "inv_cnd_tag_overheating",
         "action_id": "a_1",
@@ -327,7 +327,7 @@
         {
           "kind": "created",
           "from": null,
-          "to": "ASSIGNED",
+          "to": "TODO",
           "actor": "routing",
           "at": "2026-08-27T13:44:59.881Z"
         }
@@ -339,8 +339,8 @@
       "body": "Work from this investigation. Figures stay on the investigation record.",
       "queue": "data_telemetry",
       "assignee": "eng_owen_walsh",
-      "priority": "P3",
-      "status": "ASSIGNED",
+      "priority": "MEDIUM",
+      "status": "TODO",
       "source": {
         "investigation_id": "inv_cnd_tag_overheating",
         "action_id": "a_2",
@@ -360,7 +360,7 @@
         {
           "kind": "created",
           "from": null,
-          "to": "ASSIGNED",
+          "to": "TODO",
           "actor": "routing",
           "at": "2026-08-27T13:44:59.881Z"
         }

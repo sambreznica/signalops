@@ -1,39 +1,63 @@
-import { QUEUE_IDS, type Ticket, type TicketQueue, type TicketStatus } from "../schema/ticket";
+import {
+  QUEUE_IDS,
+  RAIL_STATUSES,
+  type Ticket,
+  type TicketQueue,
+  type TicketStatus,
+} from "../schema/ticket";
 
 /** OPERATIONS §6. No other edges exist. */
 export const LEGAL_STATUS: Record<TicketStatus, readonly TicketStatus[]> = {
-  ON_DECK: ["ASSIGNED"],
-  ASSIGNED: ["IN_PROGRESS", "ON_DECK"],
-  IN_PROGRESS: ["BLOCKED", "DONE", "ASSIGNED"],
-  BLOCKED: ["IN_PROGRESS", "ASSIGNED"],
+  TRIAGE: ["BACKLOG", "TODO"],
+  BACKLOG: ["TRIAGE", "TODO"],
+  TODO: ["IN_PROGRESS", "BACKLOG", "TRIAGE", "CANCELLED"],
+  IN_PROGRESS: ["IN_REVIEW", "BLOCKED", "TODO", "DONE", "CANCELLED"],
+  IN_REVIEW: ["DONE", "IN_PROGRESS", "BLOCKED", "CANCELLED"],
+  BLOCKED: ["IN_PROGRESS", "IN_REVIEW", "TODO"],
   DONE: ["IN_PROGRESS"],
+  CANCELLED: ["TODO"],
 };
 
 export const BOARD_COLUMNS = [
-  "ASSIGNED",
+  "TODO",
   "IN_PROGRESS",
+  "IN_REVIEW",
   "BLOCKED",
   "DONE",
+  "CANCELLED",
 ] as const;
 
 export type BoardColumn = (typeof BOARD_COLUMNS)[number];
+
+export function isRailStatus(status: TicketStatus): boolean {
+  return (RAIL_STATUSES as readonly TicketStatus[]).includes(status);
+}
 
 export function isLegalStatusChange(
   from: TicketStatus,
   to: TicketStatus,
   queue: TicketQueue | null,
+  assignee: string | null,
 ): boolean {
   if (from === to) return true;
   if (!LEGAL_STATUS[from].includes(to)) return false;
-  if (to !== "ON_DECK" && queue === null) return false;
-  return true;
+  if (to === "TRIAGE") return true;
+  if (to === "BACKLOG") return queue !== null;
+  if (to === "TODO") return queue !== null && assignee !== null;
+  if (to === "CANCELLED") return true;
+  return queue !== null && assignee !== null;
 }
 
 export type DropTarget =
   | { kind: "rail" }
   | { kind: "column"; status: BoardColumn }
   | { kind: "cell"; status: BoardColumn; queue: TicketQueue }
-  | { kind: "person"; engineerId: string; status: BoardColumn };
+  | {
+      kind: "person";
+      engineerId: string;
+      status: BoardColumn;
+      queue?: TicketQueue;
+    };
 
 export type TicketPatch = {
   status?: TicketStatus;
@@ -49,8 +73,9 @@ export function patchForDrop(
   target: DropTarget,
 ): TicketPatch | null {
   if (target.kind === "rail") {
-    if (ticket.status === "ON_DECK" && ticket.assignee === null) return null;
-    return { status: "ON_DECK", assignee: null };
+    if (isRailStatus(ticket.status) && ticket.assignee === null) return null;
+    if (ticket.queue === null) return { status: "TRIAGE", assignee: null };
+    return { status: "BACKLOG", assignee: null };
   }
   if (target.kind === "column") {
     if (ticket.status === target.status) return null;
@@ -62,12 +87,22 @@ export function patchForDrop(
     if (same) return null;
     return { status: target.status, queue: target.queue };
   }
-  const nextStatus =
-    ticket.status === "ON_DECK" ? target.status : ticket.status;
+  const fromRail = isRailStatus(ticket.status);
+  const nextStatus: TicketStatus = fromRail ? "TODO" : ticket.status;
+  const nextQueue = fromRail
+    ? (target.queue ?? ticket.queue)
+    : ticket.queue;
   const same =
-    ticket.assignee === target.engineerId && ticket.status === nextStatus;
+    ticket.assignee === target.engineerId &&
+    ticket.status === nextStatus &&
+    ticket.queue === nextQueue;
   if (same) return null;
-  return { assignee: target.engineerId, status: nextStatus };
+  const patch: TicketPatch = {
+    assignee: target.engineerId,
+    status: nextStatus,
+  };
+  if (nextQueue !== ticket.queue) patch.queue = nextQueue;
+  return patch;
 }
 
 export function parseDropId(id: string): DropTarget | null {
@@ -95,15 +130,20 @@ export function parseDropId(id: string): DropTarget | null {
   }
   if (id.startsWith("person:")) {
     const rest = id.slice("person:".length);
-    const cut = rest.lastIndexOf(":");
-    if (cut < 0) return null;
-    const engineerId = rest.slice(0, cut);
-    const status = rest.slice(cut + 1);
+    const parts = rest.split(":");
+    if (parts.length < 2) return null;
+    const engineerId = parts[0]!;
+    const status = parts[1]!;
+    const queue = parts[2];
     if (!(BOARD_COLUMNS as readonly string[]).includes(status)) return null;
+    if (queue !== undefined && !(QUEUE_IDS as readonly string[]).includes(queue)) {
+      return null;
+    }
     return {
       kind: "person",
       engineerId,
       status: status as BoardColumn,
+      queue: queue as TicketQueue | undefined,
     };
   }
   return null;

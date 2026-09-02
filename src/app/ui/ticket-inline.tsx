@@ -12,7 +12,7 @@ export function TicketInline({ ticket }: { ticket: Ticket }) {
   const engineer = ticket.assignee ? engineerById(ticket.assignee) : null;
   const queue =
     ticket.queue === null
-      ? "unset (on deck)"
+      ? "unset (triage)"
       : (QUEUE_LABEL[ticket.queue] ?? ticket.queue);
   const who = engineer ? engineer.name : "unassigned";
   return (
