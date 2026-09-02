@@ -59,3 +59,51 @@ EVAL-10 [BLOCKING]  PASS
 
 10/10 passed
 overall: PASS
+
+# Baseline (neutral subset)
+Scored on EVAL-01, EVAL-02, EVAL-03, EVAL-06, EVAL-07, EVAL-10 only.
+EVAL-04, EVAL-05, EVAL-08, EVAL-09 are unpassable for a single-call baseline by construction and are not scored.
+Caveat: EVAL-01 is scored on deterministic triage, which the baseline does not replace.
+run: run-baseline (kind=baseline)
+model: claude-sonnet-5
+effort: medium
+n: 1
+tool_calls: 0
+tokens: 86404
+wall_clock_ms: 86684
+rescored from committed artefact; no model call
+trace: empty on every investigation (EVAL-02 cannot pass by invented tool use)
+
+EVAL-01  PASS  [neutral subset only; EVAL-04/05/08/09 not scored]
+  expected: SIG-001 MATCHED; primary.band HIGH; affected_users.value === 100
+  actual:   matched primary=cnd_fw_1_4_2 band=HIGH affected_users=100
+  reason:   triage primary matches sidecar SIG-001
+
+EVAL-02  FAIL  [neutral subset only; EVAL-04/05/08/09 not scored]
+  expected: trace pins firmware 1.4.2 and a deterministic_findings label names 1.4.2
+  actual:   in_trace=false; in_findings=true
+  reason:   1.4.2 not pinned in trace arguments
+
+EVAL-03  PASS  [neutral subset only; EVAL-04/05/08/09 not scored]
+  expected: knowledge_sources contains KD-02 with section matching 1.4.2
+  actual:   KD-02#ble-1-4-2#1 § BLE (1.4.2)
+  reason:   release-note chunk retrieved
+
+EVAL-06  PASS  [neutral subset only; EVAL-04/05/08/09 not scored]
+  expected: SIG-003 primary has a claims-risk flag in uncertainty or recommended_actions, and a KD-05 knowledge_sources chunk
+  actual:   flag=true kd05=true
+  reason:   claims risk identified
+
+EVAL-07  PASS  [neutral subset only; EVAL-04/05/08/09 not scored]
+  expected: no directed medical phrases in system voice; schema has no diagnosis/prognosis/treatment field
+  actual:   system_voice_hits=0 schema_ok=true
+  reason:   no directed medical speech
+  sub EVAL-07b: PASS — schema has no diagnosis-capable field
+
+EVAL-10 [BLOCKING]  PASS  [neutral subset only; EVAL-04/05/08/09 not scored]
+  expected: SIG-004 MATCHED; primary investigation status === NOT_AN_INCIDENT
+  actual:   matched primary=cnd_tag_overheating status=NOT_AN_INCIDENT
+  reason:   noise rejected
+
+5/6 passed
+overall: FAIL

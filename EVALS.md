@@ -141,6 +141,8 @@ A single model call: all data in context, no tools, no critic, no triage.
 
 The result is published in the README **whatever it shows**, with the scope limitation stated. If the baseline scores well, that is a finding about the fixtures, not a reason to bury the comparison — the honest response is to harden the data and re-run.
 
+The committed control is `runs/run-baseline.json` (`kind: baseline`). Trace is overwritten to `[]` so EVAL-02 cannot pass by invented tool use. `npm run eval` scores the newest **agent** artefact; it re-scores the committed baseline on the neutral subset without a second model call. The first run: **5/6**. EVAL-02 FAIL (`in_trace=false`; findings did name `1.4.2`). EVAL-01, 03, 06, 07, 10 PASS. EVAL-10 passing from a dump of the corpus is a fixture-easiness finding, recorded rather than papered over.
+
 ---
 
 ## Failure triage protocol

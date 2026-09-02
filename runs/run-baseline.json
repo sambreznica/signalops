@@ -1,0 +1,654 @@
+{
+  "run_id": "run-baseline",
+  "timestamp": "2026-09-02T19:18:13.159Z",
+  "model": "claude-sonnet-5",
+  "effort": "medium",
+  "n": 1,
+  "kind": "baseline",
+  "investigations": [
+    {
+      "candidate_id": "cnd_fw_1_4_2",
+      "output": {
+        "investigation_id": "inv_cnd_fw_1_4_2",
+        "signal_id": "cnd_fw_1_4_2",
+        "title": "BLE disconnect step-change isolated to firmware 1.4.2",
+        "status": "CONFIRMED",
+        "severity": {
+          "value": 1,
+          "unit": "index",
+          "source": {
+            "kind": "triage",
+            "signal_id": "cnd_fw_1_4_2"
+          }
+        },
+        "confidence": {
+          "granted": null,
+          "model_requested": "HIGH",
+          "ceiling_rule_applied": null
+        },
+        "summary": "Fleet BLE disconnect rate jumped from a stable ~1.5/device-day baseline (all trains, current and prior windows) to 10.53/device-day on firmware 1.4.2 in the current window. The 1.4.1+app 3.2 resolver cell (devices that share the app 3.2 scheduler rewrite but kept the older firmware supervisor) stayed at 1.5417/device-day, matching historical baseline. This isolates the spike to the 1.4.2 firmware's supervisor-timeout/backoff change rather than to app 3.2's scheduler rewrite or to regional RF environment. Feedback volume (70 connectivity tickets, all firmware 1.4.2/app 3.2) corroborates the magnitude.",
+        "affected_cohort": {
+          "value": 100,
+          "unit": "users",
+          "source": {
+            "kind": "triage",
+            "signal_id": "cnd_fw_1_4_2"
+          }
+        },
+        "leading_hypothesis": {
+          "statement": "The 1.4.2 firmware change (supervision timeout 4s→2s, retry backoff linear→exponential 250ms cap) caused a step-change increase in BLE disconnects, confirmed by the 1.4.1+app3.2 resolver cell remaining at baseline.",
+          "evidence_type": "causal"
+        },
+        "alternative_hypotheses": [
+          {
+            "statement": "The app 3.2 background scheduler rewrite, not the firmware, is driving the disconnect spike.",
+            "evidence_type": "correlational",
+            "status": "weakened",
+            "falsifying_test": "Resolver cell 1.4.1+3.2 shows rate 1.5417, indistinguishable from historical baseline, while 1.4.2+3.2 shows 10.53 — app version held constant, firmware varies, effect tracks firmware."
+          },
+          {
+            "statement": "Dense-office BLE chatter (KI-RF-003) or regional RF environment explains the elevated count.",
+            "evidence_type": "documented",
+            "status": "rejected",
+            "falsifying_test": "KI-RF-003 magnitude is single-digit additions on all trains; observed 1.4.2 rate (10.53) is a 7x jump over baseline across all five regions, exceeding the known office-chatter envelope."
+          },
+          {
+            "statement": "This mirrors the previously-overturned 1.3.0 disconnect scare (INC-2025-014), where firmware was wrongly blamed.",
+            "evidence_type": "documented",
+            "status": "weakened",
+            "falsifying_test": "INC-2025-014 was falsified using a same-phone hold-out on 1.2.0 showing the same burst; here the 1.4.1+3.2 resolver cell (same app, different firmware) does NOT show the burst, which is the opposite signature."
+          }
+        ],
+        "deterministic_findings": [
+          {
+            "id": "f_1",
+            "label": "current 1.4.2 BLE disconnect rate",
+            "value": 10.53,
+            "unit": "disconnects_per_device_day",
+            "source": {
+              "kind": "triage",
+              "signal_id": "cnd_fw_1_4_2"
+            }
+          },
+          {
+            "id": "f_2",
+            "label": "1.4.1 x app 3.2 resolver cell rate",
+            "value": 1.5417,
+            "unit": "disconnects_per_device_day",
+            "source": {
+              "kind": "triage",
+              "signal_id": "cnd_fw_1_4_2"
+            }
+          },
+          {
+            "id": "f_3",
+            "label": "fleet current rate",
+            "value": 3.7667,
+            "unit": "disconnects_per_device_day",
+            "source": {
+              "kind": "triage",
+              "signal_id": "cnd_fw_1_4_2"
+            }
+          },
+          {
+            "id": "f_4",
+            "label": "app 3.2 current rate",
+            "value": 8.351,
+            "unit": "disconnects_per_device_day",
+            "source": {
+              "kind": "triage",
+              "signal_id": "cnd_fw_1_4_2"
+            }
+          }
+        ],
+        "supporting_evidence": [],
+        "counter_evidence": [],
+        "knowledge_sources": [
+          {
+            "doc_id": "KD-02",
+            "title": "Firmware and Companion Release Notes",
+            "section": "BLE (1.4.2)",
+            "chunk_id": "KD-02#ble-1-4-2#1",
+            "score": 0
+          },
+          {
+            "doc_id": "KD-02",
+            "title": "Firmware and Companion Release Notes",
+            "section": "BLE (1.4.2)",
+            "chunk_id": "KD-02#ble-1-4-2#2",
+            "score": 0
+          },
+          {
+            "doc_id": "KD-02",
+            "title": "Firmware and Companion Release Notes",
+            "section": "Staging",
+            "chunk_id": "KD-02#staging#1",
+            "score": 0
+          },
+          {
+            "doc_id": "KD-03",
+            "title": "Support Playbook — Kestrel Loop",
+            "section": "Splits to capture (connectivity)",
+            "chunk_id": "KD-03#splits-to-capture-connectivity#1",
+            "score": 0
+          },
+          {
+            "doc_id": "KD-06",
+            "title": "Historical Incident Log — Kestrel Loop",
+            "section": "INC-2025-014 — 1.3.0 disconnect cluster (initial radio hypothesis overturned)",
+            "chunk_id": "KD-06#inc-2025-014-1-3-0-disconnect-cluster-initial-radio-hypothesis-overturned#1",
+            "score": 0
+          },
+          {
+            "doc_id": "KD-06",
+            "title": "Historical Incident Log — Kestrel Loop",
+            "section": "Lesson",
+            "chunk_id": "KD-06#lesson#1",
+            "score": 0
+          },
+          {
+            "doc_id": "KD-01",
+            "title": "Product Specification — Kestrel Loop",
+            "section": "3.4 BLE disconnects",
+            "chunk_id": "KD-01#3-4-ble-disconnects#1",
+            "score": 0
+          }
+        ],
+        "recommended_actions": [
+          {
+            "action_id": "act_cnd_fw_1_4_2_1",
+            "description": "Escalate to firmware engineering to re-characterize 1.4.2 supervisor timeout/backoff change against outdoor, body-block, and commuting RF conditions (not just indoor soak lab).",
+            "risk_class": "INTERNAL"
+          },
+          {
+            "action_id": "act_cnd_fw_1_4_2_2",
+            "description": "Prepare staged rollback path from 1.4.2 to 1.4.1 via factory tool for the affected cohort pending root-cause confirmation.",
+            "risk_class": "PRODUCTION"
+          },
+          {
+            "action_id": "act_cnd_fw_1_4_2_3",
+            "description": "Continue collecting 1.4.1-control same-household splits per support playbook to further corroborate the firmware-specific signature before any customer communication.",
+            "risk_class": "INTERNAL"
+          }
+        ],
+        "uncertainty": [
+          "1.4.2 has no prior-window baseline (it shipped inside the current window), so the comparison relies on cross-sectional resolver cells rather than a true before/after on the same train.",
+          "Soak lab data for 1.4.2 only covered indoor office RF; outdoor/body-block field conditions were not re-characterized at ship, so the mechanism (vs. just the correlation) is not yet fully confirmed at the component level."
+        ],
+        "trace": []
+      },
+      "pre_critic": null,
+      "stop_reason": "completed",
+      "validation_error": null,
+      "validation_emit": null,
+      "validation_attempts": [],
+      "metrics": {
+        "tool_calls": 0,
+        "tokens": 21601,
+        "wall_clock_ms": 21671,
+        "cache_hits": 0,
+        "cache_misses": 0
+      }
+    },
+    {
+      "candidate_id": "cnd_tag_skin_irritation",
+      "output": {
+        "investigation_id": "inv_cnd_tag_skin_irritation",
+        "signal_id": "cnd_tag_skin_irritation",
+        "title": "Skin-irritation and adhesion feedback consistent with existing open characterization",
+        "status": "UNCERTAIN",
+        "severity": {
+          "value": 0.2829807692307692,
+          "unit": "index",
+          "source": {
+            "kind": "triage",
+            "signal_id": "cnd_tag_skin_irritation"
+          }
+        },
+        "confidence": {
+          "granted": null,
+          "model_requested": "MEDIUM",
+          "ceiling_rule_applied": null
+        },
+        "summary": "Adhesion-flag telemetry shows only a modest fleet-wide increase (0.1358 current vs 0.1250 prior) with no firmware or region standing out sharply; 1.4.2's current rate (0.1367) is close to 1.4.1's prior rate (0.1364). Feedback volume spans nearly every firmware and region with recurring themes of high-motion lift, sweat, and heat — matching the already-open KI-AD-007 mechanism (high motion_intensity + elevated skin_temp_delta_c) rather than pointing to a single new defect or lot.",
+        "affected_cohort": {
+          "value": 22,
+          "unit": "users",
+          "source": {
+            "kind": "triage",
+            "signal_id": "cnd_tag_skin_irritation"
+          }
+        },
+        "leading_hypothesis": {
+          "statement": "Reported adhesion/skin-irritation feedback reflects the pre-existing, open high-motion adhesive lift characterization (KI-AD-007), not a new firmware- or lot-specific defect.",
+          "evidence_type": "correlational"
+        },
+        "alternative_hypotheses": [
+          {
+            "statement": "A new adhesive lot defect is driving the cluster, similar to the confirmed INC-2025-031 lot incident.",
+            "evidence_type": "documented",
+            "status": "open",
+            "falsifying_test": "Pull lot codes from affected devices' pouches and check retained-sample peel strength against unaffected lots in the same firmware window; INC-2025-031 was only closed once a specific lot failed retained testing."
+          },
+          {
+            "statement": "Firmware 1.4.2 specifically elevates adhesion flags via some sensor/heuristic change.",
+            "evidence_type": "correlational",
+            "status": "weakened",
+            "falsifying_test": "1.4.2's current adhesion rate (0.1367) is in the same band as other firmware trains current and prior; KD-02 states the adhesion-flag heuristic was unchanged in 1.4.2."
+          }
+        ],
+        "deterministic_findings": [
+          {
+            "id": "f_1",
+            "label": "fleet adhesion_flag current",
+            "value": 0.1358,
+            "unit": "flags_per_device_day",
+            "source": {
+              "kind": "triage",
+              "signal_id": "cnd_tag_skin_irritation"
+            }
+          },
+          {
+            "id": "f_2",
+            "label": "fleet adhesion_flag prior",
+            "value": 0.125,
+            "unit": "flags_per_device_day",
+            "source": {
+              "kind": "triage",
+              "signal_id": "cnd_tag_skin_irritation"
+            }
+          },
+          {
+            "id": "f_3",
+            "label": "1.4.2 adhesion_flag current",
+            "value": 0.1367,
+            "unit": "flags_per_device_day",
+            "source": {
+              "kind": "triage",
+              "signal_id": "cnd_tag_skin_irritation"
+            }
+          }
+        ],
+        "supporting_evidence": [],
+        "counter_evidence": [],
+        "knowledge_sources": [
+          {
+            "doc_id": "KD-04",
+            "title": "Known Issues Register — Kestrel Loop",
+            "section": "KI-AD-007 Adhesion lift under high motion (open)",
+            "chunk_id": "KD-04#ki-ad-007-adhesion-lift-under-high-motion-open#1",
+            "score": 0
+          },
+          {
+            "doc_id": "KD-04",
+            "title": "Known Issues Register — Kestrel Loop",
+            "section": "Mechanism (adhesion)",
+            "chunk_id": "KD-04#mechanism-adhesion#1",
+            "score": 0
+          },
+          {
+            "doc_id": "KD-04",
+            "title": "Known Issues Register — Kestrel Loop",
+            "section": "What this KI is not",
+            "chunk_id": "KD-04#what-this-ki-is-not#1",
+            "score": 0
+          },
+          {
+            "doc_id": "KD-03",
+            "title": "Support Playbook — Kestrel Loop",
+            "section": "What not to close (adhesion)",
+            "chunk_id": "KD-03#what-not-to-close-adhesion#1",
+            "score": 0
+          },
+          {
+            "doc_id": "KD-06",
+            "title": "Historical Incident Log — Kestrel Loop",
+            "section": "INC-2025-031 — Adhesive lot lift (confirmed hardware)",
+            "chunk_id": "KD-06#inc-2025-031-adhesive-lot-lift-confirmed-hardware#1",
+            "score": 0
+          },
+          {
+            "doc_id": "KD-01",
+            "title": "Product Specification — Kestrel Loop",
+            "section": "9.2 High-activity adhesion remains open",
+            "chunk_id": "KD-01#9-2-high-activity-adhesion-remains-open#1",
+            "score": 0
+          }
+        ],
+        "recommended_actions": [
+          {
+            "action_id": "act_cnd_tag_skin_irritation_1",
+            "description": "Escalate the feedback cluster to Quality for a lot-code split to rule in/out a repeat of the INC-2025-031 pattern before treating this as characteristic-only.",
+            "risk_class": "INTERNAL"
+          },
+          {
+            "action_id": "act_cnd_tag_skin_irritation_2",
+            "description": "Continue routing tickets through the adhesion queue with replacement rings offered; do not close tickets as expected behavior per playbook guidance.",
+            "risk_class": "INTERNAL"
+          }
+        ],
+        "uncertainty": [
+          "No lot-code field is present in the telemetry export provided, so a lot-specific defect (as in INC-2025-031) cannot be ruled in or out from this data alone.",
+          "The modest fleet-wide increase (0.1250→0.1358) could reflect seasonal activity increase rather than any device-side change; no motion_intensity or skin_temp_delta_c cross-tab was available to test the KI-AD-007 mechanism directly against this feedback set."
+        ],
+        "trace": []
+      },
+      "pre_critic": null,
+      "stop_reason": "completed",
+      "validation_error": null,
+      "validation_emit": null,
+      "validation_attempts": [],
+      "metrics": {
+        "tool_calls": 0,
+        "tokens": 21601,
+        "wall_clock_ms": 21671,
+        "cache_hits": 0,
+        "cache_misses": 0
+      }
+    },
+    {
+      "candidate_id": "cnd_tag_claims_interpretation",
+      "output": {
+        "investigation_id": "inv_cnd_tag_claims_interpretation",
+        "signal_id": "cnd_tag_claims_interpretation",
+        "title": "Wellness-score misread as clinical result — recurring claims-interpretation pattern",
+        "status": "CONFIRMED",
+        "severity": {
+          "value": 0.45,
+          "unit": "index",
+          "source": {
+            "kind": "triage",
+            "signal_id": "cnd_tag_claims_interpretation"
+          }
+        },
+        "confidence": {
+          "granted": null,
+          "model_requested": "MEDIUM",
+          "ceiling_rule_applied": null
+        },
+        "summary": "Eighteen feedback tickets across firmware 1.2.0, 1.3.0, 1.4.0, 1.4.1 and 1.4.2 and across all five regions describe the readiness score being treated as a clinical/medical result (e.g., 'medical result', 'health verdict', 'lab result'). This matches the documented, previously-confirmed communications-risk pattern (KD-06 INC-2025-002) rather than a hardware or scoring defect. Five other tickets in the same window explicitly confirm wearers correctly understood the score as wellness-only after clarification, indicating the confusion is copy/perception-driven and not universal.",
+        "affected_cohort": {
+          "value": 20,
+          "unit": "users",
+          "source": {
+            "kind": "triage",
+            "signal_id": "cnd_tag_claims_interpretation"
+          }
+        },
+        "leading_hypothesis": {
+          "statement": "A recurring subset of wearers interpret the readiness score/tile as a clinical finding, consistent with the documented claims-misread pattern rather than any scoring or hardware defect.",
+          "evidence_type": "documented"
+        },
+        "alternative_hypotheses": [
+          {
+            "statement": "A specific app or firmware release introduced new clinical-sounding copy that caused the misread.",
+            "evidence_type": "documented",
+            "status": "rejected",
+            "falsifying_test": "KD-05 records that app 3.2's copy review (2026-05-02) added no new clinical vocabulary, and misread tickets appear across firmware/app combinations spanning multiple release trains, not concentrated on one."
+          },
+          {
+            "statement": "The scoring algorithm itself is producing anomalous or out-of-family values that resemble clinical flags.",
+            "evidence_type": "correlational",
+            "status": "rejected",
+            "falsifying_test": "KD-06 INC-2025-002 closure established the integer score was in-family and no scoring rollback was needed; nothing in this feedback set describes an out-of-range score value."
+          }
+        ],
+        "deterministic_findings": [
+          {
+            "id": "f_1",
+            "label": "claims-misread tickets (clinical-result language)",
+            "value": 18,
+            "unit": "tickets",
+            "source": {
+              "kind": "triage",
+              "signal_id": "cnd_tag_claims_interpretation"
+            }
+          },
+          {
+            "id": "f_2",
+            "label": "confirmed-non-issue claims tickets (wellness-only acknowledged)",
+            "value": 5,
+            "unit": "tickets",
+            "source": {
+              "kind": "triage",
+              "signal_id": "cnd_tag_claims_interpretation"
+            }
+          }
+        ],
+        "supporting_evidence": [],
+        "counter_evidence": [],
+        "knowledge_sources": [
+          {
+            "doc_id": "KD-05",
+            "title": "Wellness Claims and Communications Policy",
+            "section": "3. Readiness — permitted descriptions",
+            "chunk_id": "KD-05#3-readiness-permitted-descriptions#1",
+            "score": 0
+          },
+          {
+            "doc_id": "KD-05",
+            "title": "Wellness Claims and Communications Policy",
+            "section": "4. Readiness — prohibited descriptions",
+            "chunk_id": "KD-05#4-readiness-prohibited-descriptions#1",
+            "score": 0
+          },
+          {
+            "doc_id": "KD-05",
+            "title": "Wellness Claims and Communications Policy",
+            "section": "8. Historical reminder",
+            "chunk_id": "KD-05#8-historical-reminder#1",
+            "score": 0
+          },
+          {
+            "doc_id": "KD-03",
+            "title": "Support Playbook — Kestrel Loop",
+            "section": "Intake (claims-misread)",
+            "chunk_id": "KD-03#intake-claims-misread#1",
+            "score": 0
+          },
+          {
+            "doc_id": "KD-03",
+            "title": "Support Playbook — Kestrel Loop",
+            "section": "Staff script (claims-misread)",
+            "chunk_id": "KD-03#staff-script-claims-misread#1",
+            "score": 0
+          },
+          {
+            "doc_id": "KD-06",
+            "title": "Historical Incident Log — Kestrel Loop",
+            "section": "INC-2025-002 — Readiness screenshots as clinical results (comms)",
+            "chunk_id": "KD-06#inc-2025-002-readiness-screenshots-as-clinical-results-comms#1",
+            "score": 0
+          }
+        ],
+        "recommended_actions": [
+          {
+            "action_id": "act_cnd_tag_claims_interpretation_1",
+            "description": "Reinforce the claims-misread support script (KD-03) with staff and confirm no medical-advice language is used on threads.",
+            "risk_class": "INTERNAL"
+          },
+          {
+            "action_id": "act_cnd_tag_claims_interpretation_2",
+            "description": "Flag on-screen readiness copy for another Communications/Legal review to see if additional wellness-only framing could reduce misread rate, per KD-05 section 7.1.",
+            "risk_class": "INTERNAL"
+          }
+        ],
+        "uncertainty": [
+          "This is a communications-risk finding, not a clinical or hardware determination; this record does not assess or comment on any wearer's health status.",
+          "The dataset does not indicate whether misread volume is rising or falling over time since only a single current window is available with no comparable prior-window claims tag breakdown."
+        ],
+        "trace": []
+      },
+      "pre_critic": null,
+      "stop_reason": "completed",
+      "validation_error": null,
+      "validation_emit": null,
+      "validation_attempts": [],
+      "metrics": {
+        "tool_calls": 0,
+        "tokens": 21601,
+        "wall_clock_ms": 21671,
+        "cache_hits": 0,
+        "cache_misses": 0
+      }
+    },
+    {
+      "candidate_id": "cnd_tag_overheating",
+      "output": {
+        "investigation_id": "inv_cnd_tag_overheating",
+        "signal_id": "cnd_tag_overheating",
+        "title": "Overheating-tagged feedback traced to Nordics regional battery drain and red battery UI chrome",
+        "status": "NOT_AN_INCIDENT",
+        "severity": {
+          "value": 0.1096875,
+          "unit": "index",
+          "source": {
+            "kind": "triage",
+            "signal_id": "cnd_tag_overheating"
+          }
+        },
+        "confidence": {
+          "granted": null,
+          "model_requested": "MEDIUM",
+          "ceiling_rule_applied": null
+        },
+        "summary": "All 50 overheating-tagged feedback records originate from the Nordics region and describe cold-weather battery drain alongside warmth/heat language and an alarming red battery/sync screen. Telemetry confirms Nordics battery_drain_pct (17.28% current) is elevated versus other regions (~12.9%) but this is a long-standing, stable regional characteristic (KI-NW-014), present in both current and prior windows and not a new step. skin_temp_delta_c in Nordics (1.35°C) is not elevated versus other regions and does not correlate with drain, ruling out a thermal/patch-temperature explanation. The 'overheating' language is best explained by the documented cosmetic UI chrome issue (KI-UI-011: harsh red battery fill below 40%).",
+        "affected_cohort": {
+          "value": 23,
+          "unit": "users",
+          "source": {
+            "kind": "triage",
+            "signal_id": "cnd_tag_overheating"
+          }
+        },
+        "leading_hypothesis": {
+          "statement": "Overheating-tagged tickets reflect the known Nordics battery-drain regional characteristic (KI-NW-014) combined with the cosmetic red-battery UI chrome (KI-UI-011), not an actual thermal or hardware defect.",
+          "evidence_type": "documented"
+        },
+        "alternative_hypotheses": [
+          {
+            "statement": "There is a genuine thermal/hardware defect causing devices or phones to run hot.",
+            "evidence_type": "correlational",
+            "status": "rejected",
+            "falsifying_test": "skin_temp_delta_c shows no elevation in Nordics (1.35°C vs UK 1.31°C) and near-zero correlation with battery drain (-0.04); the operations export has no ambient/thermal channel to support a thermal-rail claim, and all values are within typical field range."
+          },
+          {
+            "statement": "This is a new, firmware-driven battery/thermal regression coinciding with 1.4.2.",
+            "evidence_type": "correlational",
+            "status": "weakened",
+            "falsifying_test": "1.4.2's own mean drain across all regions (~14.1%) is in line with 1.4.1 (~13.9%); the Nordics elevation is present across firmware 1.2.0 through 1.4.2 and in both current and prior windows, indicating a regional, not firmware, effect."
+          }
+        ],
+        "deterministic_findings": [
+          {
+            "id": "f_1",
+            "label": "Nordics battery_drain_pct current",
+            "value": 17.28,
+            "unit": "percent_per_device_day",
+            "source": {
+              "kind": "triage",
+              "signal_id": "cnd_tag_overheating"
+            }
+          },
+          {
+            "id": "f_2",
+            "label": "Nordics skin_temp_delta_c current",
+            "value": 1.35,
+            "unit": "celsius_per_device_day",
+            "source": {
+              "kind": "triage",
+              "signal_id": "cnd_tag_overheating"
+            }
+          },
+          {
+            "id": "f_3",
+            "label": "overheating-tagged feedback count (all Nordics)",
+            "value": 50,
+            "unit": "tickets",
+            "source": {
+              "kind": "triage",
+              "signal_id": "cnd_tag_overheating"
+            }
+          }
+        ],
+        "supporting_evidence": [],
+        "counter_evidence": [],
+        "knowledge_sources": [
+          {
+            "doc_id": "KD-04",
+            "title": "Known Issues Register — Kestrel Loop",
+            "section": "KI-NW-014 Nordics elevated daily battery drain (standing, benign)",
+            "chunk_id": "KD-04#ki-nw-014-nordics-elevated-daily-battery-drain-standing-benign#1",
+            "score": 0
+          },
+          {
+            "doc_id": "KD-04",
+            "title": "Known Issues Register — Kestrel Loop",
+            "section": "What the field export actually shows",
+            "chunk_id": "KD-04#what-the-field-export-actually-shows#1",
+            "score": 0
+          },
+          {
+            "doc_id": "KD-04",
+            "title": "Known Issues Register — Kestrel Loop",
+            "section": "What not to use as the explanation",
+            "chunk_id": "KD-04#what-not-to-use-as-the-explanation#1",
+            "score": 0
+          },
+          {
+            "doc_id": "KD-04",
+            "title": "Known Issues Register — Kestrel Loop",
+            "section": "KI-UI-011 App battery chrome reads as “overheating” (standing, cosmetic)",
+            "chunk_id": "KD-04#ki-ui-011-app-battery-chrome-reads-as-overheating-standing-cosmetic#1",
+            "score": 0
+          },
+          {
+            "doc_id": "KD-03",
+            "title": "Support Playbook — Kestrel Loop",
+            "section": "Nordics versus other regions (battery)",
+            "chunk_id": "KD-03#nordics-versus-other-regions-battery#1",
+            "score": 0
+          },
+          {
+            "doc_id": "KD-06",
+            "title": "Historical Incident Log — Kestrel Loop",
+            "section": "INC-2024-088 — Nordics winter drain tickets (closed: not an incident)",
+            "chunk_id": "KD-06#inc-2024-088-nordics-winter-drain-tickets-closed-not-an-incident#1",
+            "score": 0
+          }
+        ],
+        "recommended_actions": [
+          {
+            "action_id": "act_cnd_tag_overheating_1",
+            "description": "No hardware escalation warranted; continue routing Nordics battery/overheating tickets per KD-03 as known regional behavior.",
+            "risk_class": "INTERNAL"
+          },
+          {
+            "action_id": "act_cnd_tag_overheating_2",
+            "description": "Consider a low-risk UI copy/threshold change to the red battery fill (KI-UI-011) to reduce 'overheating' mislabeling in future tickets.",
+            "risk_class": "PRODUCTION"
+          }
+        ],
+        "uncertainty": [
+          "The operations export has no ambient temperature or core-thermal-rail channel, so a low-probability genuine thermal fault cannot be fully excluded, only deprioritized given available evidence.",
+          "All overheating-tagged records in this dataset happen to be Nordics; this concentration could reflect ticket tagging conventions rather than an exhaustive account of all overheating-adjacent complaints fleet-wide."
+        ],
+        "trace": []
+      },
+      "pre_critic": null,
+      "stop_reason": "completed",
+      "validation_error": null,
+      "validation_emit": null,
+      "validation_attempts": [],
+      "metrics": {
+        "tool_calls": 0,
+        "tokens": 21601,
+        "wall_clock_ms": 21671,
+        "cache_hits": 0,
+        "cache_misses": 0
+      }
+    }
+  ],
+  "approvals": [],
+  "execution_log": []
+}

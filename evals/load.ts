@@ -90,7 +90,10 @@ function loadNewestRun(): { run: CertificationRun | null; error: string | null }
 
   const specified = process.env.RUN_ID
     ? files.find((file) => path.basename(file, ".json") === process.env.RUN_ID)
-    : files[0];
+    : files.find((file) => {
+        const parsed = certificationRunSchema.safeParse(readJson(file));
+        return parsed.success && parsed.data.kind === "agent";
+      });
 
   if (!specified) {
     return { run: null, error: "no certification JSON in runs/" };
@@ -104,6 +107,13 @@ function loadNewestRun(): { run: CertificationRun | null; error: string | null }
     };
   }
   return { run: parsed.data, error: null };
+}
+
+export function loadRunById(runId: string): CertificationRun | null {
+  const file = path.join(RUNS_DIR, `${runId}.json`);
+  if (!existsSync(file)) return null;
+  const parsed = certificationRunSchema.safeParse(readJson(file));
+  return parsed.success ? parsed.data : null;
 }
 
 export function sidecarSignal(

@@ -468,3 +468,14 @@ Every ticket mutation goes through `applyTicketChange` (`src/lib/tickets/transit
 
 SLA tint: replay `now` is the artefact timestamp, so T0 cards are not overdue by construction. Live wall-clock against that `due_at` is how overdue is real. Proven in `overdue.test.ts`. OPERATIONS §5 records the mechanism.
 
+---
+
+## 2026-09-02 — Baseline control is a real single call
+
+`npm run baseline` was scoring the agent artefact on the six neutral evals. That is not a control. The runner now packs telemetry aggregates, all 500 feedback records, the six knowledge documents, and the chunk catalogue; makes one model call with no tools, no critic, and no triage ids; and stamps the emit onto the four triage primaries in the harness.
+
+Trace is overwritten to `[]`. EVAL-02 cannot pass by invented `compare_versions`. Unknown `chunk_id`s are dropped. `granted` and `ceiling_rule_applied` stay null. `kind: baseline` so `npm run eval` still selects the newest agent run.
+
+First committed result (`runs/run-baseline.json`, `claude-sonnet-5`, n=1): **5/6**. EVAL-02 FAIL (`in_trace=false`, findings named 1.4.2). EVAL-01, 03, 06, 07, 10 PASS. Scope printed on every line. A high score on 03/06/10 from a dump of the corpus is a fixture-easiness finding, published in `evidence/eval-results.md` rather than buried. Data is not hardened in this step — that would be a different CR after the comparison exists.
+
+
