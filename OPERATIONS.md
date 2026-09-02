@@ -2,7 +2,7 @@
 
 This file is authoritative for the ticketing domain. `AGENTS.md` is authoritative on scope. `PRD.md` is authoritative on behaviour. `ARCHITECTURE.md` explains the design.
 
-Everything that creates, routes, or displays a ticket conforms to this document the way everything consumed the frozen schema at session-one item 1. If a later choice disagrees with this file, the file wins until CR-001 is amended in `docs/build-decisions.md`.
+Everything that creates, routes, or displays a ticket conforms to this document the way everything consumed the frozen schema at session-one item 1. If a later choice disagrees with this file, the file wins until CR-002 is amended in `docs/build-decisions.md`.
 
 Tickets are how an approved action becomes work. The investigation still judges. The board operates.
 
@@ -29,7 +29,7 @@ These queues are not the support-playbook queues in KD-03 (`connectivity`, `batt
 
 Ten people. Invented names. Sized for a beta-stage company that ships Loop to UK, Nordics, DACH, Benelux and Iberia from a London centre of gravity, with a few remotes. This is the whole engineering-adjacent bench that can take operations tickets — not the whole company.
 
-WIP is the number of tickets in `ASSIGNED` or `IN_PROGRESS` that may sit on one person. `BLOCKED`, `ON_DECK` and `DONE` do not count. Limits are small because the bench is small; a limit that never binds is decoration.
+WIP is the number of tickets in `TODO`, `IN_PROGRESS` or `IN_REVIEW` that may sit on one person. `TRIAGE`, `BACKLOG`, `BLOCKED`, `DONE` and `CANCELLED` do not count. Limits are small because the bench is small; a limit that never binds is decoration.
 
 | Id | Name | Queue | Skills | WIP | Timezone |
 |---|---|---|---|---|---|
@@ -122,13 +122,15 @@ Inputs: the approved action's `risk_class` and the investigation's **granted** s
 
 |  | HIGH | MEDIUM | LOW |
 |---|---|---|---|
-| **PRODUCTION** | P1 | P2 | P2 |
-| **EXTERNAL** | P1 | P2 | P3 |
-| **INTERNAL** | P2 | P3 | P4 |
+| **PRODUCTION** | URGENT | HIGH | HIGH |
+| **EXTERNAL** | URGENT | HIGH | MEDIUM |
+| **INTERNAL** | HIGH | MEDIUM | LOW |
 
-PRODUCTION never sits below P2: a production change that is "only LOW" is still a production change. INTERNAL never sits at P1: an internal ticket is not a customer or production event.
+PRODUCTION never sits below HIGH: a production change that is "only LOW" confidence is still a production change. INTERNAL never sits at URGENT: an internal ticket is not a customer or production event.
 
-Manual tickets have no investigation band and no `risk_class`. The operator sets priority; the default is P3.
+The four stored values are `URGENT | HIGH | MEDIUM | LOW`. There is no `NONE`. Manual tickets have no investigation band and no `risk_class`. The operator sets priority; the default is MEDIUM (the old P3 row). The labels HIGH / MEDIUM / LOW here are priority, not confidence bands — the matrix inputs remain the investigation's granted confidence band.
+
+Display is glyphs, not words. URGENT is the only non-bar glyph.
 
 Priority is stored on the ticket. It is not recomputed when severity is later argued about; a new approved action creates a new ticket.
 
@@ -140,12 +142,12 @@ Elapsed time from `created_at`. Not business hours. Engineer timezones do not sh
 
 | Priority | SLA | `due_at` |
 |---|---|---|
-| P1 | 4 hours | `created_at + 4h` |
-| P2 | 1 day | `created_at + 24h` |
-| P3 | 3 days | `created_at + 72h` |
-| P4 | 7 days | `created_at + 168h` |
+| URGENT | 4 hours | `created_at + 4h` |
+| HIGH | 1 day | `created_at + 24h` |
+| MEDIUM | 3 days | `created_at + 72h` |
+| LOW | 7 days | `created_at + 168h` |
 
-A card's age tints red when `now > due_at` and status is not `DONE`. Meeting the SLA is not a status transition; DONE after `due_at` is still late, and the activity log keeps `due_at` unchanged.
+A card's age tints red when `now > due_at` and status is not `DONE` or `CANCELLED`. Meeting the SLA is not a status transition; DONE after `due_at` is still late, and the activity log keeps `due_at` unchanged.
 
 There is no pause-on-BLOCKED. Blocking is visible; it does not rewrite the promise.
 
@@ -153,56 +155,72 @@ The SLA durations are not shortened to make a demo turn red. That would be the s
 
 **Clock.** The board reads `now` from a single source. In live mode that source is wall-clock. In replay mode it is the run artefact's `timestamp` — the same stamp already shown in the chrome — not the interviewer's laptop. `created_at` is written from that clock. Tickets created during a replay session therefore age against the run's own frame of reference. The UI labels this the way replay is already labelled.
 
-Replay at T0 is not overdue by construction: `created_at` equals the frozen stamp, so `now > due_at` is false. That is correct. Do not backdate `created_at` and do not shrink P1 to minutes to paint a card red. Live mode uses wall-clock against the same `due_at`; tickets written at a run timestamp that is already days in the past are overdue, and that is how the tint is real. `src/lib/tickets/overdue.test.ts` pins both clocks.
+Replay at T0 is not overdue by construction: `created_at` equals the frozen stamp, so `now > due_at` is false. That is correct. Do not backdate `created_at` and do not shrink URGENT to minutes to paint a card red. Live mode uses wall-clock against the same `due_at`; tickets written at a run timestamp that is already days in the past are overdue, and that is how the tint is real. `src/lib/tickets/overdue.test.ts` pins both clocks.
 
 ---
 
 ## 6. Status lifecycle
 
-Five statuses. No others.
+Eight statuses. Linear's list is seven; **BLOCKED stays** (CR-002). Operations work can wait on a lab cut or a regulator; that is not verification. BLOCKED is the only WIP-free mid-life state so stuck work stops consuming capacity without losing its assignee. A boolean flag that changed WIP would be a status wearing a disguise.
 
 ```
-            (created, unassigned)
-                    │
-                    ▼
-                ON DECK ──────────────► ASSIGNED ──────► IN PROGRESS ──────► DONE
-                    ▲                      │                  │
-                    │                      │                  ▼
-                    └──────────────────────┴────────────── BLOCKED
+TRIAGE ──► BACKLOG ──► TODO ──► IN_PROGRESS ──► IN_REVIEW ──► DONE
+                         │            │              │
+                         │            ▼              ▼
+                         │         BLOCKED ◄─────────┘
+                         │            │
+                         └────────────┴── CANCELLED
 ```
 
-| Status | Means |
-|---|---|
-| `ON_DECK` | Exists, not yet someone's work. Unrouted, or unassigned after a bounce. Sits on the on-deck rail, not in a swimlane column as an owned card. |
-| `ASSIGNED` | An engineer is named. Work has not started. Counts against that engineer's WIP. |
-| `IN_PROGRESS` | Work is underway. Counts against WIP. |
-| `BLOCKED` | Work cannot proceed. Does not count against WIP — that is why the status exists. `due_at` does not move. |
-| `DONE` | Work finished. Terminal unless the operator reopens. Does not count against WIP. |
+| Status | Means | Rail or column | Counts WIP |
+|---|---|---|---|
+| `TRIAGE` | Intake, unowned, no queue. Forces a human to accept work. | Rail | No |
+| `BACKLOG` | Accepted into a queue, not yet owned. | Rail | No |
+| `TODO` | Queued, assignee named, not started. | Column (collapsed when empty) | Yes |
+| `IN_PROGRESS` | Work is underway. | Column | Yes |
+| `IN_REVIEW` | Awaiting verification. Assignee still owns it. | Column | Yes |
+| `BLOCKED` | Work cannot proceed. `due_at` does not move. | Column | No |
+| `DONE` | Work finished. Terminal unless the operator reopens. | Column | No |
+| `CANCELLED` | Dropped. Grey, never red — dropped work is not an error. Terminal unless the operator reopens to TODO. | Column | No |
 
 ### Transitions and who may make them
 
-The prototype has one operator. The table is the contract the UI and the router must still obey, so a drag cannot invent a sixth state.
+The prototype has one operator. The table is the contract the UI and the router must still obey, so a drag cannot invent a ninth state.
 
 | From | To | Who | Meaning |
 |---|---|---|---|
-| (create) | `ON_DECK` | routing, when no eligible engineer is under capacity; or operator, on manual create without an assignee | Ticket exists; nobody owns it. |
-| (create) | `ASSIGNED` | routing, when an engineer is selected | First assignment at birth. Queue is non-null (skills existed, so a home queue existed). |
-| `ON_DECK` | `ASSIGNED` | operator (drag onto a person / pick assignee); routing on a later pass | Someone now owns it. **Refused while `queue` is null** — the operator sets a queue before the card leaves the rail. |
-| `ASSIGNED` | `IN_PROGRESS` | operator acting as the assignee | Work started. |
+| (create) | `TRIAGE` | routing, when no skills remain so queue is null; or operator, on manual create without a queue | Ticket exists; nobody owns it; no queue. |
+| (create) | `BACKLOG` | routing, when skills named a queue but no eligible engineer is under capacity; or operator, manual create with a queue and no assignee | Accepted into a queue, unowned. |
+| (create) | `TODO` | routing, when an engineer is selected | First assignment at birth. Queue and assignee are non-null. |
+| `TRIAGE` | `BACKLOG` | operator (sets a queue) | Accepted. Still unowned. |
+| `TRIAGE` | `TODO` | operator | Queue **and** assignee set in the same gesture, or refused. **Refused while `queue` is null.** |
+| `BACKLOG` | `TRIAGE` | operator | Queue cleared. Assignee remains null. |
+| `BACKLOG` | `TODO` | operator (drag onto a person / pick assignee) | Someone now owns it. |
+| `TODO` | `IN_PROGRESS` | operator acting as the assignee | Work started. |
+| `TODO` | `BACKLOG` | operator | Unassign. Assignee cleared. Queue kept. |
+| `TODO` | `TRIAGE` | operator | Queue and assignee cleared. |
+| `TODO` | `CANCELLED` | operator | Dropped before start. |
+| `IN_PROGRESS` | `IN_REVIEW` | operator acting as the assignee | Awaiting verification. |
 | `IN_PROGRESS` | `BLOCKED` | operator acting as the assignee | Work cannot proceed; WIP frees. |
-| `BLOCKED` | `IN_PROGRESS` | operator acting as the assignee | Blocker cleared. |
+| `IN_PROGRESS` | `TODO` | operator | Stopped without blocking; still owned. |
 | `IN_PROGRESS` | `DONE` | operator acting as the assignee | Work finished. |
-| `ASSIGNED` | `ON_DECK` | operator | Unassign. Assignee cleared. |
-| `IN_PROGRESS` | `ASSIGNED` | operator | Stopped without blocking; still owned. |
-| `BLOCKED` | `ASSIGNED` | operator | Blocker stands; returned to owned-not-started. Illegal if it would skip clearing the block into `IN_PROGRESS` *and* change assignee in one silent step — split into two activity entries. |
+| `IN_PROGRESS` | `CANCELLED` | operator | Dropped in flight. |
+| `IN_REVIEW` | `DONE` | operator | Verified. |
+| `IN_REVIEW` | `IN_PROGRESS` | operator | Changes requested. |
+| `IN_REVIEW` | `BLOCKED` | operator | Verification cannot proceed; WIP frees. |
+| `IN_REVIEW` | `CANCELLED` | operator | Dropped in review. |
+| `BLOCKED` | `IN_PROGRESS` | operator | Blocker cleared. |
+| `BLOCKED` | `IN_REVIEW` | operator | Blocker cleared; still awaiting verification. |
+| `BLOCKED` | `TODO` | operator | Blocker stands; returned to owned-not-started. Split into two activity entries if assignee also changes. |
 | `DONE` | `IN_PROGRESS` | operator only | Reopen. Rare; logged. |
-| any | any other assignee | operator | Reassignment. Status may stay or change in the same gesture (board drag across swimlanes). Two activity entries: `reassigned`, then `status` if status also changed. |
+| `CANCELLED` | `TODO` | operator only | Reopen. Rare; logged. Requires queue and assignee already set, as TODO does. A cancelled judgement can turn out incorrect — the noise cluster that was dismissed and then recurred is the canonical case. Forbidding reopen would mean deleting and recreating, which loses the activity log. |
+| any | any other assignee | operator | Reassignment. Status may stay or change in the same gesture. Two activity entries: `reassigned`, then `status` if status also changed. |
 
-**Invariant.** `queue` may be null only while status is `ON_DECK`. A null-queue ticket has a home on the on-deck rail and nowhere else. `ON_DECK` with a queue set is legal (skills known, nobody under capacity). Any status other than `ON_DECK` requires a non-null queue.
+**Invariant.** `queue` may be null only while status is `TRIAGE`. A null-queue ticket has a home on the rail and nowhere else. `BACKLOG` requires a non-null queue and a null assignee. `TODO`, `IN_PROGRESS`, `IN_REVIEW`, `BLOCKED` and `DONE` require a non-null queue and a non-null assignee. `CANCELLED` keeps whatever queue and assignee it had; reopen to `TODO` is refused unless both are already set.
 
-Illegal: `ON_DECK` → `DONE`, `ON_DECK` → `BLOCKED`, `ON_DECK` → `IN_PROGRESS`, `ON_DECK` → `ASSIGNED` while `queue` is null, `DONE` → `ON_DECK`, `DONE` → `BLOCKED`. Unowned work cannot be in progress, blocked, or finished. Unqueued work cannot leave the rail. Finished work cannot return to the rail or sit blocked. The board refuses those drops.
+Illegal: `TRIAGE` → `TODO` while `queue` is null; `TRIAGE` → `IN_PROGRESS` / `IN_REVIEW` / `BLOCKED` / `DONE`; `BACKLOG` → `IN_PROGRESS` / `IN_REVIEW` / `BLOCKED` / `DONE`; `BLOCKED` → `DONE`; `DONE` → `TRIAGE` / `BACKLOG` / `BLOCKED`; `CANCELLED` → anything except `TODO`; `CANCELLED` → `TODO` while queue or assignee is null. Unowned work cannot be in progress, in review, blocked, or finished. Unqueued work cannot leave the rail except into `BACKLOG` (queue first). Finished or cancelled work cannot return to the rail. A blocker must clear before work completes. The board refuses those drops: illegal targets are disabled, so a drop never succeeds and then snaps back.
 
-Every transition appends an `activity[]` entry with `kind`, `from`, `to`, `actor`, `at`. That log is what makes it a ticket rather than a card.
+Every transition appends an `activity[]` entry with `kind`, `from`, `to`, `actor`, `at`. That log is what makes it a ticket rather than a card. Optimistic paint is allowed; the commit still goes through the single mutation function. Undo is a compensating transition (a new activity row), never a silent rewind of `activity[]`.
 
 ---
 
@@ -221,7 +239,7 @@ It emits:
 - `skills_required[]` — a subset of the taxonomy. Empty is legal; it means "I cannot name the expertise," not "assign to anyone."
 - `expertise_rationale` — why those skills, in prose. Name the kind of work, not its measurements — the investigation holds the figures and the ticket links to it. Do not name a person or a team.
 
-Unknown skill ids are rejected by code. If none remain, the ticket is created `ON_DECK` with empty `skills_required` and a `routing_rationale` that says the assessor produced no usable skill. The ticket still exists. Routing does not invent skills to keep the board pretty.
+Unknown skill ids are rejected by code. If none remain, the ticket is created `TRIAGE` with empty `skills_required` and a `routing_rationale` that says the assessor produced no usable skill. The ticket still exists. Routing does not invent skills to keep the board pretty.
 
 The assessor has no `{f_n}` sink. A numeral or finding-ref in `expertise_rationale` is a prompt finding, not a repair loop: reject the emit and take the same empty-skills path (`fallback: "bare_numeral"`). One structured call. No second turn.
 
@@ -230,12 +248,12 @@ The assessor is the third model role because *what expertise this action needs* 
 ### What code decides
 
 1. **Validate skills** against the closed taxonomy. Drop unknowns. Record drops.
-2. **Queue.** Each remaining skill has a home queue. The ticket queue is the mode of those homes. Tie-break order: `firmware`, `hardware`, `product_comms`, `data_telemetry`. If no skills remain, `queue` is null and status is `ON_DECK`. Null is not temporary: it is the on-deck state until the operator sets a queue. `ON_DECK` → `ASSIGNED` is refused while `queue` is null (§6). Manual tickets: operator sets the queue; without one they stay on the rail.
+2. **Queue.** Each remaining skill has a home queue. The ticket queue is the mode of those homes. Tie-break order: `firmware`, `hardware`, `product_comms`, `data_telemetry`. If no skills remain, `queue` is null and status is `TRIAGE`. Null is not temporary: it is the triage state until the operator sets a queue. `TRIAGE` → `TODO` is refused while `queue` is null (§6). Manual tickets: operator sets the queue; without one they stay on the rail as `TRIAGE`; with a queue and no assignee they land `BACKLOG`.
 3. **Priority** from the table in §4.
 4. **`due_at`** from §5.
-5. **Eligible engineers.** Intersection of roster skills with `skills_required` is non-empty, and current WIP (`ASSIGNED` + `IN_PROGRESS`) is below that engineer's limit.
+5. **Eligible engineers.** Intersection of roster skills with `skills_required` is non-empty, and current WIP (`TODO` + `IN_PROGRESS` + `IN_REVIEW`) is below that engineer's limit.
 6. **Rank.** Highest `|skills ∩ required|`. Tie: fewest current WIP tickets. Remaining tie: roster table order (stable).
-7. **Assign.** Winner → `assignee`, status `ASSIGNED`. If the eligible set is empty → `assignee` null, status `ON_DECK`. Code does not overflow a WIP limit to force an owner.
+7. **Assign.** Winner → `assignee`, status `TODO`. If the eligible set is empty → `assignee` null, status `BACKLOG` when a queue exists, otherwise `TRIAGE`. Code does not overflow a WIP limit to force an owner.
 8. **`routing_rationale`.** Composed by code from the assessor's `expertise_rationale`, the overlap set, the WIP check, and the tie-break. This is what the ticket-detail drawer shows under "why this engineer." The model never writes this field.
 
 ### Why the line falls there
@@ -249,14 +267,20 @@ The assessor does not pick the queue for the same reason. Queue is a function of
 ## 8. Ticket model
 
 ```
-ticket_id          string     TCK- + zero-padded sequence, unique per run
-title              string
+ticket_id          string     queue-prefixed, unique per run
+                              FW-n firmware · HW-n hardware · PC-n product_comms ·
+                              DT-n data_telemetry · TR-n triage (no queue at mint)
+                              Immutable once assigned. A later queue change does
+                              not rewrite the id. Used in URLs: /board?ticket=FW-1
+title              string     plain English, code-composed from investigation
+                              subject + action type (see below)
 body               string
 queue              firmware | hardware | product_comms | data_telemetry | null
-                   null only while status is ON_DECK (§6)
+                   null only while status is TRIAGE (§6)
 assignee           engineer id | null
-priority           P1 | P2 | P3 | P4
-status             ON_DECK | ASSIGNED | IN_PROGRESS | BLOCKED | DONE
+priority           URGENT | HIGH | MEDIUM | LOW
+status             TRIAGE | BACKLOG | TODO | IN_PROGRESS | IN_REVIEW |
+                   BLOCKED | DONE | CANCELLED
 source             { investigation_id, action_id, candidate_id } | "manual"
 skills_required    skill id[]
 routing_rationale  string     code-composed; see §7
@@ -269,11 +293,13 @@ activity[]         { kind, from, to, actor, at }
 
 `activity[].kind` is a closed set: `created` · `status` · `reassigned` · `note` · `priority` · `queue`. `from` / `to` are the previous and next values for that kind (`null` on `created`). `actor` is `routing` | `operator` | an engineer id.
 
-`source` is `"manual"` only for operator-created tickets. Approval-created tickets always carry the three ids. A ticket is not created for an action that has not been approved. EVAL-08 continues to assert that `EXTERNAL` and `PRODUCTION` never reach the execution path without approval; ticket creation is on the far side of that same gate, not a bypass around it.
+`source` is `"manual"` only for operator-created tickets. Approval-created tickets always carry the three ids. There is no `"agent"` source. A ticket is not created for an action that has not been approved. EVAL-08 continues to assert that `EXTERNAL` and `PRODUCTION` never reach the execution path without approval; ticket creation is on the far side of that same gate, not a bypass around it.
+
+**Titles.** Generated in code from the source investigation's subject (candidate firmware version or humanized tag — never the investigation title, which contains conclusions) plus a detected action type. Sentence case, no trailing period, under ~70 characters. No schema field names, no `{f_n}` references, no word from the status or priority enums. Identifiers and version strings are allowed — they identify, they do not measure. The freeze is the generator test, not a hand-written list.
 
 Ticket prose is about work, not investigation output. EVAL-04 scores investigation records, not tickets. The split is who wrote the text:
 
-- **Code-composed fields** — `routing_rationale`, and any `title` or `body` generated from an approved action — SHALL contain no bare numerals. Same helper the investigator uses (`renderFindingRefs` / the EVAL-04b identifier grammar). Identifiers (`TCK-0003`, `cnd_fw_1_4_2`, firmware versions, `KD-` / `INC-` / `KI-` ids) are names, not quantities. A `{f_n}` in a ticket field is a bug: the investigation remains the source of numbers, via the source link. Enforcement is structural, not a prompt instruction.
+- **Code-composed fields** — `routing_rationale`, and any `title` or `body` generated from an approved action — SHALL contain no bare numerals. Same helper the investigator uses (`renderFindingRefs` / the EVAL-04b identifier grammar). Identifiers (`FW-1`, `cnd_fw_1_4_2`, firmware versions, `KD-` / `INC-` / `KI-` ids) are names, not quantities. A `{f_n}` in a ticket field is a bug: the investigation remains the source of numbers, via the source link. Enforcement is structural, not a prompt instruction.
 - **Operator-typed notes** — `notes[].body` — are exempt. A human typing in a text box is not the system making a claim.
 
 ---
@@ -294,16 +320,18 @@ There is no server-side ticket store, no database, and no attempt to reconcile t
 
 One route. Not a fifth screen.
 
-- Columns by status: `ASSIGNED` · `IN_PROGRESS` · `BLOCKED` · `DONE`.
-- **On-deck rail** for `ON_DECK` (unrouted / unassigned), separate from the columns so unowned work is not pretending to sit in a queue swimlane.
+- Columns by status: `IN_PROGRESS` · `IN_REVIEW` · `BLOCKED` · `DONE`. `TODO` is a column only when it has content, otherwise collapsed. `CANCELLED` is a column.
+- **Rail** for `TRIAGE` and `BACKLOG` (unowned), separate from the columns so unowned work is not pretending to sit in a swimlane as an owned card.
 - Collapsible swimlanes by queue inside the columns.
-- Drag-and-drop across columns (status) and across swimlanes (queue, and reassignment when dropped onto a person). `@dnd-kit/core` is the CR-001 dependency for this. Keyboard navigation is required; HTML5 drag-and-drop is not an acceptable implementation.
-- Cards carry: `ticket_id`, title, priority chip, assignee, source link (investigation), age tinted red past `due_at`, skills chips.
+- Drag-and-drop across columns (status) and across swimlanes (queue, and reassignment when dropped onto a person). `@dnd-kit/core` is the CR-001 dependency for this. Keyboard navigation is required; HTML5 drag-and-drop is not an acceptable implementation. Illegal targets are disabled during drag.
+- Cards carry, in scan order: identifier (mono), status icon if not grouped by status, priority glyph, title (dominant), skills chips (max 2 + overflow), source chip (candidate id or `manual` — never `agent`), assignee initials, age tinted past `due_at`.
+- Sort within each cell by priority, then `due_at`, then id.
+- When more than 70% of visible tickets sit in one column, a quiet hint offers to regroup by priority or assignee. Do not seed tickets to fill columns.
 - Filters: queue, assignee, priority, source, status.
-- Per-swimlane capacity: count of `ASSIGNED` + `IN_PROGRESS` in that queue versus the sum of WIP limits of engineers whose **home** queue is that swimlane. Over-capacity is visible, not blocked — routing will not *create* over-capacity; a human drag may.
+- Per-swimlane capacity: count of `TODO` + `IN_PROGRESS` + `IN_REVIEW` in that queue versus the sum of WIP limits of engineers whose **home** queue is that swimlane. Over-capacity is visible, not blocked — routing will not *create* over-capacity; a human drag may.
 - Bulk select. Manual ticket creation. Keyboard navigation.
 
-Ticket detail is a **slide-over drawer, not a route**. Full body; source investigation link with candidate and status; routing rationale (skills that matched, why this engineer); notes with timestamps; complete activity log of every status change, reassignment and note, with actor and time.
+Ticket detail is a **slide-over drawer, not a route**. Deep link `/board?ticket=FW-1`. There is no `/tickets/[id]`. Full body; WHY THIS ENGINEER split into assessor vs code; WHERE THIS CAME FROM including the confidence it rests on; inherited grounding (the ticket retrieved nothing); notes; complete activity log.
 
 ---
 

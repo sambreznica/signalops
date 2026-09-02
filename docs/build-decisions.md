@@ -478,4 +478,47 @@ Trace is overwritten to `[]`. EVAL-02 cannot pass by invented `compare_versions`
 
 First committed result (`runs/run-baseline.json`, `claude-sonnet-5`, n=1): **5/6**. EVAL-02 FAIL (`in_trace=false`, findings named 1.4.2). EVAL-01, 03, 06, 07, 10 PASS. Scope printed on every line. A high score on 03/06/10 from a dump of the corpus is a fixture-easiness finding, published in `evidence/eval-results.md` rather than buried. Data is not hardened in this step — that would be a different CR after the comparison exists.
 
+---
+
+## 2026-09-02 — CR-002: the surface catches up with the engine
+
+This is the second formal manifest change. Recorded here before the token layer, lifecycle, and board rebuild.
+
+**Reason.** The product surface does not match the quality of the engine beneath it, and the ticket layer does not yet show the agents or the retrieval that produced its work.
+
+**Scope of this CR (phases 0–5 in the first pass).** Light-theme visual system derived from Linear's design language; eight-state lifecycle replacing five; plain-English titles with queue-prefixed identifiers; provenance chain in the ticket drawer. Agentic intake, cross-run divergence, coverage panel, and restyle of the other screens follow in a later pass and are not built here.
+
+### Manifest
+
+| Item | Before | After |
+|---|---|---|
+| Screens | 4 | **4**, unchanged |
+| Model roles | 3 | **3**, unchanged — intake (later) reuses the skills assessor and is not a fourth agent |
+| Dependencies | closed set including `@dnd-kit/core` | **unchanged**. Inter is loaded through `next/font`, already in the set. If OpenType features `cv01` / `ss03` / `zero` cannot be supplied without a new package, STOP and record rather than install. |
+| Tools | 5 | 5 |
+| Evaluations | 10 | 10 |
+
+No fifth route. Ticket detail remains `/board?ticket=FW-1`, a drawer, not `/tickets/[id]`.
+
+### Deliberate divergences from Linear (not silent remaps)
+
+**BLOCKED is the eighth state.** Linear has no BLOCKED because engineering work that stalls is either still yours or handed back. Operations work can wait on a lab result, a firmware cut, or a regulator, and none of that is verification. OPERATIONS §6 already made BLOCKED the only WIP-free mid-life state so a stuck ticket stops consuming capacity while remaining visible. Dropping it would force stuck work to hold WIP it is not consuming, or bounce to the rail and lose its assignee. A boolean flag that changed WIP accounting would be a status wearing a disguise. Board columns: IN_PROGRESS, IN_REVIEW, BLOCKED, DONE. TRIAGE and BACKLOG sit on the rail. TODO is a column when it has content, otherwise collapsed. BLOCKED glyph is paused/hollow, grey not red. §5 stands: no SLA pause on BLOCKED. BLOCKED → DONE is illegal.
+
+**CANCELLED → TODO, operator only.** A cancelled ticket is a judgement that can turn out incorrect — the noise cluster that was correctly dismissed and then recurred is the canonical case, and it is exactly the scenario EVAL-10 exists for. Forbidding reopen would mean deleting and recreating, which loses the activity log. Requires queue and assignee already set. Rare and visible, like DONE reopen.
+
+**No `NONE` priority.** Linear's fifth glyph has no matrix or SLA row. Stored set is URGENT / HIGH / MEDIUM / LOW, mapped from the old P1–P4 table. Arithmetic unchanged. Manual default is MEDIUM.
+
+**No `"agent"` source chip.** Approval-created work is investigation-sourced. An agent badge is branding the board with the thing this repo has refused. `source` remains the investigation triple or `"manual"`.
+
+**Optimistic paint, compensating undo.** Every mutation still goes through `applyTicketChange` and appends `activity[]`. Undo is a new transition, not a silent rewind.
+
+**Initials, not photos.** The roster has names. Photo packs would fake multi-user presence.
+
+**IN_PROGRESS gauge is a status glyph**, not a stored percent. There is no progress field in this CR.
+
+### Documents amended in this step
+
+`OPERATIONS.md` §2 (WIP set), §4 (priority labels), §5 (SLA keys; overdue skips CANCELLED), §6 (eight states), §7 (create landings), §8 (ids, titles, enums), §10 (columns, rail, card, sparse hint). `AGENTS.md` manifest counts are unchanged.
+
+
 
