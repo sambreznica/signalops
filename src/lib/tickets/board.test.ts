@@ -3,7 +3,7 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { QUEUE_IDS } from "../schema/ticket";
 import { loadTicketsArtefact } from "../replay/load";
-import { layoutBoard, boardStats, columnCount, sparseColumnHint } from "./board";
+import { layoutBoard, boardStats, columnCount, sparseColumnHint, visibleBoardColumns } from "./board";
 import { BOARD_COLUMNS } from "./legal";
 import { COLUMN_EMPTY, RAIL_EMPTY } from "./labels";
 import { sortBoardCards } from "./sort";
@@ -52,13 +52,41 @@ describe("board layout", () => {
     expect(RAIL_EMPTY).toMatch(/queue/);
   });
 
-  it("sorts a cell by priority then due_at then id", () => {
-    const mixed = [
-      artefact.tickets.find((t) => t.priority === "MEDIUM")!,
-      artefact.tickets.find((t) => t.priority === "HIGH")!,
-    ];
-    const sorted = sortBoardCards(mixed);
-    expect(sorted[0]!.priority).toBe("HIGH");
+  it("sorts each TODO cell by priority, then due_at, then id", () => {
+    const layout = layoutBoard(artefact.tickets);
+    for (const queue of QUEUE_IDS) {
+      const cell = layout.columns.TODO[queue];
+      expect(cell.map((t) => t.ticket_id)).toEqual(
+        sortBoardCards(cell).map((t) => t.ticket_id),
+      );
+    }
+    const pc = layout.columns.TODO.product_comms;
+    expect(pc[0]!.ticket_id).toBe("PC-3");
+    expect(pc[0]!.priority).toBe("HIGH");
+  });
+
+  it("fires the sparse-column hint on first load when all eleven sit in TODO", () => {
+    const hint = sparseColumnHint(artefact.tickets);
+    expect(hint).not.toBeNull();
+    expect(hint!.status).toBe("TODO");
+    expect(hint!.share).toBe(1);
+    const src = readFileSync(
+      path.resolve(import.meta.dirname, "../../app/ui/board-view.tsx"),
+      "utf8",
+    );
+    expect(src).toContain("sparseColumnHint");
+    expect(src).toContain("groupBy");
+  });
+
+  it("collapses the TODO column when it is empty and keeps the others", () => {
+    const layout = layoutBoard(artefact.tickets);
+    expect(visibleBoardColumns(layout)).toContain("TODO");
+    const emptyTodo = layoutBoard(
+      artefact.tickets.map((t) => ({ ...t, status: "IN_PROGRESS" as const })),
+    );
+    expect(visibleBoardColumns(emptyTodo)).not.toContain("TODO");
+    expect(visibleBoardColumns(emptyTodo)).toContain("IN_PROGRESS");
+    expect(visibleBoardColumns(emptyTodo)).toContain("CANCELLED");
   });
 });
 
@@ -72,6 +100,43 @@ describe("board mutation path", () => {
     expect(src).toContain("applyTicketChange");
     expect(src).toContain("bulkApply");
     expect(src).toContain("createManualTicket");
+    expect(src).toContain("sparseColumnHint");
+    expect(src).toContain("visibleBoardColumns");
+  });
+
+  it("undo is a compensating applyTicketChange, not a rewind of activity", () => {
+    const artefact = loadTicketsArtefact("run-board-1");
+    const ticket = artefact!.tickets[0]!;
+    const forward = applyTicketChange({
+      ticket,
+      patch: { status: "IN_PROGRESS" },
+      actor: "operator",
+      now: new Date(ticket.updated_at),
+    });
+    expect(forward.ok).toBe(true);
+    if (!forward.ok) return;
+    const undone = applyTicketChange({
+      ticket: forward.ticket,
+      patch: { status: ticket.status },
+      actor: "operator",
+      now: new Date(ticket.updated_at),
+    });
+    expect(undone.ok).toBe(true);
+    if (!undone.ok) return;
+    expect(undone.ticket.status).toBe("TODO");
+    expect(undone.ticket.activity.length).toBe(ticket.activity.length + 2);
+    expect(undone.ticket.activity.at(-1)).toMatchObject({
+      kind: "status",
+      from: "IN_PROGRESS",
+      to: "TODO",
+      actor: "operator",
+    });
+    const src = readFileSync(
+      path.resolve(import.meta.dirname, "../../app/ui/board-view.tsx"),
+      "utf8",
+    );
+    expect(src).toContain("lastUndo");
+    expect(src).toContain("applyTicketChange");
   });
 
   it("TODO → IN_PROGRESS is one activity entry through applyTicketChange", () => {

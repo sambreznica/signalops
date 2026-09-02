@@ -16,7 +16,7 @@ import {
 } from "@dnd-kit/core";
 import type { InvestigationRecord } from "../../../evals/artefact";
 import type { Ticket, TicketPriority, TicketQueue, TicketStatus } from "@/lib/schema/ticket";
-import { QUEUE_IDS } from "@/lib/schema/ticket";
+import { QUEUE_IDS, TICKET_PRIORITIES } from "@/lib/schema/ticket";
 import { boardNow } from "@/lib/routing/clock";
 import { loadRoster } from "@/lib/routing/fixtures";
 import { mergeTickets } from "@/lib/routing/route";
@@ -39,7 +39,10 @@ import {
   isDropEnabled,
   layoutBoard,
   parseDropId,
+  sortBoardCards,
+  sparseColumnHint,
   swimlaneCapacity,
+  visibleBoardColumns,
   type BoardFilters,
   type DropTarget,
 } from "@/lib/tickets";
@@ -106,6 +109,16 @@ export function BoardView({
   const [manualAssignee, setManualAssignee] = useState("");
   const [manualPriority, setManualPriority] = useState<TicketPriority>("MEDIUM");
   const [manualError, setManualError] = useState<string | null>(null);
+  const [groupBy, setGroupBy] = useState<"status" | "priority" | "assignee">(
+    "status",
+  );
+  const [lastUndo, setLastUndo] = useState<{
+    ticketId: string;
+    status: TicketStatus;
+    assignee: string | null;
+    queue: TicketQueue | null;
+    priority: TicketPriority;
+  } | null>(null);
 
   const router = useRouter();
   const params = useSearchParams();
@@ -118,7 +131,16 @@ export function BoardView({
   }, [runId, committedTickets]);
 
   const persistOne = useCallback(
-    (ticket: Ticket) => {
+    (ticket: Ticket, previous?: Ticket) => {
+      if (previous) {
+        setLastUndo({
+          ticketId: previous.ticket_id,
+          status: previous.status,
+          assignee: previous.assignee,
+          queue: previous.queue,
+          priority: previous.priority,
+        });
+      }
       const next = mergeTickets(upsertTicket(runId, ticket), committedTickets);
       setTickets(next);
     },
@@ -138,6 +160,8 @@ export function BoardView({
     [tickets, filters],
   );
   const layout = useMemo(() => layoutBoard(visible), [visible]);
+  const columns = useMemo(() => visibleBoardColumns(layout), [layout]);
+  const sparse = useMemo(() => sparseColumnHint(visible), [visible]);
   const stats = useMemo(() => boardStats(tickets), [tickets]);
   const activeTicket = tickets.find((t) => t.ticket_id === activeId) ?? null;
   const openTicket = tickets.find((t) => t.ticket_id === openId) ?? null;
@@ -181,7 +205,7 @@ export function BoardView({
       actor: "operator",
       now,
     });
-    if (result.ok) persistOne(result.ticket);
+    if (result.ok) persistOne(result.ticket, ticket);
   }
 
   function toggleSelect(id: string) {
@@ -203,6 +227,28 @@ export function BoardView({
     });
     persistAll(result.tickets);
     setSelected(new Set());
+    setLastUndo(null);
+  }
+
+  function undoLast() {
+    if (!lastUndo) return;
+    const current = tickets.find((t) => t.ticket_id === lastUndo.ticketId);
+    if (!current) return;
+    const result = applyTicketChange({
+      ticket: current,
+      patch: {
+        status: lastUndo.status,
+        assignee: lastUndo.assignee,
+        queue: lastUndo.queue,
+        priority: lastUndo.priority,
+      },
+      actor: "operator",
+      now,
+    });
+    if (!result.ok) return;
+    const next = mergeTickets(upsertTicket(runId, result.ticket), committedTickets);
+    setTickets(next);
+    setLastUndo(null);
   }
 
   function submitManual(e: React.FormEvent) {
@@ -249,7 +295,7 @@ export function BoardView({
       now,
     });
     if (!result.ok) return result.reason;
-    persistOne(result.ticket);
+    persistOne(result.ticket, openTicket);
     return null;
   }
 
@@ -286,6 +332,48 @@ export function BoardView({
           </div>
         ))}
       </dl>
+
+      {sparse && groupBy === "status" ? (
+        <p className="dense mt-3 text-secondary" data-testid="sparse-hint">
+          {Math.round(sparse.share * 100)}% of visible tickets are in{" "}
+          {STATUS_LABEL[sparse.status]}. Regroup by{" "}
+          <button
+            type="button"
+            className="btn-approve"
+            onClick={() => setGroupBy("priority")}
+          >
+            priority
+          </button>{" "}
+          or{" "}
+          <button
+            type="button"
+            className="btn-approve"
+            onClick={() => setGroupBy("assignee")}
+          >
+            assignee
+          </button>
+          .
+        </p>
+      ) : null}
+      {groupBy !== "status" ? (
+        <p className="dense mt-3">
+          Grouped by {groupBy}.{" "}
+          <button
+            type="button"
+            className="btn-approve"
+            onClick={() => setGroupBy("status")}
+          >
+            Status board
+          </button>
+        </p>
+      ) : null}
+      {lastUndo ? (
+        <p className="dense mt-2">
+          <button type="button" className="btn-approve" onClick={undoLast}>
+            Undo
+          </button>
+        </p>
+      ) : null}
 
       <div className="mt-3 flex flex-wrap gap-2 dense">
         <label>
@@ -471,6 +559,66 @@ export function BoardView({
         </form>
       </details>
 
+      {groupBy === "priority" ? (
+        <div className="board-grid mt-5">
+          {TICKET_PRIORITIES.map((priority) => {
+            const cards = sortBoardCards(
+              visible.filter((t) => t.priority === priority),
+            );
+            return (
+              <section key={priority} className="board-column">
+                <h2 className="label m-0">{priority}</h2>
+                <span className="mono text-mute">{cards.length}</span>
+                <ul className="mt-2 grid gap-2">
+                  {cards.map((t) => (
+                    <li key={t.ticket_id}>
+                      <TicketCardFace
+                        ticket={t}
+                        now={now}
+                        onOpen={() => openDrawer(t.ticket_id)}
+                        showStatusIcon
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            );
+          })}
+        </div>
+      ) : null}
+
+      {groupBy === "assignee" ? (
+        <div className="board-grid mt-5">
+          {[{ id: null, name: "Unassigned" }, ...roster.map((e) => ({ id: e.id, name: e.name }))].map(
+            (eng) => {
+              const cards = sortBoardCards(
+                visible.filter((t) => t.assignee === eng.id),
+              );
+              if (cards.length === 0 && eng.id !== null) return null;
+              return (
+                <section key={eng.id ?? "none"} className="board-column">
+                  <h2 className="label m-0">{eng.name}</h2>
+                  <span className="mono text-mute">{cards.length}</span>
+                  <ul className="mt-2 grid gap-2">
+                    {cards.map((t) => (
+                      <li key={t.ticket_id}>
+                        <TicketCardFace
+                          ticket={t}
+                          now={now}
+                          onOpen={() => openDrawer(t.ticket_id)}
+                          showStatusIcon
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              );
+            },
+          )}
+        </div>
+      ) : null}
+
+      {groupBy === "status" ? (
       <DndContext
         sensors={sensors}
         collisionDetection={closestCorners}
@@ -508,7 +656,7 @@ export function BoardView({
         </DropZone>
 
         <div className="board-grid mt-4">
-          {BOARD_COLUMNS.map((status) => {
+          {columns.map((status) => {
             const n = columnCount(layout, status);
             return (
               <DropZone
@@ -648,6 +796,7 @@ export function BoardView({
           ) : null}
         </DragOverlay>
       </DndContext>
+      ) : null}
 
       {openTicket ? (
         <TicketDrawer

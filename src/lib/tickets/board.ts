@@ -87,3 +87,11 @@ export function sparseColumnHint(
   if (!top || topCount / tickets.length <= 0.7) return null;
   return { status: top, share: topCount / tickets.length };
 }
+
+/** TODO is a column only when it has cards. Other columns stay visible empty. */
+export function visibleBoardColumns(layout: BoardLayout): BoardColumn[] {
+  return BOARD_COLUMNS.filter((status) => {
+    if (status === "TODO") return columnCount(layout, status) > 0;
+    return true;
+  });
+}

@@ -15,7 +15,7 @@ describe("Knowledge is not a route", () => {
     );
     const nav = readFileSync(path.join(ROOT, "src/app/ui/nav.tsx"), "utf8");
     expect(nav).toContain('href: "/board"');
-    expect(nav).not.toContain("/knowledge");
+    expect(existsSync(path.join(ROOT, "src/app/tickets"))).toBe(false);
   });
 
   it("keeps chunk expansion on the Investigation Full Record, in-page", () => {

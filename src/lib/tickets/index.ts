@@ -7,7 +7,7 @@ export { sortBoardCards } from "./sort";
 export { swimlaneCapacity, engineerCapacity, allSwimlaneCapacity } from "./capacity";
 export { filterTickets, DEFAULT_FILTERS } from "./filters";
 export type { BoardFilters } from "./filters";
-export { layoutBoard, boardStats, columnCount, sparseColumnHint } from "./board";
+export { layoutBoard, boardStats, columnCount, sparseColumnHint, visibleBoardColumns } from "./board";
 export type { BoardLayout } from "./board";
 export {
   QUEUE_LABEL,
